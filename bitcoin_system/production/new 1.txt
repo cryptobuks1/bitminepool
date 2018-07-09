@@ -1,0 +1,13 @@
+<?php
+
+	$secret="0720226275Edwin";
+	if ($_GET['secret'] !=$secret){
+	die('stop doing that');
+	} else {
+	//update database
+	
+	}
+	
+	
+	
+?>
