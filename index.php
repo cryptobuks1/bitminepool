@@ -940,11 +940,12 @@ include('bitcoin_system/production/includes/constant.php');
 
 			<div class="row">
 			<div class="col-md-12 col-xs-12">
-				<div id="contact_result" class="alert alert-warning alert-dismissable">
+				<div id="contact_result" class="alert alert-danger fade alert-dismissable">
 					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 					<span></span>
 				</div>
 
+	
 			</div>
 				<div class="col-md-12 col-xs-12">
 					<form id="contact-page-contact-form" action="bitcoin_system/production/send_form_email" class="contact-form row" action="" novalidate="novalidate">

@@ -310,16 +310,9 @@ function contactFormValidation () {
 					$('#contact_result span').html('');
 					$.post($(form).attr('action'), $(form).serialize(), function (response) {
 						response = JSON.parse(response);
-						console.log(response);
-						//$(form).parent('div').append(response);
-						//$('#contact_result span').html(response.message);
-						//$(".alert").show();
-						/*window.setTimeout(function() {
-							$(".alert").fadeTo(1000, 0).slideUp(1000, function(){
-								$(".alert").remove(); 
-								//$('#contact_result span').html('');
-							});
-						}, 5000);*/
+						$('#contact_result span').html(response.message);
+						$(".alert").removeClass("in").show();
+						$(".alert").delay(200).addClass("in").fadeOut(5000);
 						$(form).find('input[type="text"]').val('');
 						$(form).find('input[type="email"]').val('');
 						$(form).find('textarea').val('');
