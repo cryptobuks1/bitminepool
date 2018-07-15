@@ -181,7 +181,7 @@ include('includes/dbconnect.php');
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <img src="images/logo.png" alt="Bitcoin-Mine-Hub" style="width: 95px;">
+                <img src="images/logo.png" alt="Bitc-Mine-Pool" style="width: 95px;">
               </div>
 
               <div class="title_right">

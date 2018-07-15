@@ -109,7 +109,7 @@ include('includes/dbconnect.php');
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="<?php echo BASE_URL;?>" class="site_title"> <span><img src="images/logo.png" alt="Bitcoin-Mine-Hub" style="width: 95px;"></span></a>
+              <a href="<?php echo BASE_URL;?>" class="site_title"> <span><img src="images/logo.png" alt="Bit-Mine-Pool" style="width: 95px;"></span></a>
             </div>
 
             <div class="clearfix"></div>

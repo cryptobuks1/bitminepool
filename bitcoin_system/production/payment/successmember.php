@@ -10,7 +10,7 @@ include('../includes/constant.php');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Bitcoin Mine-Hub | Success</title>
+    <title>Bit Mine-Pool | Success</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -45,7 +45,7 @@ include('../includes/constant.php');
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-          <a href="<?php echo BASE_URL;?>"><img src="images/logo.png" alt="Bitcoin-Mine-Hub"></a>
+          <a href="<?php echo BASE_URL;?>"><img src="images/logo.png" alt="Bitc-Mine-Pool"></a>
             <form>
               <h1 class="style2">INVOICE PAID!</h1>
               <i class="fa fa-check text-success"></i>

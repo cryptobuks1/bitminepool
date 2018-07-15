@@ -33,7 +33,7 @@ include('includes/constant.php');
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-              <a href="<?php echo BASE_URL;?>"><img src="images/logo.png" alt="Bitcoin-Mine-Hub"></a>
+              <a href="<?php echo BASE_URL;?>"><img src="images/logo.png" alt="Bitc-Mine-Pool"></a>
             <form action="userlogin" method="post">
               <h1>User Login</h1>
               <div>

@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Bitcoin Mine-Hub | No Mining</title>
+    <title>Bit Mine-Pool | No Mining</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -35,7 +35,7 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-          <img src="images/logo.png" alt="Bitcoin-Mine-Hub">
+          <img src="images/logo.png" alt="Bitc-Mine-Pool">
             <form>
               <h1 class="style1">Mining Earnings</h1>
               <i class="fa fa-times text-danger"></i>

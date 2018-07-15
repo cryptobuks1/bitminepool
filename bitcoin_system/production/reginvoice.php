@@ -28,7 +28,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <img src="images/logo.png" alt="Bitcoin Mine-Hub">
+                <img src="images/logo.png" alt="Bit Mine-Pool">
               </div>
 
               
