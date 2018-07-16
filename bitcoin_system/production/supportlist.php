@@ -1,11 +1,7 @@
-<?php session_start(); ?>
-<?php
+<?php session_start();
+
 include('includes/constant.php');
-$register = 'register';
-session_start();
-$_SESSION['register'] = $register;
-?>
-<?php
+
 if (isset($_SESSION['guest'])) {
     
 } else {
@@ -42,6 +38,7 @@ if (isset($_SESSION['guest'])) {
         <!-- Custom Theme Style -->
         <link href="../build/css/custom.min.css" rel="stylesheet">
         <!--<link href="../build/css/dataTables.bootstrap.css" rel="stylesheet">-->
+        <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
 
         <style type="text/css">
             <!--
@@ -137,6 +134,8 @@ if (isset($_SESSION['guest'])) {
                                                     <th>Status</th>
                                                 </tr>
                                             </thead>
+                                            <tbody>
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -193,13 +192,15 @@ if (isset($_SESSION['guest'])) {
         <!-- Custom Theme Scripts -->
         <script src="../build/js/custom.min.js"></script>
         
-        <script src="../build/js/jquery.dataTables.min.js"></script>
+        <!--<script src="../build/js/jquery.dataTables.min.js"></script>
 
 <script src="../build/js/dataTables.bootstrap.js"></script>
-        <script src="../build/js/datatable.js"></script>
+        <script src="../build/js/datatable.js"></script> -->
+        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> 
+        
         <script type="text/javascript" language="javascript" >
 
-            var handleTable = function () {
+            /*var handleTable = function () {
 
                 grid = new Datatable();
                 console.log('I am inside handleTable');
@@ -273,11 +274,15 @@ if (isset($_SESSION['guest'])) {
                 // For drop down filter
                 $(".form-filter-select-attr").change(function () {
                     $('.filter-submit').click();
-                })
-            };
+                })*/
+            /* }; */
             $(document).ready(function () {
-                console.log('I am inside ready');
-                handleTable();
+               // console.log('I am inside ready');
+                //handleTable();
+                $('#support-grid').DataTable( {
+        "ajax": 'support-grid-data.php',
+       
+    } );
             });
         </script>
 
