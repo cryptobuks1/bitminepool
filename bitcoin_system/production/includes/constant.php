@@ -8,7 +8,7 @@ if (!defined('DB_NAME')) define("DB_NAME","minehub");
 if (!defined('DB_USER_NAME')) define("DB_USER_NAME","root");
 if (!defined('DB_PASSWORD')) define("DB_PASSWORD","");
 
-if (!defined('API_KEY')) define("API_KEY","2fe2a9fd-c9bb-4b23-ac7f-3038a8616255");
+if (!defined('API_KEY')) define("API_KEY","18a11412-eb1b-4b4d-9819-327ed92928c1");
 if (!defined('XPUB')) define("XPUB","xpub6DUp4iYBbtMhBQvxMZFs1gyroaAaWLFn7a2HBbQigmJSaqidaSvrMQCKwJTFdsZoWrRCVHYLB3nMRVwVczFA7APeXQDLHoDcqEhEg7ApE14");
 if (!defined('SECRET')) define("SECRET","10081988Mangesh");
 ?>
