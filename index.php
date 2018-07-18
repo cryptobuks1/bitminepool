@@ -1223,6 +1223,7 @@ include('bitcoin_system/production/includes/constant.php');
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript" src="https://cdn.ywxi.net/js/1.js" async></script>
 	</footer>
 
 
@@ -1241,7 +1242,7 @@ include('bitcoin_system/production/includes/constant.php');
 	<!-- bootstrap -->
 	<script src="js/bootstrap.min.js"></script>
 	<!-- bx slider -->
-	<script src="js/jquery.bxslider.min.js"></script>
+	<!--<script src="js/jquery.bxslider.min.js"></script>-->
 	<!-- owl carousel -->
 	<script src="js/owl.carousel.min.js"></script>
 	<!-- validate -->
