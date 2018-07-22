@@ -110,7 +110,7 @@ if (isset($_SESSION['invoice']))
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2 class="style3">Generate Grand Pack Invoice</h2>
+                    <h2 class="style3">Generate Pool 4 Invoice</h2>
                     					<?php
 										$url = "https://blockchain.info/stats?format=json";
 										$stats = json_decode(file_get_contents($url), true);

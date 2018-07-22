@@ -52,7 +52,7 @@ include('includes/dbconnect.php');
 		$showrank = $sharerank['Rank'];
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/////////////////////////////Get Withdrawal Balance for Starter Pack/////////////////////////////////////////////////////////////
+/////////////////////////////Get Withdrawal Balance for Pool 1/////////////////////////////////////////////////////////////
 		$getwstarter = "SELECT Withdrawal FROM starterpack WHERE Username = '".$_SESSION['Username']."'";
 		$querywstarter = mysqli_query($conn, $getwstarter);
 		$balancewstarter = mysqli_fetch_array($querywstarter);
@@ -86,7 +86,7 @@ include('includes/dbconnect.php');
 
 
 
-//////////////////////////////////////////Starter Pack Mining/////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////Pool 1 Mining/////////////////////////////////////////////////////////////////////
 $Starterdate1= "SELECT MiningDate FROM starterpack WHERE Username='".$_SESSION['Username']."'";
 								$querystarter1 = mysqli_query($conn, $Starterdate1);
 								$viewstarter1 = mysqli_fetch_array($querystarter1);
@@ -102,7 +102,7 @@ $totalmine = $viewtotal['total'];
 $newone = ($totalmine-$wstarter);
 $priceone = $newone/ $btcValue;
 								}
-///////////////////////////////////////////////Mini Pack Mining///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////Pool 2 Mining///////////////////////////////////////////////////////////////
 $minidate1= "SELECT MiningDate FROM minipack WHERE Username='".$_SESSION['Username']."'";
 								$querymini1 = mysqli_query($conn, $minidate1);
 								$viewmini1 = mysqli_fetch_array($querymini1);
@@ -117,7 +117,7 @@ $totalMini = $viewtotal2['total'];
 $newtwo = ($totalMini-$wmini);
 $pricetwo = $newtwo/ $btcValue;
 								}
-////////////////////////////////////////////////Medium Pack Mining///////////////////////////////////////////////////////////////
+////////////////////////////////////////////////Pool 3 Mining///////////////////////////////////////////////////////////////
 $mediumdate1= "SELECT MiningDate FROM mediumpack WHERE Username='".$_SESSION['Username']."'";
 								$querymedium1 = mysqli_query($conn, $mediumdate1);
 								$viewmedium1 = mysqli_fetch_array($querymedium1);
@@ -132,7 +132,7 @@ $totalmedium = $viewtotal3['total'];
 $newthree = ($totalmedium-$wmedium);
 $pricethree = $newthree/ $btcValue;
 								}
-////////////////////////////////////////////////Grand Pack Mining///////////////////////////////////////////////////////////////
+////////////////////////////////////////////////Pool 4 Mining///////////////////////////////////////////////////////////////
 $granddate1= "SELECT MiningDate FROM grandpack WHERE Username='".$_SESSION['Username']."'";
 								$querygrand1 = mysqli_query($conn, $granddate1);
 								$viewgrand1 = mysqli_fetch_array($querygrand1);
@@ -147,7 +147,7 @@ $totalgrand = $viewtotal4['total'];
 $newfour = ($totalgrand-$wgrand);
 $pricefour = $newfour/ $btcValue;
 								}
-////////////////////////////////////////////////Ultimate Pack/////////////////////////////////////////////////////////////
+////////////////////////////////////////////////Pool 5/////////////////////////////////////////////////////////////
 $ultimatedate1= "SELECT MiningDate FROM ultimatepack WHERE Username='".$_SESSION['Username']."'";
 								$queryultimate1 = mysqli_query($conn, $ultimatedate1);
 								$viewultimate1 = mysqli_fetch_array($queryultimate1);
@@ -317,7 +317,7 @@ $pricefive = $newfive/ $btcValue;
                 
                             </div>
                             <div class="title">
-                              <h2>Starter Pack</h2>
+                              <h2>Pool 1</h2>
                               <h1>$300</h1>
  
                             </div>
@@ -384,7 +384,7 @@ $pricefive = $newfive/ $btcValue;
                         <div class="col-md-3 col-sm-6 col-xs-12">
                           <div class="pricing">
                             <div class="title">
-                              <h2>Mini Pack</h2>
+                              <h2>Pool 2</h2>
                               <h1>$600</h1>
                              
                             </div>
@@ -453,7 +453,7 @@ $pricefive = $newfive/ $btcValue;
                               </div>
                             </div>
                             <div class="title">
-                              <h2>Medium Pack</h2>
+                              <h2>Pool 3</h2>
                               <h1>$1,200</h1>
                              
                             </div>
@@ -517,7 +517,7 @@ $pricefive = $newfive/ $btcValue;
                         <div class="col-md-3 col-sm-6 col-xs-12">
                           <div class="pricing">
                             <div class="title">
-                              <h2>Grand Pack</h2>
+                              <h2>Pool 4</h2>
                               <h1>$2,400</h1>
                              
                             </div>
@@ -588,7 +588,7 @@ $pricefive = $newfive/ $btcValue;
                               </div>
                             </div>
                             <div class="title">
-                              <h2>Ultimate Pack</h2>
+                              <h2>Pool 5</h2>
                               <h1>$4,800</h1>
                              
                             </div>

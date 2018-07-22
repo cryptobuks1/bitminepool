@@ -1,6 +1,6 @@
 <?php
-
-	$secret="0720226275Edwin";
+        include('includes/constant.php');
+	$secret=SECRET;
 	if ($_GET['secret'] !=$secret){
 	die('stop doing that');
 	} else {

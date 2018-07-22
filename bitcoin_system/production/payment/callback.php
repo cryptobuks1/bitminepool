@@ -61,14 +61,18 @@ include('../includes/constant.php');
 		$currentsponsorrank = mysqli_fetch_array($querysponsorrank);
 		$showsponsorrank = $currentsponsorrank['Rankid'];
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////
-		if ($showsponsorrank==4){
+		if ($showsponsorrank==6){
+			$comm=0.08;
+		}elseif ($showsponsorrank==5){
+			$comm=0.08;
+		}elseif ($showsponsorrank==4){
 			$comm=0.08;
 		}elseif($showsponsorrank==3){
 			$comm=0.07;
 		}elseif($showsponsorrank==2){
 			$comm=0.06;
 		}elseif($showsponsorrank==1){
-			$comm=0.06;
+			$comm=0.05;
 		}else{
 			$comm=0;
 		}

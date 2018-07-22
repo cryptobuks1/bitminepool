@@ -67,7 +67,7 @@
                      
                       <span class="section">Member Registration: Step 3</span>
                       <h3>Email Verification</h3>
-<p>After registration, you need to verify your email before completing the registration process. Please click below to request your verification code. In case you are unable to verify your email, please contact support@bitcoinminehub.com in order to get help</p>
+<p>After registration, you need to verify your email before completing the registration process. Please click below to request your verification code. In case you are unable to verify your email, please contact support@bitminepool.com in order to get help</p>
 <p>Note: The email may take upto 1 hour and also check the SPAM folder before contacting support.</p>
                      
                     

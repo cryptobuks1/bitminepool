@@ -41,11 +41,11 @@
                   </li>
                   <li><a><i class="fa fa-shopping-cart"></i> Mining <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="table">Starter Pack</a></li>
-                      <li><a href="tabletwo">Mini Pack</a></li>
-                      <li><a href="tablethree">Medium Pack</a></li>
-                      <li><a href="tablefour">Grand Pack</a></li>
-                      <li><a href="tablefive">Ultimate Pack</a></li>
+                      <li><a href="table">Pool 1</a></li>
+                      <li><a href="tabletwo">Pool 2</a></li>
+                      <li><a href="tablethree">Pool 3</a></li>
+                      <li><a href="tablefour">Pool 4</a></li>
+                      <li><a href="tablefive">Pool 5</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-ruble"></i>Hubcoin<span class="fa fa-chevron-down"></span></a>

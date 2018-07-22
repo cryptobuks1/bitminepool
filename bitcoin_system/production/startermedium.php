@@ -8,7 +8,7 @@ $_SESSION['register']= $register;
 
 ///////////////////////////////////////////Connection to Database///////////////////////////////////////////////////////////
 include('includes/dbconnect.php');
-/////////////////////////////Get Withdrawal Balance for Starter Pack/////////////////////////////////////////////////////////////
+/////////////////////////////Get Withdrawal Balance for Pool 1/////////////////////////////////////////////////////////////
 		$getwstarter = "SELECT Withdrawal FROM mediumpack WHERE Username = '".$_SESSION['Username']."'";
 		$querywstarter = mysqli_query($conn, $getwstarter);
 		$balancewstarter = mysqli_fetch_array($querywstarter);
@@ -18,7 +18,7 @@ include('includes/dbconnect.php');
 		$querymbalance  = mysqli_query($conn, $getmbalance);
 		$balancembalance = mysqli_fetch_array($querymbalance);
 		$miningbalance = $balancembalance['Balance'];
-/////////////////////////////Get Withdrawal Balance for Starter Pack/////////////////////////////////////////////////////////////
+/////////////////////////////Get Withdrawal Balance for Pool 1/////////////////////////////////////////////////////////////
 $Starterdate1= "SELECT MiningDate FROM mediumpack WHERE Username='".$_SESSION['Username']."'";
 								$querystarter1 = mysqli_query($conn, $Starterdate1);
 								$viewstarter1 = mysqli_fetch_array($querystarter1);

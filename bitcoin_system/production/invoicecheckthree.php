@@ -10,7 +10,7 @@ $Username=$_SESSION['Username'];
 $sqll = "SELECT * FROM mediumpack WHERE Username='".$_SESSION['Username']."' AND Comment='Purchased'";
 $resultl = mysqli_query($conn, $sqll);
 if (mysqli_num_rows($resultl) == 1) {
-	echo '<script>alert("Medium Pack Already Purchased");window.location.assign("index");</script>';
+	echo '<script>alert("Pool 3 Already Purchased");window.location.assign("index");</script>';
 }
 
 else {

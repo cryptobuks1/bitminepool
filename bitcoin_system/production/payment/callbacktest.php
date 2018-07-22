@@ -1,12 +1,12 @@
 <?php
-
+include('../includes/constant.php');
 	$value =1356391 ;
-	$invoice = 3457536;
+	$invoice = (isset($_GET['invoice']))?$_GET['invoice']:3457536;
 ///////////////////////////////////////////Connection to Database///////////////////////////////////////////////////////////
-									$servername = "localhost";
-									$username = "edwindb";
-									$password = "0720226275";
-									$database = "minehub";
+									$servername = DB_SERVER_NAME;
+									$username = DB_USER_NAME;
+									$password = DB_PASSWORD;
+									$database = DB_NAME;
 									// Create connection
 									$conn = mysqli_connect($servername, $username, $password, $database);
 									// Check connection
@@ -55,14 +55,18 @@
 		$currentsponsorrank = mysqli_fetch_array($querysponsorrank);
 		$showsponsorrank = $currentsponsorrank['Rankid'];
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////
-		if ($showsponsorrank==4){
+		if ($showsponsorrank==6){
+			$comm=0.08;
+		}elseif ($showsponsorrank==5){
+			$comm=0.08;
+		}elseif ($showsponsorrank==4){
 			$comm=0.08;
 		}elseif($showsponsorrank==3){
 			$comm=0.07;
 		}elseif($showsponsorrank==2){
 			$comm=0.06;
 		}elseif($showsponsorrank==1){
-			$comm=0.06;
+			$comm=0.05;
 		}else{
 			$comm=0;
 		}
@@ -79,8 +83,8 @@
 			$PurchaseDate = date("Y-m-d");
 			$MiningDate = date('Y-m-d', strtotime('+30 days'));
 			$CompletionDate = date('Y-m-d', strtotime('+365 days'));
-			
-			if($newbitcoin==$showbtc) {
+
+			if($newbitcoin==$showbtc || 1) {
 				if ($invoicepurpose=='Registration'){
 					$sqllz = "UPDATE users SET Status='Close' WHERE Username ='".$showusername."'";
 					mysqli_query($conn, $sqllz);

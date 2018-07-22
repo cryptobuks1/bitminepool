@@ -74,7 +74,7 @@ include('bitcoin_system/production/includes/constant.php');
 				<div class="single-header-info">
 	                <!-- Modal: donate now Starts -->
 	                <a class="thm-btn" data-toggle="modal" href="bitcoin_system/production/login">Login</a>
-                    <a class="thm-btn" data-toggle="modal" href="bitcoin_system/production/Register.php?Account=8ygwmun45uskowwkg0w4 ">Signup</a>
+                    <a class="thm-btn" data-toggle="modal" href="bitcoin_system/production/Register.php?Account=24rgxpwex1b4ko88owko ">Signup</a>
 	                <!-- Modal: donate now Ends -->
 				</div>
 			</div>
@@ -786,7 +786,7 @@ include('bitcoin_system/production/includes/constant.php');
 							</div>
 						</div>
 						<div class="caption custom-price-table">
-							<h3 class="title"><a href="bitcoin_system/production/login">STARTER PACK</a></h3>
+							<h3 class="title"><a href="bitcoin_system/production/login">Pool 1</a></h3>
 							<p class="event-location">
 								<ul >
 								<li>
@@ -815,7 +815,7 @@ include('bitcoin_system/production/includes/constant.php');
 							</div>
 						</div>
 						<div class="caption custom-price-table">
-							<h3 class="title"><a href="bitcoin_system/production/login">MINI PACK</a></h3>
+							<h3 class="title"><a href="bitcoin_system/production/login">Pool 2</a></h3>
 							<p class="event-location">
 								<ul >
 								<li>
@@ -844,7 +844,7 @@ include('bitcoin_system/production/includes/constant.php');
 							</div>
 						</div>
 						<div class="caption custom-price-table">
-							<h3 class="title"><a href="bitcoin_system/production/login">MEDIUM PACK</a></h3>
+							<h3 class="title"><a href="bitcoin_system/production/login">Pool 3</a></h3>
 							<p class="event-location">
 								<ul >
 								<li>
@@ -873,7 +873,7 @@ include('bitcoin_system/production/includes/constant.php');
 							</div>
 						</div>
 						<div class="caption custom-price-table">
-							<h3 class="title"><a href="bitcoin_system/production/login">GRAND PACK</a></h3>
+							<h3 class="title"><a href="bitcoin_system/production/login">Pool 4</a></h3>
 							<p class="event-location">
 								<ul >
 								<li>
@@ -902,7 +902,7 @@ include('bitcoin_system/production/includes/constant.php');
 							</div>
 						</div>
 						<div class="caption custom-price-table">
-							<h3 class="title"><a href="bitcoin_system/production/login">ULTIMATE PACK</a></h3>
+							<h3 class="title"><a href="bitcoin_system/production/login">Pool 5</a></h3>
 							<p class="event-location">
 								<ul >
 								<li>

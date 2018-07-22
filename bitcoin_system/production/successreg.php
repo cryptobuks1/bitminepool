@@ -1,7 +1,6 @@
 <?php session_start();?>
 <?php 
 $guest= 'guest';
-session_start();
 $_SESSION['guest']= $guest;
 ?>
 <!DOCTYPE html>

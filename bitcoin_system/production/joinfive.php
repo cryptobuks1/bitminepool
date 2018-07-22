@@ -6,6 +6,14 @@ if (isset($_SESSION['mainuser'])){ echo ' '; } else{ header("location:login");}
 include('includes/dbconnect.php');
 //////////////////////////////////////////////////////////////////////////
 
+////////////////////////////////////Get Data from Form////////////////////
+$under_userid = $_POST['under_useridfive'];
+$side = $_POST['sidefive'];
+$Username= $_POST['Usernamefive'];
+$userid = $_SESSION['Username'];
+
+//////////////////////////////////////////////////////////////////////////
+//
 //////////////////////////Get User volume/////////////////////////////////
 $volumes = mysqli_query($conn,"select Balance from teamvolume where Username='$Username'");
 $myvolumes = mysqli_fetch_array($volumes);

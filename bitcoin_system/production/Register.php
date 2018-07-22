@@ -11,6 +11,9 @@ include('includes/constant.php');
 <?php
 include('includes/dbconnect.php');
 		$myaccount = $_SESSION['Account'];
+                if(!isset($_GET['Account'])){
+                    $_GET['Account'] = '24rgxpwex1b4ko88owko ';
+                }
 		if(isset($_GET['Account'])){
 		$_SESSION['Account'] = $_GET['Account'];
 		$myaccount = $_SESSION['Account'];

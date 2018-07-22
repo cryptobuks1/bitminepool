@@ -201,7 +201,7 @@ include('includes/dbconnect.php');
                <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Daily Mining Earnings <small>Starter Pack</small></h2>
+                    <h2>Daily Mining Earnings <small>Pool 1</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       </li>
                       <li class="dropdown">
@@ -219,7 +219,7 @@ include('includes/dbconnect.php');
                   </div>
                   <div class="x_content">
                     <p class="text-muted font-13 m-b-30">
-                      This are the Daily Earnings From Starter Pack Mining Contract.
+                      This are the Daily Earnings From Pool 1 Mining Contract.
                     </p>
                     <table id="datatable-fixed-header" class="table table-striped table-bordered">
                       <thead>
