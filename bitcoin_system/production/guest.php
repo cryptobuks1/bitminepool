@@ -112,7 +112,7 @@ $_SESSION['register']= $register;
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                      <p>By upgrading your account you can now be able to purchase various products that are available at Bitcoin Mine Hub</p>
+                      <p>By upgrading your account you can now be able to purchase various products that are available at Bit Mine Pool</p>
                         <?php
 						include('includes/dbconnect.php');
 						$getone = "SELECT Balance FROM accountbalance WHERE Username = '".$_SESSION['Username']."'";

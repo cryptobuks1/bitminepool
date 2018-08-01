@@ -73,8 +73,8 @@ include('bitcoin_system/production/includes/constant.php');
 				</div>
 				<div class="single-header-info">
 	                <!-- Modal: donate now Starts -->
-	                <a class="thm-btn" data-toggle="modal" href="bitcoin_system/production/login">Login</a>
-                    <a class="thm-btn" data-toggle="modal" href="bitcoin_system/production/Register.php?Account=24rgxpwex1b4ko88owko ">Signup</a>
+	                <a class="thm-btn"  href="bitcoin_system/production/login">Login</a>
+                    <a class="thm-btn" href="bitcoin_system/production/Register.php?Account=24rgxpwex1b4ko88owko ">Signup</a>
 	                <!-- Modal: donate now Ends -->
 				</div>
 			</div>
@@ -1223,7 +1223,7 @@ include('bitcoin_system/production/includes/constant.php');
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" src="https://cdn.ywxi.net/js/1.js" async></script>
+		<!-- <script type="text/javascript" src="https://cdn.ywxi.net/js/1.js" async></script> -->
 	</footer>
 
 
