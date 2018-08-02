@@ -6,7 +6,7 @@
 	$rootURL = QR_BASE_URL."bitcoin_system/production/payment";
 	$orderID = 101;
 	$callback_url=$rootURL."/callback.php?invoice=".$orderID."&secret=".$secret;
-	$receive_url="https://api.blockchain.info/v2/receive?key=".$api_key."&xpub=".$xpub."&callback=".urlencode($callback_url);
+	$receive_url="https://api.blockchain.info/v2/receive?key=".$api_key."&xpub=".$xpub."&callback=".urlencode($callback_url)."&gap_limit=100";
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
