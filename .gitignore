@@ -1,0 +1,10 @@
+# Keep these files out of the repo
+/nbproject
+/bitcoin_system/production/includes/constant.php
+
+#Hidden files
+
+/nbproject/private/
+composer.phar
+composer.lock
+
