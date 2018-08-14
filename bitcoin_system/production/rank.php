@@ -138,7 +138,7 @@ $packfive = round($pricefive, 6);
 
                         <br />
 
-<?php include('includes/menu.php'); ?>
+                        <?php include('includes/menu.php'); ?>
 
                         <!-- /menu footer buttons -->
                         <div class="sidebar-footer hidden-small">
@@ -159,7 +159,7 @@ $packfive = round($pricefive, 6);
                     </div>
                 </div>
 
-<?php include('includes/header.php'); ?>
+                <?php include('includes/header.php'); ?>
 
                 <!-- page content -->
                 <div class="right_col" role="main">
@@ -406,20 +406,6 @@ $packfive = round($pricefive, 6);
                     <br />
 
                     <div class="row">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                         <!-- /page content -->
 

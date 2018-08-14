@@ -297,10 +297,10 @@
 								$getstatus= "SELECT Status FROM invoice WHERE Username = '".$_SESSION['Username']."' AND Status = 'Unpaid'";
 								$querystatus = mysqli_query($conn, $getstatus);
 								//Check if status is unpaid
-								if (mysqli_num_rows($querystatus) == 1) {
+								if (mysqli_num_rows($querystatus) >= 1) {
 								header("location:".BASE_URL."bitcoin_system/production/unpaid");	
-								}else{
-							$api_key = API_KEY;
+								}else {
+                            $api_key = API_KEY;
 							$xpub = XPUB;
 							$secret = SECRET;
 							$rootURL = QR_BASE_URL."bitcoin_system/production/payment";
@@ -312,7 +312,7 @@
 							curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 							curl_setopt($ch, CURLOPT_URL, $receive_url);
 							$ccc = curl_exec($ch);
-                                                        $json = json_decode($ccc, true);
+                            $json = json_decode($ccc, true);
 							$payTo = $json['address'];
 								}
 							}
@@ -326,10 +326,10 @@
 								$confirmstatus= "SELECT Status FROM invoice WHERE Username = '".$_SESSION['Username']."' AND Status = 'Unpaid'";
 								$queryconfirm = mysqli_query($conn, $confirmstatus);
 								//Check if status is unpaid
-								if (mysqli_num_rows($queryconfirm) == 1) {
+								if (mysqli_num_rows($queryconfirm) >= 1) {
 								header("location:".BASE_URL."bitcoin_system/production/unpaid");	
 								}else{
-							$sql="INSERT INTO invoice (Paydate, Invoiceid, Purpose, Btcaddress, Amount, Btcamount, Status, Username)VALUES('$Date', '$Invoiceid', '$Purpose', '$payTo', '$Amount','$Btcamount', '$Status', '$Username')";		
+							$sql="INSERT INTO invoice (Paydate, Invoiceid, Purpose, Btcaddress, Amount, Btcamount, Status, Username,api_response)VALUES('$Date', '$Invoiceid', '$Purpose', '$payTo', '$Amount','$Btcamount', '$Status', '$Username','$ccc')";		
 							mysqli_query($conn, $sql);
 							mysqli_close($conn);
 							     }
