@@ -1,10 +1,11 @@
 <?php session_start();
     include('../includes/constant.php');
+    include('../includes/dbconnect.php');
 	if (isset($_SESSION['Username'])) { echo ' '; } else{ header("location:".BASE_URL."bitcoin_system/production/login");}
 	if (isset($_SESSION["invoice"])&&(isset($_SESSION['checkinvoice']))) {
 	unset($_SESSION['invoice']);
 	unset($_SESSION['checkinvoice']);
-	include('includes/dbconnect.php');
+
 	$sql = "SELECT * FROM invoice WHERE Username='".$_SESSION['Username']."' AND Status='Unpaid'";
 	$result = mysqli_query($conn, $sql);
 	if (mysqli_num_rows($result) >= 1) {
