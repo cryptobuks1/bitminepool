@@ -686,9 +686,7 @@ ALTER TABLE `users`
   
   
 ALTER TABLE `invoice`  ADD `api_response` TEXT NULL DEFAULT NULL  AFTER `Username`,  ADD `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP  AFTER `api_response`,  ADD `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP  AFTER `created_at`;
-	
-ALTER TABLE `payment_callback_log`  ADD `status` ENUM('1','2') NOT NULL DEFAULT '1' COMMENT '1:Unpaid/Pending'  AFTER `response`;	
-	
+
 CREATE TABLE `payment_callback_log` (
   `id` int(10) NOT NULL,
   `username` varchar(250) DEFAULT NULL,
@@ -708,7 +706,9 @@ ALTER TABLE `payment_callback_log`
 ALTER TABLE `payment_callback_log`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
   
-  
+  	
+ALTER TABLE `payment_callback_log`  ADD `status` ENUM('1','2') NOT NULL DEFAULT '1' COMMENT '1:Unpaid/Pending'  AFTER `response`;	
+	
   
   
 INSERT INTO users (Fullname, Country, Email, Telephone, Gender, Username, Password, Sponsor, Token, Account, Status, Activation, treestatus) VALUES('Mshai', 'Kenya', 'family88@bitcoinminehub.com', '33446611', '2', 'mshai', '123','', '14685', '24rgxpwex1b4ko88owko ', 'Open',  '1', 'notree');
