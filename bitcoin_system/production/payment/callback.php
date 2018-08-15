@@ -186,7 +186,11 @@ if ($_GET['secret'] != $secret) {
         $sql = "INSERT INTO payments (Paydate, Payuser, Amountbtc, Amountusd)VALUES('$date', '$showusername', '$newbitcoin', '$bitbalance')";
         mysqli_query($conn, $sql);
         $response = json_encode($_GET);
-        $sqlPaymentCallBack = "INSERT INTO `payment_callback_log` (`id`, `username`, `invoice_id`, `amount_btc`, `current_amount_btc`, `amount_usd`, `response`) VALUES (NULL, '$showusername', '$invoice', '$showbtc', '$newbitcoin', '$passedValue', '$response');";
+        if ($_GET['confirmations'] >= 4) {
+            $sqlPaymentCallBack = "INSERT INTO `payment_callback_log` (`id`, `username`, `invoice_id`, `amount_btc`, `current_amount_btc`, `amount_usd`, `response`,`status`) VALUES (NULL, '$showusername', '$invoice', '$showbtc', '$newbitcoin', '$passedValue', '$response',2);";
+        } else {
+            $sqlPaymentCallBack = "INSERT INTO `payment_callback_log` (`id`, `username`, `invoice_id`, `amount_btc`, `current_amount_btc`, `amount_usd`, `response`,`status`) VALUES (NULL, '$showusername', '$invoice', '$showbtc', '$newbitcoin', '$passedValue', '$response',1);";
+        }
         mysqli_query($conn, $sqlPaymentCallBack);
     } else {
         echo "Wrong Operation";
