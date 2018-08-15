@@ -265,7 +265,7 @@ include('includes/dbconnect.php');
                                 <td>1</td>
                                 <td><?php echo $Purpose; ?></td>
                                 <td><?php echo $Invoiceid; ?></td>
-                                <td>Bitcoin Mine Hub <?php echo $Purpose; ?></td>
+                                <td>Bit Mine Pool <?php echo $Purpose; ?></td>
                                 <td>$<?php echo $Amount; ?></td>
                               </tr>
                              

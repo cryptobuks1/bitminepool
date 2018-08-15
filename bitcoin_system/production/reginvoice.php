@@ -66,11 +66,11 @@
                         <div class="col-sm-4 invoice-col">
                           From
                           <address>
-                                          <strong>Bitcoin Mine Hub, Inc.</strong>
-                                          <br>795 Freedom Ave, Suite 600
-                                          <br>New York, CA 94107
-                                          <br>Phone: 1 (804) 123-9876
-                                          <br>Email: register@bitcoinminehub.com
+                                          <strong>Bit Mine Pool, Inc.</strong>
+                                          <br>60 Grant Ave. Carteret NJ 0708
+                                          
+                                          <br>(880) 1723801729
+                                          <br>Email: register@bitminepool.com
                                       </address>
                         </div>
                         <!-- /.col -->

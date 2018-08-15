@@ -290,7 +290,7 @@ if (empty($row)) {
                                                                 <td>1</td>
                                                                 <td><?php echo $row['Purpose']; ?></td>
                                                                 <td><?php echo $row['Invoiceid']; ?></td>
-                                                                <td>Bitcoin Mine Hub <?php echo $row['Purpose']; ?></td>
+                                                                <td>Bit Mine Pool <?php echo $row['Purpose']; ?></td>
                                                                 <td>$<?php echo $row['Amount']; ?></td>
                                                             </tr>
 
