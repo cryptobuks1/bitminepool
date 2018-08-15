@@ -1,24 +1,31 @@
+
 <?php
 session_start();
-include('../includes/constant.php');
-include('../includes/dbconnect.php');
+include('includes/constant.php');
+if (isset($_SESSION['register'])) {
+    echo ' ';
+} else {
+    header("location:" . BASE_URL . "bitcoin_system/production/login");
+}
+//unset($_SESSION['register']);
 if (isset($_SESSION['Username'])) {
     echo ' ';
 } else {
     header("location:" . BASE_URL . "bitcoin_system/production/login");
 }
-if (isset($_SESSION["invoice"]) && (isset($_SESSION['checkinvoice']))) {
-    unset($_SESSION['invoice']);
-    unset($_SESSION['checkinvoice']);
-
-    $sql = "SELECT * FROM invoice WHERE Username='" . $_SESSION['Username'] . "' AND Status='Unpaid'";
-    $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) >= 1) {
-        header("location:unpaid");
-    }
+///////////////////////Check whether there is a pending invoice to be paid////////////////
+include('includes/dbconnect.php');
+if(isset($_SESSION['guest'])){
+$sql = "SELECT * FROM invoice WHERE Username='" . $_SESSION['Username'] . "' AND Status='Unpaid' AND Purpose = 'Registration' order by id desc limit 1";    
 } else {
+$sql = "SELECT * FROM invoice WHERE Username='" . $_SESSION['Username'] . "' AND Status='Unpaid' AND Purpose <> 'Registration' order by id desc limit 1";    
+}
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
+
+//exit;
+if (empty($row)) {
     header("location:" . BASE_URL . "bitcoin_system/production/login");
-    ;
 }
 ?>
 <!DOCTYPE html>
@@ -89,10 +96,10 @@ if (isset($_SESSION["invoice"]) && (isset($_SESSION['checkinvoice']))) {
                             <div class="profile_info">
                                 <span>Welcome,</span>
                                 <h2><?php if (isset($_SESSION['Username'])) {
-    echo ' ' . $_SESSION['Username'];
-} else {
-    header("location:" . BASE_URL . "bitcoin_system/production/login");
-} ?></h2>
+                                    echo ' ' . $_SESSION['Username'];
+                                } else {
+                                    header("location:" . BASE_URL . "bitcoin_system/production/login");
+                                } ?></h2>
                             </div>
                         </div>
                         <!-- /menu profile quick info -->
@@ -106,8 +113,22 @@ if (isset($_SESSION["invoice"]) && (isset($_SESSION['checkinvoice']))) {
                                 <ul class="nav side-menu">
                                     <li><a><i class="fa fa-user"></i> My Account <span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
-                                            <li><a href="index">Dashboard</a></li>
+                                            <li><a href="#">Personal Information</a></li>
+                                            <li><a href="#">My Rank</a></li>
                                         </ul>
+                                    </li>
+                                    <li><a><i class="fa fa-bitcoin"></i> How to Buy Bitcoin </a>
+
+                                    <li><a><i class="fa fa-globe"></i> FAQs </a>
+
+                                    </li>
+                                    <li><a><i class="fa fa-user"></i>Support<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="support">New Support  Ticket</a></li>
+                                            <li><a href="#">Previous Support Ticket</a></li>
+                                        </ul>
+                                    </li>   
+                                    <li><a href="<?php echo BASE_URL; ?>bitcoin_system/production/logout"><i class="fa fa-sign-out"></i>Logout</a>
                                     </li>
                                 </ul>
                             </div>
@@ -147,10 +168,10 @@ if (isset($_SESSION["invoice"]) && (isset($_SESSION['checkinvoice']))) {
                                 <li class="">
                                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                         <img src="images/img.jpg" alt=""><?php if (isset($_SESSION['Username'])) {
-    echo ' ' . $_SESSION['Username'];
-} else {
-    header("location:" . BASE_URL . "bitcoin_system/production/login");
-} ?>
+                                            echo ' ' . $_SESSION['Username'];
+                                        } else {
+                                            header("location:" . BASE_URL . "bitcoin_system/production/login");
+                                        } ?>
                                         <span class=" fa fa-angle-down"></span>
                                     </a>
                                     <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -186,18 +207,16 @@ if (isset($_SESSION["invoice"]) && (isset($_SESSION['checkinvoice']))) {
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="x_panel">
-                                    <div class="x_title">
-<?php $Invoiceid = mt_rand(0, 10000000); ?>
-<?php
-$Date = $_POST['Date'];
-$Purpose = $_POST['Purpose'];
-$Amount = $_POST['Amount'];
-$Btcamount = $_POST['Btcamount'];
-$Status = $_POST['Status'];
-$Username = $_POST['Username'];
-$submitbutton = $_POST['submitbutton'];
-?>
-                                        <h2>Invoice Payment<small>Please pay the invoice for <?php echo $Purpose; ?></small></h2>
+                                    <div class="x_title"><?php
+                                        $Date = $row['Date'];
+                                        $Invoiceid = $row['Invoiceid'];
+                                        $Purpose = $row['Purpose'];
+                                        $Amount = $row['Amount'];
+                                        $Btcamount = $row['Btcamount'];
+                                        $Status = $row['Status'];
+                                        $Username = $row['Username'];
+                                        ?>
+                                        <h2>Invoice Payment<small>Please pay the invoice for <?php echo $row['Purpose']; ?></small></h2>
 
                                         <div class="clearfix"></div>
                                     </div>
@@ -229,11 +248,11 @@ $submitbutton = $_POST['submitbutton'];
                                                     <address>
 
                                                         <strong>
-<?php if (isset($_SESSION['Username'])) {
-    echo ' ' . $_SESSION['Username'];
-} else {
-    header("location:" . BASE_URL . "bitcoin_system/production/login");
-} ?></strong>
+                                                        <?php if (isset($_SESSION['Username'])) {
+                                                            echo ' ' . $_SESSION['Username'];
+                                                        } else {
+                                                            header("location:" . BASE_URL . "bitcoin_system/production/login");
+                                                        } ?></strong>
 
 
                                                     </address>
@@ -243,9 +262,9 @@ $submitbutton = $_POST['submitbutton'];
                                                     <b>Invoice Type: INVREG001</b>
                                                     <br>
                                                     <br>
-                                                    <b>Order ID:</b> <?php echo $Invoiceid; ?>
+                                                    <b>Order ID:</b> <?php echo $row['Invoiceid']; ?>
                                                     <br>
-                                                    <b>Invoice Expires in:</b> <b><span id="countdown-1">600 seconds</span></b>
+                                                   <!-- <b>Invoice Expires in:</b> <b><span id="countdown-1">600 seconds</span></b> -->
                                                     <br>
 
                                                 </div>
@@ -269,10 +288,10 @@ $submitbutton = $_POST['submitbutton'];
                                                         <tbody>
                                                             <tr>
                                                                 <td>1</td>
-                                                                <td><?php echo $Purpose; ?></td>
-                                                                <td><?php echo $Invoiceid; ?></td>
-                                                                <td>Bit Mine Pool <?php echo $Purpose; ?></td>
-                                                                <td>$<?php echo $Amount; ?></td>
+                                                                <td><?php echo $row['Purpose']; ?></td>
+                                                                <td><?php echo $row['Invoiceid']; ?></td>
+                                                                <td>Bitcoin Mine Hub <?php echo $row['Purpose']; ?></td>
+                                                                <td>$<?php echo $row['Amount']; ?></td>
                                                             </tr>
 
 
@@ -291,79 +310,37 @@ $submitbutton = $_POST['submitbutton'];
                                                     <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
                                                         <span class="style13">Send Bitcoin to this Address:</span> <br>
                                                         <?php
-                                                        $servername = DB_SERVER_NAME;
-                                                        $username = DB_USER_NAME;
-                                                        $password = DB_PASSWORD;
-                                                        $database = DB_NAME;
-                                                        // Create connection
-                                                        $conn = mysqli_connect($servername, $username, $password, $database);
-                                                        // Check connection
-                                                        if (!$conn) {
-                                                            die("Connection failed: " . mysqli_connect_error());
-                                                        }
+                                                      /*  $url = "https://blockchain.info/stats?format=json";
+                                                        $stats = json_decode(file_get_contents($url), true);
+                                                        $btcValue = $stats['market_price_usd'];
                                                         ?>
                                                         <?php
-                                                        if (isset($submitbutton)) {
-                                                            $url = "https://blockchain.info/stats?format=json";
-                                                            $stats = json_decode(file_get_contents($url), true);
-                                                            $btcValue = $stats['market_price_usd'];
-                                                        } else {
-                                                            header("location:" . BASE_URL . "bitcoin_system/production/login");
-                                                        }
+                                                        $api_key = API_KEY;
+                                                        $xpub = XPUB;
+                                                        $secret = SECRET;
+                                                        $rootURL = QR_BASE_URL . "bitcoin_system/production/payment";
+                                                        $orderID = $Invoiceid;
+                                                        $callback_url = $rootURL . "/callback.php?invoice=" . $orderID . "&secret=" . $secret;
+                                                        $receive_url = "https://api.blockchain.info/v2/receive?key=" . $api_key . "&xpub=" . $xpub . "&callback=" . urlencode($callback_url) . "&gap_limit=100";
+                                                        $ch = curl_init();
+                                                        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+                                                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                                                        curl_setopt($ch, CURLOPT_URL, $receive_url);
+                                                        $ccc = curl_exec($ch);
+                                                        $json = json_decode($ccc, true);
+                                                        $payTo = $json['address'];*/
+                                                        $payTo = $row['Btcaddress'];
                                                         ?>
-                                                        <?php
-                                                        if (isset($submitbutton)) {
-                                                            //Get payment Status
-                                                            $getstatus = "SELECT Status FROM invoice WHERE Username = '" . $_SESSION['Username'] . "' AND Status = 'Unpaid'";
-                                                            $querystatus = mysqli_query($conn, $getstatus);
-                                                            //Check if status is unpaid
-                                                            if (mysqli_num_rows($querystatus) >= 1) {
-                                                                header("location:" . BASE_URL . "bitcoin_system/production/unpaid");
-                                                            } else {
-                                                                $api_key = API_KEY;
-                                                                $xpub = XPUB;
-                                                                $secret = SECRET;
-                                                                $rootURL = QR_BASE_URL . "bitcoin_system/production/payment";
-                                                                $orderID = $Invoiceid;
-                                                                $callback_url = $rootURL . "/callback.php?invoice=" . $orderID . "&secret=" . $secret;
-                                                                $receive_url = "https://api.blockchain.info/v2/receive?key=" . $api_key . "&xpub=" . $xpub . "&callback=" . urlencode($callback_url) . "&gap_limit=100";
-                                                                $ch = curl_init();
-                                                                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-                                                                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                                                                curl_setopt($ch, CURLOPT_URL, $receive_url);
-                                                                $ccc = curl_exec($ch);
-                                                                $json = json_decode($ccc, true);
-                                                                $payTo = $json['address'];
-                                                            }
-                                                        } else {
-                                                            header("location:" . BASE_URL . "bitcoin_system/production/login");
-                                                        }
-                                                        ?>
-                                                        <?php
-                                                        if (isset($submitbutton)) {
-                                                            $confirmstatus = "SELECT Status FROM invoice WHERE Username = '" . $_SESSION['Username'] . "' AND Status = 'Unpaid'";
-                                                            $queryconfirm = mysqli_query($conn, $confirmstatus);
-                                                            //Check if status is unpaid
-                                                            if (mysqli_num_rows($queryconfirm) >= 1) {
-                                                                header("location:" . BASE_URL . "bitcoin_system/production/unpaid");
-                                                            } else {
-                                                                $sql = "INSERT INTO invoice (Paydate, Invoiceid, Purpose, Btcaddress, Amount, Btcamount, Status, Username,api_response)VALUES('$Date', '$Invoiceid', '$Purpose', '$payTo', '$Amount','$Btcamount', '$Status', '$Username','$ccc')";
-                                                                mysqli_query($conn, $sql);
-                                                                mysqli_close($conn);
-                                                            }
-                                                        } else {
-                                                            header("location:" . BASE_URL . "bitcoin_system/production/login");
-                                                        }
-                                                        ?>
-
-                                                        <b><span class="style12"><div id="qrcodeCanvas"></div><?php echo $payTo; ?></span></b> 
+                                                            
+                                                        <b><span class="style12"><div id="qrcodeCanvas"></div><?php echo $row['Btcaddress']; ?></span></b> 
 
                                                     </p>
                                                 </div>
                                                 <!-- /.col -->
                                                 <div class="col-xs-6">
-                                                    <p class="lead"><span class="style11">Total Due</span><span class="style10">: <?php echo $Btcamount; ?> BTC= <em>$<?php echo $Amount; ?></em></span></p>
-                                                    <a href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<?php echo "bitcoin:$payTo?amount=$Btcamount"; ?>"><button type="button" class="btn btn-primary">Scan QR Code</button></a>
+
+                                                    <p class="lead"><span class="style11">Total Due</span><span class="style10">: <?php echo $row['Btcamount']; ?> BTC= <em>$<?php echo $row['Amount']; ?></em></span></p>
+                                                    <a href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<?php echo "bitcoin:".$row['Btcamount']."?amount=".$row['Btcamount'] ?>"><button type="button" class="btn btn-primary">Scan QR Code</button></a>
 
 
                                                     <div class="table-responsive">
@@ -371,16 +348,16 @@ $submitbutton = $_POST['submitbutton'];
                                                             <tbody>
                                                                 <tr>
                                                                     <th style="width:50%">Subtotal:</th>
-                                                                    <td>$<?php echo $Amount; ?></td>
+                                                                    <td>$<?php echo $row['Amount']; ?></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th><span class="style7">BTC to USD (Rate: 10 min Ago)</span></th>
-                                                                    <td><span class="style6"><?php echo $btcValue; ?></span></td>
+                                                                    <td><span class="style6"><?php echo $row['Btcamount']; ?></span></td>
                                                                 </tr>
 
                                                                 <tr>
                                                                     <th>Total:</th>
-                                                                    <td>$<?php echo $Amount; ?></td>
+                                                                    <td>$<?php echo $row['Amount']; ?></td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -411,13 +388,7 @@ $submitbutton = $_POST['submitbutton'];
                 <!-- /footer content -->
             </div>
         </div>
-<?php
-if (isset($submitbutton)) {
-    unset($submitbutton);
-} else {
-    header("location:" . BASE_URL . "bitcoin_system/production/login");
-}
-?>
+
         <!-- jQuery -->
         <script src="../vendors/jquery/dist/jquery.min.js"></script>
         <!-- Bootstrap -->

@@ -118,7 +118,7 @@ if (isset($_SESSION['Username'])) {
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-3">
-                                    <button type="reset" class="btn btn-primary">Cancel</button>
+                                    <a href="supportlist"><button type="button" class="btn btn-primary">Cancel</button></a>
                                     <button id="send" type="submit" class="btn btn-success">Send</button>
                                 </div>
                             </div>

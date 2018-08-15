@@ -18,6 +18,10 @@ $volumes = mysqli_query($conn,"select Balance from teamvolume where Username='$U
 $myvolumes = mysqli_fetch_array($volumes);
 $totalvolume = $myvolumes['Balance'];
 $totalcredits = ($totalvolume/300);
+
+$referralCountQuery = mysqli_query($conn, "SELECT count(*) as referralCount FROM `users` where Sponsor='$userid' AND Status='Close'");
+$referralCountArray = mysqli_fetch_array($referralCountQuery);
+$referralCount = $referralCountArray['referralCount'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -91,7 +95,9 @@ $totalcredits = ($totalvolume/300);
 				$temp_under_userid = $under_userid;
 				$temp_side_count = $side.'count'; //leftcount or rightcount
 				$temp_side_credits = $side.'credits'; //leftcredits or rightcredits
-				
+                                if ($referralCount == 6) {
+                                    $query = mysqli_query($conn, "Update `rank` SET Rank='Dealer', Rankid='2' where Username='$userid' AND Rankid='1'");
+                                }
 				$temp_side = $side;
 				$total_count=1;
 				$i=1;
@@ -99,7 +105,8 @@ $totalcredits = ($totalvolume/300);
 					$i;
 					$q = mysqli_query($conn,"select * from tree where userid='$temp_under_userid'");
 					$r = mysqli_fetch_array($q);
-					$current_temp_side_count = $r[$temp_side_count]+$totalvolume;
+                                        //$current_temp_side_count = $r[$temp_side_count] + $totalvolume;
+                                        $current_temp_side_count = $r[$temp_side_count] + 1;
 					$current_temp_side_credits = $r[$temp_side_credits]+$totalcredits;
 					$temp_under_userid;
 					$temp_side_count;
@@ -114,9 +121,15 @@ $totalcredits = ($totalvolume/300);
 					}elseif($myrankid==2){
 						$capping=1000;
 					}elseif($myrankid==3){
+						$capping=1200;
+					}elseif($myrankid==4){
 						$capping=1400;
-					}else{
+					}elseif($myrankid==5){
 						$capping=1600;
+					}elseif($myrankid==6){
+						$capping=2000;
+					}else{
+						$capping=2000;
 					}
 					//Get volumes/////////////////////////////////
 					$uservolumes = mysqli_query($conn,"select Balance from teamvolume where Username='$temp_under_userid'");
