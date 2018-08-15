@@ -9,6 +9,7 @@ if ($_GET['secret'] != $secret) {
     $value = $_GET['value'] . " - ";
     $txhash = $_GET['transaction_hash'] . " - ";
     $invoice = $_GET['invoice'];
+    $passedValue = $_GET['value'];
 ///////////////////////////////////////////Connection to Database///////////////////////////////////////////////////////////
     $servername = DB_SERVER_NAME;
     $username = DB_USER_NAME;
@@ -23,20 +24,24 @@ if ($_GET['secret'] != $secret) {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Get payment Status
-    $getstatus = "SELECT Status FROM invoice WHERE Invoiceid = '" . $invoice . "' AND Status = 'Unpaid'";
+    $getstatus = "SELECT Status FROM invoice WHERE Invoiceid = '" . $invoice . "' AND Status = 'Unpaid' order by id desc limit 1";
     $querystatus = mysqli_query($conn, $getstatus);
+
     //Check if status is unpaid
     if (mysqli_num_rows($querystatus) == 1) {
         //Convert Satoshis into dollars
-        $newbitcoin = $value * 0.00000001;
+        $newbitcoin = $passedValue * 0.00000001;
         $url = "https://blockchain.info/stats?format=json";
         $stats = json_decode(file_get_contents($url), true);
         $btcValue = $stats['market_price_usd'];
         $newbitvalue = $newbitcoin * $btcValue;
         $bitbalance = round($newbitvalue, 8);
+
+        $newbitcoin = $passedValue / $btcValue;
+        $newbitcoin = round($newbitcoin, 8);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
         //Get Username From Invoice 
-        $getusername = "SELECT * FROM invoice WHERE Invoiceid = '" . $invoice . "' AND Status = 'Unpaid'";
+        $getusername = "SELECT * FROM invoice WHERE Invoiceid = '" . $invoice . "' AND Status = 'Unpaid' order by id desc limit 1";
         $queryusername = mysqli_query($conn, $getusername);
         $currentuser = mysqli_fetch_array($queryusername);
         $showusername = $currentuser['Username'];
@@ -88,91 +93,91 @@ if ($_GET['secret'] != $secret) {
         $MiningDate = date('Y-m-d', strtotime('+30 days'));
         $CompletionDate = date('Y-m-d', strtotime('+365 days'));
 
-        if ($newbitcoin == $showbtc) {
-            if ($invoicepurpose == 'Registration') {
-                $sqllz = "UPDATE users SET Status='Close' WHERE Username ='" . $showusername . "'";
-                mysqli_query($conn, $sqllz);
-                $sqlz = "UPDATE register SET EntryDate='" . $Date . "', Amount='100' WHERE Username ='" . $showusername . "'";
-                mysqli_query($conn, $sqlz);
-            } elseif ($invoicepurpose == 'Starter') {
-                $sqlone = "UPDATE starterpack SET Comment='Purchased', Status='Active', PurchaseDate='$PurchaseDate', MiningDate='$MiningDate', CompletionDate='$CompletionDate' WHERE Username ='" . $showusername . "'";
-                mysqli_query($conn, $sqlone);
-                $sponsornewbalone = ($showsponsorbalance + $Startercomm);
-                $sponsorone = "UPDATE commission SET Balance='$sponsornewbalone' WHERE Username ='" . $showsponsor . "'";
-                mysqli_query($conn, $sponsorone);
-                //////////////////////////////////Get Volumes from database///////////////////////////////////////////////////
-                $getvolumes = "SELECT Balance FROM teamvolume WHERE Username = '" . $showusername . "'";
-                $queryvolumes = mysqli_query($conn, $getvolumes);
-                $currentvolumes = mysqli_fetch_array($queryvolumes);
-                $showvolumes = $currentvolumes['Balance'];
-                $newvolumebalance = ($showvolumes + 300);
-                /////////////////////////////////Update Volumes///////////////////////////////////////////////////////////////
-                $query = mysqli_query($conn, "update teamvolume set Balance='$newvolumebalance' where Username = '" . $showusername . "'");
-                /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            } elseif ($invoicepurpose == 'Mini') {
-                $sqltwo = "UPDATE minipack SET Comment='Purchased', Status='Active', PurchaseDate='$PurchaseDate', MiningDate='$MiningDate', CompletionDate='$CompletionDate' WHERE Username ='" . $showusername . "'";
-                mysqli_query($conn, $sqltwo);
-                $sponsornewbaltwo = ($showsponsorbalance + $minicomm);
-                $sponsortwo = "UPDATE commission SET Balance='$sponsornewbaltwo' WHERE Username ='" . $showsponsor . "'";
-                mysqli_query($conn, $sponsortwo);
-                //////////////////////////////////Get Volumes from database///////////////////////////////////////////////////
-                $getvolumes = "SELECT Balance FROM teamvolume WHERE Username = '" . $showusername . "'";
-                $queryvolumes = mysqli_query($conn, $getvolumes);
-                $currentvolumes = mysqli_fetch_array($queryvolumes);
-                $showvolumes = $currentvolumes['Balance'];
-                $newvolumebalance = ($showvolumes + 600);
-                /////////////////////////////////Update Volumes///////////////////////////////////////////////////////////////
-                $query = mysqli_query($conn, "update teamvolume set Balance='$newvolumebalance' where Username = '" . $showusername . "'");
-                /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            } elseif ($invoicepurpose == 'Medium') {
-                $sqlthree = "UPDATE mediumpack SET Comment='Purchased', Status='Active', PurchaseDate='$PurchaseDate', MiningDate='$MiningDate', CompletionDate='$CompletionDate' WHERE Username ='" . $showusername . "'";
-                mysqli_query($conn, $sqlthree);
-                $sponsornewbalthree = ($showsponsorbalance + $mediumcomm);
-                $sponsorthree = "UPDATE commission SET Balance='$sponsornewbalthree' WHERE Username ='" . $showsponsor . "'";
-                mysqli_query($conn, $sponsorthree);
-                //////////////////////////////////Get Volumes from database///////////////////////////////////////////////////
-                $getvolumes = "SELECT Balance FROM teamvolume WHERE Username = '" . $showusername . "'";
-                $queryvolumes = mysqli_query($conn, $getvolumes);
-                $currentvolumes = mysqli_fetch_array($queryvolumes);
-                $showvolumes = $currentvolumes['Balance'];
-                $newvolumebalance = ($showvolumes + 1200);
-                /////////////////////////////////Update Volumes///////////////////////////////////////////////////////////////
-                $query = mysqli_query($conn, "update teamvolume set Balance='$newvolumebalance' where Username = '" . $showusername . "'");
-                /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            } elseif ($invoicepurpose == 'Grand') {
-                $sqlfour = "UPDATE grandpack SET Comment='Purchased', Status='Active', PurchaseDate='$PurchaseDate', MiningDate='$MiningDate', CompletionDate='$CompletionDate' WHERE Username ='" . $showusername . "'";
-                mysqli_query($conn, $sqlfour);
-                $sponsornewbalfour = ($showsponsorbalance + $grandcomm);
-                $sponsorfour = "UPDATE commission SET Balance='$sponsornewbalfour' WHERE Username ='" . $showsponsor . "'";
-                mysqli_query($conn, $sponsorfour);
-                //////////////////////////////////Get Volumes from database///////////////////////////////////////////////////
-                $getvolumes = "SELECT Balance FROM teamvolume WHERE Username = '" . $showusername . "'";
-                $queryvolumes = mysqli_query($conn, $getvolumes);
-                $currentvolumes = mysqli_fetch_array($queryvolumes);
-                $showvolumes = $currentvolumes['Balance'];
-                $newvolumebalance = ($showvolumes + 2400);
-                /////////////////////////////////Update Volumes///////////////////////////////////////////////////////////////
-                $query = mysqli_query($conn, "update teamvolume set Balance='$newvolumebalance' where Username = '" . $showusername . "'");
-                /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            } elseif ($invoicepurpose == 'Ultimate') {
-                $sqlfive = "UPDATE ultimatepack SET Comment='Purchased', Status='Active', PurchaseDate='$PurchaseDate', MiningDate='$MiningDate', CompletionDate='$CompletionDate' WHERE Username ='" . $showusername . "'";
-                mysqli_query($conn, $sqlfive);
-                $sponsornewbalfive = ($showsponsorbalance + $ultimatecomm);
-                $sponsorfive = "UPDATE commission SET Balance='$sponsornewbalfive' WHERE Username ='" . $showsponsor . "'";
-                mysqli_query($conn, $sponsorfive);
-                //////////////////////////////////Get Volumes from database///////////////////////////////////////////////////
-                $getvolumes = "SELECT Balance FROM teamvolume WHERE Username = '" . $showusername . "'";
-                $queryvolumes = mysqli_query($conn, $getvolumes);
-                $currentvolumes = mysqli_fetch_array($queryvolumes);
-                $showvolumes = $currentvolumes['Balance'];
-                $newvolumebalance = ($showvolumes + 4800);
-                /////////////////////////////////Update Volumes///////////////////////////////////////////////////////////////
-                $query = mysqli_query($conn, "update teamvolume set Balance='$newvolumebalance' where Username = '" . $showusername . "'");
-                /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            } else {
-                
-            }
+        //if ($newbitcoin == $showbtc) {
+        if ($invoicepurpose == 'Registration') {
+            $sqllz = "UPDATE users SET Status='Close' WHERE Username ='" . $showusername . "'";
+            mysqli_query($conn, $sqllz);
+            $sqlz = "UPDATE register SET EntryDate='" . $Date . "', Amount='100' WHERE Username ='" . $showusername . "'";
+            mysqli_query($conn, $sqlz);
+        } elseif ($invoicepurpose == 'Starter') {
+            $sqlone = "UPDATE starterpack SET Comment='Purchased', Status='Active', PurchaseDate='$PurchaseDate', MiningDate='$MiningDate', CompletionDate='$CompletionDate' WHERE Username ='" . $showusername . "'";
+            mysqli_query($conn, $sqlone);
+            $sponsornewbalone = ($showsponsorbalance + $Startercomm);
+            $sponsorone = "UPDATE commission SET Balance='$sponsornewbalone' WHERE Username ='" . $showsponsor . "'";
+            mysqli_query($conn, $sponsorone);
+            //////////////////////////////////Get Volumes from database///////////////////////////////////////////////////
+            $getvolumes = "SELECT Balance FROM teamvolume WHERE Username = '" . $showusername . "'";
+            $queryvolumes = mysqli_query($conn, $getvolumes);
+            $currentvolumes = mysqli_fetch_array($queryvolumes);
+            $showvolumes = $currentvolumes['Balance'];
+            $newvolumebalance = ($showvolumes + 300);
+            /////////////////////////////////Update Volumes///////////////////////////////////////////////////////////////
+            $query = mysqli_query($conn, "update teamvolume set Balance='$newvolumebalance' where Username = '" . $showusername . "'");
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        } elseif ($invoicepurpose == 'Mini') {
+            $sqltwo = "UPDATE minipack SET Comment='Purchased', Status='Active', PurchaseDate='$PurchaseDate', MiningDate='$MiningDate', CompletionDate='$CompletionDate' WHERE Username ='" . $showusername . "'";
+            mysqli_query($conn, $sqltwo);
+            $sponsornewbaltwo = ($showsponsorbalance + $minicomm);
+            $sponsortwo = "UPDATE commission SET Balance='$sponsornewbaltwo' WHERE Username ='" . $showsponsor . "'";
+            mysqli_query($conn, $sponsortwo);
+            //////////////////////////////////Get Volumes from database///////////////////////////////////////////////////
+            $getvolumes = "SELECT Balance FROM teamvolume WHERE Username = '" . $showusername . "'";
+            $queryvolumes = mysqli_query($conn, $getvolumes);
+            $currentvolumes = mysqli_fetch_array($queryvolumes);
+            $showvolumes = $currentvolumes['Balance'];
+            $newvolumebalance = ($showvolumes + 600);
+            /////////////////////////////////Update Volumes///////////////////////////////////////////////////////////////
+            $query = mysqli_query($conn, "update teamvolume set Balance='$newvolumebalance' where Username = '" . $showusername . "'");
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        } elseif ($invoicepurpose == 'Medium') {
+            $sqlthree = "UPDATE mediumpack SET Comment='Purchased', Status='Active', PurchaseDate='$PurchaseDate', MiningDate='$MiningDate', CompletionDate='$CompletionDate' WHERE Username ='" . $showusername . "'";
+            mysqli_query($conn, $sqlthree);
+            $sponsornewbalthree = ($showsponsorbalance + $mediumcomm);
+            $sponsorthree = "UPDATE commission SET Balance='$sponsornewbalthree' WHERE Username ='" . $showsponsor . "'";
+            mysqli_query($conn, $sponsorthree);
+            //////////////////////////////////Get Volumes from database///////////////////////////////////////////////////
+            $getvolumes = "SELECT Balance FROM teamvolume WHERE Username = '" . $showusername . "'";
+            $queryvolumes = mysqli_query($conn, $getvolumes);
+            $currentvolumes = mysqli_fetch_array($queryvolumes);
+            $showvolumes = $currentvolumes['Balance'];
+            $newvolumebalance = ($showvolumes + 1200);
+            /////////////////////////////////Update Volumes///////////////////////////////////////////////////////////////
+            $query = mysqli_query($conn, "update teamvolume set Balance='$newvolumebalance' where Username = '" . $showusername . "'");
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        } elseif ($invoicepurpose == 'Grand') {
+            $sqlfour = "UPDATE grandpack SET Comment='Purchased', Status='Active', PurchaseDate='$PurchaseDate', MiningDate='$MiningDate', CompletionDate='$CompletionDate' WHERE Username ='" . $showusername . "'";
+            mysqli_query($conn, $sqlfour);
+            $sponsornewbalfour = ($showsponsorbalance + $grandcomm);
+            $sponsorfour = "UPDATE commission SET Balance='$sponsornewbalfour' WHERE Username ='" . $showsponsor . "'";
+            mysqli_query($conn, $sponsorfour);
+            //////////////////////////////////Get Volumes from database///////////////////////////////////////////////////
+            $getvolumes = "SELECT Balance FROM teamvolume WHERE Username = '" . $showusername . "'";
+            $queryvolumes = mysqli_query($conn, $getvolumes);
+            $currentvolumes = mysqli_fetch_array($queryvolumes);
+            $showvolumes = $currentvolumes['Balance'];
+            $newvolumebalance = ($showvolumes + 2400);
+            /////////////////////////////////Update Volumes///////////////////////////////////////////////////////////////
+            $query = mysqli_query($conn, "update teamvolume set Balance='$newvolumebalance' where Username = '" . $showusername . "'");
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        } elseif ($invoicepurpose == 'Ultimate') {
+            $sqlfive = "UPDATE ultimatepack SET Comment='Purchased', Status='Active', PurchaseDate='$PurchaseDate', MiningDate='$MiningDate', CompletionDate='$CompletionDate' WHERE Username ='" . $showusername . "'";
+            mysqli_query($conn, $sqlfive);
+            $sponsornewbalfive = ($showsponsorbalance + $ultimatecomm);
+            $sponsorfive = "UPDATE commission SET Balance='$sponsornewbalfive' WHERE Username ='" . $showsponsor . "'";
+            mysqli_query($conn, $sponsorfive);
+            //////////////////////////////////Get Volumes from database///////////////////////////////////////////////////
+            $getvolumes = "SELECT Balance FROM teamvolume WHERE Username = '" . $showusername . "'";
+            $queryvolumes = mysqli_query($conn, $getvolumes);
+            $currentvolumes = mysqli_fetch_array($queryvolumes);
+            $showvolumes = $currentvolumes['Balance'];
+            $newvolumebalance = ($showvolumes + 4800);
+            /////////////////////////////////Update Volumes///////////////////////////////////////////////////////////////
+            $query = mysqli_query($conn, "update teamvolume set Balance='$newvolumebalance' where Username = '" . $showusername . "'");
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        } else {
+            
         }
+        // }
         //Update Invoice Table
         $sqlv = "UPDATE invoice SET Status='Paid' WHERE Invoiceid ='" . $invoice . "'";
         mysqli_query($conn, $sqlv);
@@ -180,6 +185,9 @@ if ($_GET['secret'] != $secret) {
         $date = date("Y-m-d");
         $sql = "INSERT INTO payments (Paydate, Payuser, Amountbtc, Amountusd)VALUES('$date', '$showusername', '$newbitcoin', '$bitbalance')";
         mysqli_query($conn, $sql);
+        $response = json_encode($_GET);
+        $sqlPaymentCallBack = "INSERT INTO `payment_callback_log` (`id`, `username`, `invoice_id`, `amount_btc`, `current_amount_btc`, `amount_usd`, `response`) VALUES (NULL, '$showusername', '$invoice', '$showbtc', '$newbitcoin', '$passedValue', '$response');";
+        mysqli_query($conn, $sqlPaymentCallBack);
     } else {
         echo "Wrong Operation";
     }
