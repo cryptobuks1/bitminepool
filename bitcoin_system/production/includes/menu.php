@@ -3,7 +3,7 @@
     <div class="menu_section">
         <a href="index"><h3>Account Information</h3></a>
         <ul class="nav side-menu">
-            <li><a href="index"><i class="fa fa-dashboard"></i>Dashboard</a>
+            <li><a href="index_v3"><i class="fa fa-dashboard"></i>Dashboard</a>
             <li><a><i class="fa fa-user"></i> My Account <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li><a href="profile">My Profile</a></li>

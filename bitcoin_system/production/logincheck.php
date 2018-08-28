@@ -12,7 +12,7 @@ $Username=$_SESSION['Username'];
 					$mainuser='mainuser';
 					session_start();
 					$_SESSION['mainuser']= $mainuser;
-  					 header("location:index");    		
+  					 header("location:index_v3");    		
 					} 
 			else {
 				$guest= 'guest';
