@@ -4,24 +4,18 @@
     include('includes/header.php');
 
     if (isset($_SESSION['Username'])) {
+        $walletData = [];
+        $userName = $_SESSION['Username'];
         $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                        'user_name' => $_SESSION['Username'],
-                        
-                        'platform' => '3',
-                        
-                            ], 'getAllWalletDetailByUserName');
+                    'user_name' => $_SESSION['Username'],
+                    'platform' => '3',
+                        ], 'getAllWalletDetailByUserName');
 
-            $response = json_decode($response);
-            $redirect = 'login';
-            if ($response->statusCode == 100) {
-                echo '<pre>';
-                print_r($response->respoanse);
-                exit;
-            }
-            unset($_POST);
-            header("Location:" . $redirect);
-            exit;
-            
+        $response = json_decode($response);
+        $redirect = 'login';
+        if ($response->statusCode == 100) {
+            $walletData = $response->response->wallet_data;
+        }
     } else {
         unset($_POST);
         unset($_SESSION);
@@ -47,13 +41,7 @@
                                 <a href="<?php echo BASE_URL; ?>"><img src="../images/img.jpg" alt="..." class="img-circle profile_img"></a>              </div>
                             <div class="profile_info">images/img.jpg
                                 <span>Welcome,</span>
-                                <h2><?php
-                                    if (isset($_SESSION['Username'])) {
-                                        echo ' ' . $_SESSION['Username'];
-                                    } else {
-                                        header("location:login");
-                                    }
-                                    ?></h2>
+                                <h2><?php echo $userName; ?></h2>
                             </div>
                         </div>
                         <!-- /menu profile quick info -->
@@ -80,99 +68,102 @@
                         <!-- /menu footer buttons -->
                     </div>
                 </div>
-
                 <?php include('includes/guestheader.php'); ?>
-
-
                 <!-- page content -->
                 <div class="right_col" role="main">
                     <div class="">
-                        <div class="page-title">
-                            <div class="title_left">
-                                <h3 class="style3">Welcome to Bit Mine Pool</h3>
-                            </div>
-
-
-                        </div>
-
                         <div class="clearfix"></div>
 
                         <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="x_panel">
-                                    <div class="x_title">
-                                        <h2>About Bitcoin Mining</h2>
+                            <div class="col-md-12">
 
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="x_content">
-                                        <p>By upgrading your account you can now be able to purchase various products that are available at Bit Mine Pool</p>
-                                        <?php
-                                        include('includes/dbconnect.php');
-                                        $getone = "SELECT Balance FROM accountbalance WHERE Username = '" . $_SESSION['Username'] . "'";
-                                        $queryone = mysqli_query($conn, $getone);
-                                        $balanceone = mysqli_fetch_array($queryone);
-                                        $showone = $balanceone['Balance'];
-                                        ?>
-                                        <!--<a href="invoicecheckbal"><button type="button" class="btn btn-primary btn-lg">Account Balance:USD <?php echo $showone; ?></button></a>
-                                        <a href="invoicecheckreg"><button type="button" class="btn btn-success btn-lg">Upgrade Account Now</button></a> -->
-                                        <a href="upgrade"><button type="button" class="btn btn-primary btn-lg">Account Balance:USD <?php echo $showone; ?></button></a>
-                                        <a href="invoicecheckreg"><button type="button" class="btn btn-success btn-lg">Upgrade Account Now</button></a>
+                                <div class="x_content">
 
-                                    </div>
+                                    <section class="content invoice">
+                                        <!-- title row -->
+                                        <div class="row">
+                                            <div class="col-xs-12 invoice-header">
+                                                <h1>
+                                                    <i class="fa fa-globe"></i> <span class="style7">Wallet.</span>
+                                                    <small class="pull-right"><span class="style6"><?php echo date("l jS \of F Y h:i:s A") . "<br>"; ?></span></small>                                      </h1>
+                                            </div>
+                                            <!-- /.col -->
+                                        </div>
+                                        <!-- info row -->
+                                        <div class="row invoice-info">
+                                            <div class="col-sm-4 invoice-col">
+
+                                            </div>
+                                            <!-- /.col -->
+                                            <div class="col-sm-4 invoice-col">
+
+                                            </div>
+                                            <!-- /.col -->
+                                            <div class="col-sm-4 invoice-col">
+                                                <br>
+                                                <b>Balance(IN BTC):</b> <?php echo $walletData->balance; ?>
+                                                <br>
+                                               <!-- <b>Invoice Expires in:</b> <b><span id="countdown-1">600 seconds</span></b> -->
+                                                <br>
+
+                                            </div>
+                                            <!-- /.col -->
+                                        </div>
+                                        <!-- /.row -->
+
+                                        <!-- Table row -->
+                                        <div class="row">
+                                            <div class="col-xs-12 table">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Serial #</th>
+                                                            <th style="width: 25%">Label</th>
+                                                            <th style="width: 25%">Address</th>
+                                                            <th>Balance(BTC)</th>
+                                                            <th>Subtotal Received(BTC)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <?php
+                                                        foreach ($walletData->addresses as $key => $address) {
+                                                            echo '<tr>';
+                                                            echo '<td>' . ($key + 1) . '</td>';
+                                                            echo '<td>' . $address->label . '</td>';
+                                                            echo '<td>' . $address->address . '</td>';
+                                                            echo '<td>' . $address->balance . '</td>';
+                                                            echo '<td>' . $address->total_received . '</td>';
+                                                            echo '</tr>';
+                                                        }
+                                                        ?>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!-- /.col -->
+                                        </div>
+                                        <!-- /.row -->
+
+                                    </section>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- /page content -->
-
-                <!-- footer content -->
-
-                <!-- /footer content -->
             </div>
+            <!-- /page content -->
+
+
+            <!-- footer content -->
+
+            <!-- /footer content -->
         </div>
+    </div>
 
-        <!-- jQuery -->
-        <script src="../vendor/jquery/dist/jquery.min.js"></script>
-        <!-- Bootstrap -->
-        <script src="../vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-        <!-- FastClick -->
-        <script src="../vendor/fastclick/lib/fastclick.js"></script>
-        <!-- NProgress -->
-        <script src="../vendor/nprogress/nprogress.js"></script>
-        <!-- Chart.js -->
-        <script src="../vendor/Chart.js/dist/Chart.min.js"></script>
-        <!-- gauge.js -->
-        <script src="../vendor/gauge.js/dist/gauge.min.js"></script>
-        <!-- bootstrap-progressbar -->
-        <script src="../vendor/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-        <!-- iCheck -->
-        <script src="../vendor/iCheck/icheck.min.js"></script>
-        <!-- Skycons -->
-        <script src="../vendor/skycons/skycons.js"></script>
-        <!-- Flot -->
-        <script src="../vendor/Flot/jquery.flot.js"></script>
-        <script src="../vendor/Flot/jquery.flot.pie.js"></script>
-        <script src="../vendor/Flot/jquery.flot.time.js"></script>
-        <script src="../vendor/Flot/jquery.flot.stack.js"></script>
-        <script src="../vendor/Flot/jquery.flot.resize.js"></script>
-        <!-- Flot plugins -->
-        <script src="../vendor/flot.orderbars/js/jquery.flot.orderBars.js"></script>
-        <script src="../vendor/flot-spline/js/jquery.flot.spline.min.js"></script>
-        <script src="../vendor/flot.curvedlines/curvedLines.js"></script>
-        <!-- DateJS -->
-        <script src="../vendor/DateJS/build/date.js"></script>
-        <!-- JQVMap -->
-        <script src="../vendor/jqvmap/dist/jquery.vmap.js"></script>
-        <script src="../vendor/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-        <script src="../vendor/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
-        <!-- bootstrap-daterangepicker -->
-        <script src="../vendor/moment/min/moment.min.js"></script>
-        <script src="../vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <?php
+    include('includes/footer.php');
+    ?>
 
-        <!-- Custom Theme Scripts -->
-        <script src="../vendor/build/js/custom.min.js"></script>
-
-    </body>
+</body>
 </html>
