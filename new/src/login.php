@@ -33,7 +33,7 @@
         }
 
         unset($_POST);
-        header("Location: ".$redirect);
+        header("location: ".$redirect);
         exit();
     }
     ?>
