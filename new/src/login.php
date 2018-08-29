@@ -34,6 +34,9 @@
                     break;
             }   
         }
+        if($_GET['debug']=='1'){
+            echo $redirect;
+        }
         unset($_POST);
         header("Location:".$redirect);
         exit;
