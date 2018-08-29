@@ -33,7 +33,7 @@
         }
 
         unset($_POST);
-        echo 'I am on line 36';
+        echo 'I am on line 36'.$redirect;
         header("Location:".$redirect);
         echo 'I am on line 38';
         exit;
