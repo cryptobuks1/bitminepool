@@ -33,7 +33,7 @@
         }
 
         unset($_POST);
-        header("location: ".$redirect);
+        header("location:dashboard");
         exit();
     }
     ?>
