@@ -12,6 +12,10 @@
                         ], 'loginCustomer');
 
         $response = json_decode($response);
+        if($_GET['debug']=='1'){
+            echo '<pre>';
+            print_r($response);echo '</pre>'; 
+        }
         $redirect = 'login';
         if($response->statusCode == 100){
             switch($response->response->Status){
