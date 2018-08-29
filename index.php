@@ -74,7 +74,7 @@ include('bitcoin_system/production/includes/constant.php');
 				<div class="single-header-info">
 	                <!-- Modal: donate now Starts -->
 	                <a class="thm-btn"  href="bitcoin_system/production/login">Login</a>
-                    <a class="thm-btn" href="bitcoin_system/production/Register.php?Account=24rgxpwex1b4ko88owko ">Signup</a>
+                    <a class="thm-btn" href="bitcoin_system/production/Register_trial_v1.php?Account=24rgxpwex1b4ko88owko ">Signup</a>
 	                <!-- Modal: donate now Ends -->
 				</div>
 			</div>
