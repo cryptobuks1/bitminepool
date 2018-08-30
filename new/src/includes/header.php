@@ -1,7 +1,8 @@
 <?php
 ob_start();
 if (!isset($_SESSION)) session_start(); 
-
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 include('includes/constant.php');
 include('includes/apihelper.php');
 //use Helper;

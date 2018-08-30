@@ -51,7 +51,7 @@
                             </div>
                             <div class="x_content">
 
-                                <form class="form-horizontal form-label-left" novalidate action="searchmail" method="post">
+                                <form class="form-horizontal form-label-left" novalidate action="" method="post">
 
 
 
