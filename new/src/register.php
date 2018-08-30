@@ -136,9 +136,9 @@
     <?php
     include('includes/header.php');
     if (!isset($_GET['Account'])) {
-        //header("Location:register");
-        $redirect = 'register';
-        echo "<script>location='" . BASE_URL . $redirect . "'</script>";
+        header("Location:register");
+        //$redirect = 'register';
+        //echo "<script>location='" . BASE_URL . $redirect . "'</script>";
         exit;
     }
     if (!empty($_POST)) {
@@ -165,8 +165,8 @@
             $_SESSION['Username'] = $_POST['Username'];
         }
         unset($_POST);
-        //header("Location:" . $redirect);
-        echo "<script>location='" . BASE_URL . $redirect . "'</script>";
+        header("Location:" . $redirect);
+        //echo "<script>location='" . BASE_URL . $redirect . "'</script>";
         exit;
     }
     ?>
