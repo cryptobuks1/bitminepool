@@ -29,7 +29,6 @@
 
         $response = json_decode($response);
         $redirect = 'register';
-        echo '<pre>'; echo '121123'; print_r($response); exit;
         if ($response->statusCode == 100) {
             $redirect = 'verifyemail';
             $_SESSION['Username'] = $_POST['Username'];
