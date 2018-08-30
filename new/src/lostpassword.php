@@ -2,6 +2,24 @@
 <html lang="en">
     <?php
     include('includes/header.php');
+    if (!empty($_POST)) {
+
+        $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
+                'user_name' => $_POST['user_name'],
+                'platform' => '3',
+                //'grant_type' => 'client_credentials'
+                ], 'sendForgetPassword');
+
+        $response = json_decode($response);
+        $redirect = 'login';
+        if ($response->statusCode == 100) {
+            $_SESSION['Username'] = $_POST['Username'];
+        }
+        unset($_POST);
+        // header("Location:" . $redirect);
+        echo "<script>location='" . BASE_URL . $redirect . "'</script>";
+        exit;
+    }
     ?>
 
     <body class="nav-md">
@@ -39,7 +57,7 @@
 
                                     <span class="section">Password Recovery</span>
                                     <h3>Step 1 Email Verification</h3>
-                                    <p>In case you have lost your password or forgotten it please enter the E-mail Address you used in the registration process and follow the recovery process.</p>
+                                    <p>In case you have lost your password or forgotten it please enter the User name you used in the registration process and follow the recovery process.</p>
 
 
                                     <div class="item form-group">
@@ -50,12 +68,12 @@
                                         </div>
                                         <div class="ln_solid"></div>
 
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Enter E-mail Address: <span class="required">*</span>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Enter User Name: <span class="required">*</span>
                                         </label>
                                         <div class="col-md-2 col-sm-6 col-xs-12">
-                                            <input id="email" type="email" name="email" data-validate-length-range="5,20"  class="optional form-control col-md-7 col-xs-12">
+                                            <input id="user_name" type="text" name="user_name" data-validate-length-range="5,20"  class="optional form-control col-md-7 col-xs-12">
                                         </div>
-                                        <button id="send" type="submit" class="btn btn-success">Verify Email</button>
+                                        <button id="send" type="submit" class="btn btn-success">Verify</button>
                                     </div>           
                                     <div class="ln_solid"></div>
 

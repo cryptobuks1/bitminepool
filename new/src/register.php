@@ -137,7 +137,7 @@
     include('includes/header.php');
     if (!isset($_GET['account'])) {
         //header("Location:register");
-        $redirect = 'login';
+        $redirect = 'register';
         echo "<script>location='" . BASE_URL . $redirect . "'</script>";
         exit;
     }
