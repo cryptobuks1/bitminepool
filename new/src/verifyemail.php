@@ -28,13 +28,16 @@
                                 ], 'createWallet');
             }
             unset($_POST);
-            header("Location:" . $redirect);
+            //header("Location:" . $redirect);
+            echo "<script>location='" . BASE_URL . $redirect . "'</script>";
             exit;
         }
     } else {
         unset($_POST);
         unset($_SESSION);
-        header("Location:login");
+       // header("Location:login");
+        $redirect = 'login';
+        echo "<script>location='" . BASE_URL . $redirect . "'</script>";
         exit;
     }
     ?>

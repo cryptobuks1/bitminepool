@@ -136,26 +136,28 @@
     <?php
     include('includes/header.php');
     if (!isset($_GET['Account'])) {
-        header("Location:register");
+        //header("Location:register");
+        $redirect = 'register';
+        echo "<script>location='" . BASE_URL . $redirect . "'</script>";
         exit;
     }
     if (!empty($_POST)) {
 
         $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                    'name' => $_POST['name'],
-                    'country' => $_POST['Country'],
-                    'email' => $_POST['email'],
-                    'telephone' => $_POST['Telephone'],
-                    'gender' => $_POST['Gender'],
-                    'user_name' => $_POST['Username'],
-                    'password' => $_POST['password'],
-                    'sponsor_account' => $_GET['Account'],
-                    'status' => $_POST['Status'],
-                    'activation' => $_POST['Activation'],
-                    'platform' => '3',
-                    'transaction_type' => '202'
-                        //'grant_type' => 'client_credentials'
-                        ], 'registerCustomer');
+                'name' => $_POST['name'],
+                'country' => $_POST['Country'],
+                'email' => $_POST['email'],
+                'telephone' => $_POST['Telephone'],
+                'gender' => $_POST['Gender'],
+                'user_name' => $_POST['Username'],
+                'password' => $_POST['password'],
+                'sponsor_account' => $_GET['Account'],
+                'status' => $_POST['Status'],
+                'activation' => $_POST['Activation'],
+                'platform' => '3',
+                'transaction_type' => '202'
+                //'grant_type' => 'client_credentials'
+                ], 'registerCustomer');
 
         $response = json_decode($response);
         $redirect = 'verifyemail';
@@ -163,7 +165,8 @@
             $_SESSION['Username'] = $_POST['Username'];
         }
         unset($_POST);
-        header("Location:" . $redirect);
+        //header("Location:" . $redirect);
+        echo "<script>location='" . BASE_URL . $redirect . "'</script>";
         exit;
     }
     ?>
@@ -510,10 +513,10 @@
                                         </label>
                                         <div class="col-md-3 col-sm-6 col-xs-12">
                                             <input id="phone" type="tel" name="Telephone">
-                                            <!--<input type="hidden" name="Account" id="Account" value="<?php //echo random_code(20); ?> ">
-                                            <input type="hidden" name="Token" id="Token" value="<?php //echo mt_rand(0, 1000000); ?> "> -->
+                                            <!--<input type="hidden" name="Account" id="Account" value="<?php //echo random_code(20);  ?> ">
+                                            <input type="hidden" name="Token" id="Token" value="<?php //echo mt_rand(0, 1000000);  ?> "> -->
                                             <input type="hidden" name="Status" id="Status" value="Open">
-                                            <!--<input type="hidden" name="Sponsor" id="Sponsor" value="<?php //echo $membernumber; ?> ">-->
+                                            <!--<input type="hidden" name="Sponsor" id="Sponsor" value="<?php //echo $membernumber;  ?> ">-->
                                             <input type="hidden" name="Activation" id="Activation" value="0">
                                         </div>
                                     </div>

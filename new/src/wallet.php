@@ -19,7 +19,9 @@
     } else {
         unset($_POST);
         unset($_SESSION);
-        header("Location:login");
+       // header("Location:login");
+        $redirect = 'login';
+        echo "<script>location='" . BASE_URL . $redirect . "'</script>";
         exit;
     }
     ?>

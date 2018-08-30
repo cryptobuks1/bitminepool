@@ -55,7 +55,9 @@
                                     if (isset($_SESSION['Username'])) {
                                         echo ' ' . $_SESSION['Username'];
                                     } else {
-                                        header("location:login");
+                                        //header("location:login");
+                                        $redirect = 'login';
+                                        echo "<script>location='".BASE_URL.$redirect."'</script>";
                                     }
                                     ?></h2>
                             </div>
