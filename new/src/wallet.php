@@ -39,7 +39,7 @@
                         <div class="profile clearfix">
                             <div class="profile_pic">
                                 <a href="<?php echo BASE_URL; ?>"><img src="../images/img.jpg" alt="..." class="img-circle profile_img"></a>              </div>
-                            <div class="profile_info">images/img.jpg
+                            <div class="profile_info">
                                 <span>Welcome,</span>
                                 <h2><?php echo $userName; ?></h2>
                             </div>
