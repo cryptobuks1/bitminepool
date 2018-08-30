@@ -5,9 +5,9 @@
     include('includes/header.php');
     if (!isset($_GET['account'])) {
         //header("Location:register");
-        $redirect = 'register';
-        echo "<script>location='" . BASE_URL . $redirect . "'</script>";
-        exit;
+       // $redirect = 'register';
+        //echo "<script>location='" . BASE_URL . $redirect . "'</script>";
+       // exit;
     }
     if (!empty($_POST)) {
 
@@ -28,6 +28,7 @@
                 ], 'registerCustomer');
 
         $response = json_decode($response);
+        echo '<pre>'; print_r($response); exit;
         $redirect = 'verifyemail';
         if ($response->statusCode == 100) {
             $_SESSION['Username'] = $_POST['Username'];
