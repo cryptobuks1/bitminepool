@@ -65,7 +65,7 @@
 
                             <div class="separator">
                                 <p class="change_link">New to site?
-                                    <a href="<?php echo BASE_URL; ?>register?Account=24rgxpwex1b4ko88owko" class="to_register"> Create Account </a>
+                                    <a href="<?php echo BASE_URL; ?>register?account=24rgxpwex1b4ko88owko" class="to_register"> Create Account </a>
                                 </p>
 
                                 <div class="clearfix"></div>
