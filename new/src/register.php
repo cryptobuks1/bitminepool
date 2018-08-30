@@ -510,10 +510,10 @@
                                         </label>
                                         <div class="col-md-3 col-sm-6 col-xs-12">
                                             <input id="phone" type="tel" name="Telephone">
-                                            <!--<input type="hidden" name="Account" id="Account" value="<?php echo random_code(20); ?> ">
-                                            <input type="hidden" name="Token" id="Token" value="<?php echo mt_rand(0, 1000000); ?> "> -->
+                                            <!--<input type="hidden" name="Account" id="Account" value="<?php //echo random_code(20); ?> ">
+                                            <input type="hidden" name="Token" id="Token" value="<?php //echo mt_rand(0, 1000000); ?> "> -->
                                             <input type="hidden" name="Status" id="Status" value="Open">
-                                            <!--<input type="hidden" name="Sponsor" id="Sponsor" value="<?php echo $membernumber; ?> ">-->
+                                            <!--<input type="hidden" name="Sponsor" id="Sponsor" value="<?php //echo $membernumber; ?> ">-->
                                             <input type="hidden" name="Activation" id="Activation" value="0">
                                         </div>
                                     </div>
