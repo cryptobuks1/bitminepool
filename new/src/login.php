@@ -33,7 +33,8 @@
         }
 
         unset($_POST);
-        header("location:dashboard");
+       // header("location:dashboard");
+        echo "<script>location='".BASE_URL.$redirect."'</script>";
         exit();
     }
     ?>
