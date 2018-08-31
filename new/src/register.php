@@ -30,6 +30,8 @@
         $response = json_decode($response);
         $redirect = 'register';
         if ($response->statusCode == 100) {
+            $_SESSION['error'] = 0;
+            $_SESSION['message'] = $response->statusDescription;
             $redirect = 'verifyemail';
             $_SESSION['Username'] = $_POST['Username'];
         }
@@ -39,6 +41,7 @@
         exit;
     }
     ?>
+    <?php include('includes/message.php'); ?>
     <body class="nav-md">
         <!-- page content -->
         <div class="right_col" role="main">

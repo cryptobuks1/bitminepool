@@ -1,39 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!-- Meta, title, CSS, favicons, etc. -->
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Bit Mine Pool </title>
-
-        <!-- Bootstrap -->
-        <link href="../vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Font Awesome -->
-        <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-        <!-- NProgress -->
-        <link href="../vendor/nprogress/nprogress.css" rel="stylesheet">
-        <!-- iCheck -->
-        <link href="../vendor/iCheck/skins/flat/green.css" rel="stylesheet">
-
-        <!-- bootstrap-progressbar -->
-        <link href="../vendor/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-        <!-- JQVMap -->
-        <link href="../vendor/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
-        <!-- bootstrap-daterangepicker -->
-        <link href="../vendor/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-        <link rel="icon" href="images/favicon.ico" type="image/ico" sizes="32x32">
-        <!-- Custom Theme Style -->
-        <link href="../vendor/build/css/custom.min.css" rel="stylesheet">
-        <style type="text/css">
-            <!--
-            .style3 {color: #CC3300}
-            -->
-        </style>
-    </head>
-
+    <?php 
+    include('includes/header.php');
+    ?>
     <body class="nav-md">
         <div class="container body">
             <div class="main_container">
@@ -120,10 +89,11 @@
                                         $balanceone = mysqli_fetch_array($queryone);
                                         $showone = $balanceone['Balance'];
                                         ?>
-                                        <!--<a href="invoicecheckbal"><button type="button" class="btn btn-primary btn-lg">Account Balance:USD <?php echo $showone; ?></button></a>
+                                        <!--<a href="invoicecheckbal"><button type="button" class="btn btn-primary btn-lg">Account Balance:USD <?php //echo $showone; ?></button></a>
                                         <a href="invoicecheckreg"><button type="button" class="btn btn-success btn-lg">Upgrade Account Now</button></a> -->
                                         <a href="upgrade"><button type="button" class="btn btn-primary btn-lg">Account Balance:USD <?php echo $showone; ?></button></a>
                                         <a href="invoicecheckreg"><button type="button" class="btn btn-success btn-lg">Upgrade Account Now</button></a>
+                                        <a href="wallet"><button type="button" class="btn btn-success btn-lg">Wallet</button></a>
 
                                     </div>
                                 </div>
@@ -139,46 +109,8 @@
             </div>
         </div>
 
-        <!-- jQuery -->
-        <script src="../vendor/jquery/dist/jquery.min.js"></script>
-        <!-- Bootstrap -->
-        <script src="../vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-        <!-- FastClick -->
-        <script src="../vendor/fastclick/lib/fastclick.js"></script>
-        <!-- NProgress -->
-        <script src="../vendor/nprogress/nprogress.js"></script>
-        <!-- Chart.js -->
-        <script src="../vendor/Chart.js/dist/Chart.min.js"></script>
-        <!-- gauge.js -->
-        <script src="../vendor/gauge.js/dist/gauge.min.js"></script>
-        <!-- bootstrap-progressbar -->
-        <script src="../vendor/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-        <!-- iCheck -->
-        <script src="../vendor/iCheck/icheck.min.js"></script>
-        <!-- Skycons -->
-        <script src="../vendor/skycons/skycons.js"></script>
-        <!-- Flot -->
-        <script src="../vendor/Flot/jquery.flot.js"></script>
-        <script src="../vendor/Flot/jquery.flot.pie.js"></script>
-        <script src="../vendor/Flot/jquery.flot.time.js"></script>
-        <script src="../vendor/Flot/jquery.flot.stack.js"></script>
-        <script src="../vendor/Flot/jquery.flot.resize.js"></script>
-        <!-- Flot plugins -->
-        <script src="../vendor/flot.orderbars/js/jquery.flot.orderBars.js"></script>
-        <script src="../vendor/flot-spline/js/jquery.flot.spline.min.js"></script>
-        <script src="../vendor/flot.curvedlines/curvedLines.js"></script>
-        <!-- DateJS -->
-        <script src="../vendor/DateJS/build/date.js"></script>
-        <!-- JQVMap -->
-        <script src="../vendor/jqvmap/dist/jquery.vmap.js"></script>
-        <script src="../vendor/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-        <script src="../vendor/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
-        <!-- bootstrap-daterangepicker -->
-        <script src="../vendor/moment/min/moment.min.js"></script>
-        <script src="../vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
-
-        <!-- Custom Theme Scripts -->
-        <script src="../vendor/build/js/custom.min.js"></script>
-
+        <?php
+            include('includes/footer.php');
+        ?>
     </body>
 </html>

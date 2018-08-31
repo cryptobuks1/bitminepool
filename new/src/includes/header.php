@@ -24,9 +24,9 @@ include('includes/apihelper.php');
     <link href="../vendor/nprogress/nprogress.css" rel="stylesheet">
     <!-- Animate.css -->
     <link href="../vendor/animate.css/animate.min.css" rel="stylesheet">
-    <link rel="icon" href="images/favicon.ico" type="image/ico" sizes="32x32">
+    <link rel="icon" href="../images/favicon.ico" type="image/ico" sizes="32x32">
     <!-- Custom Theme Style -->
     <link href="../vendor/build/css/custom.min.css" rel="stylesheet">
-    
+    <link rel="stylesheet" href="../vendor/build/css/style.css">
     
 </head>

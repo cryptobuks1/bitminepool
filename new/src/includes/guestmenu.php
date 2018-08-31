@@ -3,7 +3,7 @@
     <div class="menu_section">
         <h3>Account Information</h3>
         <ul class="nav side-menu">
-            <li><a href="guest"><i class="fa fa-dashboard"></i>Dashboard</a>
+            <li><a href="dashboard"><i class="fa fa-dashboard"></i>Dashboard</a>
             <li><a href="wallet"><i class="fa fa-dashboard"></i>Wallet</a>    
             <?php /*
             <li><a><i class="fa fa-user"></i> My Account <span class="fa fa-chevron-down"></span></a>

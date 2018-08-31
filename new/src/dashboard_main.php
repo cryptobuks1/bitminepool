@@ -192,9 +192,10 @@ $packfive = round($pricefive, 6);
         <link href="../vendor/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
         <!-- bootstrap-daterangepicker -->
         <link href="../vendor/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-        <link rel="icon" href="images/favicon.ico" type="image/ico" sizes="32x32">
+        <link rel="icon" href="../images/favicon.ico" type="image/ico" sizes="32x32">
         <!-- Custom Theme Style -->
         <link href="../vendor/build/css/custom.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="../vendor/build/css/style.css">
         <style type="text/css">
             <!--
             .style1 {color: #FFFFFF}
@@ -224,9 +225,7 @@ $packfive = round($pricefive, 6);
                                     if (isset($_SESSION['Username'])) {
                                         echo ' ' . $_SESSION['Username'];
                                     } else {
-                                        //header("location:login");
-                                        $redirect = 'login';
-                                        echo "<script>location='".BASE_URL.$redirect."'</script>";
+                                        header("location:login");
                                     }
                                     ?></h2>
                             </div>
@@ -256,6 +255,7 @@ $packfive = round($pricefive, 6);
                     </div>
                 </div>
 
+                <?php include('includes/header.php'); ?>
 
                 <!-- page content -->
                 <div class="right_col" role="main">
@@ -294,421 +294,558 @@ $packfive = round($pricefive, 6);
                     </div>
                     <!-- /top tiles -->
 
-                    <div class="row">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <div class="x_content">
+                    <!-- mycode -->
 
-                                <div class="row x_title">
+                    <div class="row x_title" style="padding-top:20px;">
 
-                                    <div class="col-md-6">
+                        <div class="col-md-12">
 
-                                    </div>
-                                </div>
-
-                                <div class="col-md-9 col-sm-9 col-xs-12">
-                                    <div class="col-md-3 col-sm-6 col-xs-12">
-                                        <div class="pricing ui-ribbon-container">
-                                            <div class="ui-ribbon-wrapper">
-
-                                            </div>
-                                            <div class="title">
-                                                <h2>Pool 1</h2>
-                                                <h1>$300</h1>
-
-                                            </div>
-                                            <div class="x_content">
-                                                <div class="">
-                                                    <div class="pricing_features">
-                                                        <ul class="list-unstyled text-left">
-
-                                                            <h2>Current Investment Return (BTC)</h2>
-                                                            <h1><b><?php echo $packone; ?></h1></b>
-                                                            <h2><b><i class="green">Approx. $1.50/Day</i></h2></b>
-                                                            <h2><b>365 Mining Days</h2></b>
-                                                            <?php
-                                                            $Starterdate = "SELECT * FROM starterpack WHERE Username='" . $_SESSION['Username'] . "'";
-                                                            $querystarter = mysqli_query($conn, $Starterdate);
-                                                            $viewstarter = mysqli_fetch_array($querystarter);
-                                                            $showstarterdate = $viewstarter['MiningDate'];
-                                                            $starterstatus = $viewstarter['Status'];
-                                                            if ($showstarterdate == "0") {
-                                                                $gapone = "0";
-                                                                ?><h2 class="red"><?php echo $gapone; ?>/365 Days Mined</h2><?php
-                                                            } else {
-                                                                $datetime1 = new DateTime();
-                                                                $datetime2 = new DateTime($showstarterdate);
-                                                                $interval = $datetime2->diff($datetime1);
-                                                                $gap = $interval->format('%R%a');
-                                                                ?><h2 class="blue"><?php echo $gap; ?>/365 Days Mined</h2> <?php
-                                                            }
-                                                            ?>
-
-                                                            <?php
-                                                            $sqll = "SELECT * FROM starterpack WHERE Username='" . $_SESSION['Username'] . "' AND Comment='Purchased'";
-                                                            $resultl = mysqli_query($conn, $sqll);
-                                                            if (mysqli_num_rows($resultl) == 1) {
-                                                                ?>
-                                                                <h2><i class="fa fa-check text-success" class="green">Purchased</h2></i>
-                                                                <?php
-                                                            } else {
-                                                                ?>
-
-                                                                <h2><i class="fa fa-times text-danger" class="red">Not-Purchased</h2></i>
-                                                                <?php
-                                                            }
-                                                            ?>
-
-
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="pricing_footer">
-                                                    <a href="table" class="btn btn-success btn-block" role="button">Mining <span> Details</span></a>
-                                                    <p>
-                                                        <a href="starterw" class="btn btn-success btn-block" role="button">Withdraw <span> Mining</span></a>
-                                                    </p>
-                                                    <p>
-                                                        <a href="invoicecheck" class="btn btn-primary btn-block" role="button">Buy <span> Pack Now!</span></a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 col-xs-12">
-                                        <div class="pricing">
-                                            <div class="title">
-                                                <h2>Pool 2</h2>
-                                                <h1>$600</h1>
-
-                                            </div>
-                                            <div class="x_content">
-                                                <div class="">
-                                                    <div class="pricing_features">
-                                                        <ul class="list-unstyled text-left">
-                                                            <h2>Current Investment Return (BTC)</h2>
-                                                            <h1><b><?php echo $packtwo; ?></h1></b>
-                                                            <h2><b><i class="green">Approx. $3/Day</i></h2></b>
-                                                            <h2><b>365 Mining Days</h2></b>
-                                                            <?php
-                                                            $minidate = "SELECT * FROM minipack WHERE Username='" . $_SESSION['Username'] . "'";
-                                                            $querymini = mysqli_query($conn, $minidate);
-                                                            $viewmini = mysqli_fetch_array($querymini);
-                                                            $showminidate = $viewmini['MiningDate'];
-                                                            $ministatus = $viewmini['Status'];
-                                                            if ($showminidate == "0") {
-                                                                $gap1 = "0";
-                                                                ?><h2 class="red"><?php echo $gap1; ?>/365 Days Mined</h2><?php
-                                                            } else {
-                                                                $datetime3 = new DateTime();
-                                                                $datetime4 = new DateTime($showminidate);
-                                                                $interval1 = $datetime4->diff($datetime3);
-                                                                $gap2 = $interval1->format('%R%a');
-                                                                ?><h2 class="blue"><?php echo $gap2; ?>/365 Days Mined</h2> <?php
-                                                            }
-                                                            ?>
-                                                            <?php
-                                                            $sqlm = "SELECT * FROM minipack WHERE Username='" . $_SESSION['Username'] . "' AND Comment='Purchased'";
-                                                            $resultm = mysqli_query($conn, $sqlm);
-                                                            if (mysqli_num_rows($resultm) == 1) {
-                                                                ?>
-                                                                <h2><i class="fa fa-check text-success" class="green">Purchased</h2></i>
-                                                                <?php
-                                                            } else {
-                                                                ?>
-
-                                                                <h2><i class="fa fa-times text-danger" class="red">Not-Purchased</h2></i>
-                                                                <?php
-                                                            }
-                                                            ?>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="pricing_footer">
-                                                    <a href="tabletwo" class="btn btn-success btn-block" role="button">Mining <span> Details</span></a>
-                                                    <p>
-                                                        <a href="startermini" class="btn btn-success btn-block" role="button">Withdraw <span> Mining</span></a>
-                                                    </p>
-                                                    <p>
-                                                        <a href="invoicechecktwo" class="btn btn-primary btn-block" role="button">Buy <span> Pack Now!</span></a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- price element -->
-                                    <div class="col-md-3 col-sm-6 col-xs-12">
-                                        <div class="pricing ui-ribbon-container">
-                                            <div class="ui-ribbon-wrapper">
-                                                <div class="ui-ribbon">
-                                                    Popular
-                                                </div>
-                                            </div>
-                                            <div class="title">
-                                                <h2>Pool 3</h2>
-                                                <h1>$1,200</h1>
-
-                                            </div>
-                                            <div class="x_content">
-                                                <div class="">
-                                                    <div class="pricing_features">
-                                                        <ul class="list-unstyled text-left">
-                                                            <h2>Current Investment Return (BTC)</h2>
-                                                            <h1><b><?php echo $packthree; ?></h1></b>
-                                                            <h2><b><i class="green">Approx.$6/Day</i></h2></b>
-                                                            <h2><b>365 Mining Days</h2></b>
-                                                            <?php
-                                                            $mediumdate = "SELECT * FROM mediumpack WHERE Username='" . $_SESSION['Username'] . "'";
-                                                            $querymedium = mysqli_query($conn, $mediumdate);
-                                                            $viewmedium = mysqli_fetch_array($querymedium);
-                                                            $showmediumdate = $viewmedium['MiningDate'];
-                                                            $mediumstatus = $viewmedium['Status'];
-                                                            if ($showmediumdate == "0") {
-                                                                $mediumgap = "0";
-                                                                ?><h2 class="red"><?php echo $mediumgap; ?>/365 Days Mined</h2><?php
-                                                            } else {
-                                                                $datetime5 = new DateTime();
-                                                                $datetime6 = new DateTime($showmediumdate);
-                                                                $interval2 = $datetime6->diff($datetime5);
-                                                                $gap3 = $interval2->format('%R%a');
-                                                                ?><h2 class="blue"><?php echo $gap3; ?>/365 Days Mined</h2> <?php
-                                                            }
-                                                            ?>
-                                                            <?php
-                                                            $sqln = "SELECT * FROM mediumpack WHERE Username='" . $_SESSION['Username'] . "' AND Comment='Purchased'";
-                                                            $resultn = mysqli_query($conn, $sqln);
-                                                            if (mysqli_num_rows($resultn) == 1) {
-                                                                ?>
-                                                                <h2><i class="fa fa-check text-success" class="green">Purchased</h2></i>
-                                                                <?php
-                                                            } else {
-                                                                ?>
-
-                                                                <h2><i class="fa fa-times text-danger" class="red">Not-Purchased</h2></i>
-                                                                <?php
-                                                            }
-                                                            ?>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="pricing_footer">
-                                                    <a href="tablethree" class="btn btn-success btn-block" role="button">Mining <span> Details</span></a>
-                                                    <p>
-                                                        <a href="startermedium" class="btn btn-success btn-block" role="button">Withdraw <span> Mining</span></a>
-                                                    </p>
-                                                    <p>
-                                                        <a href="invoicecheckthree" class="btn btn-primary btn-block" role="button">Buy <span> Pack Now!</span></a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- price element -->
-                                    <div class="col-md-3 col-sm-6 col-xs-12">
-                                        <div class="pricing">
-                                            <div class="title">
-                                                <h2>Pool 4</h2>
-                                                <h1>$2,400</h1>
-
-                                            </div>
-                                            <div class="x_content">
-                                                <div class="">
-                                                    <div class="pricing_features">
-                                                        <ul class="list-unstyled text-left">
-                                                            <h2>Current Investment Return (BTC)</h2>
-                                                            <h1><b><?php echo $packfour; ?></h1></b>
-                                                            <h2><b><i class="green">Approx. $12/Day</i></h2></b>
-                                                            <h2><b>365 Mining Days</h2></b>
-                                                            <?php
-                                                            $granddate = "SELECT * FROM grandpack WHERE Username='" . $_SESSION['Username'] . "'";
-                                                            $querygrand = mysqli_query($conn, $granddate);
-                                                            $viewgrand = mysqli_fetch_array($querygrand);
-                                                            $showgranddate = $viewgrand['MiningDate'];
-                                                            $grandstatus = $viewgrand['Status'];
-                                                            if ($showgranddate == "0") {
-                                                                $grandgap = "0";
-                                                                ?><h2 class="red"><?php echo $grandgap; ?>/365 Days Mined</h2><?php
-                                                            } else {
-                                                                $datetime9 = new DateTime();
-                                                                $datetime10 = new DateTime($showgranddate);
-                                                                $intervalgrand = $datetime10->diff($datetime9);
-                                                                $gapgrand = $intervalgrand->format('%R%a');
-                                                                ?><h2 class="blue"><?php echo $gapgrand; ?>/365 Days Mined</h2> <?php
-                                                            }
-                                                            ?>
-                                                            <?php
-                                                            $sqlp = "SELECT * FROM grandpack WHERE Username='" . $_SESSION['Username'] . "' AND Comment='Purchased'";
-                                                            $resultp = mysqli_query($conn, $sqlp);
-                                                            if (mysqli_num_rows($resultp) == 1) {
-                                                                ?>
-                                                                <h2><i class="fa fa-check text-success" class="green">Purchased</h2></i>
-                                                                <?php
-                                                            } else {
-                                                                ?>
-
-                                                                <h2><i class="fa fa-times text-danger" class="red">Not-Purchased</h2></i>
-                                                                <?php
-                                                            }
-                                                            ?>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="pricing_footer">
-                                                    <a href="tablefour" class="btn btn-success btn-block" role="button">Mining <span> Details</span></a>
-                                                    <p>
-                                                        <a href="startergrand" class="btn btn-success btn-block" role="button">Withdraw <span> Mining</span></a>
-                                                    </p>
-                                                    <p>
-                                                        <a href="invoicecheckfour" class="btn btn-primary btn-block" role="button">Buy <span> Pack Now!</span></a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- price element -->
-
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-12">
-                                    <div class="pricing ui-ribbon-container">
-                                        <div class="ui-ribbon-wrapper">
-                                            <div class="ui-ribbon">
-                                                Value Pack
-                                            </div>
-                                        </div>
-                                        <div class="title">
-                                            <h2>Pool 5</h2>
-                                            <h1>$4,800</h1>
-
-                                        </div>
-                                        <div class="x_content">
-                                            <div class="">
-                                                <div class="pricing_features">
-                                                    <ul class="list-unstyled text-left">
-                                                        <h2>Current Investment Return (BTC)</h2>
-                                                        <h1><b><?php echo $packfive; ?></h1></b>
-                                                        <h2><b><i class="green">Approx. $24/Day</i></h2></b>
-                                                        <h2><b>365 Mining Days</h2></b>
-                                                        <?php
-                                                        $ultimatedate = "SELECT * FROM ultimatepack WHERE Username='" . $_SESSION['Username'] . "'";
-                                                        $queryultimate = mysqli_query($conn, $ultimatedate);
-                                                        $viewultimate = mysqli_fetch_array($queryultimate);
-                                                        $showultimatedate = $viewultimate['MiningDate'];
-                                                        $ultimatestatus = $viewultimate['Status'];
-                                                        if ($showultimatedate == "0") {
-                                                            $ultimategap = "0";
-                                                            ?><h2 class="red"><?php echo $ultimategap; ?>/365 Days Mined</h2><?php
-                                                        } else {
-                                                            $datetime7 = new DateTime();
-                                                            $datetime8 = new DateTime($showultimatedate);
-                                                            $intervalultimate = $datetime8->diff($datetime7);
-                                                            $gapultimate = $intervalultimate->format('%R%a');
-                                                            ?><h2 class="blue"><?php echo $gapultimate; ?>/365 Days Mined</h2> <?php
-                                                        }
-                                                        ?>
-                                                        <?php
-                                                        $sqlw = "SELECT * FROM ultimatepack WHERE Username='" . $_SESSION['Username'] . "' AND Comment='Purchased'";
-                                                        $resultw = mysqli_query($conn, $sqlw);
-                                                        if (mysqli_num_rows($resultw) == 1) {
-                                                            ?>
-                                                            <h2><i class="fa fa-check text-success" class="green">Purchased</h2></i>
-                                                            <?php
-                                                        } else {
-                                                            ?>
-
-                                                            <h2><i class="fa fa-times text-danger" class="red">Not-Purchased</h2></i>
-                                                            <?php
-                                                        }
-                                                        ?>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="pricing_footer">
-                                                <a href="tablefive" class="btn btn-success btn-block" role="button">Mining <span> Details</span></a>
-                                                <p>
-                                                    <a href="starterultimate" class="btn btn-success btn-block" role="button">Withdraw <span> Mining</span></a>
-                                                </p>
-                                                <p>
-                                                    <a href="invoicecheckfive" class="btn btn-primary btn-block" role="button">Buy <span> Pack Now!</span></a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- price element -->
-
-
-                                <div class="clearfix"></div>
-                            </div>
                         </div>
-
                     </div>
-                    <br />
 
-                    <div class="row">
+                    <div id="generic_price_table" style="background:none;position:relative;"> 
+           <!--<section>-->
+                        <!--<div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                        <!--PRICE HEADING START-->
+                        <!--<div class="price-heading clearfix">
+                            <h1>Bootstrap Pricing Table</h1>
+                        </div>
+                        <!--//PRICE HEADING END-->
+                        <!-- </div>
+                     </div>
+                 </div>-->
+                        <!--<div class="container" style="background-color:white;">-->
+
+                        <!--BLOCK ROW START-->
+                        <br>
+                        <div class="row" style="padding-bottom:30px;margin-top:-30px;">
+                            <div class="col-md-2">
+
+                                <!--PRICE CONTENT START-->
+                                <div style="width:105%;height:100%;" class="generic_content clearfix">
+
+                                    <!--HEAD PRICE DETAIL START-->
+                                    <div class="generic_head_price clearfix">
+
+                                        <!--HEAD CONTENT START-->
+                                        <div class="generic_head_content clearfix">
+
+                                            <!--HEAD START-->
+                                            <div class="head_bg"></div>
+                                            <div class="head">
+                                                <span>POOL 1</span>
+                                            </div>
+                                            <!--//HEAD END-->
+
+                                        </div>
+                                        <!--//HEAD CONTENT END-->
+
+                                        <!--PRICE START-->
+                                        <div class="generic_price_tag clearfix">	
+                                            <span class="price">
+                                                <span class="sign" style="font-size:30px;color:#1abb9c;">$</span>
+                                                <span class="currency" style="font-size:35px;font-weight:bold;color:#1abb9c;">300</span>
+                                                <!--<span class="cent">.00</span>
+                                                <span class="month">/YR</span>--> 
+                                            </span>
+                                        </div>
+                                        <!--//PRICE END-->
+
+                                    </div>                            
+                                    <!--//HEAD PRICE DETAIL END-->
+
+                                    <!--FEATURE LIST START-->
+                                    <div class="generic_feature_list">
+                                        <ul>
+                                            <li><span>Current Investment Return(BTC):</span> <?php echo $packone; ?></li>
+                                            <li><span>Approx.</span> $1.5/day</li>
+                                            <li><span>365</span> Mining days</li>
+
+                                            <?php
+                                            $Starterdate = "SELECT * FROM starterpack WHERE Username='" . $_SESSION['Username'] . "'";
+                                            $querystarter = mysqli_query($conn, $Starterdate);
+                                            $viewstarter = mysqli_fetch_array($querystarter);
+                                            $showstarterdate = $viewstarter['MiningDate'];
+                                            $starterstatus = $viewstarter['Status'];
+                                            if ($showstarterdate == "0") {
+                                                $gapone = "0";
+                                                ?>
+                                                <li><span><?php echo $gapone; ?>/365</span>  Days Mined</li>
+                                                <!--<h2 class="red"><?php echo $gapone; ?>/365 Days Mined</h2>-->
+                                                <?php
+                                            } else {
+                                                $datetime1 = new DateTime();
+                                                $datetime2 = new DateTime($showstarterdate);
+                                                $interval = $datetime2->diff($datetime1);
+                                                $gap = $interval->format('%R%a');
+                                                ?>
+                                                <li><span><?php echo $gap; ?>/365</span>  Days Mined</li>
+                                                <!--<h2 class="blue"><?php echo $gap; ?>/365 Days Mined</h2> -->
+                                                <?php
+                                            }
+                                            ?>
 
 
+                                            <?php
+                                            $sqll = "SELECT * FROM starterpack WHERE Username='" . $_SESSION['Username'] . "' AND Comment='Purchased'";
+                                            $resultl = mysqli_query($conn, $sqll);
+                                            if (mysqli_num_rows($resultl) == 1) {
+                                                ?>
+                                                <li><i class="fa fa-check text-success" class="green">Purchased</li></i>
+                                                <?php
+                                            } else {
+                                                ?>
+
+                                                <li><i class="fa fa-times text-danger" class="red">Not-Purchased</li></i>
+                                                <?php
+                                            }
+                                            ?>
+
+<!--     <li><span>24/7</span> Support</li>-->
+                                        </ul>
+                                    </div>
+                                    <!--//FEATURE LIST END-->
+
+                                    <!--BUTTON START-->
+                                    <div class="generic_price_btn clearfix">
+                                        <a class="" href="">Buy Pack</a>
+                                    </div>
+                                    <!--//BUTTON END-->
+
+                                </div>
+                                <!--//PRICE CONTENT END-->
+
+                            </div>
+
+                            <div class="col-md-2 col-half-offset">
+
+                                <!--PRICE CONTENT START-->
+                                <div style="width:105%;height:100%;" class="generic_content clearfix">
+
+                                    <!--HEAD PRICE DETAIL START-->
+                                    <div class="generic_head_price clearfix">
+
+                                        <!--HEAD CONTENT START-->
+                                        <div class="generic_head_content clearfix">
+
+                                            <!--HEAD START-->
+                                            <div class="head_bg"></div>
+                                            <div class="head">
+                                                <span>POOL 2</span>
+                                            </div>
+                                            <!--//HEAD END-->
+
+                                        </div>
+                                        <!--//HEAD CONTENT END-->
+
+                                        <!--PRICE START-->
+                                        <div class="generic_price_tag clearfix">	
+                                            <span class="price">
+                                                <span class="sign" style="font-size:30px;color:#1abb9c;">$</span>
+                                                <span class="currency" style="font-size:35px;font-weight:bold;color:#1abb9c;">600</span>
+                                                <!--<span class="cent">.00</span>
+                                                <span class="month">/YR</span>--> 
+                                            </span>
+                                        </div>
+                                        <!--//PRICE END-->
+
+                                    </div>                            
+                                    <!--//HEAD PRICE DETAIL END-->
+
+                                    <!--FEATURE LIST START-->
+                                    <div class="generic_feature_list">
+                                        <ul>
+                                            <li><span>Current Investment Return(BTC):</span> <?php echo $packtwo; ?></li>
+                                            <li><span>Approx.</span> $3/day</li>
+                                            <li><span>365</span> Mining days</li>
+
+                                            <?php
+                                            $minidate = "SELECT * FROM minipack WHERE Username='" . $_SESSION['Username'] . "'";
+                                            $querymini = mysqli_query($conn, $minidate);
+                                            $viewmini = mysqli_fetch_array($querymini);
+                                            $showminidate = $viewmini['MiningDate'];
+                                            $ministatus = $viewmini['Status'];
+                                            if ($showminidate == "0") {
+                                                $gap1 = "0";
+                                                ?>
+
+                                                <li><span><?php echo $gap1; ?>/365</span>  Days Mined</li>
+                                                <!--<h2 class="red"><?php echo $gap1; ?>/365 Days Mined</h2>-->
+                                                <?php
+                                            } else {
+                                                $datetime3 = new DateTime();
+                                                $datetime4 = new DateTime($showminidate);
+                                                $interval1 = $datetime4->diff($datetime3);
+                                                $gap2 = $interval1->format('%R%a');
+                                                ?>
+
+                                                <li><span><?php echo $gap2; ?>/365</span>  Days Mined</li>
+                                                <!--<h2 class="blue"><?php echo $gap2; ?>/365 Days Mined</h2> -->
+                                                <?php
+                                            }
+                                            ?>
 
 
+                                            <?php
+                                            $sqlm = "SELECT * FROM minipack WHERE Username='" . $_SESSION['Username'] . "' AND Comment='Purchased'";
+                                            $resultm = mysqli_query($conn, $sqlm);
+                                            if (mysqli_num_rows($resultm) == 1) {
+                                                ?>
+                                                <li><i class="fa fa-check text-success" class="green">Purchased</li></i>
+                                                <?php
+                                            } else {
+                                                ?>
+
+                                                <li><i class="fa fa-times text-danger" class="red">Not-Purchased</li></i>
+                                                <?php
+                                            }
+                                            ?>
+
+<!--     <li><span>24/7</span> Support</li>-->
+                                        </ul>
+                                    </div>
+                                    <!--//FEATURE LIST END-->
+
+                                    <!--BUTTON START-->
+                                    <div class="generic_price_btn clearfix">
+                                        <a class="" href="">Buy Pack</a>
+                                    </div>
+                                    <!--//BUTTON END-->
+
+                                </div>
+                                <!--//PRICE CONTENT END-->
+
+                            </div>
+
+                            <div class="col-md-2 col-half-offset">
+
+                                <!--PRICE CONTENT START-->
+                                <div style="width:105%;height:100%;" class="generic_content clearfix">
+
+                                    <!--HEAD PRICE DETAIL START-->
+                                    <div class="generic_head_price clearfix">
+
+                                        <!--HEAD CONTENT START-->
+                                        <div class="generic_head_content clearfix">
+
+                                            <!--HEAD START-->
+                                            <div class="head_bg"></div>
+                                            <div class="head">
+                                                <span>POOL 3</span>
+                                            </div>
+                                            <!--//HEAD END-->
+
+                                        </div>
+                                        <!--//HEAD CONTENT END-->
+
+                                        <!--PRICE START-->
+                                        <div class="generic_price_tag clearfix">	
+                                            <span class="price">
+                                                <span class="sign" style="font-size:30px;color:#1abb9c;">$</span>
+                                                <span class="currency" style="font-size:35px;font-weight:bold;color:#1abb9c;">1,200</span>
+                                                <!--<span class="cent">.00</span>
+                                                <span class="month">/YR</span>--> 
+                                            </span>
+                                        </div>
+                                        <!--//PRICE END-->
+
+                                    </div>                            
+                                    <!--//HEAD PRICE DETAIL END-->
+
+                                    <!--FEATURE LIST START-->
+                                    <div class="generic_feature_list">
+                                        <ul>
+                                            <li><span>Current Investment Return(BTC):</span> <?php echo $packthree; ?></li>
+                                            <li><span>Approx.</span> $6/day</li>
+                                            <li><span>365</span> Mining days</li>
+
+                                            <?php
+                                            $mediumdate = "SELECT * FROM mediumpack WHERE Username='" . $_SESSION['Username'] . "'";
+                                            $querymedium = mysqli_query($conn, $mediumdate);
+                                            $viewmedium = mysqli_fetch_array($querymedium);
+                                            $showmediumdate = $viewmedium['MiningDate'];
+                                            $mediumstatus = $viewmedium['Status'];
+                                            if ($showmediumdate == "0") {
+                                                $mediumgap = "0";
+                                                ?>
+
+                                                <li><span><?php echo $mediumgap; ?>/365</span>  Days Mined</li>
+                                                <!--<h2 class="red"><?php echo $mediumgap; ?>/365 Days Mined</h2>-->
+                                                <?php
+                                            } else {
+                                                $datetime5 = new DateTime();
+                                                $datetime6 = new DateTime($showmediumdate);
+                                                $interval2 = $datetime6->diff($datetime5);
+                                                $gap3 = $interval2->format('%R%a');
+                                                ?>
+
+                                                <li><span><?php echo $gap3; ?>/365</span>  Days Mined</li>
+                                                <!--<h2 class="blue"><?php echo $gap3; ?>/365 Days Mined</h2> -->
+                                                <?php
+                                            }
+                                            ?>
 
 
+                                            <?php
+                                            $sqln = "SELECT * FROM mediumpack WHERE Username='" . $_SESSION['Username'] . "' AND Comment='Purchased'";
+                                            $resultn = mysqli_query($conn, $sqln);
+                                            if (mysqli_num_rows($resultn) == 1) {
+                                                ?>
+                                                <li><i class="fa fa-check text-success" class="green">Purchased</li></i>
+                                                <?php
+                                            } else {
+                                                ?>
+
+                                                <li><i class="fa fa-times text-danger" class="red">Not-Purchased</li></i>
+                                                <?php
+                                            }
+                                            ?>
+
+<!--     <li><span>24/7</span> Support</li>-->
+                                        </ul>
+                                    </div>
+                                    <!--//FEATURE LIST END-->
+
+                                    <!--BUTTON START-->
+                                    <div class="generic_price_btn clearfix">
+                                        <a class="" href="">Buy Pack</a>
+                                    </div>
+                                    <!--//BUTTON END-->
+
+                                </div>
+                                <!--//PRICE CONTENT END-->
+
+                            </div>
+
+                            <div class="col-md-2 col-half-offset">
+
+                                <!--PRICE CONTENT START-->
+                                <div style="width:105%;height:100%;" class="generic_content clearfix">
+
+                                    <!--HEAD PRICE DETAIL START-->
+                                    <div class="generic_head_price clearfix">
+
+                                        <!--HEAD CONTENT START-->
+                                        <div class="generic_head_content clearfix">
+
+                                            <!--HEAD START-->
+                                            <div class="head_bg"></div>
+                                            <div class="head">
+                                                <span>POOL 4</span>
+                                            </div>
+                                            <!--//HEAD END-->
+
+                                        </div>
+                                        <!--//HEAD CONTENT END-->
+
+                                        <!--PRICE START-->
+                                        <div class="generic_price_tag clearfix">	
+                                            <span class="price">
+                                                <span class="sign" style="font-size:30px;color:#1abb9c;">$</span>
+                                                <span class="currency" style="font-size:35px;font-weight:bold;color:#1abb9c;">2,400</span>
+                                                <!--<span class="cent">.00</span>
+                                                <span class="month">/YR</span>--> 
+                                            </span>
+                                        </div>
+                                        <!--//PRICE END-->
+
+                                    </div>                            
+                                    <!--//HEAD PRICE DETAIL END-->
+
+                                    <!--FEATURE LIST START-->
+                                    <div class="generic_feature_list">
+                                        <ul>
+                                            <li><span>Current Investment Return(BTC):</span> <?php echo $packone; ?></li>
+                                            <li><span>Approx.</span> $12/day</li>
+                                            <li><span>365</span> Mining days</li>
+
+                                            <?php
+                                            $granddate = "SELECT * FROM grandpack WHERE Username='" . $_SESSION['Username'] . "'";
+                                            $querygrand = mysqli_query($conn, $granddate);
+                                            $viewgrand = mysqli_fetch_array($querygrand);
+                                            $showgranddate = $viewgrand['MiningDate'];
+                                            $grandstatus = $viewgrand['Status'];
+                                            if ($showgranddate == "0") {
+                                                $grandgap = "0";
+                                                ?>
+
+                                                <li><span><?php echo $grandgap; ?>/365</span>  Days Mined</li>
+                                                <!--<h2 class="red"><?php echo $grandgap; ?>/365 Days Mined</h2>-->
+                                                <?php
+                                            } else {
+                                                $datetime9 = new DateTime();
+                                                $datetime10 = new DateTime($showgranddate);
+                                                $intervalgrand = $datetime10->diff($datetime9);
+                                                $gapgrand = $intervalgrand->format('%R%a');
+                                                ?>
+
+                                                <li><span><?php echo $gapgrand; ?>/365</span>  Days Mined</li>
+                                                <!--<h2 class="blue"><?php echo $gapgrand; ?>/365 Days Mined</h2> -->
+                                                <?php
+                                            }
+                                            ?>
 
 
+                                            <?php
+                                            $sqlp = "SELECT * FROM grandpack WHERE Username='" . $_SESSION['Username'] . "' AND Comment='Purchased'";
+                                            $resultp = mysqli_query($conn, $sqlp);
+                                            if (mysqli_num_rows($resultp) == 1) {
+                                                ?>
+                                                <li><i class="fa fa-check text-success" class="green">Purchased</li></i>
+                                                <?php
+                                            } else {
+                                                ?>
+
+                                                <li><i class="fa fa-times text-danger" class="red">Not-Purchased</li></i>
+                                                <?php
+                                            }
+                                            ?>
+
+<!--     <li><span>24/7</span> Support</li>-->
+                                        </ul>
+                                    </div>
+                                    <!--//FEATURE LIST END-->
+
+                                    <!--BUTTON START-->
+                                    <div class="generic_price_btn clearfix">
+                                        <a class="" href="">Buy Pack</a>
+                                    </div>
+                                    <!--//BUTTON END-->
+
+                                </div>
+                                <!--//PRICE CONTENT END-->
+
+                            </div>
+
+                            <div class="col-md-2 col-half-offset">
+
+                                <!--PRICE CONTENT START-->
+                                <div style="width:105%;height:100%;" class="generic_content clearfix">
+
+                                    <!--HEAD PRICE DETAIL START-->
+                                    <div class="generic_head_price clearfix">
+
+                                        <!--HEAD CONTENT START-->
+                                        <div class="generic_head_content clearfix">
+
+                                            <!--HEAD START-->
+                                            <div class="head_bg"></div>
+                                            <div class="head">
+                                                <span>POOL 5</span>
+                                            </div>
+                                            <!--//HEAD END-->
+
+                                        </div>
+                                        <!--//HEAD CONTENT END-->
+
+                                        <!--PRICE START-->
+                                        <div class="generic_price_tag clearfix">	
+                                            <span class="price">
+                                                <span class="sign" style="font-size:30px;color:#1abb9c;">$</span>
+                                                <span class="currency" style="font-size:35px;font-weight:bold;color:#1abb9c;">4,800</span>
+                                                <!--<span class="cent">.00</span>
+                                                <span class="month">/YR</span>--> 
+                                            </span>
+                                        </div>
+                                        <!--//PRICE END-->
+
+                                    </div>                            
+                                    <!--//HEAD PRICE DETAIL END-->
+
+                                    <!--FEATURE LIST START-->
+                                    <div class="generic_feature_list">
+                                        <ul>
+                                            <li><span>Current Investment Return(BTC):</span> <?php echo $packone; ?></li>
+                                            <li><span>Approx.</span> $24/day</li>
+                                            <li><span>365</span> Mining days</li>
+
+                                            <?php
+                                            $ultimatedate = "SELECT * FROM ultimatepack WHERE Username='" . $_SESSION['Username'] . "'";
+                                            $queryultimate = mysqli_query($conn, $ultimatedate);
+                                            $viewultimate = mysqli_fetch_array($queryultimate);
+                                            $showultimatedate = $viewultimate['MiningDate'];
+                                            $ultimatestatus = $viewultimate['Status'];
+                                            if ($showultimatedate == "0") {
+                                                $ultimategap = "0";
+                                                ?>
+
+                                                <li><span><?php echo $ultimategap; ?>/365</span>  Days Mined</li>
+                                                <!--<h2 class="red"><?php echo $ultimategap; ?>/365 Days Mined</h2>-->
+                                                <?php
+                                            } else {
+                                                $datetime7 = new DateTime();
+                                                $datetime8 = new DateTime($showultimatedate);
+                                                $intervalultimate = $datetime8->diff($datetime7);
+                                                $gapultimate = $intervalultimate->format('%R%a');
+                                                ?>
+
+                                                <li><span><?php echo $gapultimate; ?>/365</span>  Days Mined</li>
+                                                <!--<h2 class="blue"><?php echo $gapultimate; ?>/365 Days Mined</h2>--> 
+                                                <?php
+                                            }
+                                            ?>
 
 
+                                            <?php
+                                            $sqlw = "SELECT * FROM ultimatepack WHERE Username='" . $_SESSION['Username'] . "' AND Comment='Purchased'";
+                                            $resultw = mysqli_query($conn, $sqlw);
+                                            if (mysqli_num_rows($resultw) == 1) {
+                                                ?>
+                                                <li><i class="fa fa-check text-success" class="green">Purchased</li></i>
+                                                <?php
+                                            } else {
+                                                ?>
 
+                                                <li><i class="fa fa-times text-danger" class="red">Not-Purchased</li></i>
+                                                <?php
+                                            }
+                                            ?>
 
+<!--     <li><span>24/7</span> Support</li>-->
+                                        </ul>
+                                    </div>
+                                    <!--//FEATURE LIST END-->
 
+                                    <!--BUTTON START-->
+                                    <div class="generic_price_btn clearfix">
+                                        <a class="" href="">Buy Pack</a>
+                                    </div>
+                                    <!--//BUTTON END-->
 
+                                </div>
+                                <!--//PRICE CONTENT END-->
 
-                        <!-- /page content -->
+                            </div>
 
-                        <!-- footer content -->
+                        </div>	
+                        <!--//BLOCK ROW END-->
 
-                        <!-- /footer content -->
+                        <!--</div>-->
+                        <!-- </section>             -->
+                        <!--<footer>
+                            <a class="bottom_btn" href="#">&copy; MrSahar</a>
+                        </footer>-->
                     </div>
+
+
+
+                    <!-- /mycode -->
+
+
+                    <!-- /page content -->
+
+                    <!-- footer content -->
+
+                    <!-- /footer content -->
                 </div>
-                <?php
-                mysqli_close($conn);
-                ?>
-                <!-- jQuery -->
-                <script src="../vendor/jquery/dist/jquery.min.js"></script>
-                <!-- Bootstrap -->
-                <script src="../vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-                <!-- FastClick -->
-                <script src="../vendor/fastclick/lib/fastclick.js"></script>
-                <!-- NProgress -->
-                <script src="../vendor/nprogress/nprogress.js"></script>
-                <!-- Chart.js -->
-                <script src="../vendor/Chart.js/dist/Chart.min.js"></script>
-                <!-- gauge.js -->
-                <script src="../vendor/gauge.js/dist/gauge.min.js"></script>
-                <!-- bootstrap-progressbar -->
-                <script src="../vendor/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-                <!-- iCheck -->
-                <script src="../vendor/iCheck/icheck.min.js"></script>
-                <!-- Skycons -->
-                <script src="../vendor/skycons/skycons.js"></script>
-                <!-- Flot -->
-                <script src="../vendor/Flot/jquery.flot.js"></script>
-                <script src="../vendor/Flot/jquery.flot.pie.js"></script>
-                <script src="../vendor/Flot/jquery.flot.time.js"></script>
-                <script src="../vendor/Flot/jquery.flot.stack.js"></script>
-                <script src="../vendor/Flot/jquery.flot.resize.js"></script>
-                <!-- Flot plugins -->
-                <script src="../vendor/flot.orderbars/js/jquery.flot.orderBars.js"></script>
-                <script src="../vendor/flot-spline/js/jquery.flot.spline.min.js"></script>
-                <script src="../vendor/flot.curvedlines/curvedLines.js"></script>
-                <!-- DateJS -->
-                <script src="../vendor/DateJS/build/date.js"></script>
-                <!-- JQVMap -->
-                <script src="../vendor/jqvmap/dist/jquery.vmap.js"></script>
-                <script src="../vendor/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-                <script src="../vendor/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
-                <!-- bootstrap-daterangepicker -->
-                <script src="../vendor/moment/min/moment.min.js"></script>
-                <script src="../vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
-
-                <!-- Custom Theme Scripts -->
-                <script src="../vendor/build/js/custom.min.js"></script>
-
-                </body>
-                </html>
+            </div>
+            <?php
+            mysqli_close($conn);
+            ?>
+            <?php
+            include('includes/footer.php');
+            ?>
+    </body>
+</html>

@@ -1,19 +1,18 @@
     <div class="form-group">
         <div class="col-sm-12 ">
             <?php
-            echo $error.''.$message;
-            if (isset($error) && isset($message)) {
+            if (isset($_SESSION['error']) && (isset($_SESSION['message']) && !empty($_SESSION['message']))) {
                 if ($error == 0) {
                 ?> 
-                    <div class="alert alert-success"><?php echo $message; ?></div>
+                    <div class="alert alert-success"><?php echo $_SESSION['message']; ?></div>
                 <?php 
                 } else {
                 ?>
-                <div class="alert alert-danger"><?php echo $message; ?></div>
+                <div class="alert alert-danger"><?php echo $_SESSION['message']; ?></div>
                 <?php
                 }
-                unset($error);
-                unset($message);
+                unset($_SESSION['error']);
+                unset($_SESSION['message']);
             }
             ?>  
         </div>

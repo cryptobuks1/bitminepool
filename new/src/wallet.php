@@ -4,19 +4,23 @@
     include('includes/header.php');
 
     if (isset($_SESSION['Username'])) {
+        $_SESSION['error'] = 0;
         $walletData = [];
         $userName = $_SESSION['Username'];
         $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                    'user_name' => $_SESSION['Username'],
-                    'platform' => '3',
-                        ], 'getAllWalletDetailByUserName');
+                'user_name' => $_SESSION['Username'],
+                'platform' => '3',
+                ], 'getAllWalletDetailByUserName');
 
         $response = json_decode($response);
         $redirect = 'login';
         if ($response->statusCode == 100) {
             $walletData = $response->response->wallet_data;
+            $_SESSION['message'] = $response->response->statusDescription;
         }
     } else {
+        $_SESSION['error'] = 1;
+        $_SESSION['message'] = 'Please login to proceed further.';
         unset($_POST);
         unset($_SESSION);
         // header("Location:login");
@@ -25,7 +29,7 @@
         exit;
     }
     ?>
-
+    <?php include('includes/message.php'); ?>
     <body class="nav-md">
         <div class="container body">
             <div class="main_container">
@@ -87,78 +91,78 @@
                                             ?>
                                             <div class="x_content">
                                                 <p>By verifying your account you can now be able to see wallet & purchase various products that are available at Bit Mine Pool</p>
-                                                <a href="<?php echo BASE_URL.'verifyemail'?>"><button type="button" class="btn btn-success btn-lg">Verify Now</button></a>
+                                                <a href="<?php echo BASE_URL . 'verifyemail' ?>"><button type="button" class="btn btn-success btn-lg">Verify Now</button></a>
                                             </div>    
-                                                <?php
-                                            } else {
-                                                ?>
-                                                <!-- title row -->
-                                                <div class="row">
-                                                    <div class="col-xs-12 invoice-header">
-                                                        <h1>
-                                                            <i class="fa fa-globe"></i> <span class="style7">Wallet.</span>
-                                                            <small class="pull-right"><span class="style6"><?php echo date("l jS \of F Y h:i:s A") . "<br>"; ?></span></small>                                      </h1>
-                                                    </div>
-                                                    <!-- /.col -->
-                                                </div>
-                                                <!-- info row -->
-                                                <div class="row invoice-info">
-                                                    <div class="col-sm-4 invoice-col">
-
-                                                    </div>
-                                                    <!-- /.col -->
-                                                    <div class="col-sm-4 invoice-col">
-
-                                                    </div>
-                                                    <!-- /.col -->
-                                                    <div class="col-sm-4 invoice-col">
-                                                        <br>
-                                                        <b>Balance(IN BTC):</b> <?php echo $walletData->balance; ?>
-                                                        <br>
-                                                       <!-- <b>Invoice Expires in:</b> <b><span id="countdown-1">600 seconds</span></b> -->
-                                                        <br>
-
-                                                    </div>
-                                                    <!-- /.col -->
-                                                </div>
-                                                <!-- /.row -->
-
-                                                <!-- Table row -->
-                                                <div class="row">
-                                                    <div class="col-xs-12 table">
-                                                        <table class="table table-striped">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Serial #</th>
-                                                                    <th style="width: 25%">Label</th>
-                                                                    <th style="width: 25%">Address</th>
-                                                                    <th>Balance(BTC)</th>
-                                                                    <th>Subtotal Received(BTC)</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-
-                                                                <?php
-                                                                foreach ($walletData->addresses as $key => $address) {
-                                                                    echo '<tr>';
-                                                                    echo '<td>' . ($key + 1) . '</td>';
-                                                                    echo '<td>' . $address->label . '</td>';
-                                                                    echo '<td>' . $address->address . '</td>';
-                                                                    echo '<td>' . $address->balance . '</td>';
-                                                                    echo '<td>' . $address->total_received . '</td>';
-                                                                    echo '</tr>';
-                                                                }
-                                                                ?>
-
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                    <!-- /.col -->
-                                                </div>
-                                                <!-- /.row -->
-                                                <?php
-                                            }
+                                            <?php
+                                        } else {
                                             ?>
+                                            <!-- title row -->
+                                            <div class="row">
+                                                <div class="col-xs-12 invoice-header">
+                                                    <h1>
+                                                        <i class="fa fa-globe"></i> <span class="style7">Wallet.</span>
+                                                        <small class="pull-right"><span class="style6"><?php echo date("l jS \of F Y h:i:s A") . "<br>"; ?></span></small>                                      </h1>
+                                                </div>
+                                                <!-- /.col -->
+                                            </div>
+                                            <!-- info row -->
+                                            <div class="row invoice-info">
+                                                <div class="col-sm-4 invoice-col">
+
+                                                </div>
+                                                <!-- /.col -->
+                                                <div class="col-sm-4 invoice-col">
+
+                                                </div>
+                                                <!-- /.col -->
+                                                <div class="col-sm-4 invoice-col">
+                                                    <br>
+                                                    <b>Balance(IN BTC):</b> <?php echo $walletData->balance; ?>
+                                                    <br>
+                                                   <!-- <b>Invoice Expires in:</b> <b><span id="countdown-1">600 seconds</span></b> -->
+                                                    <br>
+
+                                                </div>
+                                                <!-- /.col -->
+                                            </div>
+                                            <!-- /.row -->
+
+                                            <!-- Table row -->
+                                            <div class="row">
+                                                <div class="col-xs-12 table">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Serial #</th>
+                                                                <th style="width: 25%">Label</th>
+                                                                <th style="width: 25%">Address</th>
+                                                                <th>Balance(BTC)</th>
+                                                                <th>Subtotal Received(BTC)</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                            <?php
+                                                            foreach ($walletData->addresses as $key => $address) {
+                                                                echo '<tr>';
+                                                                echo '<td>' . ($key + 1) . '</td>';
+                                                                echo '<td>' . $address->label . '</td>';
+                                                                echo '<td>' . $address->address . '</td>';
+                                                                echo '<td>' . $address->balance . '</td>';
+                                                                echo '<td>' . $address->total_received . '</td>';
+                                                                echo '</tr>';
+                                                            }
+                                                            ?>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <!-- /.col -->
+                                            </div>
+                                            <!-- /.row -->
+                                            <?php
+                                        }
+                                        ?>
                                     </section>
                                 </div>
                             </div>
