@@ -1,145 +1,13 @@
-<?php /*
-  session_start();
-  include('includes/constant.php');
-  ?>
-  <?php
 
-  function random_code($limit) {
-  return substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, $limit);
-  }
-  ?>
-  <?php
-  include('includes/dbconnect.php');
-  $myaccount = $_SESSION['Account'];
-  if (!isset($_GET['Account'])) {
-  $_GET['Account'] = '24rgxpwex1b4ko88owko ';
-  }
-  if (isset($_GET['Account'])) {
-  $_SESSION['Account'] = $_GET['Account'];
-  $myaccount = $_SESSION['Account'];
-  $getmember = "SELECT Username FROM users WHERE Account = '$myaccount'";
-  $querymember = mysqli_query($conn, $getmember);
-  if (mysqli_num_rows($querymember) == 1) {
-  $currentmember = mysqli_fetch_array($querymember);
-  $membernumber = $currentmember['Username'];
-  } else {
-  echo '<script>alert("wrong Link");window.location.assign("' . BASE_URL . 'bitcoin_system/production/login");</script>';
-  }
-  }
-  ?>
-  <?php
-  if (isset($_POST['submit'])) {
-  ///////////////////////////////////////////Connection to Database///////////////////////////////////////////////////////////
-  include('includes/dbconnect.php');
-  ////////////////////////////////////////////////////Information Sent From Form//////////////////////////////////////////////
-  $name = $_POST['name'];
-  $Country = $_POST['Country'];
-  $email = $_POST['email'];
-  $Telephone = $_POST['Telephone'];
-  $Gender = $_POST['Gender'];
-  $Username = $_POST['Username'];
-  $password = $_POST['password'];
-  $Sponsor = $_POST['Sponsor'];
-  $Token = $_POST['Token'];
-  $Account = $_POST['Account'];
-  $Status = $_POST['Status'];
-  $Activation = $_POST['Activation'];
-  ////////////////////////////////////////////////////form validation//////////////////////////////////////////////////////////
-  if (empty($name)) {
-  echo '<script>alert("Please fill in full name.");</script>';
-  } elseif (empty($Country)) {
-  echo '<script>alert("Please fill in Country.");</script>';
-  } elseif (empty($email)) {
-  echo '<script>alert("Please fill in Email.");</script>';
-  } elseif (empty($Telephone)) {
-  echo '<script>alert("Please fill in Telephone.");</script>';
-  } elseif (empty($Username)) {
-  echo '<script>alert("Please fill in Username.");</script>';
-  } elseif (empty($password)) {
-  echo '<script>alert("Please fill in Password.");</script>';
-  } elseif (empty($Sponsor)) {
-  echo '<script>alert("Please confirm your registration link.");window.location.assign("sponsor.php");</script>';
-  } else {
-  //Remove white spaces
-  $name = stripslashes($name);
-  $Country = stripslashes($Country);
-  $email = stripslashes($email);
-  $Telephone = stripslashes($Telephone);
-  $Gender = stripslashes($Gender);
-  $Username = stripslashes($Username);
-  $password = stripslashes($password);
-  $Sponsor = stripslashes($Sponsor);
-  // To protect MySQL injection (more detail about MySQL injection)
-  $name = mysqli_real_escape_string($conn, $_POST['name']);
-  $Country = mysqli_real_escape_string($conn, $_POST['Country']);
-  $email = mysqli_real_escape_string($conn, $_POST['email']);
-  $Telephone = mysqli_real_escape_string($conn, $_POST['Telephone']);
-  $Gender = mysqli_real_escape_string($conn, $_POST['Gender']);
-  $Username = mysqli_real_escape_string($conn, $_POST['Username']);
-  $password = mysqli_real_escape_string($conn, $_POST['password']);
-  $Sponsor = mysqli_real_escape_string($conn, $_POST['Sponsor']);
-  //Check wether the username Telephone Email or Idnumber exists before registering
-  $query = "SELECT Username FROM users WHERE Username='$Username'";
-  $result = mysqli_query($conn, $query);
-  $querya = "SELECT Username FROM users WHERE email='$email'";
-  $resulta = mysqli_query($conn, $querya);
-  $queryb = "SELECT Username FROM users WHERE Telephone='$Telephone'";
-  $resultb = mysqli_query($conn, $queryb);
-  $queryd = "SELECT Username FROM users WHERE Username='$Sponsor'";
-  $resultd = mysqli_query($conn, $queryd);
-  //Check wether Username exists
-  if (mysqli_num_rows($result) > 0) {
-  echo '<script>alert("Username already Exists.");</script>';
-  }
-  //Check wether Email exists
-  elseif (mysqli_num_rows($resulta) > 0) {
-  echo '<script>alert("Email already Exists.");</script>';
-  }
-  //Check wether Telephone Number exists
-  elseif (mysqli_num_rows($resultb) > 0) {
-  echo '<script>alert("Telephone Number already Exists.");</script>';
-  }
-  //Check wether Idnumber exists
-  elseif (mysqli_num_rows($resultd) > 0) {
-  // Inserting data into users table in the database
-  $sql = "INSERT INTO users (Fullname, Country, Email, Telephone, Gender, Username, Password, Sponsor, Token, Account, Status, Activation, treestatus)							  																																																																								        VALUES('$name','$Country','$email','$Telephone','$Gender','$Username','$password','$Sponsor','$Token','$Account','$Status','$Activation','notree');INSERT INTO accountbalance (Balance, Username)
-  VALUES('0','$Username');INSERT INTO binaryincome(userid, day_bal, current_bal, total_bal)
-  VALUES('$Username','0','0','0');INSERT INTO hubcoin (Balance, Username)
-  VALUES('0','$Username');INSERT INTO team (Balance, Username)
-  VALUES('0','$Username');INSERT INTO teamvolume (Balance, Username)
-  VALUES('0','$Username');INSERT INTO rank (Rank, Rankid, Username, Sponsor)
-  VALUES('Miner','1','$Username','$Sponsor');INSERT INTO mining (Balance, Username)
-  VALUES('0','$Username');INSERT INTO commission (Balance, Username)
-  VALUES('0','$Username');INSERT INTO starterpack (PurchaseDate, MiningDate, Username, Status, CompletionDate, TotalMinable,Withdrawal, Comment)
-  VALUES('0', '0', '$Username', 'Inactive', '0', '547.50', '0', 'Not-Purchased');INSERT INTO minipack (PurchaseDate, MiningDate, Username, Status, CompletionDate, TotalMinable,Withdrawal, Comment)
-  VALUES('0', '0', '$Username', 'Inactive', '0', '1095', '0', 'Not-Purchased');INSERT INTO mediumpack (PurchaseDate, MiningDate, Username, Status, CompletionDate, TotalMinable,Withdrawal, Comment)
-  VALUES('0', '0', '$Username', 'Inactive', '0', '2190', '0', 'Not-Purchased');INSERT INTO grandpack (PurchaseDate, MiningDate, Username, Status, CompletionDate, TotalMinable,Withdrawal, Comment)
-  VALUES('0', '0', '$Username', 'Inactive', '0', '4380', '0', 'Not-Purchased');INSERT INTO ultimatepack (PurchaseDate, MiningDate, Username, Status, CompletionDate, TotalMinable, Withdrawal, Comment)
-  VALUES('0', '0', '$Username', 'Inactive', '0', '8760', '0', 'Not-Purchased');INSERT INTO register (EntryDate, Amount, Username)
-  VALUES('0', '0', '$Username')";
-  mysqli_multi_query($conn, $sql);
-  //Start email Session
-  $_SESSION['Username'] = $Username;
-  $_SESSION['email'] = $email;
-  unset($_SESSION['Account']);
-  header("location:emailverify");
-  }
-  //if Sponsor does not exist
-  else {
-  echo '<script>alert("wrong Link");window.location.assign("' . BASE_URL . 'bitcoin_system/production/login");</script>';
-  }
-  }
-  } */
-?>
 <!DOCTYPE html>
 <html lang="en">
     <?php
     include('includes/header.php');
     if (!isset($_GET['account'])) {
         //header("Location:register");
-        $redirect = 'register';
-        echo "<script>location='" . BASE_URL . $redirect . "'</script>";
-        exit;
+       // $redirect = 'register';
+        //echo "<script>location='" . BASE_URL . $redirect . "'</script>";
+       // exit;
     }
     if (!empty($_POST)) {
 
@@ -160,8 +28,9 @@
                 ], 'registerCustomer');
 
         $response = json_decode($response);
-        $redirect = 'verifyemail';
+        $redirect = 'register';
         if ($response->statusCode == 100) {
+            $redirect = 'verifyemail';
             $_SESSION['Username'] = $_POST['Username'];
         }
         unset($_POST);

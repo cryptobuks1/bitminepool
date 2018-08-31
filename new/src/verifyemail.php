@@ -4,30 +4,34 @@
     include('includes/header.php');
 
     if (isset($_SESSION['Username'])) {
+        
         if (!empty($_POST)) {
 
             $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
                         'user_name' => $_SESSION['Username'],
-                        'token' => $_SESSION['Token'],
+                        'token' => $_POST['Token'],
                         'platform' => '3',
                         'transaction_type' => '204'
                             //'grant_type' => 'client_credentials'
-                            ], 'verfifyEmail');
-
+                            ], 'verifyEmail');
             $response = json_decode($response);
+            
             $redirect = 'login';
+          
             if ($response->statusCode == 100) {
-                $userData = jsonn_decode($response->response);
+                $userData = $response->response;
+                
                 $responseWallet = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
                             'user_name' =>$userData->Username,
-                            'password' => $userData->password,
+                            'password' => $userData->Password,
                             'email_address' => $userData->Email,
                             'platform' => '3',
                             'transaction_type' => '205'
                                 //'grant_type' => 'client_credentials'
                                 ], 'createWallet');
             }
-            unset($_POST);
+            $responseWallet = json_decode($responseWallet);
+
             //header("Location:" . $redirect);
             echo "<script>location='" . BASE_URL . $redirect . "'</script>";
             exit;
@@ -51,7 +55,7 @@
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <img src="../vendor/images/logo.png" alt="Bit-Mine-Pool" style="width: 95px;">
+                        <img src="../images/logo.png" alt="Bit-Mine-Pool" style="width: 95px;">
                     </div>
 
                     <div class="title_right">
