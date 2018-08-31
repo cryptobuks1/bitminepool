@@ -3,43 +3,52 @@
     <?php
     include('includes/header.php');
     if (!empty($_POST)) {
-        $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
+        //echo '<pre>'; print_r($_POST); exit;
+        $error = false;
+        try {
+            $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
                     'user_name' => $_POST['Username'],
                     'password' => $_POST['Password'],
                     'platform' => '3',
                     'transaction_type' => '201',
                     'grant_type' => 'client_credentials'
-                        ], 'loginCustomer');
+                    ], 'loginCustomer');
 
-        $response = json_decode($response);
+            $response = json_decode($response);
 
-        $redirect = 'login';
-        if($response->statusCode == 100){
-            switch($response->response->Status){
-                case 'Close':
-                    $_SESSION['is_prime_user'] = 1;
-                    $_SESSION['Username'] = $_POST['Username'];
-                    $redirect = 'dashboard';
-                    break;
-                case 'Open':
-                    $_SESSION['is_prime_user'] = 0;
-                    $_SESSION['Username'] = $_POST['Username'];
-                     $redirect = 'dashboard';
-                     break;
-                case 'default':
-                    $redirect = 'login';
-                    break;
-            }   
+            $redirect = 'login';
+            if ($response->statusCode == 100) {
+                switch ($response->response->Status) {
+                    case 'Close':
+                        $_SESSION['is_prime_user'] = 1;
+                        $_SESSION['Username'] = $_POST['Username'];
+                        $redirect = 'dashboard';
+                        break;
+                    case 'Open':
+                        $_SESSION['is_prime_user'] = 0;
+                        $_SESSION['Username'] = $_POST['Username'];
+                        $redirect = 'dashboard';
+                        break;
+                    case 'default':
+                        $redirect = 'login';
+                        break;
+                }
+                $message = $response->statusDescription;
+            }
+
+            unset($_POST);
+            // header("location:dashboard");
+            echo "<script>location='" . BASE_URL . $redirect . "'</script>";
+            exit();
+        } catch (Exception $e) {
+            $error = true;
+            $message = $e->getMessage();
         }
-
-        unset($_POST);
-       // header("location:dashboard");
-        echo "<script>location='".BASE_URL.$redirect."'</script>";
-        exit();
     }
     ?>
-
+    <?php include('includes/message.php'); ?>
     <body class="login">
+
         <div>
             <a class="hiddenanchor" id="signup"></a>
             <a class="hiddenanchor" id="signin"></a>
@@ -83,4 +92,7 @@
             </div>
         </div>
     </body>
+    <?php
+    include('includes/footer.php');
+    ?>
 </html>
