@@ -5,27 +5,27 @@
     include('includes/header.php');
     if (!isset($_GET['account'])) {
         //header("Location:register");
-       // $redirect = 'register';
+        // $redirect = 'register';
         //echo "<script>location='" . BASE_URL . $redirect . "'</script>";
-       // exit;
+        // exit;
     }
     if (!empty($_POST)) {
 
         $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                'name' => $_POST['name'],
-                'country' => $_POST['Country'],
-                'email' => $_POST['email'],
-                'telephone' => $_POST['Telephone'],
-                'gender' => $_POST['Gender'],
-                'user_name' => $_POST['Username'],
-                'password' => $_POST['password'],
-                'sponsor_account' => $_GET['Account'],
-                'status' => $_POST['Status'],
-                'activation' => $_POST['Activation'],
-                'platform' => '3',
-                'transaction_type' => '202'
-                //'grant_type' => 'client_credentials'
-                ], 'registerCustomer');
+                    'name' => $_POST['name'],
+                    'country' => $_POST['Country'],
+                    'email' => $_POST['email'],
+                    'telephone' => $_POST['Telephone'],
+                    'gender' => $_POST['Gender'],
+                    'user_name' => $_POST['Username'],
+                    'password' => $_POST['password'],
+                    'sponsor_account' => $_GET['Account'],
+                    'status' => $_POST['Status'],
+                    'activation' => $_POST['Activation'],
+                    'platform' => '3',
+                    'transaction_type' => '202'
+                        //'grant_type' => 'client_credentials'
+                        ], 'registerCustomer');
 
         $response = json_decode($response);
         $redirect = 'register';
@@ -34,14 +34,17 @@
             $_SESSION['message'] = $response->statusDescription;
             $redirect = 'verifyemail';
             $_SESSION['Username'] = $_POST['Username'];
+        } else {
+            $_SESSION['error'] = 1;
+            $_SESSION['message'] = $response->statusDescription;
         }
         unset($_POST);
-       // header("Location:" . $redirect);
+        // header("Location:" . $redirect);
         echo "<script>location='" . BASE_URL . $redirect . "'</script>";
         exit;
     }
     ?>
-    <?php include('includes/message.php'); ?>
+
     <body class="nav-md">
         <!-- page content -->
         <div class="right_col" role="main">
@@ -67,17 +70,14 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-
-                                <form class="form-horizontal form-label-left" novalidate action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-
-
-
+                                <?php include('includes/message.php'); ?>
+                                <form id="create-member" class="form-horizontal form-label-left" novalidate action="" method="post">
                                     <span class="section">Member Registration: Step 1</span>
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Full Name <span class="required">*</span>
                                         </label>
                                         <div class="col-md-3 col-sm-6 col-xs-12">
-                                            <input id="Fullname" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="both name(s) e.g Jon Doe" required="required" type="text">
+                                            <input id="Fullname" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" data-msg-required="Please enter the name." placeholder="both name(s) e.g Jon Doe" required="required" type="text">
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -340,14 +340,14 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email <span class="required">*</span>
                                         </label>
                                         <div class="col-md-3 col-sm-6 col-xs-12">
-                                            <input type="email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12">
+                                            <input type="email" id="email" name="email" required="required" data-msg-required="Please enter the email address." class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Confirm Email <span class="required">*</span>
                                         </label>
                                         <div class="col-md-3 col-sm-6 col-xs-12">
-                                            <input type="email" id="email2" name="confirm_email" data-validate-linked="email" required="required" class="form-control col-md-7 col-xs-12">
+                                            <input type="email" id="email2" name="confirm_email" data-validate-linked="email" data-msg-required="Please confirm the email address." required="required" class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
 
@@ -365,30 +365,31 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Username <span class="required">*</span>
                                         </label>
                                         <div class="col-md-3 col-sm-6 col-xs-12">
-                                            <input id="Username" type="text" name="Username" data-validate-length-range="5,20"  required="required" class="optional form-control col-md-7 col-xs-12">
+                                            <input id="Username" type="text" name="Username" data-validate-length-range="5,20" data-msg-required="Please confirm the user name." required="required" class="optional form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
                                     <div class="item form-group">
                                         <label for="password" class="control-label col-md-3">Password</label>
                                         <div class="col-md-3 col-sm-6 col-xs-12">
-                                            <input id="password" type="password" name="password" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required">
+                                            <input id="password" type="password" name="password" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" data-msg-required="Please enter the password." required="required">
                                         </div>
                                     </div>
                                     <div class="item form-group">
                                         <label for="password2" class="control-label col-md-3 col-sm-3 col-xs-12">Repeat Password</label>
                                         <div class="col-md-3 col-sm-6 col-xs-12">
-                                            <input id="password2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" required="required">
+                                            <input id="password2" type="password" name="password2" data-validate-linked="password" data-msg-required="Please confirm the password." class="form-control col-md-7 col-xs-12" required="required">
                                         </div>
                                     </div>
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telephone">Telephone <span class="required">*</span>
                                         </label>
                                         <div class="col-md-3 col-sm-6 col-xs-12">
-                                            <input id="phone" type="tel" name="Telephone">
-                                            <!--<input type="hidden" name="Account" id="Account" value="<?php //echo random_code(20);  ?> ">
-                                            <input type="hidden" name="Token" id="Token" value="<?php //echo mt_rand(0, 1000000);  ?> "> -->
+                  
+                                            <input id="phone" type="tel" name="Telephone" data-msg-required="Please enter the phone number." class="form-control col-md-7 col-xs-12" required="required">
+                                            <!--<input type="hidden" name="Account" id="Account" value="<?php //echo random_code(20);         ?> ">
+                                            <input type="hidden" name="Token" id="Token" value="<?php //echo mt_rand(0, 1000000);         ?> "> -->
                                             <input type="hidden" name="Status" id="Status" value="Open">
-                                            <!--<input type="hidden" name="Sponsor" id="Sponsor" value="<?php //echo $membernumber;  ?> ">-->
+                                            <!--<input type="hidden" name="Sponsor" id="Sponsor" value="<?php //echo $membernumber;         ?> ">-->
                                             <input type="hidden" name="Activation" id="Activation" value="0">
                                         </div>
                                     </div>
@@ -396,8 +397,8 @@
                                     <div class="ln_solid"></div>
                                     <div class="form-group">
                                         <div class="col-md-6 col-md-offset-3">
-                                            <button type="reset" class="btn btn-primary">Cancel</button>
-                                            <button id="send" type="submit" name="submit" class="btn btn-success">Submit</button>
+                                            <button id= "create-member-reset" type="reset" class="btn btn-primary">Cancel</button>
+                                            <button id="create-member-submit" type="submit" name="submit" class="btn btn-success">Submit</button>
                                         </div>
                                     </div>
                                 </form>
@@ -416,9 +417,20 @@
 include('includes/footer.php');
 ?>
 <script>
-    $("#phone").intlTelInput({
-        utilsScript: "../vendor/build/js/utilsTellInput.js"
+    /*  $("#phone").intlTelInput({
+     utilsScript: "../vendor/build/js/utilsTellInput.js"
+     });*/
+    //$("#phone").intlTelInput();
+    $(document).ready(function () {
+        var validator = $("#create-member").validate();
+        //validator.form();
     });
+    $('#create-member-reset').click(function () {
+        $('#create-member')[0].reset();
+        var validator = $("#create-member").validate();
+        validator.resetForm();
+    });
+
 </script>
 </body>
 </html>

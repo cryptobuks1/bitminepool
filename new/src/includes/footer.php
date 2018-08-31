@@ -40,12 +40,14 @@
 
 <!-- Custom Theme Scripts -->
 <script src="../vendor/build/js/custom.min.js"></script>
+<script src="../vendor/build/js/validate.js"></script>
 
 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
 <script src="../vendor/build/js/intlTelInput.js"></script>
 <script>
     $(document).ready(function () {
-        $(".alert").delay(3000).fadeOut("slow").html('');
-
+        $(".alert").delay(3000).fadeOut("slow",function(){
+            $(".alert").html('');
+        });
     });
 </script>

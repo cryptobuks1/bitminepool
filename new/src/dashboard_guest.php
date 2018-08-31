@@ -1,8 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-    <?php 
+    <?php
     include('includes/header.php');
+    print_r($_SESSION);
+    $balance = 0;
+    if (isset($_SESSION['wallet_guid']) && !empty($_SESSION['wallet_guid'])) {
+        $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
+                    'wallet_guid' => $_SESSION['wallet_guid'],
+                    'wallet_password' => $_SESSION['wallet_password'],
+                    'platform' => '3',
+                    'transaction_type' => '206'
+                        ], 'getWalletBalance');
+
+        $response = json_decode($response);
+        if ($response->statusCode == 100) {
+            $balance = $response->response->balance_usd;
+            //$_SESSION['message'] = $response->statusDescription;
+        } else {
+            $_SESSION['error'] = 1;
+            $_SESSION['message'] = $response->statusDescription;
+        }
+    } else {
+        $_SESSION['error'] = 1;
+        $_SESSION['message'] = 'Unable to fetch the wallet data , please contact support@bitminepool.com';
+    }
     ?>
+    <?php include('includes/message.php'); ?>
     <body class="nav-md">
         <div class="container body">
             <div class="main_container">
@@ -26,7 +49,7 @@
                                     } else {
                                         //header("location:login");
                                         $redirect = 'login';
-                                        echo "<script>location='".BASE_URL.$redirect."'</script>";
+                                        echo "<script>location='" . BASE_URL . $redirect . "'</script>";
                                     }
                                     ?></h2>
                             </div>
@@ -89,11 +112,11 @@
                                         $balanceone = mysqli_fetch_array($queryone);
                                         $showone = $balanceone['Balance'];
                                         ?>
-                                        <!--<a href="invoicecheckbal"><button type="button" class="btn btn-primary btn-lg">Account Balance:USD <?php //echo $showone; ?></button></a>
+                                        <!--<a href="invoicecheckbal"><button type="button" class="btn btn-primary btn-lg">Account Balance:USD <?php //echo $showone;     ?></button></a>
                                         <a href="invoicecheckreg"><button type="button" class="btn btn-success btn-lg">Upgrade Account Now</button></a> -->
                                         <a href="upgrade"><button type="button" class="btn btn-primary btn-lg">Account Balance:USD <?php echo $showone; ?></button></a>
                                         <a href="invoicecheckreg"><button type="button" class="btn btn-success btn-lg">Upgrade Account Now</button></a>
-                                        <a href="wallet"><button type="button" class="btn btn-success btn-lg">Wallet</button></a>
+                                        <a href="wallet"><button type="button" class="btn btn-success btn-lg">Wallet Balance:USD <?php echo $balance; ?></button></a>
 
                                     </div>
                                 </div>
@@ -110,7 +133,7 @@
         </div>
 
         <?php
-            include('includes/footer.php');
+        include('includes/footer.php');
         ?>
     </body>
 </html>

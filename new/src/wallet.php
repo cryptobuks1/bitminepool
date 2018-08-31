@@ -117,7 +117,7 @@
                                                 <!-- /.col -->
                                                 <div class="col-sm-4 invoice-col">
                                                     <br>
-                                                    <b>Balance(IN BTC):</b> <?php echo $walletData->balance; ?>
+                                                    <b>Balance(IN USD):</b> <?php echo $walletData->balance_usd; ?>
                                                     <br>
                                                    <!-- <b>Invoice Expires in:</b> <b><span id="countdown-1">600 seconds</span></b> -->
                                                     <br>

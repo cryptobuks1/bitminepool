@@ -3,22 +3,27 @@
     <?php
     include('includes/header.php');
     if (!empty($_POST)) {
-
+        $_SESSION['error'] = '';
         $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                'user_name' => $_POST['user_name'],
-                'platform' => '3',
-                //'grant_type' => 'client_credentials'
-                ], 'sendForgetPassword');
+                    'user_name' => $_POST['user_name'],
+                    'platform' => '3',
+                        //'grant_type' => 'client_credentials'
+                        ], 'sendForgetPassword');
 
         $response = json_decode($response);
         $redirect = 'login';
         if ($response->statusCode == 100) {
+            $_SESSION['error'] = 0;
+            $_SESSION['message'] = $response->statusDescription;
             $_SESSION['Username'] = $_POST['Username'];
+        } else {
+            $_SESSION['error'] = 1;
+            $_SESSION['message'] = $response->statusDescription;
         }
         unset($_POST);
         // header("Location:" . $redirect);
-        echo "<script>location='" . BASE_URL . $redirect . "'</script>";
-        exit;
+        // echo "<script>location='" . BASE_URL . $redirect . "'</script>";
+        //  exit;
     }
     ?>
 
@@ -44,14 +49,15 @@
 
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
+
                         <div class="x_panel">
                             <div class="x_title">
 
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-
-                                <form class="form-horizontal form-label-left" novalidate action="" method="post">
+                                <?php include('includes/message.php'); ?>
+                                <form id="reset-password" class="form-horizontal form-label-left" method="post" novalidate action="">
 
 
 
@@ -71,9 +77,9 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Enter User Name: <span class="required">*</span>
                                         </label>
                                         <div class="col-md-2 col-sm-6 col-xs-12">
-                                            <input id="user_name" type="text" name="user_name" data-validate-length-range="5,20"  class="optional form-control col-md-7 col-xs-12">
+                                            <input id="user_name" data-msg-required="Please enter the user name." required="required" type="text" name="user_name" data-validate-length-range="5,20"  class="optional form-control col-md-7 col-xs-12">
                                         </div>
-                                        <button id="send" type="submit" class="btn btn-success">Verify</button>
+                                        <button id="send" type="submit" class="btn btn-success">Verify</button><button id="reset-password-reset" type="reset" class="btn btn-success">Cancel</button>
                                     </div>           
                                     <div class="ln_solid"></div>
 
@@ -92,5 +98,18 @@
 <?php
 include('includes/footer.php');
 ?>
+    <script>
+
+        $(document).ready(function () {
+            var validator = $("#reset-password").validate();
+            //validator.form();
+        });
+        $('#reset-password-reset').click(function () {
+            $('#reset-password')[0].reset();
+            var validator = $("#reset-password").validate();
+            validator.resetForm();
+        });
+
+    </script>
 </body>
 </html>
