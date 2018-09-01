@@ -223,7 +223,7 @@ $packfive = round($pricefive, 6);
                                 <span>Welcome,</span>
                                 <h2><?php
                                     if (isset($_SESSION['Username'])) {
-                                        echo ' ' . $_SESSION['Username'];
+                                        echo ' ' . strlen($_SESSION['Username']) > 15 ? substr($_SESSION['Username'],0,15)."..." : $_SESSION['Username'];
                                     } else {
                                         header("location:login");
                                     }

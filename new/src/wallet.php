@@ -47,7 +47,7 @@
                                 <a href="<?php echo BASE_URL; ?>"><img src="../images/img.jpg" alt="..." class="img-circle profile_img"></a>              </div>
                             <div class="profile_info">
                                 <span>Welcome,</span>
-                                <h2><?php echo $userName; ?></h2>
+                                <h2><?php echo ' ' . strlen($userName) > 15 ? substr($userName,0,15)."..." : $userName; ?></h2>
                             </div>
                         </div>
                         <!-- /menu profile quick info -->

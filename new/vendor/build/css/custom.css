@@ -4257,3 +4257,175 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 .error {
     color:red;
 }
+
+/** CSS for wallet Dashboard **/
+
+.wallet-dashboard {
+-webkit-font-smoothing: antialiased;
+font-size: 16px;
+font-family:verdana;
+}
+
+/*section
+{
+width:1210px;
+margin:0 auto;
+}*/
+
+.wallet-dashboard .span4 {
+min-width: 300px;
+min-height: 400px;
+overflow:hidden;
+float: left;
+
+margin-left: 30px;
+}
+
+.wallet-dashboard .plan-regular {
+background-color: #64AEA1;
+}
+
+.wallet-dashboard .price-plan {
+border-radius: 4px;
+padding: 40px 20px;
+box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+-webkit-transition:0.5s;
+-moz-transition:0.5s;
+-ms-transition:0.5s;
+-o-transition:0.5s;
+transition:0.5s;
+min-height:420px;
+}
+
+.wallet-dashboard .price-plan .plan-title {
+margin: 0 0 20px 0;
+}
+.wallet-dashboard h1, .wallet-dashboard h2, .wallet-dashboard h4 {
+letter-spacing: -0.05em;
+}
+
+.wallet-dashboard .text-light {
+color: #FFF;
+}
+
+.wallet-dashboard .price-plan .price {
+background: none repeat scroll 0 0 rgba(0, 0, 0, 0.18);
+border-radius: 120px;
+width: 120px;
+height: 120px;
+margin: 0 auto;
+}
+
+.wallet-dashboard .price-plan .amount-container {
+padding: 40px 0 0;
+}
+
+.wallet-dashboard .price-plan .currency {
+left: -7px;
+line-height: 14px;
+position: relative;
+top: -1px;
+}
+
+.wallet-dashboard .price-plan .amount {
+font-size: 30px;
+font-weight: bold;
+margin: 0 0 0 -10px;
+top: 10px;
+}
+
+.wallet-dashboard .price-plan .amount1 {
+font-size: 24px;
+font-weight: bold;
+margin-left: 3px;
+}
+
+.wallet-dashboard .price-plan .period {
+font-size: 12px;
+line-height: 14px;
+margin: -3px 0 0;
+}
+
+.wallet-dashboard .text-shadow-dark {
+text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);
+}
+.wallet-dashboard .text-center {
+text-align: center;
+}
+
+.wallet-dashboard .price-plan .plan-features {
+list-style: none outside none;
+margin: 20px 0 30px;
+padding: 0px;
+}
+
+.wallet-dashboard li {
+line-height: 26px;
+}
+
+.wallet-dashboard a /*
+background-color: #0c5a4b;
+border-radius: 2px;
+box-shadow: none;
+padding: 11px 19px;
+font-size: 17.5px;
+color:#fff;
+text-decoration:none;
+-webkit-transition:0.5s;
+-moz-transition:0.5s;
+-ms-transition:0.5s;
+-o-transition:0.5s;
+transition:0.5s;
+}*/
+{
+	background: #F9A100;
+	border-radius: 30px;
+	display: inline-block;
+	color: #fff;
+	font-size: 12px;
+	font-family: 'Raleway', sans-serif;
+	text-transform: uppercase;
+	font-weight: bold;
+	padding: 12px 35px;
+	border: 2px solid transparent;
+	transition: all .3s ease;
+}
+
+.wallet-dashboard a:hover
+{
+/*background:#000;
+-webkit-transition:0.5s;
+-moz-transition:0.5s;
+-ms-transition:0.5s;
+-o-transition:0.5s;
+transition:0.5s;*/
+	background-color: #fff;
+	border-color: #F9A100;
+	color: #F9A100;
+}
+
+.wallet-dashboard .plan-gold {
+background-color: #66CDAA;
+}
+.wallet-dashboard .plan-advanced {
+background-color: #48D1CC;
+}
+
+.wallet-dashboard .price-plan:hover
+{
+box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+-webkit-transition:0.5s;
+-moz-transition:0.5s;
+-ms-transition:0.5s;
+-o-transition:0.5s;
+transition:0.5s;
+}
+
+.wallet-dashboard .price {
+    color:#fff;
+    font-size:30px;
+}
+
+.wallet-dashboard .price .amount {
+    font-size:30px;
+}

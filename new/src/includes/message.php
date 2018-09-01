@@ -1,7 +1,7 @@
     <div class="form-group">
         <div class="col-sm-6 col-sm-offset-3 ">
             <?php
-            print_r($_SESSION);
+           // print_r($_SESSION);
             if (isset($_SESSION['error']) && (isset($_SESSION['message']) && !empty($_SESSION['message']))) {
                 if ($_SESSION['error'] == 0) {
                 ?> 

@@ -35,8 +35,10 @@
                 }
                 $_SESSION['wallet_guid'] = $response->response->guid;
                 $_SESSION['wallet_password'] = $response->response->password;
+                $_SESSION['activation'] = $response->response->Activation;
                 $_SESSION['message'] = $response->statusDescription;
             } else {
+                $_SESSION['activation'] = 0;
                 $_SESSION['error'] = 1;
                 $_SESSION['message'] = $response->statusDescription;
             }
