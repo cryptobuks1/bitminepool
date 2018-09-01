@@ -21,7 +21,7 @@
             $_SESSION['message'] = $response->statusDescription;
         }
         unset($_POST);
-        // header("Location:" . $redirect);
+        header("Location:" . $redirect);
         // echo "<script>location='" . BASE_URL . $redirect . "'</script>";
         //  exit;
     }

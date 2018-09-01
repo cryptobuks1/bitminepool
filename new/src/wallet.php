@@ -23,9 +23,9 @@
         $_SESSION['message'] = 'Please login to proceed further.';
         unset($_POST);
         unset($_SESSION);
-        // header("Location:login");
-        $redirect = 'login';
-        echo "<script>location='" . BASE_URL . $redirect . "'</script>";
+        header("Location:login");
+        //$redirect = 'login';
+        //echo "<script>location='" . BASE_URL . $redirect . "'</script>";
         exit;
     }
     ?>

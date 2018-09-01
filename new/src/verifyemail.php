@@ -2,7 +2,6 @@
 <html lang="en">
     <?php
     include('includes/header.php');
-    print_r($_SESSION); exit;
     if (isset($_SESSION['Username'])) {
         
         if (!empty($_POST)) {
@@ -32,16 +31,16 @@
             }
             $responseWallet = json_decode($responseWallet);
 
-            //header("Location:" . $redirect);
-            echo "<script>location='" . BASE_URL . $redirect . "'</script>";
+            header("Location:" . $redirect);
+            //echo "<script>location='" . BASE_URL . $redirect . "'</script>";
             exit;
         }
     } else {
         unset($_POST);
         unset($_SESSION);
-       // header("Location:login");
-        $redirect = 'login';
-        echo "<script>location='" . BASE_URL . $redirect . "'</script>";
+        header("Location:login");
+        //$redirect = 'login';
+        //echo "<script>location='" . BASE_URL . $redirect . "'</script>";
         exit;
     }
     ?>

@@ -32,8 +32,8 @@
         $_SESSION['message'] = 'Please verify your account to proceed.';
 
         //unset($_POST);
-        // header("location:dashboard");
-        echo "<script>location='" . BASE_URL . $redirect . "'</script>";
+        header("location:dashboard");
+        //echo "<script>location='" . BASE_URL . $redirect . "'</script>";
         exit();
     }
     ?>
@@ -60,9 +60,9 @@
                                     if (isset($_SESSION['Username'])) {
                                         echo ' ' . strlen($_SESSION['Username']) > 15 ? substr($_SESSION['Username'],0,15)."..." : $_SESSION['Username'];
                                     } else {
-                                        //header("location:login");
-                                        $redirect = 'login';
-                                        echo "<script>location='" . BASE_URL . $redirect . "'</script>";
+                                        header("location:login");
+                                        //$redirect = 'login';
+                                        //echo "<script>location='" . BASE_URL . $redirect . "'</script>";
                                     }
                                     ?></h2>
                             </div>
