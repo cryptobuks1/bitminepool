@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-    <?php
+<?php
     include('includes/header.php');
     // print_r($_SESSION);
     $balance = 0;
