@@ -33,8 +33,8 @@
             $_SESSION['message'] = $response->statusDescription;
         }
         unset($_POST);
-        header("Location:" . $redirect);
-        //echo "<script>location='" . BASE_URL . $redirect . "'</script>";
+        //header("Location:" . $redirect);
+        echo "<script>location='" . BASE_URL . $redirect . "'</script>";
         exit;
     }
     ?>
