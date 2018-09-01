@@ -1,6 +1,7 @@
 <?php
-ob_start();
+echo 'ob_start'.ob_start();
 if (!isset($_SESSION)) session_start(); 
+echo 'header'. print_r($_SESSION);
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 include('includes/constant.php');
