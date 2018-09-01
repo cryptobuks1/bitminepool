@@ -2,7 +2,7 @@
 <html lang="en">
     <?php
     include('includes/header.php');
-
+    print_r($_SESSION); exit;
     if (isset($_SESSION['Username'])) {
         
         if (!empty($_POST)) {
