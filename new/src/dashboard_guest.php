@@ -13,6 +13,7 @@
                             ], 'getWalletBalance');
 
             $response = json_decode($response);
+            print_r($response);
             if ($response->statusCode == 100) {
                 $balance = $response->response->balance_usd;
                 $wallet_guid = $_SESSION['wallet_guid'];
