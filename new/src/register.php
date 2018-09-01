@@ -1,14 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="en">
     <?php
     include('includes/header.php');
-    if (!isset($_GET['account'])) {
-        //header("Location:register");
-        // $redirect = 'register';
-        //echo "<script>location='" . BASE_URL . $redirect . "'</script>";
-        // exit;
-    }
+
     if (!empty($_POST)) {
 
         $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,

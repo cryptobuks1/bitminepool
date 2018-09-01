@@ -42,7 +42,7 @@
                 $_SESSION['error'] = 1;
                 $_SESSION['message'] = $response->statusDescription;
             }
-
+            print_r($_SESSION);exit;
             unset($_POST);
             // header("location:dashboard");
             echo "<script>location='" . BASE_URL . $redirect . "'</script>";
