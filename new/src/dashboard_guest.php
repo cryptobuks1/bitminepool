@@ -4,7 +4,6 @@
     $balance = 0;
     $wallet_guid = '';
     if (isset($_SESSION['activation']) && ($_SESSION['activation'] == 1)) {
-        print_r($_SESSION);
         if (isset($_SESSION['wallet_guid']) && !empty($_SESSION['wallet_guid'])) {
             $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
                         'wallet_guid' => $_SESSION['wallet_guid'],
