@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-    <?php
+<?php
     include('includes/header.php');
     if (!empty($_POST)) {
         //echo '<pre>'; print_r($_POST); exit;

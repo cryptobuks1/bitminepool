@@ -6,7 +6,9 @@ ini_set('display_errors', 1);
 include('includes/constant.php');
 include('includes/apihelper.php');
 //use Helper;
-?>  
+?>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
