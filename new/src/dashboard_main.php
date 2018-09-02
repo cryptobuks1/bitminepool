@@ -255,7 +255,7 @@ $packfive = round($pricefive, 6);
                     </div>
                 </div>
 
-                <?php include('includes/header.php'); ?>
+                <?php //include('includes/header.php'); ?>
 
                 <!-- page content -->
                 <div class="right_col" role="main">
@@ -305,17 +305,6 @@ $packfive = round($pricefive, 6);
 
                     <div id="generic_price_table" style="background:none;position:relative;"> 
            <!--<section>-->
-                        <!--<div class="container">
-                            <div class="row">
-                                <div class="col-md-12">
-                        <!--PRICE HEADING START-->
-                        <!--<div class="price-heading clearfix">
-                            <h1>Bootstrap Pricing Table</h1>
-                        </div>
-                        <!--//PRICE HEADING END-->
-                        <!-- </div>
-                     </div>
-                 </div>-->
                         <!--<div class="container" style="background-color:white;">-->
 
                         <!--BLOCK ROW START-->
@@ -364,7 +353,7 @@ $packfive = round($pricefive, 6);
                                             <li><span>365</span> Mining days</li>
 
                                             <?php
-                                            $Starterdate = "SELECT * FROM starterpack WHERE Username='" . $_SESSION['Username'] . "'";
+                                            $Starterdate = "SELECT * FROM starterpack WHERE Username='" . $_SESSION['Username'] . "' order by id desc limit 1";
                                             $querystarter = mysqli_query($conn, $Starterdate);
                                             $viewstarter = mysqli_fetch_array($querystarter);
                                             $showstarterdate = $viewstarter['MiningDate'];
@@ -389,7 +378,7 @@ $packfive = round($pricefive, 6);
 
 
                                             <?php
-                                            $sqll = "SELECT * FROM starterpack WHERE Username='" . $_SESSION['Username'] . "' AND Comment='Purchased'";
+                                            $sqll = "SELECT * FROM starterpack WHERE Username='" . $_SESSION['Username'] . "' AND Comment='Purchased' order by id desc limit 1";
                                             $resultl = mysqli_query($conn, $sqll);
                                             if (mysqli_num_rows($resultl) == 1) {
                                                 ?>
@@ -402,15 +391,13 @@ $packfive = round($pricefive, 6);
                                                 <?php
                                             }
                                             ?>
-
-<!--     <li><span>24/7</span> Support</li>-->
                                         </ul>
                                     </div>
                                     <!--//FEATURE LIST END-->
 
                                     <!--BUTTON START-->
                                     <div class="generic_price_btn clearfix">
-                                        <a class="" href="">Buy Pack</a>
+                                        <a class="" href="purchase_pool?Purpose=Starter">Buy Pack</a>
                                     </div>
                                     <!--//BUTTON END-->
 
@@ -462,7 +449,7 @@ $packfive = round($pricefive, 6);
                                             <li><span>365</span> Mining days</li>
 
                                             <?php
-                                            $minidate = "SELECT * FROM minipack WHERE Username='" . $_SESSION['Username'] . "'";
+                                            $minidate = "SELECT * FROM minipack WHERE Username='" . $_SESSION['Username'] . "' order by id desc limit 1";
                                             $querymini = mysqli_query($conn, $minidate);
                                             $viewmini = mysqli_fetch_array($querymini);
                                             $showminidate = $viewmini['MiningDate'];
@@ -489,7 +476,7 @@ $packfive = round($pricefive, 6);
 
 
                                             <?php
-                                            $sqlm = "SELECT * FROM minipack WHERE Username='" . $_SESSION['Username'] . "' AND Comment='Purchased'";
+                                            $sqlm = "SELECT * FROM minipack WHERE Username='" . $_SESSION['Username'] . "' AND Comment='Purchased' order by id desc limit 1";
                                             $resultm = mysqli_query($conn, $sqlm);
                                             if (mysqli_num_rows($resultm) == 1) {
                                                 ?>
@@ -510,7 +497,7 @@ $packfive = round($pricefive, 6);
 
                                     <!--BUTTON START-->
                                     <div class="generic_price_btn clearfix">
-                                        <a class="" href="">Buy Pack</a>
+                                        <a class="" href="purchase_pool?Purpose=Mini">Buy Pack</a>
                                     </div>
                                     <!--//BUTTON END-->
 
@@ -562,7 +549,7 @@ $packfive = round($pricefive, 6);
                                             <li><span>365</span> Mining days</li>
 
                                             <?php
-                                            $mediumdate = "SELECT * FROM mediumpack WHERE Username='" . $_SESSION['Username'] . "'";
+                                            $mediumdate = "SELECT * FROM mediumpack WHERE Username='" . $_SESSION['Username'] . "' order by id desc limit 1";
                                             $querymedium = mysqli_query($conn, $mediumdate);
                                             $viewmedium = mysqli_fetch_array($querymedium);
                                             $showmediumdate = $viewmedium['MiningDate'];
@@ -589,7 +576,7 @@ $packfive = round($pricefive, 6);
 
 
                                             <?php
-                                            $sqln = "SELECT * FROM mediumpack WHERE Username='" . $_SESSION['Username'] . "' AND Comment='Purchased'";
+                                            $sqln = "SELECT * FROM mediumpack WHERE Username='" . $_SESSION['Username'] . "' AND Comment='Purchased' order by id desc limit 1";
                                             $resultn = mysqli_query($conn, $sqln);
                                             if (mysqli_num_rows($resultn) == 1) {
                                                 ?>
@@ -610,7 +597,7 @@ $packfive = round($pricefive, 6);
 
                                     <!--BUTTON START-->
                                     <div class="generic_price_btn clearfix">
-                                        <a class="" href="">Buy Pack</a>
+                                        <a class="" href="purchase_pool?Purpose=Medium">Buy Pack</a>
                                     </div>
                                     <!--//BUTTON END-->
 
@@ -662,7 +649,7 @@ $packfive = round($pricefive, 6);
                                             <li><span>365</span> Mining days</li>
 
                                             <?php
-                                            $granddate = "SELECT * FROM grandpack WHERE Username='" . $_SESSION['Username'] . "'";
+                                            $granddate = "SELECT * FROM grandpack WHERE Username='" . $_SESSION['Username'] . "' order by id desc limit 1";
                                             $querygrand = mysqli_query($conn, $granddate);
                                             $viewgrand = mysqli_fetch_array($querygrand);
                                             $showgranddate = $viewgrand['MiningDate'];
@@ -689,7 +676,7 @@ $packfive = round($pricefive, 6);
 
 
                                             <?php
-                                            $sqlp = "SELECT * FROM grandpack WHERE Username='" . $_SESSION['Username'] . "' AND Comment='Purchased'";
+                                            $sqlp = "SELECT * FROM grandpack WHERE Username='" . $_SESSION['Username'] . "' AND Comment='Purchased' order by id desc limit 1";
                                             $resultp = mysqli_query($conn, $sqlp);
                                             if (mysqli_num_rows($resultp) == 1) {
                                                 ?>
@@ -710,7 +697,7 @@ $packfive = round($pricefive, 6);
 
                                     <!--BUTTON START-->
                                     <div class="generic_price_btn clearfix">
-                                        <a class="" href="">Buy Pack</a>
+                                        <a class="" href="purchase_pool?Purpose=Grand">Buy Pack</a>
                                     </div>
                                     <!--//BUTTON END-->
 
@@ -762,7 +749,7 @@ $packfive = round($pricefive, 6);
                                             <li><span>365</span> Mining days</li>
 
                                             <?php
-                                            $ultimatedate = "SELECT * FROM ultimatepack WHERE Username='" . $_SESSION['Username'] . "'";
+                                            $ultimatedate = "SELECT * FROM ultimatepack WHERE Username='" . $_SESSION['Username'] . "' order by id desc limit 1";
                                             $queryultimate = mysqli_query($conn, $ultimatedate);
                                             $viewultimate = mysqli_fetch_array($queryultimate);
                                             $showultimatedate = $viewultimate['MiningDate'];
@@ -789,7 +776,7 @@ $packfive = round($pricefive, 6);
 
 
                                             <?php
-                                            $sqlw = "SELECT * FROM ultimatepack WHERE Username='" . $_SESSION['Username'] . "' AND Comment='Purchased'";
+                                            $sqlw = "SELECT * FROM ultimatepack WHERE Username='" . $_SESSION['Username'] . "' AND Comment='Purchased' order by id desc limit 1";
                                             $resultw = mysqli_query($conn, $sqlw);
                                             if (mysqli_num_rows($resultw) == 1) {
                                                 ?>
@@ -810,7 +797,7 @@ $packfive = round($pricefive, 6);
 
                                     <!--BUTTON START-->
                                     <div class="generic_price_btn clearfix">
-                                        <a class="" href="">Buy Pack</a>
+                                        <a class="" href="purchase_pool?Purpose=Ultimate">Buy Pack</a>
                                     </div>
                                     <!--//BUTTON END-->
 

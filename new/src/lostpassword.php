@@ -9,14 +9,15 @@
                         ], 'sendForgetPassword');
 
         $response = json_decode($response);
-        $redirect = 'login';
         if ($response->statusCode == 100) {
             $_SESSION['error'] = 0;
             $_SESSION['message'] = $response->statusDescription;
             $_SESSION['Username'] = $_POST['Username'];
+            $redirect = 'login';
         } else {
             $_SESSION['error'] = 1;
             $_SESSION['message'] = $response->statusDescription;
+            $redirect = 'lostpassword';
         }
         unset($_POST);
         //header("Location:" . $redirect);

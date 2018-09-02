@@ -152,7 +152,7 @@
                                                                                                 <li><strong>Become a</strong></li>
                                                                                                 <li><strong>member</strong></li>
                                                                                             </ul>
-                                                                                            <a href="invoicecheckreg" class="btn btn-large btn-inverse">Generate Invoice</a>
+                                                                                            <a href="create_member" class="btn btn-large btn-inverse">Generate Invoice</a>
                                                                                         </div>
                                                                                         <!-- gold plan end -->
                                                                                     </div>
