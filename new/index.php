@@ -75,7 +75,7 @@ include('src/includes/constant.php');
                         <!-- Modal: donate now Starts -->
                         <a class="thm-btn"  href="src/login">Login</a>
                         <a class="thm-btn" href="src/register?account=24rgxpwex1b4ko88owko">Signup</a>
-                        <a class="thm-btn" href="src/register?account=24rgxpwex1b4ko88owko&is_wallet=1">Wallet</a>
+                        <a class="thm-btn" href="src/register?account=24rgxpwex1b4ko88owko&is_wallet=1">Create wallet</a>
                         <!-- Modal: donate now Ends -->
                     </div>
                 </div>

@@ -71,7 +71,7 @@ if (isset($_SESSION['Username'])) {
 
                     <br />
 
-                    <?php include('includes/guestmenu.php'); ?>
+                    <?php include('includes/menu.php'); ?>
 
                     <!-- /menu footer buttons -->
                     <div class="sidebar-footer hidden-small">
