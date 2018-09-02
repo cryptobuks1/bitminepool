@@ -21,18 +21,19 @@
                    <!-- <li><a href="#">Enrollment Tree</a></li> -->
                     <li><a href="tree">Binary Tree</a></li>
                 </ul>
-            </li>
+            </li> 
+             */ ?>
             <li><a><i class="fa fa-shopping-cart"></i> Mining <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    <li><a href="table">Pool 1</a></li>
-                    <li><a href="tabletwo">Pool 2</a></li>
-                    <li><a href="tablethree">Pool 3</a></li>
-                    <li><a href="tablefour">Pool 4</a></li>
-                    <li><a href="tablefive">Pool 5</a></li>
+                    <li><a href="view_pool?purpose=Starter">Pool 1</a></li>
+                    <li><a href="view_pool?purpose=Mini">Pool 2</a></li>
+                    <li><a href="view_pool?purpose=Medium">Pool 3</a></li>
+                    <li><a href="view_pool?purpose=Grand">Pool 4</a></li>
+                    <li><a href="view_pool?purpose=Ultimate">Pool 5</a></li>
                 </ul>
             </li>
-               */
-                    ?>
+              
+                    
             <li><a href="logout"><i class="fa fa-sign-out"></i>Logout</a>
             </li>
         </ul>

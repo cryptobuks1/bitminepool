@@ -1,8 +1,6 @@
 <?php
-include('includes/constant.php');
+include('includes/header.php');
 
-///////////////////////////////////////////Connection to Database///////////////////////////////////////////////////////////
-include('includes/dbconnect.php');
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $url = "https://blockchain.info/stats?format=json";
 $stats = json_decode(file_get_contents($url), true);
@@ -166,44 +164,6 @@ $packthree = round($pricethree, 6);
 $packfour = round($pricefour, 6);
 $packfive = round($pricefive, 6);
 ?>
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!-- Meta, title, CSS, favicons, etc. -->
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Bit Mine Pool </title>
-
-        <!-- Bootstrap -->
-        <link href="../vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Font Awesome -->
-        <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-        <!-- NProgress -->
-        <link href="../vendor/nprogress/nprogress.css" rel="stylesheet">
-        <!-- iCheck -->
-        <link href="../vendor/iCheck/skins/flat/green.css" rel="stylesheet">
-
-        <!-- bootstrap-progressbar -->
-        <link href="../vendor/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-        <!-- JQVMap -->
-        <link href="../vendor/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
-        <!-- bootstrap-daterangepicker -->
-        <link href="../vendor/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-        <link rel="icon" href="../images/favicon.ico" type="image/ico" sizes="32x32">
-        <!-- Custom Theme Style -->
-        <link href="../vendor/build/css/custom.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="../vendor/build/css/style.css">
-        <style type="text/css">
-            <!--
-            .style1 {color: #FFFFFF}
-            .style2 {color: #FF0000}
-            -->
-        </style>
-    </head>
-
     <body class="nav-md">
         <div class="container body">
             <div class="main_container">
@@ -255,7 +215,7 @@ $packfive = round($pricefive, 6);
                     </div>
                 </div>
 
-                <?php //include('includes/header.php'); ?>
+                <?php include('includes/guestheader.php'); ?>
 
                 <!-- page content -->
                 <div class="right_col" role="main">

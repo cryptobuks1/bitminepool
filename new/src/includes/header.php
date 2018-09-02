@@ -5,6 +5,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 include('includes/constant.php');
 include('includes/apihelper.php');
+include('includes/dbconnect.php');
 //use Helper;
 ?>
 <!DOCTYPE html>

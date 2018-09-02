@@ -4429,3 +4429,7 @@ transition:0.5s;
 .wallet-dashboard .price .amount {
     font-size:30px;
 }
+
+.tile_stats_count .count a {
+    font-size:25px;
+}
