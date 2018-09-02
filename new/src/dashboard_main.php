@@ -397,7 +397,17 @@ $packfive = round($pricefive, 6);
 
                                     <!--BUTTON START-->
                                     <div class="generic_price_btn clearfix">
+                                        <?php 
+                                           if (mysqli_num_rows($resultl) == 1) {  
+                                        ?>
+                                        <a class="" href="">Purchased</a>
+                                        <?php 
+                                           } else {
+                                        ?>
                                         <a class="" href="purchase_pool?Purpose=Starter">Buy Pack</a>
+                                        <?php 
+                                           } 
+                                        ?>
                                     </div>
                                     <!--//BUTTON END-->
 
@@ -497,7 +507,18 @@ $packfive = round($pricefive, 6);
 
                                     <!--BUTTON START-->
                                     <div class="generic_price_btn clearfix">
-                                        <a class="" href="purchase_pool?Purpose=Mini">Buy Pack</a>
+                                        <?php 
+                                          if (mysqli_num_rows($resultm) == 1) { 
+                                        ?>
+                                        <a class="" href="">Purchased</a>
+                                        <?php 
+                                           } else {
+                                        ?>
+                                         <a class="" href="purchase_pool?Purpose=Mini">Buy Pack</a>
+                                        <?php 
+                                           } 
+                                        ?>
+                                       
                                     </div>
                                     <!--//BUTTON END-->
 
@@ -597,7 +618,18 @@ $packfive = round($pricefive, 6);
 
                                     <!--BUTTON START-->
                                     <div class="generic_price_btn clearfix">
+                                        <?php 
+                                          if (mysqli_num_rows($resultn) == 1) {
+                                        ?>
+                                        <a class="" href="">Purchased</a>
+                                        <?php 
+                                           } else {
+                                        ?>
                                         <a class="" href="purchase_pool?Purpose=Medium">Buy Pack</a>
+                                        <?php 
+                                           } 
+                                        ?>
+                                        
                                     </div>
                                     <!--//BUTTON END-->
 
@@ -697,7 +729,18 @@ $packfive = round($pricefive, 6);
 
                                     <!--BUTTON START-->
                                     <div class="generic_price_btn clearfix">
+                                        <?php 
+                                          if (mysqli_num_rows($resultp) == 1) {
+                                        ?>
+                                        <a class="" href="">Purchased</a>
+                                        <?php 
+                                           } else {
+                                        ?>
                                         <a class="" href="purchase_pool?Purpose=Grand">Buy Pack</a>
+                                        <?php 
+                                           } 
+                                        ?>
+                                        
                                     </div>
                                     <!--//BUTTON END-->
 
@@ -797,7 +840,18 @@ $packfive = round($pricefive, 6);
 
                                     <!--BUTTON START-->
                                     <div class="generic_price_btn clearfix">
+                                        <?php 
+                                          if (mysqli_num_rows($resultw) == 1) {
+                                        ?>
+                                        <a class="" href="">Purchased</a>
+                                        <?php 
+                                           } else {
+                                        ?>
                                         <a class="" href="purchase_pool?Purpose=Ultimate">Buy Pack</a>
+                                        <?php 
+                                           } 
+                                        ?>
+                                        
                                     </div>
                                     <!--//BUTTON END-->
 
