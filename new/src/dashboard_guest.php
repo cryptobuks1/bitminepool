@@ -13,7 +13,6 @@
                             ], 'getWalletBalance');
 
             $response = json_decode($response);
-            print_r($response);
             if ($response->statusCode == 100) {
                 $balance = $response->response->balance_usd;
                 $wallet_guid = $_SESSION['wallet_guid'];
@@ -173,7 +172,7 @@
                                                                                                 <li><strong>Invest in</strong></li>
                                                                                                 <li><strong>bitminepool</strong></li>
                                                                                             </ul>
-                                                                                            <a href="upgrade" class="btn btn-large btn-inverse">Upgrade</a>
+                                                                                            <a href="create_member" class="btn btn-large btn-inverse">Upgrade</a>
                                                                                         </div>
                                                                                         <!-- advanced plan end -->
                                                                                     </div>
