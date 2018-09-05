@@ -5,44 +5,37 @@ if (isset($_SESSION['Username'])) {
     $_SESSION['error'] = 0;
     $walletData = [];
     $userName = $_SESSION['Username'];
-    
-function tree_data($userid) {
-    global $conn;
-    $data = array();
-    $query = mysqli_query($conn, "select * from tree where userid='$userid'");
-    $result = mysqli_fetch_array($query);
-    $data['left'] = $result['left'];
-    $data['right'] = $result['right'];
-    $data['leftcount'] = $result['leftcount'];
-    $data['rightcount'] = $result['rightcount'];
-    $data['leftcredits'] = $result['leftcredits'];
-    $data['rightcredits'] = $result['rightcredits'];
-    return $data;
-}
-    if (isset($_GET['search-id'])) {
-        $search_id = mysqli_real_escape_string($conn, $_GET['search-id']);
-        if ($search_id != "") {
-            $getmember = "SELECT * FROM users WHERE Username = '" . $_SESSION['Username'] . "'";
-            $querymember = mysqli_query($conn, $getmember);
-            $currentmember = mysqli_fetch_array($querymember);
-            $membernumber = $currentmember['id'];
 
-            $getsearch = "SELECT * FROM users WHERE Username = '$search_id'";
-            $querysearch = mysqli_query($conn, $getsearch);
-            $currentsearch = mysqli_fetch_array($querysearch);
-            $membersearch = $currentsearch['id'];
+    function tree_data($userid) {
+        global $conn;
+        $data = array();
+        $query = mysqli_query($conn, "select * from tree where userid='$userid'");
+        $result = mysqli_fetch_array($query);
+        $data['left'] = $result['left'];
+        $data['right'] = $result['right'];
+        $data['leftcount'] = $result['leftcount'];
+        $data['rightcount'] = $result['rightcount'];
+        $data['leftcredits'] = $result['leftcredits'];
+        $data['rightcredits'] = $result['rightcredits'];
+        return $data;
+    }
 
-            $query_check = mysqli_query($conn, "select * from users where Username='$search_id'");
-            if (mysqli_num_rows($query_check) > 0 && $membernumber <= $membersearch) {
-                $search = $search_id;
-            } elseif (mysqli_num_rows($query_check) > 0 && $membernumber > $membersearch && $membernumber == $userid) {
-                $search = $search_id;
-            } else {
-                echo '<script>alert("User Unknown");window.location.assign("tree.php");</script>';
-            }
-        } else {
-            echo '<script>alert("Access Denied");window.location.assign("tree.php");</script>';
-        }
+    if (isset($_GET['search-id']) && !empty($_GET['search-id'])) {
+
+        $search_id = $_GET['search-id'];
+        $searchUserData = [];
+        $responseSearchUser = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
+                    'user_name' => $search_id,
+                    'platform' => '3',
+                    'transaction_type' => '301'
+                        //'grant_type' => 'client_credentials'
+                        ], 'getAllUserDataByUserName');
+
+        $responseSearchUser = json_decode($responseSearchUser);
+
+        if ($responseSearchUser->statusCode == 100) {
+            $searchUserData =$responseSearchUser->response;
+        } 
     }
 } else {
     $_SESSION['error'] = 1;
@@ -54,8 +47,8 @@ function tree_data($userid) {
     echo "<script>location='" . BASE_URL . $redirect . "'</script>";
     exit;
 }
-$userid = $_SESSION['Username'];
-$search = $userid;
+//$userid = $_SESSION['Username'];
+//$search = $userid;
 ?>
 
 <body class="nav-md">
@@ -70,19 +63,19 @@ $search = $userid;
                     <div class="clearfix"></div>
 
                     <!-- menu profile quick info -->
-                        <div class="profile clearfix">
-                            <div class="profile_pic">
-                                <a href="<?php echo BASE_URL; ?>"><img src="../images/img.jpg" alt="..." class="img-circle profile_img"></a>              </div>
-                            <div class="profile_info">
-                                <span>Welcome,</span>
-                                <h2><?php echo ' ' . strlen($userName) > 15 ? substr($userName,0,15)."..." : $userName; ?></h2>
-                            </div>
+                    <div class="profile clearfix">
+                        <div class="profile_pic">
+                            <a href="<?php echo BASE_URL; ?>"><img src="../images/img.jpg" alt="..." class="img-circle profile_img"></a>              </div>
+                        <div class="profile_info">
+                            <span>Welcome,</span>
+                            <h2><?php echo ' ' . strlen($userName) > 15 ? substr($userName, 0, 15) . "..." : $userName; ?></h2>
                         </div>
+                    </div>
                     <!-- /menu profile quick info -->
 
                     <br />
 
-                    <?php include('includes/menu.php'); ?>
+<?php include('includes/menu.php'); ?>
 
                     <!-- /menu footer buttons -->
                     <div class="sidebar-footer hidden-small">
@@ -104,7 +97,7 @@ $search = $userid;
             </div>
 
 
-            <?php include('includes/guestheader.php'); ?>
+        <?php include('includes/guestheader.php'); ?>
             <!-- page content -->
             <div class="right_col" role="main">
                 <div class="">
@@ -238,7 +231,7 @@ $search = $userid;
                                                                     <option>Choose Member</option>
                                                                     <?php while ($row1 = mysqli_fetch_array($result1)):; ?>
                                                                         <option value="<?php echo $row1[6]; ?>"><?php echo $row1[6]; ?></option>
-                                                                    <?php endwhile; ?>
+    <?php endwhile; ?>
 
                                                                 </select>
                                                                 <input type="hidden" name="under_userid" id="under_userid" value="<?php echo $search; ?>">
@@ -290,7 +283,7 @@ $search = $userid;
                                                                     <option>Choose Member</option>
                                                                     <?php while ($row1 = mysqli_fetch_array($result1)):; ?>
                                                                         <option value="<?php echo $row1[6]; ?>"><?php echo $row1[6]; ?></option>
-                                                                    <?php endwhile; ?>
+    <?php endwhile; ?>
 
                                                                 </select>
                                                                 <input type="hidden" name="under_useridtwo" id="under_useridtwo" value="<?php echo $search; ?>">
@@ -369,7 +362,7 @@ $search = $userid;
                                                                     <option>Choose Member</option>
                                                                     <?php while ($row1 = mysqli_fetch_array($result1)):; ?>
                                                                         <option value="<?php echo $row1[6]; ?>"><?php echo $row1[6]; ?></option>
-                                                                    <?php endwhile; ?>
+    <?php endwhile; ?>
 
                                                                 </select>
                                                                 <input type="hidden" name="under_useridthree" id="under_useridthree" value="<?php echo $first_left_user ?>">
@@ -422,7 +415,7 @@ $search = $userid;
                                                                     <option>Choose Member</option>
                                                                     <?php while ($row1 = mysqli_fetch_array($result1)):; ?>
                                                                         <option value="<?php echo $row1[6]; ?>"><?php echo $row1[6]; ?></option>
-                                                                    <?php endwhile; ?>
+    <?php endwhile; ?>
 
                                                                 </select> 
                                                                 <input type="hidden" name="under_useridfour" id="under_useridfour" value="<?php echo $first_left_user ?>">
@@ -476,7 +469,7 @@ $search = $userid;
                                                                     <option>Choose Member</option>
                                                                     <?php while ($row1 = mysqli_fetch_array($result1)):; ?>
                                                                         <option value="<?php echo $row1[6]; ?>"><?php echo $row1[6]; ?></option>
-                                                                    <?php endwhile; ?>
+    <?php endwhile; ?>
 
                                                                 </select>
                                                                 <input type="hidden" name="under_useridfive" id="under_useridfive" value="<?php echo $first_right_user ?>">
@@ -529,7 +522,7 @@ $search = $userid;
                                                                     <option>Choose Member</option>
                                                                     <?php while ($row1 = mysqli_fetch_array($result1)):; ?>
                                                                         <option value="<?php echo $row1[6]; ?>"><?php echo $row1[6]; ?></option>
-                                                                    <?php endwhile; ?>
+    <?php endwhile; ?>
 
                                                                 </select> 
                                                                 <input type="hidden" name="under_useridsix" id="under_useridsix" value="<?php echo $first_right_user ?>">
@@ -557,9 +550,9 @@ $search = $userid;
         </div>
     </div>
 
-<?php
-include('includes/header.php');
-?>
+    <?php
+    include('includes/header.php');
+    ?>
 
 </body>
 </html>
