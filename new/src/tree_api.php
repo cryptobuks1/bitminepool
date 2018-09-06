@@ -1,55 +1,54 @@
 <?php
 include('includes/header.php');
+
 if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
-    $userid = $_SESSION['Username'];
-    $search = $userid;
+    $_SESSION['error'] = 0;
+    $walletData = [];
+    $userName = $_SESSION['Username'];
 
     function tree_data($userid) {
-        global $conn;
-        $data = array();
-        $query = mysqli_query($conn, "select * from tree where userid='$userid'");
-        $result = mysqli_fetch_array($query);
-        $data['left'] = $result['left'];
-        $data['right'] = $result['right'];
-        $data['leftcount'] = $result['leftcount'];
-        $data['rightcount'] = $result['rightcount'];
-        $data['leftcredits'] = $result['leftcredits'];
-        $data['rightcredits'] = $result['rightcredits'];
-        return $data;
+        /* global $conn;
+          $data = array();
+          $query = mysqli_query($conn, "select * from tree where userid='$userid'");
+          $result = mysqli_fetch_array($query); */
+        $searchUserTreeData = [];
+        $responseSearchUser = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
+                'user_name' => $userid,
+                'platform' => '3',
+                'transaction_type' => '301'
+                //'grant_type' => 'client_credentials'
+                ], 'getAllUserDataByUserName');
+
+        $responseSearchUser = json_decode($responseSearchUser);
+
+        if ($responseSearchUser->statusCode == 100) {
+            $searchUserTreeData = $responseSearchUser->response;
+        }
+        return $searchUserTreeData;
+        /* $data['left'] = $searchUserTreeData->left;
+          $data['right'] = $searchUserTreeData->right;
+          $data['leftcount'] = $searchUserTreeData->leftcount;
+          $data['rightcount'] = $searchUserTreeData->rightcount;
+          $data['leftcredits'] = $searchUserTreeData->leftcredits;
+          $data['rightcredits'] = $searchUserTreeData->rightcredits;
+          return $data; */
     }
-    ?>
-    <?php
-    if (isset($_GET['search-id'])) {
-        $search_id = mysqli_real_escape_string($conn, $_GET['search-id']);
-        if ($search_id != "") {
-            $getmember = "SELECT * FROM users WHERE Username = '" . $_SESSION['Username'] . "'";
-            $querymember = mysqli_query($conn, $getmember);
-            $currentmember = mysqli_fetch_array($querymember);
-            $membernumber = $currentmember['id'];
 
-            $getsearch = "SELECT * FROM users WHERE Username = '$search_id'";
-            $querysearch = mysqli_query($conn, $getsearch);
-            $currentsearch = mysqli_fetch_array($querysearch);
-            $membersearch = $currentsearch['id'];
+    if (isset($_GET['search-id']) && !empty($_GET['search-id'])) {
 
-            $query_check = mysqli_query($conn, "select * from users where Username='$search_id'");
-            if (mysqli_num_rows($query_check) > 0 && $membernumber <= $membersearch) {
-                $search = $search_id;
-            } elseif (mysqli_num_rows($query_check) > 0 && $membernumber > $membersearch && $membernumber == $userid) {
-                $search = $search_id;
-            } else {
-                $_SESSION['error'] = 1;
-                $_SESSION['message'] = 'User Unknown.';
-                $redirect = 'tree';
-                echo "<script>location='" . BASE_URL . $redirect . "'</script>";
-                exit;
-            }
-        } else {
-            $_SESSION['error'] = 1;
-            $_SESSION['message'] = 'Access Denied.';
-            $redirect = 'tree';
-            echo "<script>location='" . BASE_URL . $redirect . "'</script>";
-            exit;
+        $search_id = $_GET['search-id'];
+        $searchUserData = [];
+        $responseSearchUser = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
+                'user_name' => $search_id,
+                'platform' => '3',
+                'transaction_type' => '301'
+                //'grant_type' => 'client_credentials'
+                ], 'getAllUserDataByUserName');
+
+        $responseSearchUser = json_decode($responseSearchUser);
+
+        if ($responseSearchUser->statusCode == 100) {
+            $searchUserData = $responseSearchUser->response->user_data;
         }
     }
 } else {
@@ -62,10 +61,10 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
     echo "<script>location='" . BASE_URL . $redirect . "'</script>";
     exit;
 }
+$userid = $_SESSION['Username'];
+$search = $userid;
 ?>
-    <?php
-    include('includes/message.php');
-    ?>
+
 <body class="nav-md">
     <div class="container body">
         <div class="main_container">
@@ -111,9 +110,8 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
                 </div>
             </div>
 
-            <?php include('includes/header.php'); ?>
 
-
+            <?php include('includes/guestheader.php'); ?>
             <!-- page content -->
             <div class="right_col" role="main">
                 <div class="">
@@ -164,11 +162,11 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
 
                                                         <!-- change image according to gender -->
                                                         <?php
-                                                        $getgenderone = "SELECT Gender FROM users WHERE Username = '$search'";
-                                                        $querygenderone = mysqli_query($conn, $getgenderone);
-                                                        $genderone = mysqli_fetch_array($querygenderone);
-                                                        $mygenderone = $genderone['Gender'];
-                                                        if ($mygenderone == 1) {
+                                                        /* $getgenderone = "SELECT Gender FROM users WHERE Username = '$search'";
+                                                          $querygenderone = mysqli_query($conn, $getgenderone);
+                                                          $genderone = mysqli_fetch_array($querygenderone);
+                                                          $mygenderone = $genderone['Gender']; */
+                                                        if ($data->user_data->Gender == 1) {
                                                             ?><img src="../images/useravatar.png" alt=""><?php
                                                         } else {
                                                             ?>
@@ -180,11 +178,11 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
                                                         <p><?php echo $search; ?></p><p><i class="fa fa-graduation-cap" style="color:#361515"></i>Rank: 
                                                             <!-- Get Rank -->
                                                             <?php
-                                                            $getrankone = "SELECT * FROM rank WHERE Username = '$search'";
-                                                            $queryrankone = mysqli_query($conn, $getrankone);
-                                                            $rankone = mysqli_fetch_array($queryrankone);
-                                                            $myrankone = $rankone['Rank'];
-                                                            $myrankid = $rankone['Rankid'];
+                                                            //$getrankone = "SELECT * FROM rank WHERE Username = '$search'";
+                                                            //$queryrankone = mysqli_query($conn, $getrankone);
+                                                            //$rankone = mysqli_fetch_array($queryrankone);
+                                                            $myrankone = $data->rank_data->Rank;
+                                                            $myrankid = $data->rank_data->Rankid;
                                                             echo $myrankone;
                                                             ?>
                                                             <!-- //Get Rank -->
@@ -193,14 +191,14 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
                                                 </tr>
                                                 <tr height="150">
                                                     <?php
-                                                    $first_left_user = $data['left'];
-                                                    $first_right_user = $data['right'];
+                                                    $first_left_user = $data->tree_data->left;
+                                                    $first_right_user = $data->tree_data->right;
                                                     $data_left_credits = tree_data($first_left_user);
-                                                    $first_left_credits = $data_left_credits['leftcredits'];
-                                                    $first_right_credits = $data_left_credits['rightcredits'];
+                                                    $first_left_credits = $data_left_credits->tree_data->leftcredits;
+                                                    $first_right_credits = $data_left_credits->tree_data->rightcredits;
                                                     $data_right_credits = tree_data($first_right_user);
-                                                    $first_leftuser_credits = $data_right_credits['leftcredits'];
-                                                    $first_rightuser_credits = $data_right_credits['rightcredits'];
+                                                    $first_leftuser_credits = $data_right_credits->tree_data->leftcredits;
+                                                    $first_rightuser_credits = $data_right_credits->tree_data->rightcredits;
                                                     ?>
                                                     <?php
                                                     if ($first_left_user != "") {
@@ -209,11 +207,11 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
 
                                                                 <!-- change image according to gender -->
                                                                 <?php
-                                                                $getgendertwo = "SELECT Gender FROM users WHERE Username = '$first_left_user'";
-                                                                $querygendertwo = mysqli_query($conn, $getgendertwo);
-                                                                $gendertwo = mysqli_fetch_array($querygendertwo);
-                                                                $mygendertwo = $gendertwo['Gender'];
-                                                                if ($mygendertwo == 1) {
+                                                                /* $getgendertwo = "SELECT Gender FROM users WHERE Username = '$first_left_user'";
+                                                                  $querygendertwo = mysqli_query($conn, $getgendertwo);
+                                                                  $gendertwo = mysqli_fetch_array($querygendertwo);
+                                                                  $mygendertwo = $gendertwo['Gender']; */
+                                                                if ($data_left_credits->user_data->Gender == 1) {
                                                                     ?><img src="../images/useravatar.png" alt=""><?php
                                                                 } else {
                                                                     ?>
@@ -225,11 +223,11 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
                                                                 </i><p><?php echo $first_left_user ?></p><p><i class="fa fa-graduation-cap" style="color:#361515"></i>Rank: 
                                                                     <!-- Get Rank -->
                                                                     <?php
-                                                                    $getranktwo = "SELECT * FROM rank WHERE Username = '$first_left_user'";
-                                                                    $queryranktwo = mysqli_query($conn, $getranktwo);
-                                                                    $ranktwo = mysqli_fetch_array($queryranktwo);
-                                                                    $myranktwo = $ranktwo['Rank'];
-                                                                    $myrankidtwo = $ranktwo['Rankid'];
+                                                                    //$getranktwo = "SELECT * FROM rank WHERE Username = '$first_left_user'";
+                                                                    //$queryranktwo = mysqli_query($conn, $getranktwo);
+                                                                    //$ranktwo = mysqli_fetch_array($queryranktwo);
+                                                                    $myranktwo = $data_left_credits->rank_data->Rank;
+                                                                    $myrankidtwo = $data_left_credits->rank_data->Rankid;
                                                                     echo $myranktwo;
                                                                     ?>
                                                                     <!-- //Get Rank -->
@@ -240,14 +238,14 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
                                                         ?>
                                                         <td colspan="2"><img src="../images/useravatarn.png"><p><form action="join.php" method="post">
                                                                 <?php
-                                                                $query1 = "SELECT * FROM users WHERE Sponsor = '" . $_SESSION['Username'] . "' AND Status='Close' AND treestatus='notree'";
-                                                                $result1 = mysqli_query($conn, $query1);
+                                                                //$query1 = "SELECT * FROM users WHERE Sponsor = '" . $_SESSION['Username'] . "' AND Status='Close' AND treestatus='notree'";
+                                                                //$result1 = mysqli_query($conn, $query1);
                                                                 ?>
                                                                 <select  name="Usernameone" id="Usernameone" onchange="">
                                                                     <option>Choose Member</option>
-                                                                    <?php while ($row1 = mysqli_fetch_array($result1)):; ?>
-                                                                        <option value="<?php echo $row1[6]; ?>"><?php echo $row1[6]; ?></option>
-                                                                    <?php endwhile; ?>
+                                                                    <?php foreach ($data->child_node_data as $row1 ) { ?>
+                                                                        <option value="<?php echo $row1->Username; ?>"><?php echo $row1->Username; ?></option>
+                                                                <?php } ?>
 
                                                                 </select>
                                                                 <input type="hidden" name="under_userid" id="under_userid" value="<?php echo $search; ?>">
@@ -263,10 +261,10 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
 
                                                                 <!-- change image according to gender -->
                                                                 <?php
-                                                                $getgenderthree = "SELECT Gender FROM users WHERE Username = '$first_right_user'";
-                                                                $querygenderthree = mysqli_query($conn, $getgenderthree);
-                                                                $genderthree = mysqli_fetch_array($querygenderthree);
-                                                                $mygenderthree = $genderthree['Gender'];
+                                                               // $getgenderthree = "SELECT Gender FROM users WHERE Username = '$first_right_user'";
+                                                                //$querygenderthree = mysqli_query($conn, $getgenderthree);
+                                                                //$genderthree = mysqli_fetch_array($querygenderthree);
+                                                                $mygenderthree = $data_right_credits->user_data->Gender;
                                                                 if ($mygenderthree == 1) {
                                                                     ?><img src="../images/useravatar.png" alt=""><?php
                                                                 } else {
@@ -279,11 +277,11 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
                                                                 </i><p><?php echo $first_right_user ?></p><p><i class="fa fa-graduation-cap" style="color:#361515"></i>Rank: 
                                                                     <!-- Get Rank -->
                                                                     <?php
-                                                                    $getrankthree = "SELECT * FROM rank WHERE Username = '$first_right_user '";
-                                                                    $queryrankthree = mysqli_query($conn, $getrankthree);
-                                                                    $rankthree = mysqli_fetch_array($queryrankthree);
-                                                                    $myrankthree = $rankthree['Rank'];
-                                                                    $myrankidthree = $rankthree['Rankid'];
+                                                                    //$getrankthree = "SELECT * FROM rank WHERE Username = '$first_right_user '";
+                                                                    //$queryrankthree = mysqli_query($conn, $getrankthree);
+                                                                    //$rankthree = mysqli_fetch_array($queryrankthree);
+                                                                    $myrankthree = $data_right_credits->rank_data->Rank;
+                                                                    $myrankidthree = $data_right_credits->rank_data->Rankid;
                                                                     echo $myrankthree;
                                                                     ?>
                                                                     <!-- //Get Rank -->
@@ -292,14 +290,14 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
                                                     } else {
                                                         ?>
                                                         <td colspan="2"><img src="../images/useravatarn.png"><p><form action="jointwo.php" method="post"><?php
-                                                                $query1 = "SELECT * FROM users WHERE Sponsor = '" . $_SESSION['Username'] . "' AND Status='Close' AND treestatus='notree'";
-                                                                $result1 = mysqli_query($conn, $query1);
+                                                              //  $query1 = "SELECT * FROM users WHERE Sponsor = '" . $_SESSION['Username'] . "' AND Status='Close' AND treestatus='notree'";
+                                                          //      $result1 = mysqli_query($conn, $query1);
                                                                 ?>
                                                                 <select  name="Usernametwo" id="Usernametwo" onchange="">
                                                                     <option>Choose Member</option>
-                                                                    <?php while ($row1 = mysqli_fetch_array($result1)):; ?>
-                                                                        <option value="<?php echo $row1[6]; ?>"><?php echo $row1[6]; ?></option>
-                                                                    <?php endwhile; ?>
+                                                                <?php foreach ($data->child_node_data as $row1 ) { ?>
+                                                                        <option value="<?php echo $row1->Username; ?>"><?php echo $row1->Username; ?></option>
+                                                                <?php } ?>
 
                                                                 </select>
                                                                 <input type="hidden" name="under_useridtwo" id="under_useridtwo" value="<?php echo $search; ?>">
@@ -312,27 +310,27 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
                                                 <tr height="150">
                                                     <?php
                                                     $data_first_left_user = tree_data($first_left_user);
-                                                    $second_left_user = $data_first_left_user['left'];
-                                                    $second_right_user = $data_first_left_user['right'];
+                                                    $second_left_user = $data_first_left_user->tree_data->left;
+                                                    $second_right_user = $data_first_left_user->tree_data->right;
                                                     $data_first_right_user = tree_data($first_right_user);
-                                                    $third_left_user = $data_first_right_user['left'];
-                                                    $thidr_right_user = $data_first_right_user['right'];
+                                                    $third_left_user = $data_first_right_user->tree_data->left;
+                                                    $thidr_right_user = $data_first_right_user->tree_data->right;
 
                                                     $data_first_left_credits = tree_data($second_left_user);
-                                                    $user_first_left_credits = $data_first_left_credits['leftcredits'];
-                                                    $user_first_right_credits = $data_first_left_credits['rightcredits'];
+                                                    $user_first_left_credits = $data_first_left_credits->tree_data->leftcredits;
+                                                    $user_first_right_credits = $data_first_left_credits->tree_data->rightcredits;
 
                                                     $data_first_right_credits = tree_data($second_right_user);
-                                                    $usertwo_first_left_credits = $data_first_right_credits['leftcredits'];
-                                                    $usertwo_first_right_credits = $data_first_right_credits['rightcredits'];
+                                                    $usertwo_first_left_credits = $data_first_right_credits->tree_data->leftcredits;
+                                                    $usertwo_first_right_credits = $data_first_right_credits->tree_data->rightcredits;
 
                                                     $thirdcredits = tree_data($third_left_user);
-                                                    $userthree_first_left_credits = $thirdcredits['leftcredits'];
-                                                    $userthree_first_right_credits = $thirdcredits['rightcredits'];
+                                                    $userthree_first_left_credits = $thirdcredits->tree_data->leftcredits;
+                                                    $userthree_first_right_credits = $thirdcredits->tree_data->rightcredits;
 
                                                     $fourthcredits = tree_data($thidr_right_user);
-                                                    $userfour_first_left_credits = $fourthcredits['leftcredits'];
-                                                    $userfour_first_right_credits = $fourthcredits['rightcredits'];
+                                                    $userfour_first_left_credits = $fourthcredits->tree_data->leftcredits;
+                                                    $userfour_first_right_credits = $fourthcredits->tree_data->rightcredits;
                                                     ?>
                                                     <?php
                                                     if ($second_left_user != "") {
@@ -342,9 +340,9 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
                                                                 <!-- change image according to gender -->
                                                                 <?php
                                                                 $getgenderfour = "SELECT Gender FROM users WHERE Username = '$second_left_user'";
-                                                                $querygenderfour = mysqli_query($conn, $getgenderfour);
-                                                                $genderfour = mysqli_fetch_array($querygenderfour);
-                                                                $mygenderfour = $genderfour['Gender'];
+                                                                //$querygenderfour = mysqli_query($conn, $getgenderfour);
+                                                                //$genderfour = mysqli_fetch_array($querygenderfour);
+                                                                $mygenderfour = $data_first_left_credits->user_data->Gender;
                                                                 if ($mygenderfour == 1) {
                                                                     ?><img src="../images/useravatar.png" alt=""><?php
                                                                 } else {
@@ -569,5 +567,6 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
     <?php
     include('includes/footer.php');
     ?>
+
 </body>
 </html>
