@@ -8,23 +8,24 @@
             <ul class="nav side-menu">
                 <li><a href="dashboard"><i class="fa fa-dashboard"></i>Dashboard</a>
                 <li><a href="wallet"><i class="fa fa-dashboard"></i>Wallet</a>
-                    <?php /*
-                      <li><a><i class="fa fa-user"></i> My Account <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                      <li><a href="profile">My Profile</a></li>
-                      <li><a href="rank">My Rank</a></li>
-                      <!--<li><a href="#">My Orders</a></li>
-                      <li><a href="#">Support Ticket</a></li> -->
-                      <li><a href="reflink">Referral Link</a></li>
-                      </ul>
-                      </li> 
+                <li><a><i class="fa fa-user"></i> My Account <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="profile">My Profile</a></li>
+                        <li><a href="rank">My Rank</a></li>
+                        <!--<li><a href="#">My Orders</a></li>
+                        <li><a href="#">Support Ticket</a></li> -->
+                        <li><a href="reflink">Referral Link</a></li>
+                    </ul>
+                </li>
+
+
                 <li><a><i class="fa fa-sitemap"></i> My team <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <!-- <li><a href="#">Enrollment Tree</a></li> -->
                         <li><a href="tree">Binary Tree</a></li>
                     </ul>
                 </li>
-*/ ?>
+
                 <li><a><i class="fa fa-shopping-cart"></i> Mining <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="view_pool?purpose=Starter">Pool 1</a></li>

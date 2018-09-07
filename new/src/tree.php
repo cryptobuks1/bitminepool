@@ -17,8 +17,7 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
         $data['rightcredits'] = $result['rightcredits'];
         return $data;
     }
-    ?>
-    <?php
+
     if (isset($_GET['search-id'])) {
         $search_id = mysqli_real_escape_string($conn, $_GET['search-id']);
         if ($search_id != "") {
@@ -62,10 +61,9 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
     echo "<script>location='" . BASE_URL . $redirect . "'</script>";
     exit;
 }
+
+include('includes/message.php');
 ?>
-    <?php
-    include('includes/message.php');
-    ?>
 <body class="nav-md">
     <div class="container body">
         <div class="main_container">
@@ -111,7 +109,7 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
                 </div>
             </div>
 
-            <?php include('includes/header.php'); ?>
+           <?php include('includes/guestheader.php'); ?>
 
 
             <!-- page content -->
