@@ -17,8 +17,18 @@
                         <li><a href="reflink">Referral Link</a></li>
                     </ul>
                 </li>
-
-
+                <?php
+                if (isset($_SESSION['is_prime_user']) && $_SESSION['is_prime_user'] == 1) {
+                    ?>
+                    <li><a><i class="fa fa-user"></i> View all transactions <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="all_transactions?type=wallet">Wallet</a></li>
+                            <li><a href="all_transactions?type=invoice">Invoice</a></li>
+                        </ul>
+                    </li>
+                    <?php
+                }
+                ?>
                 <li><a><i class="fa fa-sitemap"></i> My team <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <!-- <li><a href="#">Enrollment Tree</a></li> -->

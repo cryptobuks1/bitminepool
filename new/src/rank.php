@@ -32,10 +32,12 @@ if (isset($_SESSION['Username'])) {
     $showfive = $balancefive['Balance'];
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////Get the Account Rank///////////////////////////////////////////////////////////////		
-    $getrank = "SELECT Rank FROM rank WHERE Username = '" . $_SESSION['Username'] . "'";
+    $getrank = "SELECT Rank,Rankid FROM rank WHERE Username = '" . $_SESSION['Username'] . "'";
     $queryrank = mysqli_query($conn, $getrank);
     $sharerank = mysqli_fetch_array($queryrank);
     $showrank = $sharerank['Rank'];
+    $showrankid = $sharerank['Rankid'];
+ 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     mysqli_close($conn);
     ?>
@@ -74,6 +76,47 @@ if (isset($_SESSION['Username'])) {
 }
 include('includes/message.php');
 ?>
+<style>
+
+    .card {
+
+        width: 100%;
+        min-height: 100px;
+        overflow: hidden;
+        position:relative;
+        background-color: white;
+        border-radius: 4px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    }
+
+    .header, .center {
+        text-align: center;
+    }
+
+    <!--#table_miner {
+        margin-top: 45px;
+    }-->
+
+    td {
+        font-size: 15.5px;
+        font-weight: 500;
+
+
+    }
+
+    thead {
+        font-size:17px;
+        color: white;
+        background-color: #1abb9c;
+    }
+    @media (min-width: 768px) {
+        .tile_count .tile_stats_count .count {
+            font-size: 22px
+        }
+    }
+</style>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
 <body class="nav-md">
     <div class="container body">
         <div class="main_container">
@@ -125,12 +168,14 @@ include('includes/message.php');
             <div class="right_col" role="main">
                 <!-- top tiles -->
                 <div class="row tile_count">
+
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-user"></i> Account Rank</span>
-                        <div class="count">Miner</a></div>
+                        <div class="count"><?php echo $showrank; ?></a></div>
                         <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>Currently </i>Account Rank</span>
                     </div>
-                    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+
+                    <!--<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-user"></i> Account Rank</span>
                         <div class="count">Dealer</a></div>
                         <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>Currently </i>Account Rank</span>
@@ -155,7 +200,7 @@ include('includes/message.php');
                         <div class="count">Global Dealer</a></div>
                         <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>Currently </i>Account Rank</span>
                     </div>
-
+                    -->
 
                 </div>
                 <!-- /top tiles -->
@@ -172,7 +217,41 @@ include('includes/message.php');
                             </div>
 
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                <div class="row">
+                                    <div class="col-md-10 col-xs-10 col-sm-10">
+                                        <div class="card">
+                                            <div class="card-text">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="header" scope="col"><font size=4>MINER</font> Requirements</th>
+                                                            <th class="header" scope="col"></th>
+                                                            <th class="header" scope="col">Status</th>
+
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="center">Purchase $99 Membership</td>
+                                                            <td class="center"></td>
+                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($showrankid >= 1 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="center">Purchase at least 1 share of ANY pool</td>
+                                                            <td class="center"></td>
+                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($showrankid >= 1 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
+                                                        </tr>
+                                                    </tbody>
+
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div><br>
+                                <!--<div class="col-md-3 col-sm-6 col-xs-12">
                                     <div class="pricing ui-ribbon-container">
                                         <div class="ui-ribbon-wrapper">
 
@@ -203,8 +282,55 @@ include('includes/message.php');
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                </div>-->
+                                <div class="row">
+                                    <div class="col-md-10 col-xs-10 col-sm-10">
+                                        <div class="card">
+                                            <div class="card-text">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="header" scope="col"><font size=4>DEALER</font> Requirements</th>
+                                                            <th class="header" scope="col"></th>
+                                                            <th class="header" scope="col">Status</th>
+
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="center">Achieve <strong>MINER</strong> status AND...</td>
+                                                            <td class="center"></td>
+                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($showrankid >= 2 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="center">$11,400 in total enrollment tree volume</td>
+                                                            <td class="center"></td>
+                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($showrankid >= 2 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="center">Sponsor 6 miners</td>
+                                                            <td class="center"></td>
+                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($showrankid >= 2 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="center">Get 6 <strong>MINERS</strong> that each have 2 Miners enrolled</td>
+                                                            <td class="center"></td>
+                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($showrankid >= 2 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
+                                                        </tr>
+                                                    </tbody>
+
+                                                </table>					
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div><br>
+
+                                <!-- <div class="col-md-3 col-sm-6 col-xs-12">
                                     <div class="pricing ui-ribbon-container">
                                         <div class="ui-ribbon-wrapper">
 
@@ -235,8 +361,8 @@ include('includes/message.php');
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                </div> -->
+                                <!--<div class="col-md-3 col-sm-6 col-xs-12">
                                     <div class="pricing ui-ribbon-container">
                                         <div class="ui-ribbon-wrapper">
 
@@ -267,7 +393,48 @@ include('includes/message.php');
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
+                                <div class="row">
+                                    <div class="col-md-10 col-xs-10 col-sm-10">
+                                        <div class="card">
+                                            <div class="card-text">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="header" scope="col"><font size=4>SUPER DEALER</font> Requirements</th>
+                                                            <th class="header" scope="col"></th>
+                                                            <th class="header" scope="col">Status</th>
+
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="center">Achieve <strong>DEALER</strong> status AND...</td>
+                                                            <td class="center"></td>
+                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($showrankid >= 3 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="center">$50,000 in total enrollment tree volume</td>
+                                                            <td class="center"></td>
+                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($showrankid >= 3 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="center">Get 3 <strong>DEALERS</strong> in 3 separate enrollment tree legs(not binary)</td>
+                                                            <td class="center"></td>
+                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($showrankid >= 3 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
+                                                        </tr>
+                                                    </tbody>
+
+                                                </table>					
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div><br>
+                                <!--
                                 <div class="col-md-3 col-sm-6 col-xs-12">
                                     <div class="pricing">
                                         <div class="title">
@@ -294,37 +461,157 @@ include('includes/message.php');
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- price element -->
-                                <div class="col-md-3 col-sm-6 col-xs-12">
-                                    <div class="pricing ui-ribbon-container">
-                                        <div class="title">
-                                            <h2>Crown Dealer</h2>
-                                            <h2>Volumes: 40,000</h2>
-                                            <h2>0/40,000</h2>
-                                            <h2>Dealers 0/3</h2>
-                                        </div>
-                                        <div class="x_content">
-                                            <div class="">
-                                                <div class="pricing_features">
-                                                    <ul class="list-unstyled text-left">
-                                                        <h2>Number of Dealers</h2>
-                                                        <h1><b><i class="fa fa-users"></i> Dlrs. 3</h1></b>
-                                                        <h2><b><i class="green">40,000 Volumes</i></h2></b>
-                                                        <h2><b>7 Cycles Per Day</h2></b>
-                                                        <h2 class="blue">Mining Team Bonus</h2>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="pricing_footer">
-                                                <a href="tablethree" class="btn btn-danger btn-block" role="button">Rank<span> Not Attained</span></a>
+                                </div> -->
+                                <!--<div class="row">
+                                    <div class="col-md-10 col-xs-10 col-sm-10">
+                                        <div class="card">
+                                            <div class="card-text">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="header" scope="col"><font size=4>EXECUTIVE DEALER</font> Requirements</th>
+                                                            <th class="header" scope="col"></th>
+                                                            <th class="header" scope="col">Status</th>
 
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="center">Achieve <strong>SUPER DEALER</strong> status AND...</td>
+                                                            <td class="center"></td>
+                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="color:gray;margin-top: 5px;" ></i></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="center">$220,000 in total enrollment tree volume</td>
+                                                            <td class="center"></td>
+                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="color:gray;margin-top: 5px;" ></i></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="center">Get 2 <strong>SUPER DEALERS</strong> in 2 separate enrollment tree legs(not binary)</td>
+                                                            <td class="center"></td>
+                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="color:gray;margin-top: 5px;" ></i></td>
+                                                        </tr>
+                                                    </tbody>
+
+                                                </table>					
                                             </div>
+
                                         </div>
                                     </div>
-                                </div>
+                                </div><br>-->
+                                <div class="row">
+                                    <div class="col-md-10 col-xs-10 col-sm-10">
+                                        <div class="card">
+                                            <div class="card-text">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="header" scope="col"><font size=4>EXECUTIVE DEALER</font> Requirements</th>
+                                                            <th class="header" scope="col"></th>
+                                                            <th class="header" scope="col">Status</th>
+
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="center">Achieve <strong>SUPER DEALER</strong> status AND...</td>
+                                                            <td class="center"></td>
+                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($showrankid >= 4 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="center">$220,000 in total enrollment tree volume</td>
+                                                            <td class="center"></td>
+                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($showrankid >= 4 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="center">Get 2 <strong>SUPER DEALERS</strong> in 2 separate enrollment tree legs(not binary)</td>
+                                                            <td class="center"></td>
+                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($showrankid >= 4 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
+                                                        </tr>
+                                                    </tbody>
+
+                                                </table>					
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div><br>
                                 <!-- price element -->
-                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                <!-- <div class="col-md-3 col-sm-6 col-xs-12">
+                                     <div class="pricing ui-ribbon-container">
+                                         <div class="title">
+                                             <h2>Crown Dealer</h2>
+                                             <h2>Volumes: 40,000</h2>
+                                             <h2>0/40,000</h2>
+                                             <h2>Dealers 0/3</h2>
+                                         </div>
+                                         <div class="x_content">
+                                             <div class="">
+                                                 <div class="pricing_features">
+                                                     <ul class="list-unstyled text-left">
+                                                         <h2>Number of Dealers</h2>
+                                                         <h1><b><i class="fa fa-users"></i> Dlrs. 3</h1></b>
+                                                         <h2><b><i class="green">40,000 Volumes</i></h2></b>
+                                                         <h2><b>7 Cycles Per Day</h2></b>
+                                                         <h2 class="blue">Mining Team Bonus</h2>
+                                                     </ul>
+                                                 </div>
+                                             </div>
+                                             <div class="pricing_footer">
+                                                 <a href="tablethree" class="btn btn-danger btn-block" role="button">Rank<span> Not Attained</span></a>
+ 
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div> -->
+                                <div class="row">
+                                    <div class="col-md-10 col-xs-10 col-sm-10">
+                                        <div class="card">
+                                            <div class="card-text">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="header" scope="col"><font size=4>CROWN DEALER</font> Requirements</th>
+                                                            <th class="header" scope="col"></th>
+                                                            <th class="header" scope="col">Status</th>
+
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="center">Achieve <strong>EXECUTIVE DEALER</strong> status AND...</td>
+                                                            <td class="center"></td>
+                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($showrankid >= 5 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="center">$2,000,000 in total enrollment tree volume</td>
+                                                            <td class="center"></td>
+                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($showrankid >= 5 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="center">Get 3 <strong>EXECUTIVE DEALERS</strong> in 3 separate enrollment tree legs(not binary)</td>
+                                                            <td class="center"></td>
+                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($showrankid >= 5 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
+                                                        </tr>
+                                                    </tbody>
+
+                                                </table>					
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div><br>
+                                <!-- price element -->
+                                <!--<div class="col-md-3 col-sm-6 col-xs-12">
                                     <div class="pricing">
                                         <div class="title">
                                             <h2>Global Dealer</h2>
@@ -350,7 +637,48 @@ include('includes/message.php');
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
+                                <div class="row">
+                                    <div class="col-md-10 col-xs-10 col-sm-10">
+                                        <div class="card">
+                                            <div class="card-text">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="header" scope="col"><font size=4>GLOBAL CROWN DEALER</font> Requirements</th>
+                                                            <th class="header" scope="col"></th>
+                                                            <th class="header" scope="col">Status</th>
+
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="center">Achieve <strong>CROWN DEALER</strong> status AND...</td>
+                                                            <td class="center"></td>
+                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($showrankid >= 6 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="center">$10,000,000 in total enrollment tree volume</td>
+                                                            <td class="center"></td>
+                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($showrankid >= 6 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="center">Get 3 <strong>CROWN DEALERS</strong> in 3 separate enrollment tree legs(not binary)</td>
+                                                            <td class="center"></td>
+                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($showrankid >= 6 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
+                                                        </tr>
+                                                    </tbody>
+
+                                                </table>					
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div><br>
+
                                 <!-- price element -->
 
                             </div>

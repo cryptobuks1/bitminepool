@@ -35,7 +35,10 @@
                 $_SESSION['wallet_password'] = $response->response->password;
                 $_SESSION['activation'] = $response->response->Activation;
                 $_SESSION['message'] = $response->statusDescription;
+                $_SESSION['is_admin_user'] = $response->response->is_admin_user;
+                
             } else {
+                $_SESSION['is_admin_user'] = 0;
                 $_SESSION['activation'] = 0;
                 $_SESSION['error'] = 1;
                 $_SESSION['message'] = $response->statusDescription;

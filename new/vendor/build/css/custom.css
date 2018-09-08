@@ -1,4 +1,4 @@
-
+.tile_count .tile_stats_count .count
 html , body{
 	
  height:100%;
@@ -4432,4 +4432,9 @@ transition:0.5s;
 
 .tile_stats_count .count a {
     font-size:25px;
+}
+
+.ui-state-active {
+    border: 1px solid #2A3F54 !important;
+    background: #2A3F54 !important;
 }

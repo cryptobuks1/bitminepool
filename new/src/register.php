@@ -13,7 +13,7 @@ if (!empty($_POST)) {
                 'gender' => $_POST['Gender'],
                 'user_name' => $_POST['Username'],
                 'password' => $_POST['password'],
-                'sponsor_account' => $_GET['Account'],
+                'sponsor_account' => $_GET['account'],
                 'status' => $_POST['Status'],
                 'activation' => $_POST['Activation'],
                 'is_wallet_user' => $_POST['is_wallet'],
