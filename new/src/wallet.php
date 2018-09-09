@@ -5,7 +5,7 @@ if (isset($_SESSION['Username'])) {
 
     $_SESSION['error'] = 0;
     $receiveAmountBtc = $sentAmountBtc = 0;
-    $receiveAmountAddress = '';
+    $receiveAmountAddress = $walletErrorMessage = '';
     $url = "https://blockchain.info/stats?format=json";
     $stats = json_decode(file_get_contents($url), true);
     $btcValue = $stats['market_price_usd'];
@@ -21,9 +21,12 @@ if (isset($_SESSION['Username'])) {
     if ($response->statusCode == 100) {
         $walletData = $response->response->wallet_data;
         $userData = $response->response->user_data;
+		
+    } else {
 		$_SESSION['error'] = 1;
-        $_SESSION['message'] = $response->response->statusDescription;
-    }
+        $_SESSION['message'] = $response->statusDescription;
+        $walletErrorMessage= $response->statusDescription;
+	}
     $responseWalletTransaction = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
                 'user_name' => $_SESSION['Username'],
                 'platform' => '3',
