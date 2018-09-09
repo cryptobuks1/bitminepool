@@ -167,16 +167,19 @@ if (isset($_SESSION['Username'])) {
 
                                 <section class="content invoice">
                                     <?php
-                                    if (empty($walletData)) {
+                                    if (empty($walletData) || empty($walletData->addresses)) {
                                         ?>
                                         <div class="x_content">
 											<?php
 											if (!empty($walletErrorMessage)) {
 												echo $walletErrorMessage;
+											} else { 
+											?>
+                                            <p>By verifying your account you can now be able to see wallet & purchase various products that are available at Bit Mine Pool</p>
+                                            <a href="<?php echo BASE_URL . 'verifyemail' ?>"><button type="button" class="btn btn-success btn-lg">Verify Now</button></a>
+											<?php
 											}
 											?>
-                                            <!--<p>By verifying your account you can now be able to see wallet & purchase various products that are available at Bit Mine Pool</p>
-                                            <a href="<?php //echo BASE_URL . 'verifyemail' ?>"><button type="button" class="btn btn-success btn-lg">Verify Now</button></a>-->
                                         </div>    
                                         <?php
                                     } else {
