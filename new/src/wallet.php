@@ -21,12 +21,11 @@ if (isset($_SESSION['Username'])) {
     if ($response->statusCode == 100) {
         $walletData = $response->response->wallet_data;
         $userData = $response->response->user_data;
-		
     } else {
-		$_SESSION['error'] = 1;
+        $_SESSION['error'] = 1;
         $_SESSION['message'] = $response->statusDescription;
-        $walletErrorMessage= $response->statusDescription;
-	}
+        $walletErrorMessage = $response->statusDescription;
+    }
     $responseWalletTransaction = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
                 'user_name' => $_SESSION['Username'],
                 'platform' => '3',
@@ -94,9 +93,9 @@ if (isset($_SESSION['Username'])) {
         }
         unset($_POST);
         //$_POST = [];
-       // $redirect = 'wallet';
-       //  echo "<script>location='" . BASE_URL . $redirect . "'</script>";
-       //  exit;
+        // $redirect = 'wallet';
+        //  echo "<script>location='" . BASE_URL . $redirect . "'</script>";
+        //  exit;
     }
 } else {
     $_SESSION['error'] = 1;
@@ -170,16 +169,16 @@ if (isset($_SESSION['Username'])) {
                                     if (empty($walletData) || empty($walletData->addresses)) {
                                         ?>
                                         <div class="x_content">
-											<?php
-											if (!empty($walletErrorMessage)) {
-												echo $walletErrorMessage;
-											} else { 
-											?>
-                                            <p>By verifying your account you can now be able to see wallet & purchase various products that are available at Bit Mine Pool</p>
-                                            <a href="<?php echo BASE_URL . 'verifyemail' ?>"><button type="button" class="btn btn-success btn-lg">Verify Now</button></a>
-											<?php
-											}
-											?>
+                                            <?php
+                                            if (!empty($walletErrorMessage)) {
+                                                echo $walletErrorMessage;
+                                            } else {
+                                                ?>
+                                                <p>By verifying your account you can now be able to see wallet & purchase various products that are available at Bit Mine Pool</p>
+                                                <a href="<?php echo BASE_URL . 'verifyemail' ?>"><button type="button" class="btn btn-success btn-lg">Verify Now</button></a>
+                                                <?php
+                                            }
+                                            ?>
                                         </div>    
                                         <?php
                                     } else {
@@ -255,109 +254,109 @@ if (isset($_SESSION['Username'])) {
                             </div>
                         </div>
                     </div>
-					<?php
-					if (!(empty($walletData) || empty($walletData->addresses))) {
-					?>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="clearfix"></div>
-                            <div class="x_content">
-                                <div id="accordion_transaction">
-                                    <h3>View all transactions</h3>
-                                    <div>
-                                        <p>
-                                        <div class="row">
-                                            <div class="col-md-12 col-sm-12 col-xs-12 ">
-                                                <div class="x_panel">
+                    <?php
+                    if (!(empty($walletData) || empty($walletData->addresses))) {
+                        ?>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="clearfix"></div>
+                                <div class="x_content">
+                                    <div id="accordion_transaction">
+                                        <h3>View all transactions</h3>
+                                        <div>
+                                            <p>
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 col-xs-12 ">
+                                                    <div class="x_panel">
 
-                                                    <div class="x_content table">
-                                                        <table id="wallet-transactions-grid"  cellpadding="0" cellspacing="0" border="0" class="display table" width="100%">
+                                                        <div class="x_content table">
+                                                            <table id="wallet-transactions-grid"  cellpadding="0" cellspacing="0" border="0" class="display table" width="100%">
 
-                                                            <tbody>
-                                                            </tbody>
-                                                        </table>
+                                                                <tbody>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            </p>
                                         </div>
-                                        </p>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>                    
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="clearfix"></div>
-                            <div class="x_content">
-
-                                <div id="accordion">
-                                    <h3>Send BTC</h3>
-                                    <div>
-                                        <p>
-                                        <form id="send-payment" class="form-horizontal form-label-left" method="post" action="">
-                                            <div class="form-group">
-                                                <label for="sent_address">To address:</label>
-                                                <input type="text" name="sent_address" class="form-control" id="sent_address" data-msg-required="Please enter receivers address." required="required">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="sent_amount">Amount(In USD):</label>
-                                                <input type="text" class="form-control" name="sent_amount" id="sent_amount" data-msg-required="Please enter amount to be sent." required="required" number="true" data-msg-required="Please enter valid amount to be sent." >
-                                            </div>
-                                            <input type="hidden" name="transaction_type" value="sent">
-
-                                            <button type="submit" id="send_payment_submit" class="btn btn-default">Pay</button>
-                                            <button type="reset" id ="reset_send_payment" class="btn btn-default">Cancel</button>
-                                        </form>
-                                        </p>
-                                    </div>
-                                    <h3>Receive BTC</h3>
-                                    <div>
-                                        <p>
-                                        <form id="receive-payment" class="form-horizontal form-label-left" method="post" action="">
-                                            <?php //if (!empty($receiveAmountAddress) && $receiveAmountBtc != 0) {   ?>
-                                            <div id='receive_qr_block'>
-                                                <div class="form-group">
-                                                    <a id="qr_anchor" href=""><button type="button" class="btn btn-primary">Scan QR Code</button></a>
-                                                    <button type="reset" id ="reset_receive_payment_qr" class="btn btn-default">Cancel</button>
-                                                </div>
-                                                
-                                            </div>
-                                            <?php // } else {   ?>
-                                            <div id="receive_form_block">
-                                                <div class="form-group">
-                                                    <label for="receive_address">To address:</label>
-                                                    <select  class="form-control" name="receive_address" id="receive_address" data-msg-required="Please select address."  onchange="">
-                                                        <?php foreach ($walletData->addresses as $key => $address) { ?>
-                                                            <option value="<?php echo $address->address; ?>"><?php echo $address->address; ?></option>
-                                                        <?php } ?>
-
-                                                    </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="amount">Amount(In USD):</label>
-                                                    <input type="text" class="form-control" name = "receive_amount" id="receive_amount" data-msg-required="Please enter amount to be received." required="required" number="true" data-msg-required="Please enter valid amount to be received." >
-                                                </div>
-
-                                                <input type="hidden" name="transaction_type" value="receive">
-                                                <button type="submit" id ="receive_payment_submit" class="btn btn-default">Submit</button>
-                                                <button type="reset" id ="reset_receive_payment" class="btn btn-default">Cancel</button>
-                                            </div>
-                                            <?php //}   ?>
-
-                                        </form>
-                                        </p>
-                                    </div>
-
-
-                                </div>
+                        </div>                    
+                        <div class="row">
+                            <div class="col-md-12">
                                 <div class="clearfix"></div>
+                                <div class="x_content">
+
+                                    <div id="accordion">
+                                        <h3>Send BTC</h3>
+                                        <div>
+                                            <p>
+                                            <form id="send-payment" class="form-horizontal form-label-left" method="post" action="">
+                                                <div class="form-group">
+                                                    <label for="sent_address">To address:</label>
+                                                    <input type="text" name="sent_address" class="form-control" id="sent_address" data-msg-required="Please enter receivers address." required="required">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="sent_amount">Amount(In USD):</label>
+                                                    <input type="text" class="form-control" name="sent_amount" id="sent_amount" data-msg-required="Please enter amount to be sent." required="required" number="true" data-msg-required="Please enter valid amount to be sent." >
+                                                </div>
+                                                <input type="hidden" name="transaction_type" value="sent">
+
+                                                <button type="submit" id="send_payment_submit" class="btn btn-default">Pay</button>
+                                                <button type="reset" id ="reset_send_payment" class="btn btn-default">Cancel</button>
+                                            </form>
+                                            </p>
+                                        </div>
+                                        <h3>Receive BTC</h3>
+                                        <div>
+                                            <p>
+                                            <form id="receive-payment" class="form-horizontal form-label-left" method="post" action="">
+                                                <?php //if (!empty($receiveAmountAddress) && $receiveAmountBtc != 0) {    ?>
+                                                <div id='receive_qr_block'>
+                                                    <div class="form-group">
+                                                        <a id="qr_anchor" href=""><button type="button" class="btn btn-primary">Scan QR Code</button></a>
+                                                        <button type="reset" id ="reset_receive_payment_qr" class="btn btn-default">Cancel</button>
+                                                    </div>
+
+                                                </div>
+                                                <?php // } else {    ?>
+                                                <div id="receive_form_block">
+                                                    <div class="form-group">
+                                                        <label for="receive_address">To address:</label>
+                                                        <select  class="form-control" name="receive_address" id="receive_address" data-msg-required="Please select address."  onchange="">
+                                                            <?php foreach ($walletData->addresses as $key => $address) { ?>
+                                                                <option value="<?php echo $address->address; ?>"><?php echo $address->address; ?></option>
+                                                            <?php } ?>
+
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="amount">Amount(In USD):</label>
+                                                        <input type="text" class="form-control" name = "receive_amount" id="receive_amount" data-msg-required="Please enter amount to be received." required="required" number="true" data-msg-required="Please enter valid amount to be received." >
+                                                    </div>
+
+                                                    <input type="hidden" name="transaction_type" value="receive">
+                                                    <button type="submit" id ="receive_payment_submit" class="btn btn-default">Submit</button>
+                                                    <button type="reset" id ="reset_receive_payment" class="btn btn-default">Cancel</button>
+                                                </div>
+                                                <?php //}    ?>
+
+                                            </form>
+                                            </p>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-					<?php
-					}
-					?>
+                        <?php
+                    }
+                    ?>
                 </div>
             </div>
         </div>

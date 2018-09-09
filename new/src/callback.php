@@ -89,7 +89,7 @@ if ($_GET['secret'] != $secret) {
         /////////////////////////Update Registration or Packs//////////////////////////////////////////////////////////////////////
         $Date = date("Y-m-d");
         $PurchaseDate = date("Y-m-d");
-        $MiningDate = date('Y-m-d', strtotime('+30 days'));
+        $MiningDate = date('Y-m-d', strtotime('+31 days'));
         $CompletionDate = date('Y-m-d', strtotime('+365 days'));
 
         //if ($newbitcoin == $showbtc) {
