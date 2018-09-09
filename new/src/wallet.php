@@ -256,7 +256,7 @@ if (isset($_SESSION['Username'])) {
                         </div>
                     </div>
 					<?php
-					if (!empty($walletData)) {
+					if (!empty($walletData) && !empty($walletData->addresses)) {
 					?>
                     <div class="row">
                         <div class="col-md-12">
