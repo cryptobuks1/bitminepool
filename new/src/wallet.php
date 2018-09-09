@@ -171,8 +171,8 @@ if (isset($_SESSION['Username'])) {
                                         ?>
                                         <div class="x_content">
 											<?php
-											if ((isset($_SESSION['error']) && $_SESSION['error'] == 1) && (isset($_SESSION['message']) && !empty($_SESSION['message']))) {
-												echo $_SESSION['message'];
+											if (!empty($walletErrorMessage)) {
+												echo $walletErrorMessage;
 											}
 											?>
                                             <!--<p>By verifying your account you can now be able to see wallet & purchase various products that are available at Bit Mine Pool</p>
