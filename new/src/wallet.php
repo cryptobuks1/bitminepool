@@ -21,6 +21,7 @@ if (isset($_SESSION['Username'])) {
     if ($response->statusCode == 100) {
         $walletData = $response->response->wallet_data;
         $userData = $response->response->user_data;
+		$_SESSION['error'] = 1;
         $_SESSION['message'] = $response->response->statusDescription;
     }
     $responseWalletTransaction = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
@@ -166,8 +167,13 @@ if (isset($_SESSION['Username'])) {
                                     if (empty($walletData)) {
                                         ?>
                                         <div class="x_content">
-                                            <p>By verifying your account you can now be able to see wallet & purchase various products that are available at Bit Mine Pool</p>
-                                            <a href="<?php echo BASE_URL . 'verifyemail' ?>"><button type="button" class="btn btn-success btn-lg">Verify Now</button></a>
+											<?php
+											if ((isset($_SESSION['error']) && $_SESSION['error'] == 1) && (isset($_SESSION['message']) && !empty($_SESSION['message']))) {
+												echo $_SESSION['message'];
+											}
+											?>
+                                            <!--<p>By verifying your account you can now be able to see wallet & purchase various products that are available at Bit Mine Pool</p>
+                                            <a href="<?php //echo BASE_URL . 'verifyemail' ?>"><button type="button" class="btn btn-success btn-lg">Verify Now</button></a>-->
                                         </div>    
                                         <?php
                                     } else {
@@ -243,6 +249,9 @@ if (isset($_SESSION['Username'])) {
                             </div>
                         </div>
                     </div>
+					<?php
+					if (!empty($walletData)) {
+					?>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="clearfix"></div>
@@ -340,6 +349,9 @@ if (isset($_SESSION['Username'])) {
                             </div>
                         </div>
                     </div>
+					<?php
+					}
+					?>
                 </div>
             </div>
         </div>
