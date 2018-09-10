@@ -34,7 +34,7 @@ include('includes/message.php');
                             <a href="<?php echo BASE_URL; ?>"><img src="../images/img.jpg" alt="..." class="img-circle profile_img"></a>              </div>
                         <div class="profile_info">
                             <span>Welcome,</span>
-                            <h2><?php echo ' ' . strlen($_SESSION['Username']) > 15 ? substr($_SESSION['Username'], 0, 15) . "..." : $_SESSION['Username']; ?></h2>
+                            <h2><?php echo ' ' . strlen($_SESSION['Username']) > 15 ? ucfirst(substr($_SESSION['Username'], 0, 15)) . "..." : ucfirst($_SESSION['Username']); ?></h2>
                         </div>
                     </div>
                     <!-- /menu profile quick info -->
