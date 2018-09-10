@@ -132,7 +132,7 @@ if (isset($_SESSION['Username'])) {
                 <div class="">
                     <div class="page-title">
                         <div class="title_left">
-                            <h3 class="style3">Welcome to Bit Mine Pool</h3>
+                            <h3 class="style3">Welcome to Bitmine Pool</h3>
                         </div>
 
 

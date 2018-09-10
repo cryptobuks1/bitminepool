@@ -138,7 +138,7 @@ if (isset($_SESSION['Username'])) {
                                             <div class="col-sm-4 invoice-col">
                                                 From
                                                 <address>
-                                                    <strong>Bit Mine Pool.</strong>
+                                                    <strong>Bitmine Pool.</strong>
                                                     <br>Email: billing@bitminepool.com
                                                     <br>Website: www.bitminepool.com
                                                 </address>
@@ -193,7 +193,7 @@ if (isset($_SESSION['Username'])) {
                                                             <td>1</td>
                                                             <td><?php echo $Purpose; ?></td>
                                                             <td><?php echo $Invoiceid; ?></td>
-                                                            <td>Bit Mine Pool <?php echo $Purpose; ?></td>
+                                                            <td>Bitmine Pool <?php echo $Purpose; ?></td>
                                                             <td>$<?php echo $Amount; ?></td>
                                                         </tr>
 

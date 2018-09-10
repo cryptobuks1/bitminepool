@@ -96,8 +96,8 @@
                                 <br />
 
                                 <div>
-                                    <h1><i class="fa fa-bitcoin"></i> Bit Mine Pool</h1>
-                                    <p>©<?php echo date("Y"); ?> All Rights Reserved. <a href="<?php echo BASE_URL; ?>">Bit Mine Pool</a></p>
+                                    <h1><i class="fa fa-bitcoin"></i> Bitmine Pool</h1>
+                                    <p>©<?php echo date("Y"); ?> All Rights Reserved. <a href="<?php echo BASE_URL; ?>">Bitmine Pool</a></p>
                                 </div>
                             </div>
                         </form>

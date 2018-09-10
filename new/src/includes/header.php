@@ -17,7 +17,7 @@ include('includes/dbconnect.php');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Bit Mine Pool</title>
+    <title>Bitmine Pool</title>
 
     <!-- Bootstrap -->
     <link href="../vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">

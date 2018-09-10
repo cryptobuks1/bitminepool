@@ -174,7 +174,7 @@ if (isset($_SESSION['Username'])) {
                                                 echo $walletErrorMessage;
                                             } else {
                                                 ?>
-                                                <p>By verifying your account you can now be able to see wallet & purchase various products that are available at Bit Mine Pool</p>
+                                                <p>By verifying your account you can now be able to see wallet & purchase various products that are available at Bitmine Pool</p>
                                                 <a href="<?php echo BASE_URL . 'verifyemail' ?>"><button type="button" class="btn btn-success btn-lg">Verify Now</button></a>
                                                 <?php
                                             }
