@@ -1,7 +1,7 @@
 # Keep these files out of the repo
 /nbproject
-/bitcoin_system/production/includes/constant.php
-bitcoin_system/production/includes/constant.php
+#/bitcoin_system/production/includes/constant.php
+#bitcoin_system/production/includes/constant.php
 
 #Hidden files
 
