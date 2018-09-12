@@ -5,7 +5,7 @@ include('src/includes/constant.php');
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Bit Mine Pool </title>
+        <title>Bitmine Pool </title>
         <link type="image/x-icon" href="img/tab.png" rel="icon">
 
         <!-- responsive meta -->
@@ -32,13 +32,13 @@ include('src/includes/constant.php');
                 </div> <!-- /.left-text -->
 
                 <div class="social-icons pull-right">
-                    <ul>
+                    <!--<ul>
                         <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                         <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                         <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
                         <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                         <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                    </ul>
+                    </ul>-->
                 </div> <!-- /.social-icons -->
             </div>
         </section> <!-- /.top-bar -->
@@ -155,7 +155,7 @@ include('src/includes/constant.php');
                 <div id="slider-direction-1" class="t-cn slider-direction">
                     <div class="slider-content s-tb slide-1">
                         <div class="title-container s-tb-c">
-                            <h1 class="title1">Welcome to Bit Mine Pool</h1>
+                            <h1 class="title1">Welcome to Bitmine Pool</h1>
                             <p>At bitcoin mine pool you can earn bitcoins through mining. It is very easy <br> Just purchase a mining contract from us and we will handle the rest of the process for you <br> hustle free. Join over 500,000 people with the world's leading bitcoin mining pool today </p>
                             <div class="slider-btn-area">
                                 <a href="src/login" class="default-big-btn">Start today</a>
@@ -166,7 +166,7 @@ include('src/includes/constant.php');
                 <div id="slider-direction-2" class="t-cn slider-direction">
                     <div class="slider-content s-tb slide-2">
                         <div class="title-container s-tb-c">
-                            <h1 class="title1">Welcome to Bit Mine Pool</h1>
+                            <h1 class="title1">Welcome to Bitmine Pool</h1>
                             <p>At bitcoin mine pool you can earn bitcoins through mining. It is very easy <br> Just purchase a mining contract from us and we will handle the rest of the process for you <br> hustle free. Join over 500,000 people with the world's leading bitcoin mining pool today </p>
                             <div class="slider-btn-area">
                                 <a href="src/login" class="default-big-btn">Start today</a>
@@ -190,7 +190,7 @@ include('src/includes/constant.php');
                             </div>
                             <h3>Discover more about the mission, vision, <br>current year plans and the people behind the Bitcoin mining Foundation  </h3>
                             <br>
-                            <p>Bit Mine Pool (BMP) was founded in January 2016. The founders of BMP got to know each other through trading of cryptocurrencies. As the cryptocurrency trading grew over time several traders teamed up to form a team and pull their resources together to start mining cryptocurrency together and share the proceeds.</p> 
+                            <p>Bitmine Pool (BMP) was founded in January 2016. The founders of BMP got to know each other through trading of cryptocurrencies. As the cryptocurrency trading grew over time several traders teamed up to form a team and pull their resources together to start mining cryptocurrency together and share the proceeds.</p> 
                             <br>
                             <p> As a result BMP was born. The current members of our bitcoin mining team come from different scientific disciplines, but our common faith in cryptocurrencies has brought us together. We are all strong believers in the future of digital currencies and we love being part of this growing community!</p>
 
@@ -221,7 +221,7 @@ include('src/includes/constant.php');
                                 <img src="img/bit/671474.svg" alt="">
                                 <h3>Efficient Hardware Management</h3>
                                 <p>We take the hustle of mining from you and just give the one thing you need which is Bitcoin. Most people get challenges in acquiring, setup, running and maintaining the mining equipment hence making individual mining a very expensive affair. We purchase, install, run, manage and maintain all the mining equipment on your behalf. Hence you just receive Bitcoin in your Bitcoin wallet. This eliminates equipment running.e </p>
-                                <a class="btn-details" href="bitcoin_system/production/Register.php?Account=8ygwmun45uskowwkg0w4 ">Sign up now!</a>
+                                <a class="btn-details" href="src/register?account=24rgxpwex1b4ko88owko">Sign up now!</a>
                             </div>
                         </div>
                     </div>
@@ -231,7 +231,7 @@ include('src/includes/constant.php');
                                 <img src="img/bit/671475.svg" alt="">
                                 <h3>Alternative Cryptocurrencies Mining</h3>
                                 <p>We allow our members to switch their mining power to any cryptocurrency that is available on our catalogue. This enables them to get the returns they want hence increased flexibility. This feature give the member total control over mining and enables him or her to mine the most profitable cryptocurrency at the time. However, the system can also automatically mine the most profitable cryptocurrency on behalf of the member. </p>
-                                <a class="btn-details" href="bitcoin_system/production/Register.php?Account=8ygwmun45uskowwkg0w4 ">Sign up now!</a>
+                                <a class="btn-details" href="src/register?account=24rgxpwex1b4ko88owko">Sign up now!</a>
                             </div>
                         </div>
                     </div>
@@ -241,7 +241,7 @@ include('src/includes/constant.php');
                                 <img src="img/bit/671476.svg" alt="">
                                 <h3>Get Daily Payouts</h3>
                                 <p>At BMH members get a daily payout in form of Bitcoin from the daily mining activity. This enables the member to track his or her earning effectively and efficiently through our systems. The payment is real time hence no delays.  The Bitcoin can be withdrawn to the member designated wallet which he or she registered during the registration process. All the other cryptocurrencies mined are converted into Bitcoin. </p>
-                                <a class="btn-details" href="bitcoin_system/production/Register.php?Account=8ygwmun45uskowwkg0w4 ">Sign up now! </a>
+                                <a class="btn-details" href="src/register?account=24rgxpwex1b4ko88owko">Sign up now! </a>
                             </div>
                         </div>
                     </div>
@@ -346,7 +346,7 @@ include('src/includes/constant.php');
                                     </h4>
                                 </div>
                                 <div class="accrodion-content">
-                                    <p>At Bit Mine Pool, we have dedicated staff to ensure that we deliver to our clients our promise. Additionally, we are more than ready to help our client whenever they need assistance or need any clarification. </p>
+                                    <p>At Bitmine Pool, we have dedicated staff to ensure that we deliver to our clients our promise. Additionally, we are more than ready to help our client whenever they need assistance or need any clarification. </p>
                                     <p> Our excellent customer care service enables us to solve all issues that can arise from any of our client. Similarly, our online system is very simple and easy to navigate and understand with ease. </p>							
                                 </div>
                             </div>
@@ -518,7 +518,7 @@ include('src/includes/constant.php');
                 </div>
                 </div>
         </section> -->
-        <section class="fact-counter-wrapper sec-padding parallax-section">
+         <!-- <section class="fact-counter-wrapper sec-padding parallax-section">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 col-md-12 md-text-center">
@@ -557,7 +557,7 @@ include('src/includes/constant.php');
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
 
 
 
@@ -949,7 +949,7 @@ include('src/includes/constant.php');
 
                     </div>
                     <div class="col-md-12 col-xs-12">
-                        <form id="contact-page-contact-form" action="bitcoin_system/production/send_form_email" class="contact-form row" action="" novalidate="novalidate">
+                        <form id="contact-page-contact-form" action="" class="contact-form row" action="" novalidate="novalidate">
                             <div class="col-md-6">
                                 <input type="text" placeholder="Name" name="name">
                                 <input type="text" placeholder="Email" name="email">
@@ -1230,7 +1230,7 @@ include('src/includes/constant.php');
 
         <section class="footer-bottom">
             <div class="container text-center">
-                <p>©<?php echo date("Y"); ?> All Rights Reserved. <a href="<?php echo BASE_URL; ?>">Bit Mine Pool</a></p>
+                <p>©<?php echo date("Y"); ?> All Rights Reserved. <a href="<?php echo BASE_URL; ?>">Bitmine Pool</a></p>
             </div>
         </section>
 
