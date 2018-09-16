@@ -1,47 +1,34 @@
 <?php
 include('includes/header.php');
 if (isset($_SESSION['Username'])) {
-////////////////////////////////////////Get the Bitcoin Wallet balance///////////////////////////////////////////////////////		
-    $getone = "SELECT Balance FROM accountbalance WHERE Username = '" . $_SESSION['Username'] . "'";
-    $queryone = mysqli_query($conn, $getone);
-    $balanceone = mysqli_fetch_array($queryone);
-    $showone = $balanceone['Balance'];
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////Get the Mining balance///////////////////////////////////////////////////////		
-    $gettwo = "SELECT Balance FROM mining WHERE Username = '" . $_SESSION['Username'] . "'";
-    $querytwo = mysqli_query($conn, $gettwo);
-    $balancetwo = mysqli_fetch_array($querytwo);
-    $showtwo = $balancetwo['Balance'];
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////Get the Team balance///////////////////////////////////////////////////////		
-    $getthree = "SELECT Balance FROM team WHERE Username = '" . $_SESSION['Username'] . "'";
-    $querythree = mysqli_query($conn, $getthree);
-    $balancethree = mysqli_fetch_array($querythree);
-    $showthree = $balancethree['Balance'];
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////Get the Commission balance///////////////////////////////////////////////////////		
-    $getfour = "SELECT Balance FROM commission WHERE Username = '" . $_SESSION['Username'] . "'";
-    $queryfour = mysqli_query($conn, $getfour);
-    $balancefour = mysqli_fetch_array($queryfour);
-    $showfour = $balancefour['Balance'];
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////Get the Team Volume balance///////////////////////////////////////////////////////		
-    $getfive = "SELECT Balance FROM teamvolume WHERE Username = '" . $_SESSION['Username'] . "'";
-    $queryfive = mysqli_query($conn, $getfive);
-    $balancefive = mysqli_fetch_array($queryfive);
-    $showfive = $balancefive['Balance'];
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////Get the Account Rank///////////////////////////////////////////////////////////////		
-    $getrank = "SELECT Rank,Rankid FROM rank WHERE Username = '" . $_SESSION['Username'] . "'";
-    $queryrank = mysqli_query($conn, $getrank);
-    $sharerank = mysqli_fetch_array($queryrank);
-    $showrank = $sharerank['Rank'];
-    $showrankid = $sharerank['Rankid'];
- 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    mysqli_close($conn);
-    ?>
-    <?php
+    $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
+                'user_name' => $_SESSION['Username'],
+                'platform' => '3'
+                    ], 'getAllRankData');
+
+    $response = json_decode($response);
+
+    if ($response->statusCode == 100) {
+        $showone = $response->response->selectedAccountBalance;
+        $showtwo = $response->response->selectedMiningBalance;
+        $showthree = $response->response->selectedTeamBalance;
+        $showfour = $response->response->selectedCommissionBalance;
+        $showfive = $response->response->selectedTeamVolumeBalance;
+        $showrank = $response->response->selectedRank;
+        $showrankid = $response->response->selectedRankId;
+        $purchasedRegistrationMembership = $response->response->purchasedRegistrationMembership;
+        $purchasedAnyOfPool = $response->response->purchasedAnyOfPool;
+    } else {
+        $showone = $showtwo = $showthree = $showfour = $showfive = 0.00;
+        $showrank = 'Miner';
+        $showrankid = 1;
+        $_SESSION['error'] = 1;
+        $purchasedRegistrationMembership = 0;
+        $purchasedAnyOfPool = 0;
+        $_SESSION['message'] = $response->statusDescription;
+    }
+
+
     $url = "https://blockchain.info/stats?format=json";
     $stats = json_decode(file_get_contents($url), true);
     $btcValue = $stats['market_price_usd'];
@@ -216,7 +203,7 @@ include('includes/message.php');
                                 </div>
                             </div>
 
-                            <div class="col-md-9 col-sm-9 col-xs-12">
+                            <div class="col-md-12 col-sm-12 col-xs-12" style="padding-left:20%;">
                                 <div class="row">
                                     <div class="col-md-10 col-xs-10 col-sm-10">
                                         <div class="card">
@@ -235,7 +222,7 @@ include('includes/message.php');
                                                         <tr>
                                                             <td class="center">Purchase $99 Membership</td>
                                                             <td class="center"></td>
-                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($showrankid >= 1 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
+                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($purchasedRegistrationMembership == 1 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
                                                         </tr>
 
                                                         <tr>
@@ -301,7 +288,7 @@ include('includes/message.php');
                                                         <tr>
                                                             <td class="center">Achieve <strong>MINER</strong> status AND...</td>
                                                             <td class="center"></td>
-                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($showrankid >= 2 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
+                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($showrankid >= 1 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
                                                         </tr>
 
                                                         <tr>

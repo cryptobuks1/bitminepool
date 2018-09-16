@@ -53,7 +53,9 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
                         //////////////////////Update Tree/////////////////////////////////////////
                         else {
                             $query = mysqli_query($conn, "insert into user(`Username`,`under_userid`,`side`) values('$Username','$under_userid','$side')");
-                            $query = mysqli_query($conn, "insert into tree(`userid`) values('$Username')");
+                            $query = mysqli_query($conn, "insert into tree(`userid`) values('$Username') WHERE NOT EXISTS (
+                                SELECT * FROM tree WHERE userid='$Username'
+                            )");                            
                             $query = mysqli_query($conn, "update tree set `$side`='$Username' where userid='$under_userid'");
                             $query = mysqli_query($conn, "update users set treestatus='tree' where Username='$Username'");
                             //////////////////////////Update Count///////////////////////////////////////////
