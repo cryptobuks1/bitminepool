@@ -228,7 +228,7 @@ include('includes/message.php');
                                                         <tr>
                                                             <td class="center">Purchase at least 1 share of ANY pool</td>
                                                             <td class="center"></td>
-                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($showrankid >= 1 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
+                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($purchasedAnyOfPool == 1 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
                                                         </tr>
                                                     </tbody>
 
