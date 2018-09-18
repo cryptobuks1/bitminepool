@@ -61,9 +61,6 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
                             $temp_under_userid = $under_userid;
                             $temp_side_count = $side . 'count'; //leftcount or rightcount
                             $temp_side_credits = $side . 'credits'; //leftcredits or rightcredits
-                            if ($referralCount == 6) {
-                                $query = mysqli_query($conn, "Update `rank` SET Rank='Dealer', Rankid='2' where Username='$userid' AND Rankid='1'");
-                            }
                             $temp_side = $side;
                             $total_count = 1;
                             $i = 1;
