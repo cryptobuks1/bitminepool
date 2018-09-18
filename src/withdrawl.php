@@ -9,34 +9,19 @@ if (isset($_SESSION['Username'])) {
     $url = "https://blockchain.info/stats?format=json";
     $stats = json_decode(file_get_contents($url), true);
     $btcValue = $stats['market_price_usd'];
-    $walletData = $userData = $walletTransactionDBData = [];
+    $walletData = $userData = $walletWithdrawlTransactionDBData = [];
     $userName = $_SESSION['Username'];
-    $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
+
+    $responseWithdrawlTransaction = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
                 'user_name' => $_SESSION['Username'],
                 'platform' => '3',
-                    ], 'getAllWalletDetailByUserName');
+                    ], 'getAllWithdrawlDBTransactionByUserName');
 
-    $response = json_decode($response);
-    $redirect = 'login';
-    if ($response->statusCode == 100) {
-        $walletData = $response->response->wallet_data;
-        $userData = $response->response->user_data;
-    } else {
-        $_SESSION['error'] = 1;
-        $_SESSION['message'] = $response->statusDescription;
-        $walletErrorMessage = $response->statusDescription;
+    $responseWithdrawlTransaction = json_decode($responseWithdrawlTransaction);
+
+    if ($responseWithdrawlTransaction->statusCode == 100) {
+        $walletWithdrawlTransactionDBData = $responseWithdrawlTransaction->response->withdrawl_data;
     }
-    $responseWalletTransaction = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                'user_name' => $_SESSION['Username'],
-                'platform' => '3',
-                    ], 'getAllWalletDBTransactionDetailByUserName');
-
-    $responseWalletTransaction = json_decode($responseWalletTransaction);
-
-    if ($responseWalletTransaction->statusCode == 100) {
-        $walletTransactionDBData = $responseWalletTransaction->response->wallet_data;
-    }
-
     if (!empty($_POST)) {
         $transaction_type = '';
         $transaction_type = $_POST['transaction_type'];
@@ -115,7 +100,7 @@ if (isset($_SESSION['Username'])) {
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="<?php echo BASE_URL; ?>" class="site_title"> <span><img src="../images/logo.png" alt="Bitc-Mine-Pool" style="width: 95px;"></span></a>
+                        <a href="<?php echo BASE_URL; ?>" class="site_title"> <span><img src="../images/logo.png" alt="BitMine Pool" style="width: 95px;"></span></a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -159,103 +144,9 @@ if (isset($_SESSION['Username'])) {
                 <div class="">
                     <div class="clearfix"></div>
 
-                    <div class="row">
-                        <div class="col-md-12">
-
-                            <div class="x_content">
-
-                                <section class="content invoice">
-                                    <?php
-                                    if (empty($walletData) || empty($walletData->addresses)) {
-                                        ?>
-                                        <div class="x_content">
-                                            <?php
-                                            if (!empty($walletErrorMessage)) {
-                                                echo $walletErrorMessage;
-                                            } else {
-                                                ?>
-                                                <p>By verifying your account you can now be able to see wallet & purchase various products that are available at Bitmine Pool</p>
-                                                <a href="<?php echo BASE_URL . 'verifyemail' ?>"><button type="button" class="btn btn-success btn-lg">Verify Now</button></a>
-                                                <?php
-                                            }
-                                            ?>
-                                        </div>    
-                                        <?php
-                                    } else {
-                                        ?>
-                                        <!-- title row -->
-                                        <div class="row">
-                                            <div class="col-xs-12 invoice-header">
-                                                <h1>
-                                                    <i class="fa fa-globe"></i> <span class="style7">Wallet.</span>
-                                                    <small class="pull-right"><span class="style6"><?php echo date("l jS \of F Y h:i:s A") . "<br>"; ?></span></small>                                      </h1>
-                                            </div>
-                                            <!-- /.col -->
-                                        </div>
-                                        <!-- info row -->
-                                        <div class="row invoice-info">
-                                            <div class="col-sm-4 invoice-col">
-
-                                            </div>
-                                            <!-- /.col -->
-                                            <div class="col-sm-4 invoice-col">
-
-                                            </div>
-                                            <!-- /.col -->
-                                            <div class="col-sm-4 invoice-col">
-                                                <br>
-                                                <b>Balance(IN USD):</b> <?php echo $walletData->balance_usd; ?>
-                                                <br>
-                                               <!-- <b>Invoice Expires in:</b> <b><span id="countdown-1">600 seconds</span></b> -->
-                                                <br>
-
-                                            </div>
-                                            <!-- /.col -->
-                                        </div>
-                                        <!-- /.row -->
-
-                                        <!-- Table row -->
-                                        <div class="row">
-                                            <div class="col-xs-12 table">
-                                                <table class="table table-striped">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Serial #</th>
-                                                            <th style="width: 25%">Label</th>
-                                                            <th style="width: 25%">Address</th>
-                                                            <th>Balance(BTC)</th>
-                                                            <th>Subtotal Received(BTC)</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-
-                                                        <?php
-                                                        foreach ($walletData->addresses as $key => $address) {
-                                                            echo '<tr>';
-                                                            echo '<td>' . ($key + 1) . '</td>';
-                                                            echo '<td>' . $address->label . '</td>';
-                                                            echo '<td>' . $address->address . '</td>';
-                                                            echo '<td>' . $address->balance . '</td>';
-                                                            echo '<td>' . $address->total_received . '</td>';
-                                                            echo '</tr>';
-                                                        }
-                                                        ?>
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <!-- /.col -->
-                                        </div>
-                                        <!-- /.row -->
-                                        <?php
-                                    }
-                                    ?>
-                                </section>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <?php
-                    if (!(empty($walletData) || empty($walletData->addresses))) {
+                    if (!(empty($walletWithdrawlTransactionDBData))) {
                         ?>
                         <div class="row">
                             <div class="col-md-12">
@@ -270,7 +161,7 @@ if (isset($_SESSION['Username'])) {
                                                     <div class="x_panel">
 
                                                         <div class="x_content table">
-                                                            <table id="wallet-transactions-grid"  cellpadding="0" cellspacing="0" border="0" class="display table" width="100%">
+                                                            <table id="wallet-withdrawl-transactions-grid"  cellpadding="0" cellspacing="0" border="0" class="display table" width="100%">
 
                                                                 <tbody>
                                                                 </tbody>
@@ -291,7 +182,7 @@ if (isset($_SESSION['Username'])) {
                                 <div class="x_content">
 
                                     <div id="accordion">
-                                        <h3>Send BTC</h3>
+                                        <h3>Withdrawl BTC</h3>
                                         <div>
                                             <p>
                                             <form id="send-payment" class="form-horizontal form-label-left" method="post" action="">
@@ -383,19 +274,18 @@ include('includes/footer.php');
         $('#receive_qr_block').hide();
         // console.log('I am inside ready');
         //handleTable();
-        var walletTransactionDBData = <?php echo json_encode($walletTransactionDBData); ?>;
-          console.log(walletTransactionDBData);
-        $('#wallet-transactions-grid').DataTable({
+        var walletTransactionDBData = <?php echo json_encode($walletWithdrawlTransactionDBData); ?>;
+        console.log(walletTransactionDBData);
+        $('#wallet-withdrawl-transactions-grid').DataTable({
             data: walletTransactionDBData,
             "columns": [
 
                 {"title": "ID", "data": "id"},
                 //{"title": "invoice_id", "data": "invoice_id"},
-                {"title": "Type", "data": "sent_receive_flag"},
+                {"title": "User Name", "data": "user_name"},
                 {"title": "Amount", "data": "amount"},
-                {"title": "From address", "data": "from_address"},
                 {"title": "To address", "data": "to_address"},
-                {"title": "Status", "data": "status"},
+                {"title": "Status", "data": "status_view"},
                 {"title": "Date", "data": "created_at"}
             ]
 
