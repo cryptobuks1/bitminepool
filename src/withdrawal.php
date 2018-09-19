@@ -9,7 +9,7 @@ if (isset($_SESSION['Username'])) {
     $url = "https://blockchain.info/stats?format=json";
     $stats = json_decode(file_get_contents($url), true);
     $btcValue = $stats['market_price_usd'];
-    $walletData = $userData = $walletWithdrawlTransactionDBData = [];
+    $walletData = $userData = $walletWithdrawalTransactionDBData = [];
     $userName = $_SESSION['Username'];
     $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
             'user_name' => $_SESSION['Username'],
@@ -27,14 +27,14 @@ if (isset($_SESSION['Username'])) {
         $_SESSION['message'] = $response->statusDescription;
         $walletErrorMessage = $response->statusDescription;
     }
-    $responseWithdrawlTransaction = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
+    $responseWithdrawalTransaction = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
             'user_name' => $_SESSION['Username'],
             'platform' => '3',
-            ], 'getAllWithdrawlDBTransactionByUserName');
+            ], 'getAllWithdrawalDBTransactionByUserName');
 
-    $responseWithdrawlTransaction = json_decode($responseWithdrawlTransaction);
-    if ($responseWithdrawlTransaction->statusCode == 100) {
-        $walletWithdrawlTransactionDBData = $responseWithdrawlTransaction->response->withdrawl_data;
+    $responseWithdrawalTransaction = json_decode($responseWithdrawalTransaction);
+    if ($responseWithdrawalTransaction->statusCode == 100) {
+        $walletWithdrawalTransactionDBData = $responseWithdrawalTransaction->response->withdrawl_data;
     }
     if (!empty($_POST)) {
 
@@ -43,23 +43,23 @@ if (isset($_SESSION['Username'])) {
         switch ($transaction_type) {
             case 'receive':
                 
-                $responseWithdrawlRequest = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
+                $responseWithdrawalRequest = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
                         'user_name' => $_SESSION['Username'],
                         'to_address' => $_POST['to_address'],
                         'amount' => $_POST['receive_amount'],
                         'platform' => '3',
                         'transaction_type' => '401',
-                        ], 'withdrawlPayment');
-                $responseWithdrawlRequest = json_decode($responseWithdrawlRequest);
+                        ], 'withdrawalPayment');
+                $responseWithdrawalRequest = json_decode($responseWithdrawalRequest);
                 $redirect = '';
 
-                if ($responseWithdrawlRequest->statusCode == 100) {
+                if ($responseWithdrawalRequest->statusCode == 100) {
                     // $walletData = $response->response->wallet_data;
                     $_SESSION['error'] = 0;
-                    $_SESSION['message'] = $responseWithdrawlRequest->statusDescription;
+                    $_SESSION['message'] = $responseWithdrawalRequest->statusDescription;
                 } else {
                     $_SESSION['error'] = 1;
-                    $_SESSION['message'] = $responseWithdrawlRequest->statusDescription;
+                    $_SESSION['message'] = $responseWithdrawalRequest->statusDescription;
                 }
                 unset($_POST);
                 break;
@@ -273,7 +273,7 @@ include('includes/footer.php');
         $('#receive_qr_block').hide();
         // console.log('I am inside ready');
         //handleTable();
-        var walletTransactionDBData = <?php echo json_encode($walletWithdrawlTransactionDBData); ?>;
+        var walletTransactionDBData = <?php echo json_encode($walletWithdrawalTransactionDBData); ?>;
         console.log(walletTransactionDBData);
         $('#wallet-withdrawl-transactions-grid').DataTable({
             data: walletTransactionDBData,

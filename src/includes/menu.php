@@ -15,6 +15,7 @@
                         <!--<li><a href="#">My Orders</a></li>
                         <li><a href="#">Support Ticket</a></li> -->
                         <li><a href="reflink">Referral Link</a></li>
+                        <li><a href="withdrawal">Withdrawal</a></li>
                     </ul>
                 </li>
                 <?php

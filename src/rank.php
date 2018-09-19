@@ -18,13 +18,28 @@ if (isset($_SESSION['Username'])) {
         $showrankid = $response->response->selectedRankId;
         $purchasedRegistrationMembership = $response->response->purchasedRegistrationMembership;
         $purchasedAnyOfPool = $response->response->purchasedAnyOfPool;
+        $dealerTotalEnrollment = $response->response->dealerTotalEnrollment;
+        $dealerSixMinersEnrollment = $response->response->dealerSixMinersEnrollment;
+        $dealerSixMinersWithTwoSubMinersEnrollment = $response->response->dealerSixMinersWithTwoSubMinersEnrollment;
+        $superDealerTotalEnrollment = $response->response->superDealerTotalEnrollment;
+        $superDealerThreeDealersEnrollment = $response->response->superDealerThreeDealersEnrollment;
+        $executiveDealerTotalEnrollment = $response->response->executiveDealerTotalEnrollment;
+        $executiveDealerTwoSuperDealersEnrollment = $response->response->executiveDealerTwoSuperDealersEnrollment;
+        $crownDealerTotalEnrollment = $response->response->crownDealerTotalEnrollment;
+        $crownDealerThreeExecutiveDealersEnrollment = $response->response->crownDealerThreeExecutiveDealersEnrollment;
+        $globalCrownDealerTotalEnrollment = $response->response->globalCrownDealerTotalEnrollment;
+        $globalCrownDealerThreeCrownDealersEnrollment = $response->response->globalCrownDealerThreeCrownDealersEnrollment;
     } else {
         $showone = $showtwo = $showthree = $showfour = $showfive = 0.00;
         $showrank = 'Miner';
         $showrankid = 1;
         $_SESSION['error'] = 1;
-        $purchasedRegistrationMembership = 0;
-        $purchasedAnyOfPool = 0;
+        $purchasedRegistrationMembership = $purchasedAnyOfPool = 0;
+        $dealerTotalEnrollment = $dealerSixMinersEnrollment = $dealerSixMinersWithTwoSubMinersEnrollment = 0;
+        $superDealerTotalEnrollment = $superDealerThreeDealersEnrollment = 0;
+        $executiveDealerTotalEnrollment =$executiveDealerTwoSuperDealersEnrollment = 0;
+        $crownDealerTotalEnrollment=$crownDealerThreeExecutiveDealersEnrollment = 0;
+        $globalCrownDealerTotalEnrollment = $globalCrownDealerThreeCrownDealersEnrollment = 0;
         $_SESSION['message'] = $response->statusDescription;
     }
 
@@ -294,7 +309,7 @@ include('includes/message.php');
                                                         <tr>
                                                             <td class="center">$11,400 in total enrollment tree volume</td>
                                                             <td class="center"></td>
-                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($showrankid >= 2 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
+                                                            <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($dealerTotalEnrollment == 1 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
                                                         </tr>
 
                                                         <tr>
