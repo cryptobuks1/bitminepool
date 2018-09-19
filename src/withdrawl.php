@@ -11,47 +11,74 @@ if (isset($_SESSION['Username'])) {
     $btcValue = $stats['market_price_usd'];
     $walletData = $userData = $walletWithdrawlTransactionDBData = [];
     $userName = $_SESSION['Username'];
+    $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
+            'user_name' => $_SESSION['Username'],
+            'platform' => '3',
+            ], 'getAllWalletDetailByUserName');
 
+    $response = json_decode($response);
+    
+    $redirect = 'login';
+    if ($response->statusCode == 100) {
+        $walletData = $response->response->wallet_data;
+        $userData = $response->response->user_data;
+    } else {
+        $_SESSION['error'] = 1;
+        $_SESSION['message'] = $response->statusDescription;
+        $walletErrorMessage = $response->statusDescription;
+    }
     $responseWithdrawlTransaction = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                'user_name' => $_SESSION['Username'],
-                'platform' => '3',
-                    ], 'getAllWithdrawlDBTransactionByUserName');
+            'user_name' => $_SESSION['Username'],
+            'platform' => '3',
+            ], 'getAllWithdrawlDBTransactionByUserName');
 
     $responseWithdrawlTransaction = json_decode($responseWithdrawlTransaction);
-
     if ($responseWithdrawlTransaction->statusCode == 100) {
         $walletWithdrawlTransactionDBData = $responseWithdrawlTransaction->response->withdrawl_data;
     }
     if (!empty($_POST)) {
+
         $transaction_type = '';
         $transaction_type = $_POST['transaction_type'];
         switch ($transaction_type) {
             case 'receive':
-                //$receiveAmountBtc = $_POST['receive_amount'];
-                /* $receiveAmountAddress = $_POST['receive_address'];
-                  $url = "https://blockchain.info/stats?format=json";
-                  $stats = json_decode(file_get_contents($url), true);
-                  $btcValue = $stats['market_price_usd'];
-                  $usdCost = $_POST['receive_amount'];
-                  $convertedCost = $usdCost / $btcValue;
-                  $receiveAmountBtc = round($convertedCost, 8); */
+                
+                $responseWithdrawlRequest = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
+                        'user_name' => $_SESSION['Username'],
+                        'to_address' => $_POST['to_address'],
+                        'amount' => $_POST['receive_amount'],
+                        'platform' => '3',
+                        'transaction_type' => '401',
+                        ], 'withdrawlPayment');
+                $responseWithdrawlRequest = json_decode($responseWithdrawlRequest);
+                $redirect = '';
+
+                if ($responseWithdrawlRequest->statusCode == 100) {
+                    // $walletData = $response->response->wallet_data;
+                    $_SESSION['error'] = 0;
+                    $_SESSION['message'] = $responseWithdrawlRequest->statusDescription;
+                } else {
+                    $_SESSION['error'] = 1;
+                    $_SESSION['message'] = $responseWithdrawlRequest->statusDescription;
+                }
+                unset($_POST);
                 break;
             case 'sent':
-                $url = "https://blockchain.info/stats?format=json";
+              /*  $url = "https://blockchain.info/stats?format=json";
                 $stats = json_decode(file_get_contents($url), true);
                 $btcValue = $stats['market_price_usd'];
                 $usdCost = $_POST['sent_amount'];
                 $convertedCost = $usdCost / $btcValue;
                 $sentAmountBtc = round($convertedCost, 8);
                 $responseSentPayment = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                            'user_name' => $_SESSION['Username'],
-                            'wallet_guid' => $userData->guid,
-                            'wallet_pass' => $userData->password,
-                            'from_address' => $userData->address,
-                            'to_address' => $_POST['sent_address'],
-                            'amount' => $sentAmountBtc,
-                            'platform' => '3',
-                                ], 'sendPayment');
+                        'user_name' => $_SESSION['Username'],
+                        'wallet_guid' => $userData->guid,
+                        'wallet_pass' => $userData->password,
+                        'from_address' => $userData->address,
+                        'to_address' => $_POST['sent_address'],
+                        'amount' => $sentAmountBtc,
+                        'platform' => '3',
+                        ], 'sendPayment');
 
                 $responseSentPayment = json_decode($responseSentPayment);
                 $redirect = '';
@@ -65,7 +92,7 @@ if (isset($_SESSION['Username'])) {
                     $_SESSION['message'] = $responseSentPayment->statusDescription;
                 }
                 unset($_POST);
-                break;
+                break;*/
             default:
                 $_SESSION['error'] = 1;
                 $_SESSION['message'] = 'Please try after some time.';
@@ -144,110 +171,82 @@ if (isset($_SESSION['Username'])) {
                 <div class="">
                     <div class="clearfix"></div>
 
-                    
+
                     <?php
-                    if (!(empty($walletWithdrawlTransactionDBData))) {
-                        ?>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="clearfix"></div>
-                                <div class="x_content">
-                                    <div id="accordion_transaction">
-                                        <h3>View all transactions</h3>
-                                        <div>
-                                            <p>
-                                            <div class="row">
-                                                <div class="col-md-12 col-sm-12 col-xs-12 ">
-                                                    <div class="x_panel">
+                    // if (!(empty($walletWithdrawlTransactionDBData))) {
+                    ?>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="clearfix"></div>
+                            <div class="x_content">
+                                <!-- <div id="accordion_transaction"> -->
+                                <h3>View all transactions</h3>
+                                <div>
+                                    <p>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 ">
+                                            <div class="x_panel">
 
-                                                        <div class="x_content table">
-                                                            <table id="wallet-withdrawl-transactions-grid"  cellpadding="0" cellspacing="0" border="0" class="display table" width="100%">
+                                                <div class="x_content table">
+                                                    <table id="wallet-withdrawl-transactions-grid"  cellpadding="0" cellspacing="0" border="0" class="display table" width="100%">
 
-                                                                <tbody>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
-                                            </p>
                                         </div>
                                     </div>
+                                    </p>
                                 </div>
-                            </div>
-                        </div>                    
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="clearfix"></div>
-                                <div class="x_content">
-
-                                    <div id="accordion">
-                                        <h3>Withdrawl BTC</h3>
-                                        <div>
-                                            <p>
-                                            <form id="send-payment" class="form-horizontal form-label-left" method="post" action="">
-                                                <div class="form-group">
-                                                    <label for="sent_address">To address:</label>
-                                                    <input type="text" name="sent_address" class="form-control" id="sent_address" data-msg-required="Please enter receivers address." required="required">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="sent_amount">Amount(In USD):</label>
-                                                    <input type="text" class="form-control" name="sent_amount" id="sent_amount" data-msg-required="Please enter amount to be sent." required="required" number="true" data-msg-required="Please enter valid amount to be sent." >
-                                                </div>
-                                                <input type="hidden" name="transaction_type" value="sent">
-
-                                                <button type="submit" id="send_payment_submit" class="btn btn-default">Pay</button>
-                                                <button type="reset" id ="reset_send_payment" class="btn btn-default">Cancel</button>
-                                            </form>
-                                            </p>
-                                        </div>
-                                        <h3>Receive BTC</h3>
-                                        <div>
-                                            <p>
-                                            <form id="receive-payment" class="form-horizontal form-label-left" method="post" action="">
-                                                <?php //if (!empty($receiveAmountAddress) && $receiveAmountBtc != 0) {    ?>
-                                                <div id='receive_qr_block'>
-                                                    <div class="form-group">
-                                                        <a id="qr_anchor" href=""><button type="button" class="btn btn-primary">Scan QR Code</button></a>
-                                                        <button type="reset" id ="reset_receive_payment_qr" class="btn btn-default">Cancel</button>
-                                                    </div>
-
-                                                </div>
-                                                <?php // } else {    ?>
-                                                <div id="receive_form_block">
-                                                    <div class="form-group">
-                                                        <label for="receive_address">To address:</label>
-                                                        <select  class="form-control" name="receive_address" id="receive_address" data-msg-required="Please select address."  onchange="">
-                                                            <?php foreach ($walletData->addresses as $key => $address) { ?>
-                                                                <option value="<?php echo $address->address; ?>"><?php echo $address->address; ?></option>
-                                                            <?php } ?>
-
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="amount">Amount(In USD):</label>
-                                                        <input type="text" class="form-control" name = "receive_amount" id="receive_amount" data-msg-required="Please enter amount to be received." required="required" number="true" data-msg-required="Please enter valid amount to be received." >
-                                                    </div>
-
-                                                    <input type="hidden" name="transaction_type" value="receive">
-                                                    <button type="submit" id ="receive_payment_submit" class="btn btn-default">Submit</button>
-                                                    <button type="reset" id ="reset_receive_payment" class="btn btn-default">Cancel</button>
-                                                </div>
-                                                <?php //}    ?>
-
-                                            </form>
-                                            </p>
-                                        </div>
-
-
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
+                                <!-- </div> -->
                             </div>
                         </div>
-                        <?php
-                    }
+                    </div>   
+                    <?php
+                    //}
                     ?>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="clearfix"></div>
+                            <div class="x_content">
+
+                                <div id="accordion">
+                                    <h3>Withdrawl BTC</h3>
+                                    <div>
+                                        <p>
+                                        <form id="receive-payment" class="form-horizontal form-label-left" method="post" action="">
+
+                                            <div id="receive_form_block">
+                                                <div class="form-group">
+                                                    <label for="to_address">To address:</label>
+                                                    <select  class="form-control" name="to_address" id="to_address" data-msg-required="Please select address."  onchange="">
+                                                        <?php foreach ($walletData->addresses as $key => $address) { ?>
+                                                            <option value="<?php echo $address->address; ?>"><?php echo $address->address; ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="amount">Amount(In USD):</label>
+                                                    <input type="text" class="form-control" name = "receive_amount" id="receive_amount" data-msg-required="Please enter amount to be withdrawl." required="required" number="true" data-msg-required="Please enter valid amount to be withdrawl." >
+                                                </div>
+
+                                                <input type="hidden" name="transaction_type" value="receive">
+                                                <button type="submit" id ="receive_payment_submit" class="btn btn-default">Submit</button>
+                                                <button type="reset" id ="reset_receive_payment" class="btn btn-default">Cancel</button>
+                                            </div>
+
+                                        </form>
+                                        </p>
+                                    </div>
+
+
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -313,36 +312,8 @@ include('includes/footer.php');
         var validatorSentPayment = $("#send-payment").validate();
         validatorSentPayment.resetForm();
     });
-    $('#reset_receive_payment_qr').click(function () {
-        $('#send-payment')[0].reset();
-        var validatorSentPayment = $("#send-payment").validate();
-        validatorSentPayment.resetForm();
-        $("#qr_anchor").attr("href", "");
-        $('#receive_qr_block').hide();
-        $('#receive_form_block').show();
-    });
 
-    $("#receive-payment").submit(function (e) {
-        console.log('I am  on line 394');
-        var validatorReceivePayment = $("#receive-payment").validate();
-        console.log(validatorReceivePayment);
-        if (!$("#receive-payment").valid()) {
-            return false;
-        }
-        var btcValue = <?php echo $btcValue; ?>;
 
-        var address = $('#receive-payment #receive_address').val();
-        var usdAmount = $('#receive-payment #receive_amount').val();
-        var convertedCost = usdAmount / btcValue;
-        var reciveAmountBtc = parseFloat(convertedCost).toFixed(8);
-        console.log(reciveAmountBtc);
-        var qrPath = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=bitcoin:" + address + "?amount=" + reciveAmountBtc;
-        $("#qr_anchor").attr("href", qrPath);
-        $('#receive_qr_block').show();
-        $('#receive_form_block').hide();
-
-        e.preventDefault();
-    });
 
 </script>
 </body>
