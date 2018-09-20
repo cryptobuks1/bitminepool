@@ -103,11 +103,12 @@ if (isset($_SESSION['Username'])) {
                 exit;
                 break;
         }
+        
         unset($_POST);
         //$_POST = [];
-        // $redirect = 'wallet';
-        //  echo "<script>location='" . BASE_URL . $redirect . "'</script>";
-        //  exit;
+         $redirect = 'withdrawal';
+          echo "<script>location='" . BASE_URL . $redirect . "'</script>";
+          exit;
     }
 } else {
     $_SESSION['error'] = 1;

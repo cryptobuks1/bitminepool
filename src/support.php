@@ -2,7 +2,7 @@
 include('includes/header.php');
 
 if (isset($_SESSION['Username'])) {
-
+    print_r($_SESSION['is_admin_user']);
     $_SESSION['error'] = 0;
     $receiveAmountBtc = $sentAmountBtc = 0;
     $receiveAmountAddress = $walletErrorMessage = '';
@@ -13,9 +13,9 @@ if (isset($_SESSION['Username'])) {
     $userName = $_SESSION['Username'];
 
     $responseSupportTicket = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-            'user_name' => $_SESSION['Username'],
-            'platform' => '3',
-            ], 'getAllSupportTicketByUserName');
+                'user_name' => $_SESSION['Username'],
+                'platform' => '3',
+                    ], 'getAllSupportTicketByUserName');
 
     $responseSupportTicket = json_decode($responseSupportTicket);
     if ($responseSupportTicket->statusCode == 100) {
@@ -24,13 +24,13 @@ if (isset($_SESSION['Username'])) {
 
     if (!empty($_POST)) {
         $responseSupportRequest = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                'user_name' => $_SESSION['Username'],
-                'ticket_id' => $_POST['ticket_id'],
-                'issue' => $_POST['issue'],
-                'category' => $_POST['category'],
-                'platform' => '3',
-                'transaction_type' => '501',
-                ], 'addSupportRequest');
+                    'user_name' => $_SESSION['Username'],
+                    'ticket_id' => $_POST['ticket_id'],
+                    'issue' => $_POST['issue'],
+                    'category' => $_POST['category'],
+                    'platform' => '3',
+                    'transaction_type' => '501',
+                        ], 'addSupportRequest');
         $responseSupportRequest = json_decode($responseSupportRequest);
         $redirect = '';
 
@@ -43,6 +43,8 @@ if (isset($_SESSION['Username'])) {
             $_SESSION['message'] = $responseSupportRequest->statusDescription;
         }
         unset($_POST);
+        $redirect = 'support';
+        echo "<script>location='" . BASE_URL . $redirect . "'</script>";
     }
 } else {
     $_SESSION['error'] = 1;
@@ -154,8 +156,8 @@ if (isset($_SESSION['Username'])) {
 
                                             <div id="receive_form_block">
                                                 <div class="form-group">
-                                                    <label for="to_address">Category:</label>
-                                                    <select  class="form-control" name="to_address" id="to_address" data-msg-required="Please select address." required="required"  onchange="">
+                                                    <label for="category">Category:</label>
+                                                    <select  class="form-control" name="category" id="category" data-msg-required="Please select address." required="required"  onchange="">
 
                                                         <option value="1">Registration</option>
                                                         <option value="2">Account Activation</option>
@@ -210,20 +212,49 @@ include('includes/footer.php');
         // console.log('I am inside ready');
         //handleTable();
         var supportTicketDBData = <?php echo json_encode($supportTicketDBData); ?>;
-        console.log(supportTicketDBData);
-        $('#support-ticket-grid').DataTable({
-            data: walletTransactionDBData,
-            "columns": [
+        var is_admin_user = <?php echo $_SESSION['is_admin_user']; ?>;
+        console.log(is_admin_user);
+        var columns = [
 
-                {"title": "ID", "data": "id"},
-                {"title": "Ticket ID", "data": "ticket_id"},
-                {"title": "User Name", "data": "user_name"},
-                {"title": "Amount", "data": "amount"},
-                {"title": "Issue", "data": "issue"},
-                {"title": "Category", "data": "category_view"},
-                {"title": "Status", "data": "status_view"},
-                {"title": "Date", "data": "created_at"}
-            ]
+            {"title": "ID", "data": "id"},
+            {"title": "Ticket ID", "data": "ticket_id"},
+            {"title": "User Name", "data": "user_name"},
+
+            {"title": "Issue", "data": "issue"},
+            {"title": "Category", "data": "category_view"},
+            {"title": "Status", "data": "status_view"},
+            {"title": "Date", "data": "created_at"},
+            {"title": "Action", "data": "", "defaultContent": "<i>N/A</i>"},
+        ];
+        /* if (is_admin_user == 1) {
+         columns.push({"title": "Date", "data": "null", ""});
+         }*/
+        $('#support-ticket-grid').DataTable({
+            data: supportTicketDBData,
+            "columns": columns,
+            "drawCallback": function (settings) {
+                var api = this.api();
+                var rows = api.rows({page: 'current'}).nodes();
+                var last = null;
+                var page = api.page();
+                var recNum = null;
+                var displayLength = settings._iDisplayLength;
+                api.column(7, {page: 'current'}).data().each(function (group, i) {
+                    if (is_admin_user == 1) {
+                        var id = $(rows).eq(i).children('td:nth-child(1)').html();
+                        var status = $(rows).eq(i).children('td:nth-child(6)').html();
+                        console.log(status);
+                        var statusBtn = '';
+                        if (status == 1) {
+                            statusBtn = '<a data-id = "' + id + '" data-status="' + status + '" class="updadatePromocodeStatus" style="text-decoration:none;" href="javascript:void(0);"><span class="label label-sm label-success">active</span></a>';
+                        } else {
+                            statusBtn = '<a data-id = "' + id + '" data-status="' + status + '" class="updadatePromocodeStatus" style="text-decoration:none;" href="javascript:void(0);"><span class="label label-sm label-danger">inactive</span></a>';
+                        }
+                        $(rows).eq(i).children('td:nth-child(8)').html(statusBtn);
+                    }
+                });
+
+            },
 
         });
     });

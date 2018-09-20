@@ -16,6 +16,7 @@
                         <li><a href="#">Support Ticket</a></li> -->
                         <li><a href="reflink">Referral Link</a></li>
                         <li><a href="withdrawal">Withdrawal</a></li>
+                        <li><a href="support">Support</a></li>
                     </ul>
                 </li>
                 <?php
