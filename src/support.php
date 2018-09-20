@@ -11,103 +11,38 @@ if (isset($_SESSION['Username'])) {
     $btcValue = $stats['market_price_usd'];
     $walletData = $userData = $walletWithdrawalTransactionDBData = [];
     $userName = $_SESSION['Username'];
-    $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
+
+    $responseSupportTicket = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
             'user_name' => $_SESSION['Username'],
             'platform' => '3',
-            ], 'getAllWalletDetailByUserName');
+            ], 'getAllSupportTicketByUserName');
 
-    $response = json_decode($response);
-    
-    $redirect = 'login';
-    if ($response->statusCode == 100) {
-        $walletData = $response->response->wallet_data;
-        $userData = $response->response->user_data;
-    } else {
-        $_SESSION['error'] = 1;
-        $_SESSION['message'] = $response->statusDescription;
-        $walletErrorMessage = $response->statusDescription;
+    $responseSupportTicket = json_decode($responseSupportTicket);
+    if ($responseSupportTicket->statusCode == 100) {
+        $supportTicketDBData = $responseSupportTicket->response->support_data;
     }
-    $responseWithdrawalTransaction = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-            'user_name' => $_SESSION['Username'],
-            'platform' => '3',
-            ], 'getAllWithdrawalDBTransactionByUserName');
 
-    $responseWithdrawalTransaction = json_decode($responseWithdrawalTransaction);
-    if ($responseWithdrawalTransaction->statusCode == 100) {
-        $walletWithdrawalTransactionDBData = $responseWithdrawalTransaction->response->withdrawl_data;
-    }
     if (!empty($_POST)) {
+        $responseSupportRequest = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
+                'user_name' => $_SESSION['Username'],
+                'ticket_id' => $_POST['ticket_id'],
+                'issue' => $_POST['issue'],
+                'category' => $_POST['category'],
+                'platform' => '3',
+                'transaction_type' => '501',
+                ], 'addSupportRequest');
+        $responseSupportRequest = json_decode($responseSupportRequest);
+        $redirect = '';
 
-        $transaction_type = '';
-        $transaction_type = $_POST['transaction_type'];
-        switch ($transaction_type) {
-            case 'receive':
-                
-                $responseWithdrawalRequest = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                        'user_name' => $_SESSION['Username'],
-                        'to_address' => $_POST['to_address'],
-                        'amount' => $_POST['receive_amount'],
-                        'platform' => '3',
-                        'transaction_type' => '401',
-                        ], 'withdrawalPayment');
-                $responseWithdrawalRequest = json_decode($responseWithdrawalRequest);
-                $redirect = '';
-
-                if ($responseWithdrawalRequest->statusCode == 100) {
-                    // $walletData = $response->response->wallet_data;
-                    $_SESSION['error'] = 0;
-                    $_SESSION['message'] = $responseWithdrawalRequest->statusDescription;
-                } else {
-                    $_SESSION['error'] = 1;
-                    $_SESSION['message'] = $responseWithdrawalRequest->statusDescription;
-                }
-                unset($_POST);
-                break;
-            case 'sent':
-              /*  $url = "https://blockchain.info/stats?format=json";
-                $stats = json_decode(file_get_contents($url), true);
-                $btcValue = $stats['market_price_usd'];
-                $usdCost = $_POST['sent_amount'];
-                $convertedCost = $usdCost / $btcValue;
-                $sentAmountBtc = round($convertedCost, 8);
-                $responseSentPayment = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                        'user_name' => $_SESSION['Username'],
-                        'wallet_guid' => $userData->guid,
-                        'wallet_pass' => $userData->password,
-                        'from_address' => $userData->address,
-                        'to_address' => $_POST['sent_address'],
-                        'amount' => $sentAmountBtc,
-                        'platform' => '3',
-                        ], 'sendPayment');
-
-                $responseSentPayment = json_decode($responseSentPayment);
-                $redirect = '';
-
-                if ($responseSentPayment->statusCode == 100) {
-                    // $walletData = $response->response->wallet_data;
-                    $_SESSION['error'] = 0;
-                    $_SESSION['message'] = $responseSentPayment->statusDescription;
-                } else {
-                    $_SESSION['error'] = 1;
-                    $_SESSION['message'] = $responseSentPayment->statusDescription;
-                }
-                unset($_POST);
-                break;*/
-            default:
-                $_SESSION['error'] = 1;
-                $_SESSION['message'] = 'Please try after some time.';
-                unset($_POST);
-                //header("Location:login");
-                $redirect = 'wallet';
-                echo "<script>location='" . BASE_URL . $redirect . "'</script>";
-                exit;
-                break;
+        if ($responseSupportRequest->statusCode == 100) {
+            // $walletData = $response->response->wallet_data;
+            $_SESSION['error'] = 0;
+            $_SESSION['message'] = $responseSupportRequest->statusDescription;
+        } else {
+            $_SESSION['error'] = 1;
+            $_SESSION['message'] = $responseSupportRequest->statusDescription;
         }
         unset($_POST);
-        //$_POST = [];
-        // $redirect = 'wallet';
-        //  echo "<script>location='" . BASE_URL . $redirect . "'</script>";
-        //  exit;
     }
 } else {
     $_SESSION['error'] = 1;
@@ -188,7 +123,7 @@ if (isset($_SESSION['Username'])) {
                                             <div class="x_panel">
 
                                                 <div class="x_content table">
-                                                    <table id="wallet-withdrawl-transactions-grid"  cellpadding="0" cellspacing="0" border="0" class="display table" width="100%">
+                                                    <table id="support-ticket-grid"  cellpadding="0" cellspacing="0" border="0" class="display table" width="100%">
 
                                                         <tbody>
                                                         </tbody>
@@ -212,28 +147,29 @@ if (isset($_SESSION['Username'])) {
                             <div class="x_content">
 
                                 <div id="accordion">
-                                    <h3>Withdrawl BTC</h3>
+                                    <h3>Add Support Ticket</h3>
                                     <div>
                                         <p>
-                                        <form id="receive-payment" class="form-horizontal form-label-left" method="post" action="">
+                                        <form id="add_support_ticket" class="form-horizontal form-label-left" method="post" action="">
 
                                             <div id="receive_form_block">
                                                 <div class="form-group">
-                                                    <label for="to_address">To address:</label>
-                                                    <select  class="form-control" name="to_address" required="required"  id="to_address" data-msg-required="Please select address."  onchange="">
-                                                        <?php foreach ($walletData->addresses as $key => $address) { ?>
-                                                            <option value="<?php echo $address->address; ?>"><?php echo $address->address; ?></option>
-                                                        <?php } ?>
+                                                    <label for="to_address">Category:</label>
+                                                    <select  class="form-control" name="to_address" id="to_address" data-msg-required="Please select address." required="required"  onchange="">
+
+                                                        <option value="1">Registration</option>
+                                                        <option value="2">Account Activation</option>
+                                                        <option value="3">Payment</option>
+                                                        <option value="4">Others</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="amount">Amount(In USD):</label>
-                                                    <input type="text" class="form-control" name = "receive_amount" id="receive_amount" data-msg-required="Please enter amount to be withdrawl." required="required" number="true" data-msg-required="Please enter valid amount to be withdrawl." >
+                                                    <label for="reason">Description:</label>
+                                                    <textarea class="resizable_textarea form-control" name = "issue" id="issue" data-msg-required="Please enter the description." required="required" ></textarea>
                                                 </div>
-
-                                                <input type="hidden" name="transaction_type" value="receive">
-                                                <button type="submit" id ="receive_payment_submit" class="btn btn-default">Submit</button>
-                                                <button type="reset" id ="reset_receive_payment" class="btn btn-default">Cancel</button>
+                                                <input type="hidden" name="ticket_id" value="<?php echo mt_rand(0, 1000000); ?>">
+                                                <button type="submit" id ="add_support_ticket_submit" class="btn btn-default">Submit</button>
+                                                <button type="reset" id ="reset_add_support_ticket" class="btn btn-default">Cancel</button>
                                             </div>
 
                                         </form>
@@ -273,17 +209,18 @@ include('includes/footer.php');
         $('#receive_qr_block').hide();
         // console.log('I am inside ready');
         //handleTable();
-        var walletTransactionDBData = <?php echo json_encode($walletWithdrawalTransactionDBData); ?>;
-        console.log(walletTransactionDBData);
-        $('#wallet-withdrawl-transactions-grid').DataTable({
+        var supportTicketDBData = <?php echo json_encode($supportTicketDBData); ?>;
+        console.log(supportTicketDBData);
+        $('#support-ticket-grid').DataTable({
             data: walletTransactionDBData,
             "columns": [
 
                 {"title": "ID", "data": "id"},
-                //{"title": "invoice_id", "data": "invoice_id"},
+                {"title": "Ticket ID", "data": "ticket_id"},
                 {"title": "User Name", "data": "user_name"},
                 {"title": "Amount", "data": "amount"},
-                {"title": "To address", "data": "to_address"},
+                {"title": "Issue", "data": "issue"},
+                {"title": "Category", "data": "category_view"},
                 {"title": "Status", "data": "status_view"},
                 {"title": "Date", "data": "created_at"}
             ]
@@ -297,23 +234,15 @@ include('includes/footer.php');
      });*/
     //$("#phone").intlTelInput();
     $(document).ready(function () {
-        var validatorReceivePayment = $("#receive-payment").validate();
-        var validatorSentPayment = $("#send-payment").validate();
+        var validatorAddSupportTicket = $("#add_support_ticket").validate();
         //validator.form();
     });
 
-    $('#reset_receive_payment').click(function () {
-        $('#receive-payment')[0].reset();
-        var validatorReceivePayment = $("#receive-payment").validate();
+    $('#reset_add_support_ticket').click(function () {
+        $('#add_support_ticket')[0].reset();
+        var validatorReceivePayment = $("#add_support_ticket").validate();
         validatorReceivePayment.resetForm();
     });
-    $('#reset_send_payment').click(function () {
-        $('#send-payment')[0].reset();
-        var validatorSentPayment = $("#send-payment").validate();
-        validatorSentPayment.resetForm();
-    });
-
-
 
 </script>
 </body>
