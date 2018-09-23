@@ -120,7 +120,7 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
                                         $temp_left_count = $tree_data['leftcredits'];
                                         $temp_right_count = $tree_data['rightcredits'];
                                         //Both left and right side should at least 1 credit
-                                        if ($temp_left_count > 0 && $temp_right_count > 0) {
+                                        if ($temp_left_count >= 0 && $temp_right_count >= 0) {
                                             if ($temp_side == 'left') {
                                                 $temp_left_count;
                                                 $temp_right_count;

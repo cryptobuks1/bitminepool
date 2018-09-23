@@ -151,18 +151,20 @@ if ($showultimatedate1 == "0") {
 
 $usdCost = $showone;
 $usdCosttwo = $showtwo / $btcValue;
-$usdCostthree = $showfour / $btcValue;
-$usdCostfour = $showfive / $btcValue;
+$usdCostthree = $showthree / $btcValue;
+$usdCostfour = $showfour / $btcValue;
+$usdCostfive = $showfive / $btcValue;
 $convertedCost = $usdCost / $btcValue;
-$totalone = round($convertedCost, 6);
-$totaltwo = round($usdCosttwo, 6);
-$totalthree = round($usdCostthree, 6);
-$totalfour = round($usdCostfour, 6);
-$packone = round($priceone, 6);
-$packtwo = round($pricetwo, 6);
-$packthree = round($pricethree, 6);
-$packfour = round($pricefour, 6);
-$packfive = round($pricefive, 6);
+$totalone = sprintf('%0.8f', $convertedCost); 
+$totaltwo = sprintf('%0.8f', $usdCosttwo);
+$totalthree = sprintf('%0.8f', $usdCostthree);
+$totalfour = sprintf('%0.8f', $usdCostfour);
+$totalfive = sprintf('%0.8f', $usdCostfive);
+$packone = sprintf('%0.8f', $priceone);
+$packtwo =sprintf('%0.8f', $pricetwo);
+$packthree = sprintf('%0.8f', $pricethree);
+$packfour = sprintf('%0.8f', $pricefour);
+$packfive = sprintf('%0.8f', $pricefive);
 ?>
 <body class="nav-md">
     <div class="container body">
@@ -235,16 +237,16 @@ $packfive = round($pricefive, 6);
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-clock-o"></i> Residual Income (BTC)</span>
                         <div class="count"><a href="#"><?php echo $totalthree; ?></a></div>
-                        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $showthree; ?>) </i>Total Earnings</span>
+                        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $showthree; ?>) </i>Total Residual </span>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-th"></i> Direct Commissions (BTC)</span>
-                        <div class="count"><a href="#"><?php echo $totalthree; ?></a></div>
+                        <div class="count"><a href="#"><?php echo $totalfour; ?></a></div>
                         <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $showfour; ?>) </i> Total Commission</span>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-users"></i> Binary Earnings (BTC)</span>
-                        <div class="count"><a href=""><?php echo $totalfour; ?></a></div>
+                        <div class="count"><a href=""><?php echo $totalfive; ?></a></div>
                         <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $showfive; ?>)</i> Total team Volume</span>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
@@ -637,7 +639,7 @@ $packfive = round($pricefive, 6);
                                 <!--FEATURE LIST START-->
                                 <div class="generic_feature_list">
                                     <ul>
-                                        <li><span>Current Investment Return(BTC):</span> <?php echo $packone; ?></li>
+                                        <li><span>Current Investment Return(BTC):</span> <?php echo $packfour; ?></li>
                                         <li><span>Approx.</span> $12/day</li>
                                         <li><span>365</span> Mining days</li>
 
@@ -748,7 +750,7 @@ $packfive = round($pricefive, 6);
                                 <!--FEATURE LIST START-->
                                 <div class="generic_feature_list">
                                     <ul>
-                                        <li><span>Current Investment Return(BTC):</span> <?php echo $packone; ?></li>
+                                        <li><span>Current Investment Return(BTC):</span> <?php echo $packfive; ?></li>
                                         <li><span>Approx.</span> $24/day</li>
                                         <li><span>365</span> Mining days</li>
 

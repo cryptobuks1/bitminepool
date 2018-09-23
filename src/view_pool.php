@@ -83,10 +83,10 @@ if (isset($_SESSION['Username'])) {
         $usdCostthree = $showfour / $btcValue;
         $usdCostfour = $showfive / $btcValue;
         $convertedCost = $usdCost / $btcValue;
-        $totalone = round($convertedCost, 6);
-        $totaltwo = round($usdCosttwo, 6);
-        $totalthree = round($usdCostthree, 6);
-        $totalfour = round($usdCostfour, 6);
+        $totalone = sprintf('%0.8f', $convertedCost);
+        $totaltwo = sprintf('%0.8f', $usdCosttwo);
+        $totalthree = sprintf('%0.8f', $usdCostthree);
+        $totalfour = sprintf('%0.8f', $usdCostfour);
     }
 } else {
     $_SESSION['error'] = 1;
@@ -244,7 +244,7 @@ if (isset($_SESSION['Username'])) {
                                                     <?php
                                                 } else {
                                                     $i = 1;
-                                                    $query = mysqli_query($conn, "select * from dailymine where Pack='$purpose' and Date Between '$showstarterdate' AND '$Currentmining'");
+                                                    $query = mysqli_query($conn, "select * from dailymine where Pack='$purpose' AND Username ='$userName' and Date Between '$showstarterdate' AND '$Currentmining'");
                                                     if (mysqli_num_rows($query) > 0) {
                                                         while ($row = mysqli_fetch_array($query)) {
                                                             $Date = $row['Date'];

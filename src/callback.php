@@ -104,6 +104,7 @@ if ($_GET['secret'] != $secret) {
             $sponsornewbalone = ($showsponsorbalance + $Startercomm);
             $sponsorone = "UPDATE commission SET Balance='$sponsornewbalone' WHERE Username ='" . $showsponsor . "'";
             mysqli_query($conn, $sponsorone);
+            $query = mysqli_query($conn, "update accountbalance set Balance='(Balance+$Startercomm)' where Username = '" . $showsponsor . "'");
             //////////////////////////////////Get Volumes from database///////////////////////////////////////////////////
             $getvolumes = "SELECT Balance FROM teamvolume WHERE Username = '" . $showusername . "'";
             $queryvolumes = mysqli_query($conn, $getvolumes);
@@ -119,6 +120,7 @@ if ($_GET['secret'] != $secret) {
             $sponsornewbaltwo = ($showsponsorbalance + $minicomm);
             $sponsortwo = "UPDATE commission SET Balance='$sponsornewbaltwo' WHERE Username ='" . $showsponsor . "'";
             mysqli_query($conn, $sponsortwo);
+            $query = mysqli_query($conn, "update accountbalance set Balance='(Balance+$minicomm)' where Username = '" . $showsponsor . "'");
             //////////////////////////////////Get Volumes from database///////////////////////////////////////////////////
             $getvolumes = "SELECT Balance FROM teamvolume WHERE Username = '" . $showusername . "'";
             $queryvolumes = mysqli_query($conn, $getvolumes);
@@ -134,6 +136,7 @@ if ($_GET['secret'] != $secret) {
             $sponsornewbalthree = ($showsponsorbalance + $mediumcomm);
             $sponsorthree = "UPDATE commission SET Balance='$sponsornewbalthree' WHERE Username ='" . $showsponsor . "'";
             mysqli_query($conn, $sponsorthree);
+            $query = mysqli_query($conn, "update accountbalance set Balance='(Balance+$mediumcomm)' where Username = '" . $showsponsor . "'");
             //////////////////////////////////Get Volumes from database///////////////////////////////////////////////////
             $getvolumes = "SELECT Balance FROM teamvolume WHERE Username = '" . $showusername . "'";
             $queryvolumes = mysqli_query($conn, $getvolumes);
@@ -149,6 +152,7 @@ if ($_GET['secret'] != $secret) {
             $sponsornewbalfour = ($showsponsorbalance + $grandcomm);
             $sponsorfour = "UPDATE commission SET Balance='$sponsornewbalfour' WHERE Username ='" . $showsponsor . "'";
             mysqli_query($conn, $sponsorfour);
+            $query = mysqli_query($conn, "update accountbalance set Balance='(Balance+$grandcomm)' where Username = '" . $showsponsor . "'");
             //////////////////////////////////Get Volumes from database///////////////////////////////////////////////////
             $getvolumes = "SELECT Balance FROM teamvolume WHERE Username = '" . $showusername . "'";
             $queryvolumes = mysqli_query($conn, $getvolumes);
@@ -164,6 +168,7 @@ if ($_GET['secret'] != $secret) {
             $sponsornewbalfive = ($showsponsorbalance + $ultimatecomm);
             $sponsorfive = "UPDATE commission SET Balance='$sponsornewbalfive' WHERE Username ='" . $showsponsor . "'";
             mysqli_query($conn, $sponsorfive);
+            $query = mysqli_query($conn, "update accountbalance set Balance='(Balance+$ultimatecomm)' where Username = '" . $showsponsor . "'");
             //////////////////////////////////Get Volumes from database///////////////////////////////////////////////////
             $getvolumes = "SELECT Balance FROM teamvolume WHERE Username = '" . $showusername . "'";
             $queryvolumes = mysqli_query($conn, $getvolumes);

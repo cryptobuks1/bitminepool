@@ -12,12 +12,12 @@ if (isset($_SESSION['Username'])) {
     $walletData = $userData = $walletWithdrawalTransactionDBData = [];
     $userName = $_SESSION['Username'];
     $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-            'user_name' => $_SESSION['Username'],
-            'platform' => '3',
-            ], 'getAllWalletDetailByUserName');
+                'user_name' => $_SESSION['Username'],
+                'platform' => '3',
+                    ], 'getAllWalletDetailByUserName');
 
     $response = json_decode($response);
-    
+
     $redirect = 'login';
     if ($response->statusCode == 100) {
         $walletData = $response->response->wallet_data;
@@ -28,28 +28,33 @@ if (isset($_SESSION['Username'])) {
         $walletErrorMessage = $response->statusDescription;
     }
     $responseWithdrawalTransaction = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-            'user_name' => $_SESSION['Username'],
-            'platform' => '3',
-            ], 'getAllWithdrawalDBTransactionByUserName');
+                'user_name' => $_SESSION['Username'],
+                'platform' => '3',
+                    ], 'getAllWithdrawalDBTransactionByUserName');
 
     $responseWithdrawalTransaction = json_decode($responseWithdrawalTransaction);
     if ($responseWithdrawalTransaction->statusCode == 100) {
         $walletWithdrawalTransactionDBData = $responseWithdrawalTransaction->response->withdrawl_data;
     }
+    $getone = "SELECT Balance FROM accountbalance WHERE Username = '" . $_SESSION['Username'] . "'";
+    $queryone = mysqli_query($conn, $getone);
+    $balanceone = mysqli_fetch_array($queryone);
+    $availableBalance = $balanceone['Balance'];
+
     if (!empty($_POST)) {
 
         $transaction_type = '';
         $transaction_type = $_POST['transaction_type'];
         switch ($transaction_type) {
             case 'receive':
-                
+
                 $responseWithdrawalRequest = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                        'user_name' => $_SESSION['Username'],
-                        'to_address' => $_POST['to_address'],
-                        'amount' => $_POST['receive_amount'],
-                        'platform' => '3',
-                        'transaction_type' => '401',
-                        ], 'withdrawalPayment');
+                            'user_name' => $_SESSION['Username'],
+                            'to_address' => $_POST['to_address'],
+                            'amount' => $_POST['receive_amount'],
+                            'platform' => '3',
+                            'transaction_type' => '401',
+                                ], 'withdrawalPayment');
                 $responseWithdrawalRequest = json_decode($responseWithdrawalRequest);
                 $redirect = '';
 
@@ -64,35 +69,35 @@ if (isset($_SESSION['Username'])) {
                 unset($_POST);
                 break;
             case 'sent':
-              /*  $url = "https://blockchain.info/stats?format=json";
-                $stats = json_decode(file_get_contents($url), true);
-                $btcValue = $stats['market_price_usd'];
-                $usdCost = $_POST['sent_amount'];
-                $convertedCost = $usdCost / $btcValue;
-                $sentAmountBtc = round($convertedCost, 8);
-                $responseSentPayment = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                        'user_name' => $_SESSION['Username'],
-                        'wallet_guid' => $userData->guid,
-                        'wallet_pass' => $userData->password,
-                        'from_address' => $userData->address,
-                        'to_address' => $_POST['sent_address'],
-                        'amount' => $sentAmountBtc,
-                        'platform' => '3',
-                        ], 'sendPayment');
+            /*  $url = "https://blockchain.info/stats?format=json";
+              $stats = json_decode(file_get_contents($url), true);
+              $btcValue = $stats['market_price_usd'];
+              $usdCost = $_POST['sent_amount'];
+              $convertedCost = $usdCost / $btcValue;
+              $sentAmountBtc = round($convertedCost, 8);
+              $responseSentPayment = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
+              'user_name' => $_SESSION['Username'],
+              'wallet_guid' => $userData->guid,
+              'wallet_pass' => $userData->password,
+              'from_address' => $userData->address,
+              'to_address' => $_POST['sent_address'],
+              'amount' => $sentAmountBtc,
+              'platform' => '3',
+              ], 'sendPayment');
 
-                $responseSentPayment = json_decode($responseSentPayment);
-                $redirect = '';
+              $responseSentPayment = json_decode($responseSentPayment);
+              $redirect = '';
 
-                if ($responseSentPayment->statusCode == 100) {
-                    // $walletData = $response->response->wallet_data;
-                    $_SESSION['error'] = 0;
-                    $_SESSION['message'] = $responseSentPayment->statusDescription;
-                } else {
-                    $_SESSION['error'] = 1;
-                    $_SESSION['message'] = $responseSentPayment->statusDescription;
-                }
-                unset($_POST);
-                break;*/
+              if ($responseSentPayment->statusCode == 100) {
+              // $walletData = $response->response->wallet_data;
+              $_SESSION['error'] = 0;
+              $_SESSION['message'] = $responseSentPayment->statusDescription;
+              } else {
+              $_SESSION['error'] = 1;
+              $_SESSION['message'] = $responseSentPayment->statusDescription;
+              }
+              unset($_POST);
+              break; */
             default:
                 $_SESSION['error'] = 1;
                 $_SESSION['message'] = 'Please try after some time.';
@@ -103,12 +108,12 @@ if (isset($_SESSION['Username'])) {
                 exit;
                 break;
         }
-        
+
         unset($_POST);
         //$_POST = [];
-         $redirect = 'withdrawal';
-          echo "<script>location='" . BASE_URL . $redirect . "'</script>";
-          exit;
+        $redirect = 'withdrawal';
+        echo "<script>location='" . BASE_URL . $redirect . "'</script>";
+        exit;
     }
 } else {
     $_SESSION['error'] = 1;
@@ -229,7 +234,8 @@ if (isset($_SESSION['Username'])) {
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="amount">Amount(In USD):</label>
-                                                    <input type="text" class="form-control" name = "receive_amount" id="receive_amount" data-msg-required="Please enter amount to be withdrawl." required="required" number="true" data-msg-required="Please enter valid amount to be withdrawl." >
+                                                   <!-- <input type="text" class="form-control" name = "receive_amount" id="receive_amount" data-msg-required="Please enter amount to be withdrawl." required="required" number="true" data-msg-required="Please enter valid amount to be withdrawl." > -->
+                                                    <input type="number" class="form-control" min="1" max="<?php echo $availableBalance; ?>" value="<?php echo $availableBalance; ?>" name = "receive_amount" id="receive_amount" data-msg-required="Please enter amount to be withdrawl." required="required" number="true" data-msg-required="Please enter valid amount to be withdrawl." >
                                                 </div>
 
                                                 <input type="hidden" name="transaction_type" value="receive">
