@@ -16,5 +16,5 @@ if (!defined('DB_SERVER_NAME')) define("DB_SERVER_NAME","localhost");
 if (!defined('DB_NAME')) define("DB_NAME","apibitmi_bitminepool_staging");
 if (!defined('DB_USER_NAME')) define("DB_USER_NAME","apibitmi_4188294");
 if (!defined('DB_PASSWORD')) define("DB_PASSWORD","emhQo6zE{,Er");
-
+if (!defined('SECRET')) define("SECRET","10081988Mangesh");
 ?>
