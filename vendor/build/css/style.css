@@ -418,7 +418,7 @@
 	text-decoration:none;
 }
 
-/* Tree related UI */
+/* CSS related to Binary Tree */
 
 .tree ul {
   position: relative;
@@ -498,4 +498,7 @@
 .tree select {
 	border-radius: 8px;
 	border: 1px solid crimson;
+}
+.tree {
+    overflow-y: auto;
 }
