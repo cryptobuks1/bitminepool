@@ -109,7 +109,7 @@ include('includes/message.php');
                 </div>
             </div>
 
-           <?php include('includes/guestheader.php'); ?>
+            <?php include('includes/guestheader.php'); ?>
 
 
             <!-- page content -->
@@ -147,7 +147,106 @@ include('includes/message.php');
                                     <div class="col-lg-2"></div>
                                 </div>
                                 <!-- /Search -->
+                                <div class="row">
+                                    <div class="col-lg-12 tree">
+                                        <ul>
+                                            <li>
+                                                <?php
+                                                $data = tree_data($search);
+                                                $getgenderone = "SELECT Gender FROM users WHERE Username = '$search'";
+                                                $querygenderone = mysqli_query($conn, $getgenderone);
+                                                $genderone = mysqli_fetch_array($querygenderone);
+                                                $mygenderone = $genderone['Gender'];
 
+                                                $getrankone = "SELECT * FROM rank WHERE Username = '$search'";
+                                                $queryrankone = mysqli_query($conn, $getrankone);
+                                                $rankone = mysqli_fetch_array($queryrankone);
+                                                $myrankone = $rankone['Rank'];
+                                                $myrankid = $rankone['Rankid'];
+                                                ?>
+                                                <a href="#">
+                                                    <img class="img-rounded" id="avatar" src="<?php echo ($mygenderone == 1) ? '../images/useravatar.png' : '../images/useravatarf.png'; ?>">
+                                                </a><br>
+                                                <span><?php echo $search; ?></span><br>
+                                                <span>Rank: <?php echo $myrankone; ?></span>
+                                                <ul>
+                                                    <li>
+                                                        <a href="#"><img class="img-rounded" id="avatar" src="useravatarf.png"></a>
+                                                        <br><br>
+                                                        <span> 
+                                                            <select style="padding-bottom: 5px;">
+                                                                <option>Choose a member</option>
+                                                            </select>&nbsp;&nbsp;
+                                                            <button type="submit" id="button[]" class="btn btn-sm btn-outline-danger">Add Member</button>
+                                                        </span>
+                                                        <ul>
+                                                            <li>
+                                                                <a href="#"><img class="img-rounded" id="avatar" src="useravatarn.png"></a>
+
+                                                                <br><br>
+                                                                <span> 
+                                                                    <select style="padding-bottom: 5px;">
+                                                                        <option>Choose a member</option>
+                                                                    </select>&nbsp;&nbsp;
+                                                                    <button type="submit" id="button[]" class="btn btn-sm btn-outline-danger">Add Member</button>
+                                                                </span>
+
+
+                                                            </li><li>
+                                                                <a href="#"><img class="img-rounded" id="avatar" src="useravatarn.png"></a>
+
+                                                                <br><br>
+                                                                <span> 
+                                                                    <select style="padding-bottom: 5px;">
+                                                                        <option>Choose a member</option>
+                                                                    </select>&nbsp;&nbsp;
+                                                                    <button type="submit" id="button[]" class="btn btn-sm btn-outline-danger">Add Member</button>
+                                                                </span>
+
+                                                            </li>
+                                                        </ul>
+                                                    </li><li>
+                                                        <a href="#"><img class="img-rounded" id="avatar" src="useravatarn.png"></a>
+
+                                                        <br><br>
+                                                        <span> 
+                                                            <select style="padding-bottom: 5px;">
+                                                                <option>Choose a member</option>
+                                                            </select>&nbsp;&nbsp;
+                                                            <button type="submit" id="button[]" class="btn btn-sm btn-outline-danger">Add Member</button>
+                                                        </span>
+
+                                                        <ul>
+                                                            <li>
+                                                                <a href="#"><img class="img-rounded" id="avatar" src="useravatarn.png"></a>
+
+                                                                <br><br>
+                                                                <span> 
+                                                                    <select style="padding-bottom: 5px;">
+                                                                        <option>Choose a member</option>
+                                                                    </select>&nbsp;&nbsp;
+                                                                    <button type="submit" id="button[]" class="btn btn-sm btn-outline-danger">Add Member</button>
+                                                                </span>
+
+                                                            </li><li>
+                                                                <a href="#"><img class="img-rounded" id="avatar" src="useravatarn.png"></a>
+
+                                                                <br><br>
+                                                                <span> 
+                                                                    <select style="padding-bottom: 5px;">
+                                                                        <option>Choose a member</option>
+                                                                    </select>&nbsp;&nbsp;
+                                                                    <button type="submit" id="button[]" class="btn btn-sm btn-outline-danger">Add Member</button>
+                                                                </span>
+
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>    
                                 <!-- Binary Tree -->
                                 <div class="row">
                                     <div class="col-lg-12">
@@ -171,7 +270,7 @@ include('includes/message.php');
                                                         } else {
                                                             ?>
                                                             <img src="../images/useravatarf.png" alt=""><?php
-                                                        }
+                                                    }
                                                         ?>
                                                         <!-- //change image according to gender -->
 
@@ -216,7 +315,7 @@ include('includes/message.php');
                                                                 } else {
                                                                     ?>
                                                                     <img src="../images/useravatarf.png" alt=""><?php
-                                                                }
+                                                        }
                                                                 ?>
                                                                 <!-- //change image according to gender -->
 
@@ -270,7 +369,7 @@ include('includes/message.php');
                                                                 } else {
                                                                     ?>
                                                                     <img src="../images/useravatarf.png" alt=""><?php
-                                                                }
+                                                        }
                                                                 ?>
                                                                 <!-- //change image according to gender -->
 
@@ -290,9 +389,9 @@ include('includes/message.php');
                                                     } else {
                                                         ?>
                                                         <td colspan="2"><img src="../images/useravatarn.png"><p><form action="jointwo.php" method="post"><?php
-                                                                $query1 = "SELECT * FROM users WHERE Sponsor = '" . $_SESSION['Username'] . "' AND Status='Close' AND treestatus='notree'";
-                                                                $result1 = mysqli_query($conn, $query1);
-                                                                ?>
+                                                    $query1 = "SELECT * FROM users WHERE Sponsor = '" . $_SESSION['Username'] . "' AND Status='Close' AND treestatus='notree'";
+                                                    $result1 = mysqli_query($conn, $query1);
+                                                        ?>
                                                                 <select  name="Usernametwo" id="Usernametwo" onchange="">
                                                                     <option>Choose Member</option>
                                                                     <?php while ($row1 = mysqli_fetch_array($result1)):; ?>
@@ -348,7 +447,7 @@ include('includes/message.php');
                                                                 } else {
                                                                     ?>
                                                                     <img src="../images/useravatarf.png" alt=""><?php
-                                                                }
+                                                        }
                                                                 ?>
                                                                 <!-- //change image according to gender -->
 
@@ -369,9 +468,9 @@ include('includes/message.php');
                                                     } else {
                                                         ?>
                                                         <td><img src="../images/useravatarn.png"><p><form action="jointhree.php" method="post"><?php
-                                                                $query1 = "SELECT * FROM users WHERE Sponsor = '" . $_SESSION['Username'] . "' AND Status='Close' AND treestatus='notree'";
-                                                                $result1 = mysqli_query($conn, $query1);
-                                                                ?>
+                                                    $query1 = "SELECT * FROM users WHERE Sponsor = '" . $_SESSION['Username'] . "' AND Status='Close' AND treestatus='notree'";
+                                                    $result1 = mysqli_query($conn, $query1);
+                                                        ?>
                                                                 <select  name="Usernamethree" id="Usernamethree" onchange="">
                                                                     <option>Choose Member</option>
                                                                     <?php while ($row1 = mysqli_fetch_array($result1)):; ?>
@@ -401,7 +500,7 @@ include('includes/message.php');
                                                                 } else {
                                                                     ?>
                                                                     <img src="../images/useravatarf.png" alt=""><?php
-                                                                }
+                                                        }
                                                                 ?>
                                                                 <!-- //change image according to gender -->
 
@@ -422,9 +521,9 @@ include('includes/message.php');
                                                     } else {
                                                         ?>
                                                         <td><img src="../images/useravatarn.png"><p><form action="joinfour.php" method="post"><?php
-                                                                $query1 = "SELECT * FROM users WHERE Sponsor = '" . $_SESSION['Username'] . "' AND Status='Close' AND treestatus='notree'";
-                                                                $result1 = mysqli_query($conn, $query1);
-                                                                ?>
+                                                    $query1 = "SELECT * FROM users WHERE Sponsor = '" . $_SESSION['Username'] . "' AND Status='Close' AND treestatus='notree'";
+                                                    $result1 = mysqli_query($conn, $query1);
+                                                        ?>
                                                                 <select  name="Usernamefour" id="Usernamefour" onchange="">
                                                                     <option>Choose Member</option>
                                                                     <?php while ($row1 = mysqli_fetch_array($result1)):; ?>
@@ -454,7 +553,7 @@ include('includes/message.php');
                                                                 } else {
                                                                     ?>
                                                                     <img src="../images/useravatarf.png" alt=""><?php
-                                                                }
+                                                        }
                                                                 ?>
                                                                 <!-- //change image according to gender -->
 
@@ -476,9 +575,9 @@ include('includes/message.php');
                                                         <td><img src="../images/useravatarn.png">
 
                                                             <p><form action="joinfive.php" method="post"><?php
-                                                                $query1 = "SELECT * FROM users WHERE Sponsor = '" . $_SESSION['Username'] . "' AND Status='Close' AND treestatus='notree'";
-                                                                $result1 = mysqli_query($conn, $query1);
-                                                                ?>
+                                                    $query1 = "SELECT * FROM users WHERE Sponsor = '" . $_SESSION['Username'] . "' AND Status='Close' AND treestatus='notree'";
+                                                    $result1 = mysqli_query($conn, $query1);
+                                                        ?>
                                                                 <select  name="Usernamefive" id="Usernamefive" onchange="">
                                                                     <option>Choose Member</option>
                                                                     <?php while ($row1 = mysqli_fetch_array($result1)):; ?>
@@ -508,7 +607,7 @@ include('includes/message.php');
                                                                 } else {
                                                                     ?>
                                                                     <img src="../images/useravatarf.png" alt=""><?php
-                                                                }
+                                                        }
                                                                 ?>
                                                                 <!-- //change image according to gender -->
 
@@ -529,9 +628,9 @@ include('includes/message.php');
                                                     } else {
                                                         ?>
                                                         <td><img src="../images/useravatarn.png"><p><form action="joinsix.php" method="post"><?php
-                                                                $query1 = "SELECT * FROM users WHERE Sponsor = '" . $_SESSION['Username'] . "' AND Status='Close' AND treestatus='notree'";
-                                                                $result1 = mysqli_query($conn, $query1);
-                                                                ?>
+                                                    $query1 = "SELECT * FROM users WHERE Sponsor = '" . $_SESSION['Username'] . "' AND Status='Close' AND treestatus='notree'";
+                                                    $result1 = mysqli_query($conn, $query1);
+                                                        ?>
                                                                 <select  name="Usernamesix" id="Usernamesix" onchange="">
                                                                     <option>Choose Member</option>
                                                                     <?php while ($row1 = mysqli_fetch_array($result1)):; ?>
