@@ -37,6 +37,18 @@ if (isset($_SESSION['Username']) && $_SESSION['is_admin_user'] == 1) {
                 $tableId = "invoice-transactions-grid";
             }
             break;
+        case 'benefits':
+            $responseBenefitsTransaction = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
+                        'user_name' => $_SESSION['Username'],
+                        'platform' => '3',
+                            ], 'getAllCommissionBonusDBDetails');
+
+            $responseBenefitsTransaction = json_decode($responseBenefitsTransaction);
+            if ($responseBenefitsTransaction->statusCode == 100) {
+                $benefitsTransactionDBData = $responseBenefitsTransaction->response->bonus_data;
+                $tableId = "benefits-transactions-grid";
+            }
+            break;
         default:
             $redirect = 'all_transactions?type=wallet';
             echo "<script>location='" . BASE_URL . $redirect . "'</script>";
@@ -201,6 +213,19 @@ include('includes/footer.php');
                     {"title": "Amount(In BTC)", "data": "Btcamount"},
                     {"title": "Status", "data": "Status"},
                     {"title": "Username", "data": "Username"}
+                ]
+
+            });
+        } else if (type == 'benefits') {
+            var benefitsTransactionDBData = <?php echo json_encode($benefitsTransactionDBData); ?>;
+            $('#benefits-transactions-grid').DataTable({
+                data: benefitsTransactionDBData,
+                "columns": [
+                    {"title": "ID", "data": "id"},
+                    {"title": "Username", "data": "user_name"},
+                    {"title": "Amount(In USD)", "data": "amount"},
+                    {"title": "Benefit Type", "data": "reason_id_view"},
+                    {"title": "Description", "data": "reason_description"}
                 ]
 
             });

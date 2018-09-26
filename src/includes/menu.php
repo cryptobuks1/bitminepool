@@ -26,6 +26,7 @@
                         <ul class="nav child_menu">
                             <li><a href="all_transactions?type=wallet">Wallet</a></li>
                             <li><a href="all_transactions?type=invoice">Invoice</a></li>
+                            <li><a href="all_transactions?type=benefits">Benefits</a></li>
                         </ul>
                     </li>
                     <?php
