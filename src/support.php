@@ -2,7 +2,6 @@
 include('includes/header.php');
 
 if (isset($_SESSION['Username'])) {
-    print_r($_SESSION['is_admin_user']);
     $_SESSION['error'] = 0;
     $receiveAmountBtc = $sentAmountBtc = 0;
     $receiveAmountAddress = $walletErrorMessage = '';
@@ -117,7 +116,7 @@ if (isset($_SESSION['Username'])) {
                             <div class="clearfix"></div>
                             <div class="x_content">
                                 <!-- <div id="accordion_transaction"> -->
-                                <h3>View all transactions</h3>
+                                <h3>View all Tickets</h3>
                                 <div>
                                     <p>
                                     <div class="row">
@@ -243,13 +242,15 @@ include('includes/footer.php');
                     if (is_admin_user == 1) {
                         var id = $(rows).eq(i).children('td:nth-child(1)').html();
                         var status = $(rows).eq(i).children('td:nth-child(6)').html();
-                        console.log(status);
+                        console.log(id, status);
                         var statusBtn = '';
-                        if (status == 1) {
-                            statusBtn = '<a data-id = "' + id + '" data-status="' + status + '" class="updadatePromocodeStatus" style="text-decoration:none;" href="javascript:void(0);"><span class="label label-sm label-success">active</span></a>';
-                        } else {
-                            statusBtn = '<a data-id = "' + id + '" data-status="' + status + '" class="updadatePromocodeStatus" style="text-decoration:none;" href="javascript:void(0);"><span class="label label-sm label-danger">inactive</span></a>';
-                        }
+                        if (status == 'Pending') {
+                            statusBtn += '<button type="button" data-action="process" title="Approve" data-id="" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-green approve-tickets" id=""><i class="fa fa-thumbs-up"></i> Process</button><br>';
+                            statusBtn += '<button type="button" data-action="reject" title="Reject" data-id="" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-red reject-tickets" id=""style="padding-right: 22px;"> <i class="fa fa-thumbs-down"></i> Reject</button>';
+                        } else if (status == 'Processed') {
+                            statusBtn += '<button type="button" data-action="reject" title="Reject" data-id="" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-red reject-tickets" id=""style="padding-right: 22px;"> <i class="fa fa-thumbs-down"></i> Reject</button>';
+                        } 
+
                         $(rows).eq(i).children('td:nth-child(8)').html(statusBtn);
                     }
                 });

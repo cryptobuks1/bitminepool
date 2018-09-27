@@ -46,8 +46,22 @@
 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
 <script src="../vendor/build/js/intlTelInput.js"></script>
 <script>
+    function showAlertMessage(idObj, response, success) {
+        var message = '';
+        if (success == 1) {
+            message += '<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><span>' + response + '</span></div>';
+        } else {
+            message += '<div class="alert alert-warning"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><span>' + response + '</span></div>';
+        }
+        $(idObj).html(message);
+
+        $(idObj).fadeIn();
+        $(idObj).delay(3000).fadeOut("slow", function () {
+            $(idObj).html('');
+        });
+    }
     $(document).ready(function () {
-        $(".alert").delay(3000).fadeOut("slow",function(){
+        $(".alert").delay(3000).fadeOut("slow", function () {
             $(".alert").html('');
         });
     });

@@ -12,9 +12,9 @@ if (isset($_SESSION['Username'])) {
     $walletData = $userData = $walletWithdrawalTransactionDBData = [];
     $userName = $_SESSION['Username'];
     $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-            'user_name' => $_SESSION['Username'],
-            'platform' => '3',
-            ], 'getAllWalletDetailByUserName');
+                'user_name' => $_SESSION['Username'],
+                'platform' => '3',
+                    ], 'getAllWalletDetailByUserName');
 
     $response = json_decode($response);
 
@@ -28,9 +28,9 @@ if (isset($_SESSION['Username'])) {
         $walletErrorMessage = $response->statusDescription;
     }
     $responseWithdrawalTransaction = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-            'user_name' => $_SESSION['Username'],
-            'platform' => '3',
-            ], 'getAllWithdrawalDBTransactionByUserName');
+                'user_name' => $_SESSION['Username'],
+                'platform' => '3',
+                    ], 'getAllWithdrawalDBTransactionByUserName');
 
     $responseWithdrawalTransaction = json_decode($responseWithdrawalTransaction);
     if ($responseWithdrawalTransaction->statusCode == 100) {
@@ -49,12 +49,12 @@ if (isset($_SESSION['Username'])) {
             case 'receive':
 
                 $responseWithdrawalRequest = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                        'user_name' => $_SESSION['Username'],
-                        'to_address' => $_POST['to_address'],
-                        'amount' => $_POST['receive_amount'],
-                        'platform' => '3',
-                        'transaction_type' => '401',
-                        ], 'withdrawalPayment');
+                            'user_name' => $_SESSION['Username'],
+                            'to_address' => $_POST['to_address'],
+                            'amount' => $_POST['receive_amount'],
+                            'platform' => '3',
+                            'transaction_type' => '401',
+                                ], 'withdrawalPayment');
                 $responseWithdrawalRequest = json_decode($responseWithdrawalRequest);
                 $redirect = '';
 
@@ -215,19 +215,20 @@ if (isset($_SESSION['Username'])) {
                     <div class="row">
                         <div class="col-md-12">
                             <div class="clearfix"></div>
+
                             <div class="x_content">
 
                                 <div id="accordion">
                                     <h3>Withdrawl BTC</h3>
                                     <div>
                                         <p>
+                                        <div id="response"></div>
                                         <form id="receive-payment" class="form-horizontal form-label-left" method="post" action="">
 
                                             <div id="receive_form_block">
                                                 <div class="form-group">
                                                     <label for="to_address">To address:</label>
                                                     <select  class="form-control" name="to_address" required="required"  id="to_address" data-msg-required="Please select address."  onchange="">
-                                                        <option value="ANEE">ANEE</option>
                                                         <?php foreach ($walletData->addresses as $key => $address) { ?>
                                                             <option value="<?php echo $address->address; ?>"><?php echo $address->address; ?></option>
                                                         <?php } ?>
@@ -321,7 +322,6 @@ include('includes/footer.php');
      });*/
 
     $('#receive_payment_submit').click(function (e) {
-        $.support.cors = true;
         if ($('#receive-payment').valid()) {
             var sendVerificationEmail = 'processAjax';
             var formDataSendVerifyEmail = {
@@ -368,23 +368,18 @@ include('includes/footer.php');
                                             console.log(data);
                                             if (data.statusCode == '100') {
                                                 $('#receive-payment').submit();
+                                               // showAlertMessage("#response", data.statusDescription, 1);
+                                            } else {
+                                                showAlertMessage("#response", data.statusDescription, 0);
                                             }
-                                            $(".alert").find('#msg-div').html(data.statusDescription);
-                                            $(".alert").fadeIn();
-                                            $(".alert").delay(3000).fadeOut("slow", function () {
-                                                $(".alert").html('');
-                                            });
+
                                         }
                                     });
                                 }
                             }
                         });
                     } else {
-                        $(".alert").find('#msg-div').html(data.statusDescription);
-                        $(".alert").fadeIn();
-                        $(".alert").delay(3000).fadeOut("slow", function () {
-                            $(".alert").html('');
-                        });
+                        showAlertMessage("#response", data.statusDescription, 0);
                     }
 
 
