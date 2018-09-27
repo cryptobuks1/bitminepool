@@ -12,9 +12,9 @@ if (isset($_SESSION['Username'])) {
     $walletData = $userData = $walletWithdrawalTransactionDBData = [];
     $userName = $_SESSION['Username'];
     $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                'user_name' => $_SESSION['Username'],
-                'platform' => '3',
-                    ], 'getAllWalletDetailByUserName');
+            'user_name' => $_SESSION['Username'],
+            'platform' => '3',
+            ], 'getAllWalletDetailByUserName');
 
     $response = json_decode($response);
 
@@ -28,9 +28,9 @@ if (isset($_SESSION['Username'])) {
         $walletErrorMessage = $response->statusDescription;
     }
     $responseWithdrawalTransaction = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                'user_name' => $_SESSION['Username'],
-                'platform' => '3',
-                    ], 'getAllWithdrawalDBTransactionByUserName');
+            'user_name' => $_SESSION['Username'],
+            'platform' => '3',
+            ], 'getAllWithdrawalDBTransactionByUserName');
 
     $responseWithdrawalTransaction = json_decode($responseWithdrawalTransaction);
     if ($responseWithdrawalTransaction->statusCode == 100) {
@@ -49,12 +49,12 @@ if (isset($_SESSION['Username'])) {
             case 'receive':
 
                 $responseWithdrawalRequest = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                            'user_name' => $_SESSION['Username'],
-                            'to_address' => $_POST['to_address'],
-                            'amount' => $_POST['receive_amount'],
-                            'platform' => '3',
-                            'transaction_type' => '401',
-                                ], 'withdrawalPayment');
+                        'user_name' => $_SESSION['Username'],
+                        'to_address' => $_POST['to_address'],
+                        'amount' => $_POST['receive_amount'],
+                        'platform' => '3',
+                        'transaction_type' => '401',
+                        ], 'withdrawalPayment');
                 $responseWithdrawalRequest = json_decode($responseWithdrawalRequest);
                 $redirect = '';
 
@@ -227,6 +227,7 @@ if (isset($_SESSION['Username'])) {
                                                 <div class="form-group">
                                                     <label for="to_address">To address:</label>
                                                     <select  class="form-control" name="to_address" required="required"  id="to_address" data-msg-required="Please select address."  onchange="">
+                                                        <option value="ANEE">ANEE</option>
                                                         <?php foreach ($walletData->addresses as $key => $address) { ?>
                                                             <option value="<?php echo $address->address; ?>"><?php echo $address->address; ?></option>
                                                         <?php } ?>
@@ -239,7 +240,7 @@ if (isset($_SESSION['Username'])) {
                                                 </div>
 
                                                 <input type="hidden" name="transaction_type" value="receive">
-                                                <button type="submit" id ="receive_payment_submit" class="btn btn-default">Submit</button>
+                                                <button type="button" id ="receive_payment_submit" class="btn btn-default">Submit</button>
                                                 <button type="reset" id ="reset_receive_payment" class="btn btn-default">Cancel</button>
                                             </div>
 
@@ -278,8 +279,7 @@ include('includes/footer.php');
         $("#accordion").accordion();
         $("#accordion_transaction").accordion();
         $('#receive_qr_block').hide();
-        // console.log('I am inside ready');
-        //handleTable();
+
         var walletTransactionDBData = <?php echo json_encode($walletWithdrawalTransactionDBData); ?>;
         console.log(walletTransactionDBData);
         $('#wallet-withdrawl-transactions-grid').DataTable({
@@ -305,7 +305,7 @@ include('includes/footer.php');
     //$("#phone").intlTelInput();
     $(document).ready(function () {
         var validatorReceivePayment = $("#receive-payment").validate();
-        var validatorSentPayment = $("#send-payment").validate();
+        //var validatorSentPayment = $("#send-payment").validate();
         //validator.form();
     });
 
@@ -314,12 +314,86 @@ include('includes/footer.php');
         var validatorReceivePayment = $("#receive-payment").validate();
         validatorReceivePayment.resetForm();
     });
-    $('#reset_send_payment').click(function () {
-        $('#send-payment')[0].reset();
-        var validatorSentPayment = $("#send-payment").validate();
-        validatorSentPayment.resetForm();
-    });
+    /*$('#reset_send_payment').click(function () {
+     $('#send-payment')[0].reset();
+     var validatorSentPayment = $("#send-payment").validate();
+     validatorSentPayment.resetForm();
+     });*/
 
+    $('#receive_payment_submit').click(function (e) {
+        $.support.cors = true;
+        if ($('#receive-payment').valid()) {
+            var sendVerificationEmail = 'processAjax';
+            var formDataSendVerifyEmail = {
+                'user_name': "<?php echo $_SESSION['Username']; ?>",
+                'platform': '3',
+                'url': 'sendEmailVerificationCode',
+                'action': 'POST'
+            };
+            $.ajax({
+                url: sendVerificationEmail,
+                cache: false,
+                type: 'POST',
+                data: formDataSendVerifyEmail,
+                success: function (data)
+                {
+                    data = JSON.parse(data);
+                    if (data.statusCode == '100') {
+                        bootbox.prompt({
+                            size: "small",
+                            title: "Enter the verification code!",
+                            inputType: 'text',
+                            callback: function (result) {
+                                if (result != null) {
+
+                                    var verifyEmailUrl = 'processAjax';
+                                    var formDataVerifyEmail = {
+
+                                        'user_name': "<?php echo $_SESSION['Username']; ?>",
+                                        'token': result,
+                                        'platform': '3',
+                                        'transaction_type': '204',
+                                        'url': 'verifyEmail',
+                                        'action': 'POST'
+                                    };
+
+                                    $.ajax({
+                                        url: verifyEmailUrl,
+                                        cache: false,
+                                        type: 'POST',
+                                        data: formDataVerifyEmail,
+                                        success: function (data)
+                                        {
+                                            data = JSON.parse(data);
+                                            console.log(data);
+                                            if (data.statusCode == '100') {
+                                                $('#receive-payment').submit();
+                                            }
+                                            $(".alert").find('#msg-div').html(data.statusDescription);
+                                            $(".alert").fadeIn();
+                                            $(".alert").delay(3000).fadeOut("slow", function () {
+                                                $(".alert").html('');
+                                            });
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    } else {
+                        $(".alert").find('#msg-div').html(data.statusDescription);
+                        $(".alert").fadeIn();
+                        $(".alert").delay(3000).fadeOut("slow", function () {
+                            $(".alert").html('');
+                        });
+                    }
+
+
+                }
+            });
+
+            e.preventDefault();
+        }
+    });
 
 
 </script>
