@@ -12,9 +12,9 @@ if (isset($_SESSION['Username'])) {
     $userName = $_SESSION['Username'];
 
     $responseSupportTicket = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                'user_name' => $_SESSION['Username'],
-                'platform' => '3',
-                    ], 'getAllSupportTicketByUserName');
+            'user_name' => $_SESSION['Username'],
+            'platform' => '3',
+            ], 'getAllSupportTicketByUserName');
 
     $responseSupportTicket = json_decode($responseSupportTicket);
     if ($responseSupportTicket->statusCode == 100) {
@@ -23,13 +23,13 @@ if (isset($_SESSION['Username'])) {
 
     if (!empty($_POST)) {
         $responseSupportRequest = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                    'user_name' => $_SESSION['Username'],
-                    'ticket_id' => $_POST['ticket_id'],
-                    'issue' => $_POST['issue'],
-                    'category' => $_POST['category'],
-                    'platform' => '3',
-                    'transaction_type' => '501',
-                        ], 'addSupportRequest');
+                'user_name' => $_SESSION['Username'],
+                'ticket_id' => $_POST['ticket_id'],
+                'issue' => $_POST['issue'],
+                'category' => $_POST['category'],
+                'platform' => '3',
+                'transaction_type' => '501',
+                ], 'addSupportRequest');
         $responseSupportRequest = json_decode($responseSupportRequest);
         $redirect = '';
 
@@ -114,6 +114,7 @@ if (isset($_SESSION['Username'])) {
                     <div class="row">
                         <div class="col-md-12">
                             <div class="clearfix"></div>
+                            <div id="response"></div>
                             <div class="x_content">
                                 <!-- <div id="accordion_transaction"> -->
                                 <h3>View all Tickets</h3>
@@ -212,7 +213,6 @@ include('includes/footer.php');
         //handleTable();
         var supportTicketDBData = <?php echo json_encode($supportTicketDBData); ?>;
         var is_admin_user = <?php echo $_SESSION['is_admin_user']; ?>;
-        console.log(is_admin_user);
         var columns = [
 
             {"title": "ID", "data": "id"},
@@ -245,11 +245,15 @@ include('includes/footer.php');
                         console.log(id, status);
                         var statusBtn = '';
                         if (status == 'Pending') {
-                            statusBtn += '<button type="button" data-action="process" title="Approve" data-id="" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-green approve-tickets" id=""><i class="fa fa-thumbs-up"></i> Process</button><br>';
-                            statusBtn += '<button type="button" data-action="reject" title="Reject" data-id="" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-red reject-tickets" id=""style="padding-right: 22px;"> <i class="fa fa-thumbs-down"></i> Reject</button>';
+                            statusBtn += '<button type="button" data-action="process" title="Approve" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-green process-tickets" data-change-status="2" data-id="' + id + '" ><i class="fa fa-thumbs-up"></i> Process</button><br>';
+                            statusBtn += '<button type="button" data-action="reject" title="Reject" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-red process-tickets" style="padding-right: 22px;" data-change-status="3" data-id="' + id + '"> <i class="fa fa-thumbs-down"></i> Remove</button>';
                         } else if (status == 'Processed') {
-                            statusBtn += '<button type="button" data-action="reject" title="Reject" data-id="" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-red reject-tickets" id=""style="padding-right: 22px;"> <i class="fa fa-thumbs-down"></i> Reject</button>';
-                        } 
+                            statusBtn += '<button type="button" data-action="pending" title="Pending" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-gold process-tickets" style="padding-right: 22px;" data-change-status="1" data-id="' + id + '"> <i class="fa fa-pencil"></i> Pending</button>';
+                            statusBtn += '<button type="button" data-action="reject" title="Reject" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-red process-tickets" style="padding-right: 22px;" data-change-status="3" data-id="' + id + '"> <i class="fa fa-thumbs-down"></i> Remove</button>';
+                        } else {
+                                                        statusBtn += '<button type="button" data-action="pending" title="Pending" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-gold process-tickets" style="padding-right: 22px;" data-change-status="1" data-id="' + id + '"> <i class="fa fa-pencil"></i> Pending</button>';
+                            statusBtn += '<button type="button" data-action="process" title="Approve" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-green process-tickets" data-change-status="2" data-id="' + id + '" ><i class="fa fa-thumbs-up"></i> Process</button><br>';
+                        }
 
                         $(rows).eq(i).children('td:nth-child(8)').html(statusBtn);
                     }
@@ -268,7 +272,48 @@ include('includes/footer.php');
     $(document).ready(function () {
         var validatorAddSupportTicket = $("#add_support_ticket").validate();
         //validator.form();
+
     });
+
+    $('body').on("click", ".process-tickets", function () {
+        var id = $(this).attr('data-id');
+        var change_status = $(this).attr('data-change-status');
+
+        var processTickets = 'processAjax';
+        var formDataProcessTicket = {
+
+            'user_name': "<?php echo $_SESSION['Username']; ?>",
+            'ticket_id': id,
+            'status': change_status,
+            'platform': '3',
+            'transaction_type': '502',
+            'url': 'processTicket',
+            'action': 'POST'
+        };
+
+        $.ajax({
+            url: processTickets,
+            cache: false,
+            type: 'POST',
+            data: formDataProcessTicket,
+            success: function (data)
+            {
+                data = JSON.parse(data);
+                console.log(data);
+                if (data.statusCode == '100') {
+                    //$('#receive-payment').submit();
+                     setTimeout(function(){ location.reload(); }, 3000);
+                     showAlertMessage("#response", data.statusDescription, 1);
+                    
+                } else {
+                    showAlertMessage("#response", data.statusDescription, 0);
+                }
+
+            }
+        });
+        console.log(id, change_status);
+    });
+
 
     $('#reset_add_support_ticket').click(function () {
         $('#add_support_ticket')[0].reset();

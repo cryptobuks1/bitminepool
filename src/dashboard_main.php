@@ -1,170 +1,210 @@
 <?php
 include('includes/header.php');
+if (isset($_SESSION['Username'])) {
+    $userData = [];
+    $userName = $_SESSION['Username'];
+    $responseUser = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
+            'user_name' => $userName,
+            'platform' => '3',
+            'transaction_type' => '301'
+            ], 'getAllUserDataByUserName');
 
+    $responseUser = json_decode($responseUser);
+    
+    $selectedAccountBalance = $selectedMiningBalance = $selectedTeamBalance = $selectedCommissionBalance=$selectedBinaryIncomeBalance=$selectedTeamVolumeBalance=$selectedRankId = 0;
+    $starterDailyMine = $miniDailyMine = $mediumDailyMine = $grandDailyMine = $ultimateDailyMine = 0;
+    $selectedRank= '';
+    if ($responseUser->statusCode == 100) {
+        $userData = $responseUser->response->dashboard_data;
+        $selectedAccountBalance = $userData->selectedAccountBalance;
+        $selectedMiningBalance = $userData->selectedMiningBalance;
+        $selectedTeamBalance = $userData->selectedTeamBalance;
+        $selectedCommissionBalance = $userData->selectedCommissionBalance;
+        $selectedBinaryIncomeBalance = $userData->selectedBinaryIncomeBalance;
+        $selectedTeamVolumeBalance = $userData->selectedTeamVolumeBalance;
+        $selectedRankId = $userData->selectedRankId;
+        $starterDailyMine = $userData->starterDailyMine;
+        $miniDailyMine = $userData->miniDailyMine;
+        $mediumDailyMine = $userData->mediumDailyMine;
+        $grandDailyMine = $userData->grandDailyMine;
+        $ultimateDailyMine = $userData->ultimateDailyMine;
+        $selectedRank = $userData->selectedRank;
+    }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-$url = "https://blockchain.info/stats?format=json";
-$stats = json_decode(file_get_contents($url), true);
-$btcValue = $stats['market_price_usd'];
+    $url = "https://blockchain.info/stats?format=json";
+    $stats = json_decode(file_get_contents($url), true);
+    $btcValue = $stats['market_price_usd'];
 
 ////////////////////////////////////////Get the Bitcoin Wallet balance///////////////////////////////////////////////////////		
-$getone = "SELECT Balance FROM accountbalance WHERE Username = '" . $_SESSION['Username'] . "'";
-$queryone = mysqli_query($conn, $getone);
-$balanceone = mysqli_fetch_array($queryone);
-$showone = $balanceone['Balance'];
+    $getone = "SELECT Balance FROM accountbalance WHERE Username = '" . $_SESSION['Username'] . "'";
+    $queryone = mysqli_query($conn, $getone);
+    $balanceone = mysqli_fetch_array($queryone);
+    $showone = $balanceone['Balance'];
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////Get the Mining balance///////////////////////////////////////////////////////		
-$gettwo = "SELECT Balance FROM mining WHERE Username = '" . $_SESSION['Username'] . "'";
-$querytwo = mysqli_query($conn, $gettwo);
-$balancetwo = mysqli_fetch_array($querytwo);
-$showtwo = $balancetwo['Balance'];
+    $gettwo = "SELECT Balance FROM mining WHERE Username = '" . $_SESSION['Username'] . "'";
+    $querytwo = mysqli_query($conn, $gettwo);
+    $balancetwo = mysqli_fetch_array($querytwo);
+    $showtwo = $balancetwo['Balance'];
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////Get the Team balance///////////////////////////////////////////////////////		
-$getthree = "SELECT Balance FROM team WHERE Username = '" . $_SESSION['Username'] . "'";
-$querythree = mysqli_query($conn, $getthree);
-$balancethree = mysqli_fetch_array($querythree);
-$showthree = $balancethree['Balance'];
+    $getthree = "SELECT Balance FROM team WHERE Username = '" . $_SESSION['Username'] . "'";
+    $querythree = mysqli_query($conn, $getthree);
+    $balancethree = mysqli_fetch_array($querythree);
+    $showthree = $balancethree['Balance'];
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////Get the Commission balance///////////////////////////////////////////////////////		
-$getfour = "SELECT Balance FROM commission WHERE Username = '" . $_SESSION['Username'] . "'";
-$queryfour = mysqli_query($conn, $getfour);
-$balancefour = mysqli_fetch_array($queryfour);
-$showfour = $balancefour['Balance'];
+    $getfour = "SELECT Balance FROM commission WHERE Username = '" . $_SESSION['Username'] . "'";
+    $queryfour = mysqli_query($conn, $getfour);
+    $balancefour = mysqli_fetch_array($queryfour);
+    $showfour = $balancefour['Balance'];
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////Get the Team Volume balance///////////////////////////////////////////////////////		
-$getfive = "SELECT total_bal FROM binaryincome WHERE userid = '" . $_SESSION['Username'] . "'";
-$queryfive = mysqli_query($conn, $getfive);
-$balancefive = mysqli_fetch_array($queryfive);
-$showfive = $balancefive['total_bal'];
+    $getfive = "SELECT total_bal FROM binaryincome WHERE userid = '" . $_SESSION['Username'] . "'";
+    $queryfive = mysqli_query($conn, $getfive);
+    $balancefive = mysqli_fetch_array($queryfive);
+    $showfive = $balancefive['total_bal'];
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////Get the Account Rank///////////////////////////////////////////////////////////////		
-$getrank = "SELECT Rank FROM rank WHERE Username = '" . $_SESSION['Username'] . "'";
-$queryrank = mysqli_query($conn, $getrank);
-$sharerank = mysqli_fetch_array($queryrank);
-$showrank = $sharerank['Rank'];
+    $getrank = "SELECT Rank FROM rank WHERE Username = '" . $_SESSION['Username'] . "'";
+    $queryrank = mysqli_query($conn, $getrank);
+    $sharerank = mysqli_fetch_array($queryrank);
+    $showrank = $sharerank['Rank'];
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////Get Withdrawal Balance for Pool 1/////////////////////////////////////////////////////////////
-$getwstarter = "SELECT Withdrawal FROM starterpack WHERE Username = '" . $_SESSION['Username'] . "'";
-$querywstarter = mysqli_query($conn, $getwstarter);
-$balancewstarter = mysqli_fetch_array($querywstarter);
-$wstarter = $balancewstarter['Withdrawal'];
+    $getwstarter = "SELECT Withdrawal FROM starterpack WHERE Username = '" . $_SESSION['Username'] . "'";
+    $querywstarter = mysqli_query($conn, $getwstarter);
+    $balancewstarter = mysqli_fetch_array($querywstarter);
+    $wstarter = $balancewstarter['Withdrawal'];
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////Get Withdrawal Balance for Minipack//////////////////////////////////////////////////////////////////
-$getwmini = "SELECT Withdrawal FROM minipack WHERE Username = '" . $_SESSION['Username'] . "'";
-$querywmini = mysqli_query($conn, $getwmini);
-$balancewmini = mysqli_fetch_array($querywmini);
-$wmini = $balancewmini['Withdrawal'];
+    $getwmini = "SELECT Withdrawal FROM minipack WHERE Username = '" . $_SESSION['Username'] . "'";
+    $querywmini = mysqli_query($conn, $getwmini);
+    $balancewmini = mysqli_fetch_array($querywmini);
+    $wmini = $balancewmini['Withdrawal'];
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////Get Withdrawal Balance for Mediumpack//////////////////////////////////////////////////////////////////
-$getwmedium = "SELECT Withdrawal FROM mediumpack WHERE Username = '" . $_SESSION['Username'] . "'";
-$querywmedium = mysqli_query($conn, $getwmedium);
-$balancewmedium = mysqli_fetch_array($querywmedium);
-$wmedium = $balancewmedium['Withdrawal'];
+    $getwmedium = "SELECT Withdrawal FROM mediumpack WHERE Username = '" . $_SESSION['Username'] . "'";
+    $querywmedium = mysqli_query($conn, $getwmedium);
+    $balancewmedium = mysqli_fetch_array($querywmedium);
+    $wmedium = $balancewmedium['Withdrawal'];
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////Get Withdrawal Balance for Grandpack//////////////////////////////////////////////////////////////////
-$getwgrand = "SELECT Withdrawal FROM grandpack WHERE Username = '" . $_SESSION['Username'] . "'";
-$querywgrand = mysqli_query($conn, $getwgrand);
-$balancewgrand = mysqli_fetch_array($querywgrand);
-$wgrand = $balancewgrand['Withdrawal'];
+    $getwgrand = "SELECT Withdrawal FROM grandpack WHERE Username = '" . $_SESSION['Username'] . "'";
+    $querywgrand = mysqli_query($conn, $getwgrand);
+    $balancewgrand = mysqli_fetch_array($querywgrand);
+    $wgrand = $balancewgrand['Withdrawal'];
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////Get Withdrawal Balance for ultimatepack//////////////////////////////////////////////////////////////////
-$getwultimate = "SELECT Withdrawal FROM ultimatepack WHERE Username = '" . $_SESSION['Username'] . "'";
-$querywultimate = mysqli_query($conn, $getwultimate);
-$balancewultimate = mysqli_fetch_array($querywultimate);
-$wultimate = $balancewultimate['Withdrawal'];
+    $getwultimate = "SELECT Withdrawal FROM ultimatepack WHERE Username = '" . $_SESSION['Username'] . "'";
+    $querywultimate = mysqli_query($conn, $getwultimate);
+    $balancewultimate = mysqli_fetch_array($querywultimate);
+    $wultimate = $balancewultimate['Withdrawal'];
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////Pool 1 Mining/////////////////////////////////////////////////////////////////////
-$Starterdate1 = "SELECT MiningDate FROM starterpack WHERE Username='" . $_SESSION['Username'] . "'";
-$querystarter1 = mysqli_query($conn, $Starterdate1);
-$viewstarter1 = mysqli_fetch_array($querystarter1);
-$showstarterdate1 = $viewstarter1['MiningDate'];
-$Currentmining1 = date('Y-m-d', strtotime('-1 days'));
-if ($showstarterdate1 == "0") {
-    $priceone = $showstarterdate1 / $btcValue;
-} else {
-    $querysum = "select sum(Usd)as total from dailymine where Pack='Starter' and Date Between '$showstarterdate1' AND '$Currentmining1'";
-    $querytotal = mysqli_query($conn, $querysum);
-    $viewtotal = mysqli_fetch_array($querytotal);
-    $totalmine = $viewtotal['total'];
-    $newone = ($totalmine - $wstarter);
-    $priceone = $newone / $btcValue;
-}
+    $Starterdate1 = "SELECT MiningDate FROM starterpack WHERE Username='" . $_SESSION['Username'] . "'";
+    $querystarter1 = mysqli_query($conn, $Starterdate1);
+    $viewstarter1 = mysqli_fetch_array($querystarter1);
+    $showstarterdate1 = $viewstarter1['MiningDate'];
+    $Currentmining1 = date('Y-m-d', strtotime('-1 days'));
+    if ($showstarterdate1 == "0") {
+        $priceone = $showstarterdate1 / $btcValue;
+    } else {
+        $querysum = "select sum(Usd)as total from dailymine where Pack='Starter' and Date Between '$showstarterdate1' AND '$Currentmining1'";
+        $querytotal = mysqli_query($conn, $querysum);
+        $viewtotal = mysqli_fetch_array($querytotal);
+        $totalmine = $viewtotal['total'];
+        $newone = ($totalmine - $wstarter);
+        $priceone = $newone / $btcValue;
+    }
 ///////////////////////////////////////////////Pool 2 Mining///////////////////////////////////////////////////////////////
-$minidate1 = "SELECT MiningDate FROM minipack WHERE Username='" . $_SESSION['Username'] . "'";
-$querymini1 = mysqli_query($conn, $minidate1);
-$viewmini1 = mysqli_fetch_array($querymini1);
-$showminidate1 = $viewmini1['MiningDate'];
-if ($showminidate1 == "0") {
-    $pricetwo = $showminidate1 / $btcValue;
-} else {
-    $querysum2 = "select sum(Usd)as total from dailymine where Pack='Mini' and Date Between '$showminidate1' AND '$Currentmining1'";
-    $querytotal2 = mysqli_query($conn, $querysum2);
-    $viewtotal2 = mysqli_fetch_array($querytotal2);
-    $totalMini = $viewtotal2['total'];
-    $newtwo = ($totalMini - $wmini);
-    $pricetwo = $newtwo / $btcValue;
-}
+    $minidate1 = "SELECT MiningDate FROM minipack WHERE Username='" . $_SESSION['Username'] . "'";
+    $querymini1 = mysqli_query($conn, $minidate1);
+    $viewmini1 = mysqli_fetch_array($querymini1);
+    $showminidate1 = $viewmini1['MiningDate'];
+    if ($showminidate1 == "0") {
+        $pricetwo = $showminidate1 / $btcValue;
+    } else {
+        $querysum2 = "select sum(Usd)as total from dailymine where Pack='Mini' and Date Between '$showminidate1' AND '$Currentmining1'";
+        $querytotal2 = mysqli_query($conn, $querysum2);
+        $viewtotal2 = mysqli_fetch_array($querytotal2);
+        $totalMini = $viewtotal2['total'];
+        $newtwo = ($totalMini - $wmini);
+        $pricetwo = $newtwo / $btcValue;
+    }
 ////////////////////////////////////////////////Pool 3 Mining///////////////////////////////////////////////////////////////
-$mediumdate1 = "SELECT MiningDate FROM mediumpack WHERE Username='" . $_SESSION['Username'] . "'";
-$querymedium1 = mysqli_query($conn, $mediumdate1);
-$viewmedium1 = mysqli_fetch_array($querymedium1);
-$showmediumdate1 = $viewmedium1['MiningDate'];
-if ($showmediumdate1 == "0") {
-    $pricethree = $showmediumdate1 / $btcValue;
-} else {
-    $querysum3 = "select sum(Usd)as total from dailymine where Pack='Medium' and Date Between '$showmediumdate1' AND '$Currentmining1'";
-    $querytotal3 = mysqli_query($conn, $querysum3);
-    $viewtotal3 = mysqli_fetch_array($querytotal3);
-    $totalmedium = $viewtotal3['total'];
-    $newthree = ($totalmedium - $wmedium);
-    $pricethree = $newthree / $btcValue;
-}
+    $mediumdate1 = "SELECT MiningDate FROM mediumpack WHERE Username='" . $_SESSION['Username'] . "'";
+    $querymedium1 = mysqli_query($conn, $mediumdate1);
+    $viewmedium1 = mysqli_fetch_array($querymedium1);
+    $showmediumdate1 = $viewmedium1['MiningDate'];
+    if ($showmediumdate1 == "0") {
+        $pricethree = $showmediumdate1 / $btcValue;
+    } else {
+        $querysum3 = "select sum(Usd)as total from dailymine where Pack='Medium' and Date Between '$showmediumdate1' AND '$Currentmining1'";
+        $querytotal3 = mysqli_query($conn, $querysum3);
+        $viewtotal3 = mysqli_fetch_array($querytotal3);
+        $totalmedium = $viewtotal3['total'];
+        $newthree = ($totalmedium - $wmedium);
+        $pricethree = $newthree / $btcValue;
+    }
 ////////////////////////////////////////////////Pool 4 Mining///////////////////////////////////////////////////////////////
-$granddate1 = "SELECT MiningDate FROM grandpack WHERE Username='" . $_SESSION['Username'] . "'";
-$querygrand1 = mysqli_query($conn, $granddate1);
-$viewgrand1 = mysqli_fetch_array($querygrand1);
-$showgranddate1 = $viewgrand1['MiningDate'];
-if ($showgranddate1 == "0") {
-    $pricefour = $showgranddate1 / $btcValue;
-} else {
-    $querysum4 = "select sum(Usd)as total from dailymine where Pack='Grand' and Date Between '$showgranddate1' AND '$Currentmining1'";
-    $querytotal4 = mysqli_query($conn, $querysum4);
-    $viewtotal4 = mysqli_fetch_array($querytotal4);
-    $totalgrand = $viewtotal4['total'];
-    $newfour = ($totalgrand - $wgrand);
-    $pricefour = $newfour / $btcValue;
-}
+    $granddate1 = "SELECT MiningDate FROM grandpack WHERE Username='" . $_SESSION['Username'] . "'";
+    $querygrand1 = mysqli_query($conn, $granddate1);
+    $viewgrand1 = mysqli_fetch_array($querygrand1);
+    $showgranddate1 = $viewgrand1['MiningDate'];
+    if ($showgranddate1 == "0") {
+        $pricefour = $showgranddate1 / $btcValue;
+    } else {
+        $querysum4 = "select sum(Usd)as total from dailymine where Pack='Grand' and Date Between '$showgranddate1' AND '$Currentmining1'";
+        $querytotal4 = mysqli_query($conn, $querysum4);
+        $viewtotal4 = mysqli_fetch_array($querytotal4);
+        $totalgrand = $viewtotal4['total'];
+        $newfour = ($totalgrand - $wgrand);
+        $pricefour = $newfour / $btcValue;
+    }
 ////////////////////////////////////////////////Pool 5/////////////////////////////////////////////////////////////
-$ultimatedate1 = "SELECT MiningDate FROM ultimatepack WHERE Username='" . $_SESSION['Username'] . "'";
-$queryultimate1 = mysqli_query($conn, $ultimatedate1);
-$viewultimate1 = mysqli_fetch_array($queryultimate1);
-$showultimatedate1 = $viewultimate1['MiningDate'];
-if ($showultimatedate1 == "0") {
-    $pricefive = $showultimatedate1 / $btcValue;
-} else {
-    $querysum5 = "select sum(Usd)as total from dailymine where Pack='Ultimate' and Date Between '$showultimatedate1' AND '$Currentmining1'";
-    $querytotal5 = mysqli_query($conn, $querysum5);
-    $viewtotal5 = mysqli_fetch_array($querytotal5);
-    $totalultimate = $viewtotal5['total'];
-    $newfive = ($totalultimate - $wultimate);
-    $pricefive = $newfive / $btcValue;
-}
+    $ultimatedate1 = "SELECT MiningDate FROM ultimatepack WHERE Username='" . $_SESSION['Username'] . "'";
+    $queryultimate1 = mysqli_query($conn, $ultimatedate1);
+    $viewultimate1 = mysqli_fetch_array($queryultimate1);
+    $showultimatedate1 = $viewultimate1['MiningDate'];
+    if ($showultimatedate1 == "0") {
+        $pricefive = $showultimatedate1 / $btcValue;
+    } else {
+        $querysum5 = "select sum(Usd)as total from dailymine where Pack='Ultimate' and Date Between '$showultimatedate1' AND '$Currentmining1'";
+        $querytotal5 = mysqli_query($conn, $querysum5);
+        $viewtotal5 = mysqli_fetch_array($querytotal5);
+        $totalultimate = $viewtotal5['total'];
+        $newfive = ($totalultimate - $wultimate);
+        $pricefive = $newfive / $btcValue;
+    }
 
-$usdCost = $showone;
-$usdCosttwo = $showtwo / $btcValue;
-$usdCostthree = $showthree / $btcValue;
-$usdCostfour = $showfour / $btcValue;
-$usdCostfive = $showfive / $btcValue;
-$convertedCost = $usdCost / $btcValue;
-$totalone = sprintf('%0.8f', $convertedCost); 
-$totaltwo = sprintf('%0.8f', $usdCosttwo);
-$totalthree = sprintf('%0.8f', $usdCostthree);
-$totalfour = sprintf('%0.8f', $usdCostfour);
-$totalfive = sprintf('%0.8f', $usdCostfive);
-$packone = sprintf('%0.8f', $priceone);
-$packtwo =sprintf('%0.8f', $pricetwo);
-$packthree = sprintf('%0.8f', $pricethree);
-$packfour = sprintf('%0.8f', $pricefour);
-$packfive = sprintf('%0.8f', $pricefive);
+    $usdCost = $selectedAccountBalance;
+    $usdCosttwo = $showtwo / $btcValue;
+    $usdCostthree = $showthree / $btcValue;
+    $usdCostfour = $showfour / $btcValue;
+    $usdCostfive = $showfive / $btcValue;
+    $convertedCost = $usdCost / $btcValue;
+    $totalone = sprintf('%0.8f', $convertedCost);
+    $totaltwo = sprintf('%0.8f', $usdCosttwo);
+    $totalthree = sprintf('%0.8f', $usdCostthree);
+    $totalfour = sprintf('%0.8f', $usdCostfour);
+    $totalfive = sprintf('%0.8f', $usdCostfive);
+
+    $packone = sprintf('%0.8f', $priceone);
+    $packtwo = sprintf('%0.8f', $pricetwo);
+    $packthree = sprintf('%0.8f', $pricethree);
+    $packfour = sprintf('%0.8f', $pricefour);
+    $packfive = sprintf('%0.8f', $pricefive);
+} else {
+    $_SESSION['error'] = 1;
+    $_SESSION['message'] = 'Please login to proceed further.';
+    unset($_POST);
+    unset($_SESSION);
+    //header("Location:login");
+    $redirect = 'login';
+    echo "<script>location='" . BASE_URL . $redirect . "'</script>";
+    exit;
+}
 ?>
 <body class="nav-md">
     <div class="container body">
@@ -184,12 +224,12 @@ $packfive = sprintf('%0.8f', $pricefive);
                         <div class="profile_info">
                             <span>Welcome,</span>
                             <h2><?php
-                                if (isset($_SESSION['Username'])) {
-                                    echo ' ' . strlen($_SESSION['Username']) > 15 ? ucfirst(substr($_SESSION['Username'], 0, 15)) . "..." : ucfirst($_SESSION['Username']);
-                                } else {
-                                    header("location:login");
-                                }
-                                ?></h2>
+                            if (isset($_SESSION['Username'])) {
+                                echo ' ' . strlen($_SESSION['Username']) > 15 ? ucfirst(substr($_SESSION['Username'], 0, 15)) . "..." : ucfirst($_SESSION['Username']);
+                            } else {
+                                header("location:login");
+                            }
+                            ?></h2>
                         </div>
                     </div>
                     <!-- /menu profile quick info -->
@@ -226,7 +266,7 @@ $packfive = sprintf('%0.8f', $pricefive);
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-bitcoin"></i> Account Balance (BTC)</span>
                         <div class="count"><a href="#"><?php echo $totalone; ?></a></div>
-                        <span class="count_bottom"><i class="green">($<?php echo $showone; ?>) </i> Total Balance</span>
+                        <span class="count_bottom"><i class="green">($<?php echo $selectedAccountBalance; ?>) </i> Total Balance</span>
                     </div>
 
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
@@ -463,7 +503,7 @@ $packfive = sprintf('%0.8f', $pricefive);
                                         }
                                         ?>
 
-<!--     <li><span>24/7</span> Support</li>-->
+    <!--     <li><span>24/7</span> Support</li>-->
                                     </ul>
                                 </div>
                                 <!--//FEATURE LIST END-->
@@ -574,7 +614,7 @@ $packfive = sprintf('%0.8f', $pricefive);
                                         }
                                         ?>
 
-<!--     <li><span>24/7</span> Support</li>-->
+    <!--     <li><span>24/7</span> Support</li>-->
                                     </ul>
                                 </div>
                                 <!--//FEATURE LIST END-->
@@ -685,7 +725,7 @@ $packfive = sprintf('%0.8f', $pricefive);
                                         }
                                         ?>
 
-<!--     <li><span>24/7</span> Support</li>-->
+    <!--     <li><span>24/7</span> Support</li>-->
                                     </ul>
                                 </div>
                                 <!--//FEATURE LIST END-->
@@ -796,7 +836,7 @@ $packfive = sprintf('%0.8f', $pricefive);
                                         }
                                         ?>
 
-<!--     <li><span>24/7</span> Support</li>-->
+    <!--     <li><span>24/7</span> Support</li>-->
                                     </ul>
                                 </div>
                                 <!--//FEATURE LIST END-->
