@@ -184,9 +184,10 @@ if (isset($_SESSION['Username'])) {
                     <div class="row">
                         <div class="col-md-12">
                             <div class="clearfix"></div>
+                            <div id="response"></div>
                             <div class="x_content">
                                 <!-- <div id="accordion_transaction"> -->
-                                <h3>View all transactions</h3>
+                                <h3>View all withdrawal transactions</h3>
                                 <div>
                                     <p>
                                     <div class="row">
@@ -282,32 +283,107 @@ include('includes/footer.php');
         $('#receive_qr_block').hide();
 
         var walletTransactionDBData = <?php echo json_encode($walletWithdrawalTransactionDBData); ?>;
+        var is_admin_user = <?php echo $_SESSION['is_admin_user']; ?>;
         console.log(walletTransactionDBData);
         $('#wallet-withdrawl-transactions-grid').DataTable({
             data: walletTransactionDBData,
             "columns": [
 
                 {"title": "ID", "data": "id"},
-                //{"title": "invoice_id", "data": "invoice_id"},
                 {"title": "User Name", "data": "user_name"},
                 {"title": "Amount", "data": "amount"},
                 {"title": "To address", "data": "to_address"},
                 {"title": "Status", "data": "status_view"},
-                {"title": "Date", "data": "created_at"}
-            ]
+                {"title": "Date", "data": "created_at"},
+                {"title": "Action", "data": "", "defaultContent": "<i>N/A</i>"},
+            ],
+            "drawCallback": function (settings) {
+                var api = this.api();
+                var rows = api.rows({page: 'current'}).nodes();
+                var last = null;
+                var page = api.page();
+                var recNum = null;
+                var displayLength = settings._iDisplayLength;
+                api.column(6, {page: 'current'}).data().each(function (group, i) {
+                    if (is_admin_user == 1) {
+                        var id = $(rows).eq(i).children('td:nth-child(1)').html();
+                        var status = $(rows).eq(i).children('td:nth-child(5)').html();
+                        console.log(id, status);
+                        var statusBtn = '';
+                        if (status == 'Pending') {
+                            statusBtn += '<button type="button" data-action="process" title="Approve" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-green process-withdrawal" data-change-status="2" data-id="' + id + '" ><i class="fa fa-thumbs-up"></i> Process</button><br>';
+                            statusBtn += '<button type="button" data-action="reject" title="Reject" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-red process-withdrawal" style="padding-right: 22px;" data-change-status="3" data-id="' + id + '"> <i class="fa fa-thumbs-down"></i> Reject</button>';
+                        } else if (status == 'Processed') {
+                            statusBtn += 'N/A';
+                            // statusBtn += '<button type="button" data-action="pending" title="Pending" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-gold process-tickets" style="padding-right: 22px;" data-change-status="1" data-id="' + id + '"> <i class="fa fa-pencil"></i> Pending</button>';
+                            //statusBtn += '<button type="button" data-action="reject" title="Reject" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-red process-tickets" style="padding-right: 22px;" data-change-status="3" data-id="' + id + '"> <i class="fa fa-thumbs-down"></i> Reject</button>';
+                        } else {
+                            statusBtn += 'N/A';
+                            //statusBtn += '<button type="button" data-action="pending" title="Pending" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-gold process-tickets" style="padding-right: 22px;" data-change-status="1" data-id="' + id + '"> <i class="fa fa-pencil"></i> Pending</button>';
+                            //statusBtn += '<button type="button" data-action="process" title="Approve" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-green process-tickets" data-change-status="2" data-id="' + id + '" ><i class="fa fa-thumbs-up"></i> Process</button><br>';
+                        }
+
+                        $(rows).eq(i).children('td:nth-child(7)').html(statusBtn);
+                    }
+                });
+
+            },
 
         });
+
     });
-</script>
-<script>
-    /*  $("#phone").intlTelInput({
-     utilsScript: "../vendor/build/js/utilsTellInput.js"
-     });*/
-    //$("#phone").intlTelInput();
     $(document).ready(function () {
         var validatorReceivePayment = $("#receive-payment").validate();
-        //var validatorSentPayment = $("#send-payment").validate();
-        //validator.form();
+    });
+
+    $('body').on("click", ".process-withdrawal", function () {
+        var id = $(this).attr('data-id');
+        var change_status = $(this).attr('data-change-status');
+
+        var processWithdrawal = 'processAjax';
+        var formDataProcessTicket = {
+
+            'user_name': "<?php echo $_SESSION['Username']; ?>",
+            'transaction_id': id,
+            'status': change_status,
+            'platform': '3',
+            'transaction_type': '502',
+            'url': 'processWithdrawal',
+            'action': 'POST'
+        };
+
+        bootbox.confirm({
+            size: "small",
+            message: "Process this withdrawal request!",
+            callback: function (result) {
+                if (result) {
+                    $.ajax({
+                        url: processWithdrawal,
+                        cache: false,
+                        type: 'POST',
+                        data: formDataProcessTicket,
+                        success: function (data)
+                        {
+                            data = JSON.parse(data);
+                            console.log(data);
+                            if (data.statusCode == '100') {
+                                //$('#receive-payment').submit();
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 3000);
+                                showAlertMessage("#response", data.statusDescription, 1);
+
+                            } else {
+                                showAlertMessage("#response", data.statusDescription, 0);
+                            }
+
+                        }
+                    });
+                     
+                } 
+            }
+        });
+
     });
 
     $('#reset_receive_payment').click(function () {
@@ -315,11 +391,6 @@ include('includes/footer.php');
         var validatorReceivePayment = $("#receive-payment").validate();
         validatorReceivePayment.resetForm();
     });
-    /*$('#reset_send_payment').click(function () {
-     $('#send-payment')[0].reset();
-     var validatorSentPayment = $("#send-payment").validate();
-     validatorSentPayment.resetForm();
-     });*/
 
     $('#receive_payment_submit').click(function (e) {
         if ($('#receive-payment').valid()) {
@@ -368,7 +439,7 @@ include('includes/footer.php');
                                             console.log(data);
                                             if (data.statusCode == '100') {
                                                 $('#receive-payment').submit();
-                                               // showAlertMessage("#response", data.statusDescription, 1);
+                                                // showAlertMessage("#response", data.statusDescription, 1);
                                             } else {
                                                 showAlertMessage("#response", data.statusDescription, 0);
                                             }

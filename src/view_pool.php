@@ -16,7 +16,7 @@ if (isset($_SESSION['Username'])) {
         $poolPrice = 0;
         $poolName = '';
         $dbTableName = '';
-               $responseGetPoolData = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
+        $responseGetPoolData = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
                     'Purpose' => $_GET['purpose'],
                     'platform' => '3'
                         ], 'getPoolDataToRecivePayment');
@@ -37,56 +37,110 @@ if (isset($_SESSION['Username'])) {
             echo "<script>location='" . BASE_URL . $redirect . "'</script>";
             exit;
         }
-        
-////////////////////////////////////////Get the Bitcoin Wallet balance///////////////////////////////////////////////////////		
-        $getone = "SELECT Balance FROM accountbalance WHERE Username = '" . $_SESSION['Username'] . "'";
-        $queryone = mysqli_query($conn, $getone);
-        $balanceone = mysqli_fetch_array($queryone);
-        $showone = $balanceone['Balance'];
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////Get the Mining balance///////////////////////////////////////////////////////		
-        $gettwo = "SELECT Balance FROM mining WHERE Username = '" . $_SESSION['Username'] . "'";
-        $querytwo = mysqli_query($conn, $gettwo);
-        $balancetwo = mysqli_fetch_array($querytwo);
-        $showtwo = $balancetwo['Balance'];
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////Get the Team balance///////////////////////////////////////////////////////		
-        $getthree = "SELECT Balance FROM team WHERE Username = '" . $_SESSION['Username'] . "'";
-        $querythree = mysqli_query($conn, $getthree);
-        $balancethree = mysqli_fetch_array($querythree);
-        $showthree = $balancethree['Balance'];
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////Get the Commission balance///////////////////////////////////////////////////////		
-        $getfour = "SELECT Balance FROM commission WHERE Username = '" . $_SESSION['Username'] . "'";
-        $queryfour = mysqli_query($conn, $getfour);
-        $balancefour = mysqli_fetch_array($queryfour);
-        $showfour = $balancefour['Balance'];
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////Get the Team Volume balance///////////////////////////////////////////////////////		
-        $getfive = "SELECT Balance FROM teamvolume WHERE Username = '" . $_SESSION['Username'] . "'";
-        $queryfive = mysqli_query($conn, $getfive);
-        $balancefive = mysqli_fetch_array($queryfive);
-        $showfive = $balancefive['Balance'];
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////Get the Account Rank///////////////////////////////////////////////////////////////		
-        $getrank = "SELECT Rank FROM rank WHERE Username = '" . $_SESSION['Username'] . "'";
-        $queryrank = mysqli_query($conn, $getrank);
-        $sharerank = mysqli_fetch_array($queryrank);
-        $showrank = $sharerank['Rank'];
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        $responseUser = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
+                    'user_name' => $userName,
+                    'platform' => '3',
+                    'transaction_type' => '301'
+                        ], 'getAllUserDataByUserName');
 
+        $responseUser = json_decode($responseUser);
+
+        $selectedAccountBalance = $selectedMiningBalance = $selectedTeamBalance = $selectedCommissionBalance = $selectedBinaryIncomeBalance = $selectedTeamVolumeBalance = $selectedRankId = 0;
+        $starterDailyMine = $miniDailyMine = $mediumDailyMine = $grandDailyMine = $ultimateDailyMine = 0;
+        $selectedRank = '';
+
+        if ($responseUser->statusCode == 100) {
+            $userData = $responseUser->response->dashboard_data;
+            $selectedAccountBalance = $userData->selectedAccountBalance;
+            $selectedMiningBalance = $userData->selectedMiningBalance;
+            $selectedTeamBalance = $userData->selectedTeamBalance;
+            $selectedCommissionBalance = $userData->selectedCommissionBalance;
+            $selectedBinaryIncomeBalance = $userData->selectedBinaryIncomeBalance;
+            $selectedTeamVolumeBalance = $userData->selectedTeamVolumeBalance;
+            $selectedRankId = $userData->selectedRankId;
+            $starterDailyMine = $userData->starterDailyMine;
+            $miniDailyMine = $userData->miniDailyMine;
+            $mediumDailyMine = $userData->mediumDailyMine;
+            $grandDailyMine = $userData->grandDailyMine;
+            $ultimateDailyMine = $userData->ultimateDailyMine;
+            $selectedRank = $userData->selectedRank;
+        }
         $url = "https://blockchain.info/stats?format=json";
         $stats = json_decode(file_get_contents($url), true);
         $btcValue = $stats['market_price_usd'];
-        $usdCost = $showone;
-        $usdCosttwo = $showtwo / $btcValue;
-        $usdCostthree = $showfour / $btcValue;
-        $usdCostfour = $showfive / $btcValue;
+
+////////////////////////////////////////Get the Bitcoin Wallet balance///////////////////////////////////////////////////////		
+        /*       $getone = "SELECT Balance FROM accountbalance WHERE Username = '" . $_SESSION['Username'] . "'";
+          $queryone = mysqli_query($conn, $getone);
+          $balanceone = mysqli_fetch_array($queryone);
+          $showone = $balanceone['Balance'];
+          ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////Get the Mining balance///////////////////////////////////////////////////////
+          $gettwo = "SELECT Balance FROM mining WHERE Username = '" . $_SESSION['Username'] . "'";
+          $querytwo = mysqli_query($conn, $gettwo);
+          $balancetwo = mysqli_fetch_array($querytwo);
+          $showtwo = $balancetwo['Balance'];
+          ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////Get the Team balance///////////////////////////////////////////////////////
+          $getthree = "SELECT Balance FROM team WHERE Username = '" . $_SESSION['Username'] . "'";
+          $querythree = mysqli_query($conn, $getthree);
+          $balancethree = mysqli_fetch_array($querythree);
+          $showthree = $balancethree['Balance'];
+          ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////Get the Commission balance///////////////////////////////////////////////////////
+          $getfour = "SELECT Balance FROM commission WHERE Username = '" . $_SESSION['Username'] . "'";
+          $queryfour = mysqli_query($conn, $getfour);
+          $balancefour = mysqli_fetch_array($queryfour);
+          $showfour = $balancefour['Balance'];
+          ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////Get the Team Volume balance///////////////////////////////////////////////////////
+          $getfive = "SELECT Balance FROM teamvolume WHERE Username = '" . $_SESSION['Username'] . "'";
+          $queryfive = mysqli_query($conn, $getfive);
+          $balancefive = mysqli_fetch_array($queryfive);
+          $showfive = $balancefive['Balance'];
+          ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////Get the Account Rank///////////////////////////////////////////////////////////////
+          $getrank = "SELECT Rank FROM rank WHERE Username = '" . $_SESSION['Username'] . "'";
+          $queryrank = mysqli_query($conn, $getrank);
+          $sharerank = mysqli_fetch_array($queryrank);
+          $showrank = $sharerank['Rank'];
+          ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+         */
+        $url = "https://blockchain.info/stats?format=json";
+        $stats = json_decode(file_get_contents($url), true);
+        $btcValue = $stats['market_price_usd'];
+        $usdCost = $selectedAccountBalance;
+        $tempTotalMining = 0;
+        $usdCosttwo = $selectedMiningBalance / $btcValue;
+        switch ($purpose) {
+            case 'Starter':
+                $tempTotalMining = $starterDailyMine;
+                break;
+            case 'Mini':
+                $tempTotalMining = $miniDailyMine;
+                break;
+            case 'Medium':
+                $tempTotalMining = $mediumDailyMine;
+                break;
+            case 'Grand':
+                $tempTotalMining = $grandDailyMine;
+                break;
+            case 'Ultimate':
+                $tempTotalMining = $ultimateDailyMine;
+                break;
+            default:
+                $tempTotalMining = $selectedMiningBalance;
+                break;
+        }
+        $tempTotalMiningBtc = $tempTotalMining / $btcValue;
+        $usdCostthree = $selectedCommissionBalance / $btcValue;
+        $usdCostfour = $selectedTeamVolumeBalance / $btcValue;
         $convertedCost = $usdCost / $btcValue;
         $totalone = sprintf('%0.8f', $convertedCost);
         $totaltwo = sprintf('%0.8f', $usdCosttwo);
         $totalthree = sprintf('%0.8f', $usdCostthree);
         $totalfour = sprintf('%0.8f', $usdCostfour);
+        $tempTotalMiningBtc = sprintf('%0.8f', $tempTotalMiningBtc);
     }
 } else {
     $_SESSION['error'] = 1;
@@ -155,31 +209,31 @@ if (isset($_SESSION['Username'])) {
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-bitcoin"></i> Account Balance (BTC)</span>
                         <div class="count"><a href="#"><?php echo $totalone; ?></a></div>
-                        <span class="count_bottom"><i class="green">($<?php echo $showone; ?>) </i> Total Balance</span>
+                        <span class="count_bottom"><i class="green">($<?php echo $selectedAccountBalance; ?>) </i> Total Balance</span>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-clock-o"></i> Total Account Earnings (BTC)</span>
                         <div class="count"><a href="#"><?php echo $totaltwo; ?></a></div>
-                        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $showtwo; ?>) </i>Total Earnings</span>
+                        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $selectedMiningBalance; ?>) </i>Total Earnings</span>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-sitemap"></i> Total Mining Earnings (BTC)</span>
-                        <div class="count"><a href="#"><?php echo $totaltwo; ?></a></div>
-                        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $showtwo; ?>)</i> Mining Earnings</span>
+                        <div class="count"><a href="#"><?php echo $tempTotalMiningBtc; ?></a></div>
+                        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $tempTotalMining; ?>)</i> Mining Earnings</span>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-th"></i> Commissions (BTC)</span>
                         <div class="count"><a href="#"><?php echo $totalthree; ?></a></div>
-                        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $showfour; ?>) </i> Total Commission</span>
+                        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $selectedCommissionBalance; ?>) </i> Total Commission</span>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-users"></i> Team Volume (BTC)</span>
                         <div class="count"><a href=""><?php echo $totalfour; ?></a></div>
-                        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $showfive; ?>)</i> Total team Volume</span>
+                        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $selectedTeamVolumeBalance; ?>)</i> Total team Volume</span>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-user"></i> Account Rank</span>
-                        <div class="count"><a href="#"><?php echo $showrank; ?></a></div>
+                        <div class="count"><a href="#"><?php echo $selectedRank; ?></a></div>
                         <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>Currently </i>Account Rank</span>
                     </div>
                 </div>
@@ -199,7 +253,7 @@ if (isset($_SESSION['Username'])) {
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="x_panel">
                                     <div class="x_title">
-                                        <h2>Daily Mining Earnings <small><?php echo $poolName;?></small></h2>
+                                        <h2>Daily Mining Earnings <small><?php echo $poolName; ?></small></h2>
                                         <ul class="nav navbar-right panel_toolbox">
                                             </li>
                                             <li class="dropdown">
@@ -217,7 +271,7 @@ if (isset($_SESSION['Username'])) {
                                     </div>
                                     <div class="x_content">
                                         <p class="text-muted font-13 m-b-30">
-                                            This are the Daily Earnings From <?php echo $poolName;?> Mining Contract.
+                                            This are the Daily Earnings From <?php echo $poolName; ?> Mining Contract.
                                         </p>
                                         <table id="datatable-fixed-header" class="table table-striped table-bordered">
                                             <thead>
@@ -231,7 +285,7 @@ if (isset($_SESSION['Username'])) {
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $Starterdate = "SELECT MiningDate FROM ".$dbTableName." WHERE Username='" . $_SESSION['Username'] . "'";
+                                                $Starterdate = "SELECT MiningDate FROM " . $dbTableName . " WHERE Username='" . $_SESSION['Username'] . "'";
                                                 $querystarter = mysqli_query($conn, $Starterdate);
                                                 $viewstarter = mysqli_fetch_array($querystarter);
                                                 $showstarterdate = $viewstarter['MiningDate'];
@@ -248,7 +302,8 @@ if (isset($_SESSION['Username'])) {
                                                     if (mysqli_num_rows($query) > 0) {
                                                         while ($row = mysqli_fetch_array($query)) {
                                                             $Date = $row['Date'];
-                                                            $Btc = $row['Btc'];
+                                                            //$Btc = $row['Btc'];
+                                                            $Btc = sprintf('%0.8f', ($row['Usd'] / $btcValue));
                                                             $Usd = $row['Usd'];
                                                             $Status = $row['Status'];
                                                             ?>

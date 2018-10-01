@@ -12,9 +12,9 @@ if (isset($_SESSION['Username'])) {
     $userName = $_SESSION['Username'];
 
     $responseSupportTicket = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-            'user_name' => $_SESSION['Username'],
-            'platform' => '3',
-            ], 'getAllSupportTicketByUserName');
+                'user_name' => $_SESSION['Username'],
+                'platform' => '3',
+                    ], 'getAllSupportTicketByUserName');
 
     $responseSupportTicket = json_decode($responseSupportTicket);
     if ($responseSupportTicket->statusCode == 100) {
@@ -23,13 +23,13 @@ if (isset($_SESSION['Username'])) {
 
     if (!empty($_POST)) {
         $responseSupportRequest = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                'user_name' => $_SESSION['Username'],
-                'ticket_id' => $_POST['ticket_id'],
-                'issue' => $_POST['issue'],
-                'category' => $_POST['category'],
-                'platform' => '3',
-                'transaction_type' => '501',
-                ], 'addSupportRequest');
+                    'user_name' => $_SESSION['Username'],
+                    'ticket_id' => $_POST['ticket_id'],
+                    'issue' => $_POST['issue'],
+                    'category' => $_POST['category'],
+                    'platform' => '3',
+                    'transaction_type' => '501',
+                        ], 'addSupportRequest');
         $responseSupportRequest = json_decode($responseSupportRequest);
         $redirect = '';
 
@@ -251,7 +251,7 @@ include('includes/footer.php');
                             statusBtn += '<button type="button" data-action="pending" title="Pending" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-gold process-tickets" style="padding-right: 22px;" data-change-status="1" data-id="' + id + '"> <i class="fa fa-pencil"></i> Pending</button>';
                             statusBtn += '<button type="button" data-action="reject" title="Reject" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-red process-tickets" style="padding-right: 22px;" data-change-status="3" data-id="' + id + '"> <i class="fa fa-thumbs-down"></i> Remove</button>';
                         } else {
-                                                        statusBtn += '<button type="button" data-action="pending" title="Pending" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-gold process-tickets" style="padding-right: 22px;" data-change-status="1" data-id="' + id + '"> <i class="fa fa-pencil"></i> Pending</button>';
+                            statusBtn += '<button type="button" data-action="pending" title="Pending" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-gold process-tickets" style="padding-right: 22px;" data-change-status="1" data-id="' + id + '"> <i class="fa fa-pencil"></i> Pending</button>';
                             statusBtn += '<button type="button" data-action="process" title="Approve" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-green process-tickets" data-change-status="2" data-id="' + id + '" ><i class="fa fa-thumbs-up"></i> Process</button><br>';
                         }
 
@@ -302,9 +302,11 @@ include('includes/footer.php');
                 console.log(data);
                 if (data.statusCode == '100') {
                     //$('#receive-payment').submit();
-                     setTimeout(function(){ location.reload(); }, 3000);
-                     showAlertMessage("#response", data.statusDescription, 1);
-                    
+                    setTimeout(function () {
+                        location.reload();
+                    }, 3000);
+                    showAlertMessage("#response", data.statusDescription, 1);
+
                 } else {
                     showAlertMessage("#response", data.statusDescription, 0);
                 }
