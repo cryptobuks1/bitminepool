@@ -12,9 +12,9 @@ if (isset($_SESSION['Username'])) {
     $walletData = $userData = $walletWithdrawalTransactionDBData = [];
     $userName = $_SESSION['Username'];
     $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                'user_name' => $_SESSION['Username'],
-                'platform' => '3',
-                    ], 'getAllWalletDetailByUserName');
+            'user_name' => $_SESSION['Username'],
+            'platform' => '3',
+            ], 'getAllWalletDetailByUserName');
 
     $response = json_decode($response);
 
@@ -28,9 +28,9 @@ if (isset($_SESSION['Username'])) {
         $walletErrorMessage = $response->statusDescription;
     }
     $responseWithdrawalTransaction = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                'user_name' => $_SESSION['Username'],
-                'platform' => '3',
-                    ], 'getAllWithdrawalDBTransactionByUserName');
+            'user_name' => $_SESSION['Username'],
+            'platform' => '3',
+            ], 'getAllWithdrawalDBTransactionByUserName');
 
     $responseWithdrawalTransaction = json_decode($responseWithdrawalTransaction);
     if ($responseWithdrawalTransaction->statusCode == 100) {
@@ -49,12 +49,12 @@ if (isset($_SESSION['Username'])) {
             case 'receive':
 
                 $responseWithdrawalRequest = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                            'user_name' => $_SESSION['Username'],
-                            'to_address' => $_POST['to_address'],
-                            'amount' => $_POST['receive_amount'],
-                            'platform' => '3',
-                            'transaction_type' => '401',
-                                ], 'withdrawalPayment');
+                        'user_name' => $_SESSION['Username'],
+                        'to_address' => $_POST['to_address'],
+                        'amount' => $_POST['receive_amount'],
+                        'platform' => '3',
+                        'transaction_type' => '401',
+                        ], 'withdrawalPayment');
                 $responseWithdrawalRequest = json_decode($responseWithdrawalRequest);
                 $redirect = '';
 
@@ -186,6 +186,9 @@ if (isset($_SESSION['Username'])) {
                             <div class="clearfix"></div>
                             <div id="response"></div>
                             <div class="x_content">
+                               <h4><strong>Instructions</strong></h4>
+                                <p class="style7"><span class="style6">Minimum Withdrawal amount from Bitmine pool is </span> <span class="style5">30 USD </span> <span class="style6">and above.</span></p>
+                                
                                 <!-- <div id="accordion_transaction"> -->
                                 <h3>View all withdrawal transactions</h3>
                                 <div>
@@ -314,11 +317,12 @@ include('includes/footer.php');
                             statusBtn += '<button type="button" data-action="process" title="Approve" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-green process-withdrawal" data-change-status="2" data-id="' + id + '" ><i class="fa fa-thumbs-up"></i> Process</button><br>';
                             statusBtn += '<button type="button" data-action="reject" title="Reject" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-red process-withdrawal" style="padding-right: 22px;" data-change-status="3" data-id="' + id + '"> <i class="fa fa-thumbs-down"></i> Reject</button>';
                         } else if (status == 'Processed') {
-                            statusBtn += 'N/A';
+                            statusBtn += '<button type="button" data-action="reject" title="Reject" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-gold" style="padding-right: 22px;" data-change-status="3" data-id="' + id + '"> <i class="fa fa-thumbs-up"></i> Processed</button>';
+                            //statusBtn += 'N/A';
                             // statusBtn += '<button type="button" data-action="pending" title="Pending" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-gold process-tickets" style="padding-right: 22px;" data-change-status="1" data-id="' + id + '"> <i class="fa fa-pencil"></i> Pending</button>';
                             //statusBtn += '<button type="button" data-action="reject" title="Reject" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-red process-tickets" style="padding-right: 22px;" data-change-status="3" data-id="' + id + '"> <i class="fa fa-thumbs-down"></i> Reject</button>';
                         } else {
-                            statusBtn += 'N/A';
+                            statusBtn += '<button type="button" data-action="reject" title="Reject" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-gold" style="padding-right: 22px;" data-change-status="3" data-id="' + id + '"> <i class="fa fa-thumbs-down"></i> Rejected</button>';
                             //statusBtn += '<button type="button" data-action="pending" title="Pending" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-gold process-tickets" style="padding-right: 22px;" data-change-status="1" data-id="' + id + '"> <i class="fa fa-pencil"></i> Pending</button>';
                             //statusBtn += '<button type="button" data-action="process" title="Approve" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-green process-tickets" data-change-status="2" data-id="' + id + '" ><i class="fa fa-thumbs-up"></i> Process</button><br>';
                         }
@@ -379,8 +383,8 @@ include('includes/footer.php');
 
                         }
                     });
-                     
-                } 
+
+                }
             }
         });
 

@@ -2,17 +2,35 @@
 include('includes/header.php');
 if (isset($_SESSION['Username'])) {
 ////////////////////////////////////////Get the User Profile///////////////////////////////////////////////////////////////		
-    $getdetails = "SELECT * FROM users WHERE Username = '" . $_SESSION['Username'] . "'";
-    $querydetails = mysqli_query($conn, $getdetails);
-    $sharedetails = mysqli_fetch_array($querydetails);
-    $showname = $sharedetails['Fullname'];
-    $showemail = $sharedetails['Email'];
-    $showtelephone = $sharedetails['Telephone'];
-    $showusername = $sharedetails['Username'];
-    $showpassword = $sharedetails['Password'];
-    $showsponsor = $sharedetails['Sponsor'];
-    $gender = $sharedetails['Gender'];
-    $showid = $sharedetails['id'];
+    $responseUser = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
+            'user_name' => $userName,
+            'platform' => '3',
+            'transaction_type' => '301'
+            ], 'getAllUserDataByUserName');
+
+    $responseUser = json_decode($responseUser);
+    $userData = [];
+    $showname = $showemail = $showtelephone = $showusername = $showpassword = $showsponsor = $gender = $showid;
+    if ($responseUser->statusCode == 100) {
+        $userData = $responseUser->response->user_data;
+        $showname = $userData->Fullname;
+        $showemail = $userData->Email;
+        $showtelephone = $userData->Telephone;
+        $showusername = $userData->Username;
+        $showpassword = $userData->Password;
+        $showsponsor = $userData->Sponsor;
+        $gender = $userData->Gender;
+        $showid = $userData->id;
+    } else {
+        $_SESSION['error'] = 1;
+        $_SESSION['message'] = 'Please login to proceed further.';
+        unset($_POST);
+        unset($_SESSION);
+        //header("Location:login");
+        $redirect = 'login';
+        echo "<script>location='" . BASE_URL . $redirect . "'</script>";
+        exit;
+    }
 
     if (!empty($_POST)) {
         $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
@@ -62,7 +80,7 @@ include('includes/message.php');
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="<?php echo BASE_URL; ?>" class="site_title"> <span><img src="images/logo.png" alt="Bit-Mine-Pool" style="width: 95px;"></span></a>
+                        <a href="<?php echo BASE_URL; ?>" class="site_title"> <span><img src="../images/logo.png" alt="Bit-Mine-Pool" style="width: 95px;"></span></a>
                     </div>
 
                     <div class="clearfix"></div>
