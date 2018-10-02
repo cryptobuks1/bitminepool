@@ -186,9 +186,9 @@ if (isset($_SESSION['Username'])) {
                             <div class="clearfix"></div>
                             <div id="response"></div>
                             <div class="x_content">
-                               <h4><strong>Instructions</strong></h4>
+                                <h4><strong>Instructions</strong></h4>
                                 <p class="style7"><span class="style6">Minimum Withdrawal amount from Bitmine pool is </span> <span class="style5">30 USD </span> <span class="style6">and above.</span></p>
-                                
+
                                 <!-- <div id="accordion_transaction"> -->
                                 <h3>View all withdrawal transactions</h3>
                                 <div>
@@ -198,6 +198,10 @@ if (isset($_SESSION['Username'])) {
                                             <div class="x_panel">
 
                                                 <div class="x_content table">
+                                                    <div id="date_filter">
+                                                        <span id="date-label-from" class="date-label">From: </span><input class="date_range_filter date" type="text" id="datepicker_from" />
+                                                        <span id="date-label-to" class="date-label">To:<input class="date_range_filter date" type="text" id="datepicker_to" />
+                                                    </div>
                                                     <table id="wallet-withdrawl-transactions-grid"  cellpadding="0" cellspacing="0" border="0" class="display table" width="100%">
 
                                                         <tbody>
@@ -275,9 +279,6 @@ if (isset($_SESSION['Username'])) {
 <?php
 include('includes/footer.php');
 ?>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> 
 
 <script>
     $(function () {
@@ -287,8 +288,8 @@ include('includes/footer.php');
 
         var walletTransactionDBData = <?php echo json_encode($walletWithdrawalTransactionDBData); ?>;
         var is_admin_user = <?php echo $_SESSION['is_admin_user']; ?>;
-        console.log(walletTransactionDBData);
-        $('#wallet-withdrawl-transactions-grid').DataTable({
+
+        oTable = $('#wallet-withdrawl-transactions-grid').DataTable({
             data: walletTransactionDBData,
             "columns": [
 
@@ -311,20 +312,14 @@ include('includes/footer.php');
                     if (is_admin_user == 1) {
                         var id = $(rows).eq(i).children('td:nth-child(1)').html();
                         var status = $(rows).eq(i).children('td:nth-child(5)').html();
-                        console.log(id, status);
                         var statusBtn = '';
                         if (status == 'Pending') {
                             statusBtn += '<button type="button" data-action="process" title="Approve" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-green process-withdrawal" data-change-status="2" data-id="' + id + '" ><i class="fa fa-thumbs-up"></i> Process</button><br>';
                             statusBtn += '<button type="button" data-action="reject" title="Reject" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-red process-withdrawal" style="padding-right: 22px;" data-change-status="3" data-id="' + id + '"> <i class="fa fa-thumbs-down"></i> Reject</button>';
                         } else if (status == 'Processed') {
                             statusBtn += '<button type="button" data-action="reject" title="Reject" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-gold" style="padding-right: 22px;" data-change-status="3" data-id="' + id + '"> <i class="fa fa-thumbs-up"></i> Processed</button>';
-                            //statusBtn += 'N/A';
-                            // statusBtn += '<button type="button" data-action="pending" title="Pending" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-gold process-tickets" style="padding-right: 22px;" data-change-status="1" data-id="' + id + '"> <i class="fa fa-pencil"></i> Pending</button>';
-                            //statusBtn += '<button type="button" data-action="reject" title="Reject" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-red process-tickets" style="padding-right: 22px;" data-change-status="3" data-id="' + id + '"> <i class="fa fa-thumbs-down"></i> Reject</button>';
                         } else {
                             statusBtn += '<button type="button" data-action="reject" title="Reject" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-gold" style="padding-right: 22px;" data-change-status="3" data-id="' + id + '"> <i class="fa fa-thumbs-down"></i> Rejected</button>';
-                            //statusBtn += '<button type="button" data-action="pending" title="Pending" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-gold process-tickets" style="padding-right: 22px;" data-change-status="1" data-id="' + id + '"> <i class="fa fa-pencil"></i> Pending</button>';
-                            //statusBtn += '<button type="button" data-action="process" title="Approve" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-green process-tickets" data-change-status="2" data-id="' + id + '" ><i class="fa fa-thumbs-up"></i> Process</button><br>';
                         }
 
                         $(rows).eq(i).children('td:nth-child(7)').html(statusBtn);
@@ -336,6 +331,8 @@ include('includes/footer.php');
         });
 
     });
+    processDateFilter(5);
+
     $(document).ready(function () {
         var validatorReceivePayment = $("#receive-payment").validate();
     });
@@ -440,14 +437,11 @@ include('includes/footer.php');
                                         success: function (data)
                                         {
                                             data = JSON.parse(data);
-                                            console.log(data);
                                             if (data.statusCode == '100') {
                                                 $('#receive-payment').submit();
-                                                // showAlertMessage("#response", data.statusDescription, 1);
                                             } else {
                                                 showAlertMessage("#response", data.statusDescription, 0);
                                             }
-
                                         }
                                     });
                                 }

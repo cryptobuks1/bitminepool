@@ -15,9 +15,9 @@ if (isset($_SESSION['Username']) && $_SESSION['is_admin_user'] == 1) {
     switch ($type) {
         case 'wallet':
             $responseWalletTransaction = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                        'user_name' => $_SESSION['Username'],
-                        'platform' => '3',
-                            ], 'getAllWalletDBTransactionDetails');
+                    'user_name' => $_SESSION['Username'],
+                    'platform' => '3',
+                    ], 'getAllWalletDBTransactionDetails');
 
             $responseWalletTransaction = json_decode($responseWalletTransaction);
             if ($responseWalletTransaction->statusCode == 100) {
@@ -27,9 +27,9 @@ if (isset($_SESSION['Username']) && $_SESSION['is_admin_user'] == 1) {
             break;
         case 'invoice':
             $responseInvoiceTransaction = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                        'user_name' => $_SESSION['Username'],
-                        'platform' => '3',
-                            ], 'getAllInvoiceDBTransactionDetails');
+                    'user_name' => $_SESSION['Username'],
+                    'platform' => '3',
+                    ], 'getAllInvoiceDBTransactionDetails');
 
             $responseInvoiceTransaction = json_decode($responseInvoiceTransaction);
             if ($responseInvoiceTransaction->statusCode == 100) {
@@ -39,9 +39,9 @@ if (isset($_SESSION['Username']) && $_SESSION['is_admin_user'] == 1) {
             break;
         case 'benefits':
             $responseBenefitsTransaction = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                        'user_name' => $_SESSION['Username'],
-                        'platform' => '3',
-                            ], 'getAllCommissionBonusDBDetails');
+                    'user_name' => $_SESSION['Username'],
+                    'platform' => '3',
+                    ], 'getAllCommissionBonusDBDetails');
 
             $responseBenefitsTransaction = json_decode($responseBenefitsTransaction);
             if ($responseBenefitsTransaction->statusCode == 100) {
@@ -69,12 +69,12 @@ if (isset($_SESSION['Username']) && $_SESSION['is_admin_user'] == 1) {
 <?php include('includes/message.php'); ?>
 <style>
     #accordion_transaction
-{
-    width:100%;
-    height:auto;
+    {
+        width:100%;
+        height:auto;
 
-}
-    </style>
+    }
+</style>
 <body class="nav-md">
     <div class="container body">
         <div class="main_container">
@@ -102,20 +102,7 @@ if (isset($_SESSION['Username']) && $_SESSION['is_admin_user'] == 1) {
                     <?php include('includes/menu.php'); ?>
 
                     <!-- /menu footer buttons -->
-                    <div class="sidebar-footer hidden-small">
-                        <a data-toggle="tooltip" data-placement="top" title="Settings">
-                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Lock">
-                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.php">
-                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                        </a>
-                    </div>
+ 
                     <!-- /menu footer buttons -->
                 </div>
             </div>
@@ -130,28 +117,31 @@ if (isset($_SESSION['Username']) && $_SESSION['is_admin_user'] == 1) {
                         <div class="col-md-12">
                             <div class="clearfix"></div>
                             <div class="x_content">
-                                <div id="accordion_transaction">
-                                    <h3>View all transactions</h3>
-                                    <div>
-                                        <p>
-                                        <div class="row">
-                                            <div class="col-md-12 col-sm-12 col-xs-12 ">
-                                                <div class="x_panel">
 
-                                                    <div class="x_content ">
+                                <h3>View all transactions</h3>
+                                <div>
+                                    <p>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 ">
+                                            <div class="x_panel">
 
-                                                        <table id="<?php echo $tableId; ?>"  cellpadding="0" cellspacing="0" border="0" class="display table" width="100%">
-
-                                                            <tbody>
-                                                            </tbody>
-                                                        </table>
+                                                <div class="x_content table">
+                                                    <div id="date_filter">
+                                                        <span id="date-label-from" class="date-label">From: </span><input class="date_range_filter date" type="text" id="datepicker_from" />
+                                                        <span id="date-label-to" class="date-label">To:<input class="date_range_filter date" type="text" id="datepicker_to" />
                                                     </div>
+                                                    <table id="<?php echo $tableId; ?>"  cellpadding="0" cellspacing="0" border="0" class="display table" width="100%">
+
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
                                         </div>
-                                        </p>
                                     </div>
+                                    </p>
                                 </div>
+
                             </div>
                         </div>
                     </div>                    
@@ -171,19 +161,17 @@ if (isset($_SESSION['Username']) && $_SESSION['is_admin_user'] == 1) {
 <?php
 include('includes/footer.php');
 ?>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> 
-
 <script>
     $(function () {
-
+        $("#accordion").accordion();
+        $("#accordion_transaction").accordion();
+        $('#receive_qr_block').hide();
         // console.log('I am inside ready');
         //handleTable();
         var type = '<?php echo $type; ?>';
         if (type == 'wallet') {
             var walletTransactionDBData = <?php echo json_encode($walletTransactionDBData); ?>;
-            $('#wallet-transactions-grid').DataTable({
+            oTable = $('#wallet-transactions-grid').DataTable({
                 data: walletTransactionDBData,
                 "columns": [
 
@@ -198,9 +186,10 @@ include('includes/footer.php');
                 ]
 
             });
+            processDateFilter(7);
         } else if (type == 'invoice') {
             var invoiceTransactionDBData = <?php echo json_encode($invoiceTransactionDBData); ?>;
-            $('#invoice-transactions-grid').DataTable({
+            oTable = $('#invoice-transactions-grid').DataTable({
                 data: invoiceTransactionDBData,
                 "columns": [
 
@@ -212,33 +201,37 @@ include('includes/footer.php');
                     {"title": "Amount(In USD)", "data": "Amount"},
                     {"title": "Amount(In BTC)", "data": "Btcamount"},
                     {"title": "Status", "data": "Status"},
-                    {"title": "Username", "data": "Username"}
+                    {"title": "Username", "data": "Username"},
+                    {"title": "Date", "data": "created_at"}
                 ]
 
             });
+            processDateFilter(8);
         } else if (type == 'benefits') {
             var benefitsTransactionDBData = <?php echo json_encode($benefitsTransactionDBData); ?>;
-            $('#benefits-transactions-grid').DataTable({
+            oTable = $('#benefits-transactions-grid').DataTable({
                 data: benefitsTransactionDBData,
                 "columns": [
                     {"title": "ID", "data": "id"},
                     {"title": "Username", "data": "user_name"},
                     {"title": "Amount(In USD)", "data": "amount"},
                     {"title": "Benefit Type", "data": "reason_id_view"},
-                    {"title": "Description", "data": "reason_description"}
+                    {"title": "Description", "data": "reason_description"},
+                    {"title": "Date", "data": "created_at"}
                 ]
 
             });
+            processDateFilter(5);
         }
     });
-    $(function () {
+    /*$(function () {
         $("#accordion_transaction").accordion({
-           // collapsible: false,
-          //  active: 'none',
+            // collapsible: false,
+            //  active: 'none',
             autoHeight: false,
-          //  navigation: true
+            //  navigation: true
         });
-    });
+    });*/
 
 </script>
 </body>

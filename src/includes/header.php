@@ -33,6 +33,8 @@ include('includes/dbconnect.php');
         <link href="../vendor/build/css/custom.css" rel="stylesheet">
         <link rel="stylesheet" href="../vendor/build/css/style.css">
         <script src='https://www.google.com/recaptcha/api.js'></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+        
     </head>
     <?php
     if (isset($_SESSION['Username'])) {

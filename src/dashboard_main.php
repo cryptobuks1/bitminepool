@@ -47,11 +47,11 @@ if (isset($_SESSION['Username'])) {
     $totalfour = sprintf('%0.8f', $usdCostfour);
     $totalfive = sprintf('%0.8f', $usdCostfive);
 
-    $packone = sprintf('%0.8f', $starterDailyMine);
-    $packtwo = sprintf('%0.8f', $miniDailyMine);
-    $packthree = sprintf('%0.8f', $mediumDailyMine);
-    $packfour = sprintf('%0.8f', $grandDailyMine);
-    $packfive = sprintf('%0.8f', $ultimateDailyMine);
+    $packone = sprintf('%0.4f', $starterDailyMine);
+    $packtwo = sprintf('%0.4f', $miniDailyMine);
+    $packthree = sprintf('%0.4f', $mediumDailyMine);
+    $packfour = sprintf('%0.4f', $grandDailyMine);
+    $packfive = sprintf('%0.4f', $ultimateDailyMine);
 } else {
     $_SESSION['error'] = 1;
     $_SESSION['message'] = 'Please login to proceed further.';
@@ -96,20 +96,7 @@ if (isset($_SESSION['Username'])) {
                     <?php include('includes/menu.php'); ?>
 
                     <!-- /menu footer buttons -->
-                    <div class="sidebar-footer hidden-small">
-                        <a data-toggle="tooltip" data-placement="top" title="Settings">
-                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Lock">
-                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.php">
-                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                        </a>
-                    </div>
+
                     <!-- /menu footer buttons -->
                 </div>
             </div>
@@ -208,7 +195,7 @@ if (isset($_SESSION['Username'])) {
                                 <!--FEATURE LIST START-->
                                 <div class="generic_feature_list">
                                     <ul>
-                                        <li><span>Current Investment Return(BTC):</span> <?php echo $packone; ?></li>
+                                        <li><span>Current Investment Return(USD):</span> <?php echo $packone; ?></li>
                                         <li><span>Approx.</span> $1.5/day</li>
                                         <li><span>365</span> Mining days</li>
 
@@ -314,7 +301,7 @@ if (isset($_SESSION['Username'])) {
                                 <!--FEATURE LIST START-->
                                 <div class="generic_feature_list">
                                     <ul>
-                                        <li><span>Current Investment Return(BTC):</span> <?php echo $packtwo; ?></li>
+                                        <li><span>Current Investment Return(USD):</span> <?php echo $packtwo; ?></li>
                                         <li><span>Approx.</span> $3/day</li>
                                         <li><span>365</span> Mining days</li>
 
@@ -425,7 +412,7 @@ if (isset($_SESSION['Username'])) {
                                 <!--FEATURE LIST START-->
                                 <div class="generic_feature_list">
                                     <ul>
-                                        <li><span>Current Investment Return(BTC):</span> <?php echo $packthree; ?></li>
+                                        <li><span>Current Investment Return(USD):</span> <?php echo $packthree; ?></li>
                                         <li><span>Approx.</span> $6/day</li>
                                         <li><span>365</span> Mining days</li>
 
@@ -536,7 +523,7 @@ if (isset($_SESSION['Username'])) {
                                 <!--FEATURE LIST START-->
                                 <div class="generic_feature_list">
                                     <ul>
-                                        <li><span>Current Investment Return(BTC):</span> <?php echo $packfour; ?></li>
+                                        <li><span>Current Investment Return(USD):</span> <?php echo $packfour; ?></li>
                                         <li><span>Approx.</span> $12/day</li>
                                         <li><span>365</span> Mining days</li>
 
@@ -647,7 +634,7 @@ if (isset($_SESSION['Username'])) {
                                 <!--FEATURE LIST START-->
                                 <div class="generic_feature_list">
                                     <ul>
-                                        <li><span>Current Investment Return(BTC):</span> <?php echo $packfive; ?></li>
+                                        <li><span>Current Investment Return(USD):</span> <?php echo $packfive; ?></li>
                                         <li><span>Approx.</span> $24/day</li>
                                         <li><span>365</span> Mining days</li>
 

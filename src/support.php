@@ -12,9 +12,9 @@ if (isset($_SESSION['Username'])) {
     $userName = $_SESSION['Username'];
 
     $responseSupportTicket = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                'user_name' => $_SESSION['Username'],
-                'platform' => '3',
-                    ], 'getAllSupportTicketByUserName');
+            'user_name' => $_SESSION['Username'],
+            'platform' => '3',
+            ], 'getAllSupportTicketByUserName');
 
     $responseSupportTicket = json_decode($responseSupportTicket);
     if ($responseSupportTicket->statusCode == 100) {
@@ -23,13 +23,13 @@ if (isset($_SESSION['Username'])) {
 
     if (!empty($_POST)) {
         $responseSupportRequest = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                    'user_name' => $_SESSION['Username'],
-                    'ticket_id' => $_POST['ticket_id'],
-                    'issue' => $_POST['issue'],
-                    'category' => $_POST['category'],
-                    'platform' => '3',
-                    'transaction_type' => '501',
-                        ], 'addSupportRequest');
+                'user_name' => $_SESSION['Username'],
+                'ticket_id' => $_POST['ticket_id'],
+                'issue' => $_POST['issue'],
+                'category' => $_POST['category'],
+                'platform' => '3',
+                'transaction_type' => '501',
+                ], 'addSupportRequest');
         $responseSupportRequest = json_decode($responseSupportRequest);
         $redirect = '';
 
@@ -84,20 +84,7 @@ if (isset($_SESSION['Username'])) {
                     <?php include('includes/menu.php'); ?>
 
                     <!-- /menu footer buttons -->
-                    <div class="sidebar-footer hidden-small">
-                        <a data-toggle="tooltip" data-placement="top" title="Settings">
-                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Lock">
-                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.php">
-                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                        </a>
-                    </div>
+
                     <!-- /menu footer buttons -->
                 </div>
             </div>
@@ -125,6 +112,10 @@ if (isset($_SESSION['Username'])) {
                                             <div class="x_panel">
 
                                                 <div class="x_content table">
+                                                    <div id="date_filter">
+                                                        <span id="date-label-from" class="date-label">From: </span><input class="date_range_filter date" type="text" id="datepicker_from" />
+                                                        <span id="date-label-to" class="date-label">To:<input class="date_range_filter date" type="text" id="datepicker_to" />
+                                                    </div>
                                                     <table id="support-ticket-grid"  cellpadding="0" cellspacing="0" border="0" class="display table" width="100%">
 
                                                         <tbody>
@@ -152,6 +143,7 @@ if (isset($_SESSION['Username'])) {
                                     <h3>Add Support Ticket</h3>
                                     <div>
                                         <p>
+
                                         <form id="add_support_ticket" class="form-horizontal form-label-left" method="post" action="">
 
                                             <div id="receive_form_block">
@@ -200,9 +192,6 @@ if (isset($_SESSION['Username'])) {
 <?php
 include('includes/footer.php');
 ?>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> 
 
 <script>
     $(function () {
@@ -225,10 +214,7 @@ include('includes/footer.php');
             {"title": "Date", "data": "created_at"},
             {"title": "Action", "data": "", "defaultContent": "<i>N/A</i>"},
         ];
-        /* if (is_admin_user == 1) {
-         columns.push({"title": "Date", "data": "null", ""});
-         }*/
-        $('#support-ticket-grid').DataTable({
+        oTable = $('#support-ticket-grid').DataTable({
             data: supportTicketDBData,
             "columns": columns,
             "drawCallback": function (settings) {
@@ -242,7 +228,7 @@ include('includes/footer.php');
                     if (is_admin_user == 1) {
                         var id = $(rows).eq(i).children('td:nth-child(1)').html();
                         var status = $(rows).eq(i).children('td:nth-child(6)').html();
-                        console.log(id, status);
+ 
                         var statusBtn = '';
                         if (status == 'Pending') {
                             statusBtn += '<button type="button" data-action="process" title="Approve" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-green process-tickets" data-change-status="2" data-id="' + id + '" ><i class="fa fa-thumbs-up"></i> Process</button><br>';
@@ -263,6 +249,7 @@ include('includes/footer.php');
 
         });
     });
+
 </script>
 <script>
     /*  $("#phone").intlTelInput({
@@ -315,8 +302,7 @@ include('includes/footer.php');
         });
         console.log(id, change_status);
     });
-
-
+    processDateFilter(6);
     $('#reset_add_support_ticket').click(function () {
         $('#add_support_ticket')[0].reset();
         var validatorReceivePayment = $("#add_support_ticket").validate();

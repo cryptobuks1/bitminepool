@@ -61,7 +61,7 @@ include('src/includes/constant.php');
                             <p>support@bitminepool.com</p>
                         </div>
                     </div>
-                    <div class="single-header-info">
+                    <!--<div class="single-header-info">
                         <div class="icon-box">
                             <div class="inner-box">
                                 <i class="flaticon-telephone"></i>
@@ -70,7 +70,7 @@ include('src/includes/constant.php');
                         <div class="content">
                             <p><b>(732) 803-010-03</b></p>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="single-header-info">
                         <!-- Modal: donate now Starts -->
                         <a class="thm-btn"  href="src/login">Login</a>
@@ -91,47 +91,23 @@ include('src/includes/constant.php');
                             <li class="dropdown">
                                 <a href="#top">Home</a>
                                 <ul class="submenu">
-                                    <!-- <li><a href="index.html">Home One</a></li>
-                                    <li><a href="index2.html">Home Two</a></li> -->
                                 </ul>
                             </li>
                             <li></li>						
-                            <!--<li class="dropdown">
-                                    <a href="#services">Services</a>
-                                    <ul class="submenu">
-                                    </ul>
-                            </li>	-->					
-                            <!--<li class="dropdown">
-                                    <a href="#">Events</a>
-                                    <ul class="submenu">
-                                            <li><a href="events-grid.html">Events Grid</a></li>
-                                            <li><a href="events-list.html">Events List</a></li>
-                                            <li><a href="events-single.html">Event Single</a></li>
-                                    </ul>
-                            </li>-->
                             <li class="dropdown">
                                 <a href="#about-us">About Us</a>
                                 <ul class="submenu">
-                                    <!--<li><a href="team-style-one.html">Team Style One</a></li>
-                                    <li><a href="team-style-two.html">Team Style Two</a></li>
-                                    <li><a href="team-profile.html">Team Profile</a></li>-->
                                 </ul>
                             </li>
                             <li><a href="#pricing-table">Pricing table</a></li>
                             <li class="dropdown">
 
                                 <ul class="submenu">
-                                    <!--<li><a href="about.html">About</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
-                                    <li><a href="faq.html">FAQ</a></li>-->
                                 </ul> 
                             </li> 
                             <li class="dropdown">
                                 <a href="#contact-us">Contact us</a>
                                 <ul class="submenu">
-                                    <!-- <li><a href="blog-style-one.html">Blog Style One</a></li>
-                                    <li><a href="blog-style-two.html">Blog Style Two</a></li>
-                                    <li><a href="blog-details.html">Blog Details</a></li> -->
                                 </ul>
                             </li>
                             <li><a href="#faq">Faq</a></li>
@@ -1159,7 +1135,7 @@ include('src/includes/constant.php');
                             </a>
                             <ul class="contact">
                                 <li><i class="fa fa-map-marker"></i> <span>60 Grant Ave. Carteret NJ 0708</span></li>
-                                <li><i class="fa fa-phone"></i> <span>(880) 1723801729</span></li>
+                                <!--<li><i class="fa fa-phone"></i> <span>(880) 1723801729</span></li>-->
                                 <li><i class="fa fa-envelope-o"></i> <span>support@bitminepool.com</span></li>
                             </ul>
                             <ul class="social">

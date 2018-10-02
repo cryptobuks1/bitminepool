@@ -45,7 +45,12 @@
 
 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
 <script src="../vendor/build/js/intlTelInput.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> 
+
 <script>
+    var oTable = '';
     function showAlertMessage(idObj, response, success) {
         var message = '';
         if (success == 1) {
@@ -65,4 +70,72 @@
             $(".alert").html('');
         });
     });
+
+    $(function () {
+        if ($('#datepicker_from').length && $('#datepicker_to').length) {
+            $("#datepicker_from").datepicker({
+                showOn: "button",
+                buttonImage: "../images/calendar.gif",
+                buttonImageOnly: false,
+                "onSelect": function (date) {
+                    minDateFilter = new Date(date);
+                    //minDateFilter = minDateFilter.setDate(minDateFilter.getDate() - 1);
+                    minDateFilter = new Date(minDateFilter);
+                    minDateFilter = minDateFilter.getTime();
+                    oTable.draw();
+                }
+            }).keyup(function () {
+                minDateFilter = new Date(this.value);
+               // minDateFilter = minDateFilter.setDate(minDateFilter.getDate() - 1);
+                minDateFilter = new Date(minDateFilter);
+                minDateFilter = minDateFilter.getTime();
+                oTable.draw();
+            });
+
+            $("#datepicker_to").datepicker({
+                showOn: "button",
+                buttonImage: "../images/calendar.gif",
+                buttonImageOnly: false,
+                "onSelect": function (date) {
+                    maxDateFilter = new Date(date);
+                    maxDateFilter = maxDateFilter.setDate(maxDateFilter.getDate() + 1);
+                    maxDateFilter = new Date(maxDateFilter);
+                    maxDateFilter = maxDateFilter.getTime();
+                    oTable.draw();
+                }
+            }).keyup(function () {
+                maxDateFilter = new Date(this.value);
+                maxDateFilter = maxDateFilter.setDate(maxDateFilter.getDate() + 1);
+                maxDateFilter = new Date(maxDateFilter);
+                maxDateFilter = maxDateFilter.getTime();
+                oTable.draw();
+            });
+        }
+    });
+
+    var processDateFilter = (function (dateIndex) {
+        // Date range filter
+        minDateFilter = "";
+        maxDateFilter = "";
+
+        $.fn.dataTableExt.afnFiltering.push(
+                function (oSettings, aData, iDataIndex) {
+                    if (typeof aData._date == 'undefined') {
+                        aData._date = new Date(aData[dateIndex]).getTime();
+                    }
+                    if (minDateFilter && !isNaN(minDateFilter)) {
+                        if (aData._date < minDateFilter) {
+                            return false;
+                        }
+                    }
+                    if (maxDateFilter && !isNaN(maxDateFilter)) {
+                        if (aData._date > maxDateFilter) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+        );
+    });
+
 </script>
