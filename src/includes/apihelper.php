@@ -1,6 +1,7 @@
 <?php
  // namespace Helper;
-require '../vendor/autoload.php'; 
+if (!defined('PATH')) define("PATH",dirname(__FILE__));
+require_once(PATH . "../vendor/autoload.php");
 include('constant.php');
 class ApiHelper
 {
