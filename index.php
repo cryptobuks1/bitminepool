@@ -47,7 +47,7 @@ include('src/includes/constant.php');
             <div class="container">
                 <div class="logo pull-left">
                     <a href="<?php echo BASE_URL; ?>">
-                        <img src="img/resources/logo.png" alt="Awesome Image"/>
+                        <img src="images/logo.png" alt="Awesome Image"/>
                     </a>
                 </div>
                 <div class="header-right-info pull-right clearfix">

@@ -53,7 +53,7 @@ if (isset($_SESSION['Username'])) {
             <div class="page-title">
                 <div class="title_left">
                     <a href="<?php echo BASE_URL; ?>">
-                        <img src="../images/logo.png" alt="Bitc-Mine-Pool" style="width: 95px;">
+                        <img src="../images/logo_transparent_small.png" alt="Bitc-Mine-Pool" >
                     </a>
                 </div>
 
@@ -72,7 +72,7 @@ if (isset($_SESSION['Username'])) {
                         </div>
                         <div class="x_content">
 
-                            <form class="form-horizontal form-label-left" novalidate action="" method="post">
+                            <form class="form-horizontal form-label-left" novalidate action="" id="verify-email" method="post">
 
 
 
@@ -94,12 +94,12 @@ if (isset($_SESSION['Username'])) {
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Enter Verification Code: <span class="required">*</span>
                                     </label>
                                     <div class="col-md-2 col-sm-6 col-xs-12">
-                                        <input id="Token" type="text" name="Token" data-validate-length-range="5,20"  class="optional form-control col-md-7 col-xs-12">
+                                        <input id="Token" type="text" name="Token" data-validate-length-range="5,20"  required="required" data-msg-required="Please enter verification code."  class="optional form-control col-md-7 col-xs-12">
                                     </div>
                                     <button id="send" type="submit" class="btn btn-success">Verify Email</button>
                                 </div>           
                                 <div class="ln_solid"></div>
-                                <!--<input type="hidden" id="ChangeToken" name="ChangeToken" value="<?php //echo mt_rand(0, 1000000);   ?>">-->
+                                <!--<input type="hidden" id="ChangeToken" name="ChangeToken" value="<?php //echo mt_rand(0, 1000000);    ?>">-->
                             </form>
                         </div>
                     </div>
@@ -115,6 +115,11 @@ if (isset($_SESSION['Username'])) {
 <?php
 include('includes/footer.php');
 ?>
-
+<script>
+    $(document).ready(function () {
+        var validator = $("#verify-email").validate();
+        //validator.form();
+    });
+</script>
 </body>
 </html>

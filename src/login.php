@@ -63,7 +63,7 @@
             <div class="login_wrapper">
                 <div class="animate form login_form">
                     <section class="login_content">
-                        <a href="<?php echo BASE_URL; ?>"><img src="../images/logo.png" alt="Bit-Mine-Pool"></a>
+                        <a href="<?php echo BASE_URL; ?>"><img src="../images/logo_transparent_small.png" alt="Bit-Mine-Pool"></a>
                         <form id="login-member" class="form-horizontal form-label-left" method="post" novalidate action="">
                             <h1>User Login</h1>
                             <div>

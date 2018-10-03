@@ -47,7 +47,7 @@ if (!empty($_POST)) {
             <div class="page-title">
                 <div class="title_left">
                     <a href="<?php echo BASE_URL; ?>">
-                        <img src="../images/logo.png" alt="Bitc-Mine-Pool" style="width: 95px;">
+                        <img src="../images/logo_transparent_small.png" alt="Bitc-Mine-Pool" >
                     </a>
                 </div>
 

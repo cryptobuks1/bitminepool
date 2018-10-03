@@ -75,13 +75,14 @@ if (isset($_SESSION['Username']) && $_SESSION['is_admin_user'] == 1) {
 
     }
 </style>
+ <link rel="stylesheet" href="../vendor/build/css/jquery.dataTables.min.css">
 <body class="nav-md">
     <div class="container body">
         <div class="main_container">
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="<?php echo BASE_URL; ?>" class="site_title"> <span><img src="../images/logo.png" alt="Bitc-Mine-Pool" style="width: 95px;"></span></a>
+                        <a href="<?php echo BASE_URL; ?>" class="site_title"> <span><img src="../images/logo_transparent_small.png" alt="Bitc-Mine-Pool" ></span></a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -161,6 +162,9 @@ if (isset($_SESSION['Username']) && $_SESSION['is_admin_user'] == 1) {
 <?php
 include('includes/footer.php');
 ?>
+<link rel="stylesheet" href="../vendor/build/css/jquery-ui.css">
+<script src="../vendor/build/js/jquery-ui.js"></script>
+<script src="../vendor/build/js/jquery.dataTables.min.js"></script>
 <script>
     $(function () {
         $("#accordion").accordion();

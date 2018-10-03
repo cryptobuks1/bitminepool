@@ -127,13 +127,14 @@ if (isset($_SESSION['Username'])) {
 }
 ?>
 <?php include('includes/message.php'); ?>
+ <link rel="stylesheet" href="../vendor/build/css/jquery.dataTables.min.css">
 <body class="nav-md">
     <div class="container body">
         <div class="main_container">
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="<?php echo BASE_URL; ?>" class="site_title"> <span><img src="../images/logo.png" alt="BitMine Pool" style="width: 95px;"></span></a>
+                        <a href="<?php echo BASE_URL; ?>" class="site_title"> <span><img src="../images/logo_transparent_small.png" alt="Bitc-Mine-Pool" ></span></a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -154,20 +155,7 @@ if (isset($_SESSION['Username'])) {
                     <?php include('includes/menu.php'); ?>
 
                     <!-- /menu footer buttons -->
-                    <div class="sidebar-footer hidden-small">
-                        <a data-toggle="tooltip" data-placement="top" title="Settings">
-                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Lock">
-                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.php">
-                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                        </a>
-                    </div>
+
                     <!-- /menu footer buttons -->
                 </div>
             </div>
@@ -245,7 +233,7 @@ if (isset($_SESSION['Username'])) {
                                                 <div class="form-group">
                                                     <label for="amount">Amount(In USD):</label>
                                                    <!-- <input type="text" class="form-control" name = "receive_amount" id="receive_amount" data-msg-required="Please enter amount to be withdrawl." required="required" number="true" data-msg-required="Please enter valid amount to be withdrawl." > -->
-                                                    <input type="number" class="form-control" min="1" max="<?php echo $availableBalance; ?>" value="<?php echo $availableBalance; ?>" name = "receive_amount" id="receive_amount" data-msg-required="Please enter amount to be withdrawl." required="required" number="true" data-msg-required="Please enter valid amount to be withdrawl." >
+                                                    <input type="number" class="form-control" min="30" max="<?php echo $availableBalance; ?>" value="<?php echo $availableBalance; ?>" name = "receive_amount" id="receive_amount" data-msg-required="Please enter amount to be withdrawl." required="required" number="true" data-msg-required="Please enter valid amount to be withdrawl." >
                                                 </div>
 
                                                 <input type="hidden" name="transaction_type" value="receive">
@@ -279,7 +267,9 @@ if (isset($_SESSION['Username'])) {
 <?php
 include('includes/footer.php');
 ?>
-
+<link rel="stylesheet" href="../vendor/build/css/jquery-ui.css">
+<script src="../vendor/build/js/jquery-ui.js"></script>
+<script src="../vendor/build/js/jquery.dataTables.min.js"></script>
 <script>
     $(function () {
         $("#accordion").accordion();

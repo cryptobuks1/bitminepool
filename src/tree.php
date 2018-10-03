@@ -11,10 +11,10 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
     function tree_data($userid) {
         $searchUserTreeData = [];
         $responseSearchUser = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                'user_name' => $userid,
-                'platform' => '3',
-                'transaction_type' => '301'
-                ], 'getAllUserDataByUserName');
+                    'user_name' => $userid,
+                    'platform' => '3',
+                    'transaction_type' => '301'
+                        ], 'getAllUserDataByUserName');
 
         $responseSearchUser = json_decode($responseSearchUser);
 
@@ -29,10 +29,10 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
         $search_id = $_GET['search-id'];
         $searchUserData = [];
         $responseSearchUser = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                'user_name' => $search_id,
-                'platform' => '3',
-                'transaction_type' => '301'
-                ], 'getAllUserDataByUserName');
+                    'user_name' => $search_id,
+                    'platform' => '3',
+                    'transaction_type' => '301'
+                        ], 'getAllUserDataByUserName');
 
         $responseSearchUser = json_decode($responseSearchUser);
 
@@ -44,13 +44,13 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
     if (!empty($_POST)) {
 
         $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                'parent_user' => $_POST['parent_user'],
-                'side' => $_POST['side'],
-                'user_name' => $_POST['user_name'],
-                'platform' => '3',
-                'transaction_type' => '601'
-                //'grant_type' => 'client_credentials'
-                ], 'joinTree');
+                    'parent_user' => $_POST['parent_user'],
+                    'side' => $_POST['side'],
+                    'user_name' => $_POST['user_name'],
+                    'platform' => '3',
+                    'transaction_type' => '601'
+                        //'grant_type' => 'client_credentials'
+                        ], 'joinTree');
 
         $response = json_decode($response);
         $redirect = 'tree?search-id=' . $_POST['parent_user'];
@@ -175,7 +175,7 @@ $mainTreedata = getTreeDataFromReg($search);
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="<?php echo BASE_URL; ?>" class="site_title"> <span><img src="../images/logo.png" alt="Bit-Mine-Pool" style="width: 95px;"></span></a>
+                        <a href="<?php echo BASE_URL; ?>" class="site_title"> <span><img src="../images/logo_transparent_small.png" alt="Bitc-Mine-Pool" ></span></a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -196,20 +196,7 @@ $mainTreedata = getTreeDataFromReg($search);
                     <?php include('includes/menu.php'); ?>
 
                     <!-- /menu footer buttons -->
-                    <div class="sidebar-footer hidden-small">
-                        <a data-toggle="tooltip" data-placement="top" title="Settings">
-                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Lock">
-                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.php">
-                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                        </a>
-                    </div>
+
                     <!-- /menu footer buttons -->
                 </div>
             </div>
@@ -233,43 +220,32 @@ $mainTreedata = getTreeDataFromReg($search);
                                 </div>
                                 <!-- Search -->
                                 <div class="row">
-                                    <div class="col-md-2">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <form class="form-inline" >
+                                    <form  id="search_tree_node" class="form-inline" >
+                                        <div class="col-md-2">
+                                        </div>
+                                        <div class="col-md-6">
+
 
                                             <div class="form-group">
 
-                                                <input type="text" name="search-id" class="form-control" required>
+                                                <input type="text" name="search-id" data-msg-required="Enter the username." required="required" class="form-control" required>
                                             </div>
-
-                                            <input type="submit" name="search" class="btn btn-primary" value="Search">
+                                            <input type="submit" name="search"  class="btn btn-primary" value="Search">
                                             <a href="tree" class="btn btn-primary" role="button">Go to<span> Top</span></a>
 
-                                        </form>
-                                    </div> 
-                                    <div class="col-md-2">
-                                    </div>
-                                </div> 
-                                <!--<div class="row">
-                                    <div class="col-lg-2"></div>
-                                    <form>
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <input type="text" name="search-id" class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="form-group">
-                                                <input type="submit" name="search" class="btn btn-primary" value="Search">
-                                                <a href="tree" class="btn btn-primary" role="button">Go to<span> Top</span></a>
-                                            </div>
+
+
                                         </div> 
+                                        <div class="col-md-2">
 
+                                        </div>
                                     </form>
+                                </div> 
+                                <div class="x_title">
+                                    <h2></h2>
+                                    <div class="clearfix"></div>
+                                </div>
 
-                                    <div class="col-lg-2"></div>
-                                </div> -->
                                 <!-- /Search -->
                                 <div class="row">
                                     <div class="col-lg-12 tree">
@@ -297,6 +273,15 @@ $mainTreedata = getTreeDataFromReg($search);
     <?php
     include('includes/footer.php');
     ?>
+    <link rel="stylesheet" href="../vendor/build/css/jquery-ui.css">
+    <script src="../vendor/build/js/jquery-ui.js"></script>
+    <script src="../vendor/build/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var validatorSearchTreeNode = $("#search_tree_node").validate();
+            //validator.form();
 
+        });
+    </script>
 </body>
 </html>
