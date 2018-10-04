@@ -42,7 +42,8 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
     }
 
     if (!empty($_POST)) {
-
+        print_r($_POST);
+        exit;
         $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
                     'parent_user' => $_POST['parent_user'],
                     'side' => $_POST['side'],
@@ -117,7 +118,7 @@ function createTreeDataFromReg($setid) {
 
     if (empty($data->tree_data->left)) {
         $str .= "
-            <form action='' method='POST' >
+            <form action='tree.php' method='POST' >
             <img class='img-rounded' id='avatar' src='../images/useravatarn.png'>
             <br><br>
             <span> 

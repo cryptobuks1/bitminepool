@@ -12,7 +12,6 @@ if (isset($_SESSION['Username'])) {
                         //'grant_type' => 'client_credentials'
                         ], 'verifyEmail');
         $response = json_decode($response);
-
         $redirect = 'login';
 
         if ($response->statusCode == 100) {
@@ -26,10 +25,16 @@ if (isset($_SESSION['Username'])) {
                         'transaction_type' => '205'
                             //'grant_type' => 'client_credentials'
                             ], 'createWallet');
-        }
+        
         $responseWallet = json_decode($responseWallet);
 
         //header("Location:" . $redirect);
+        
+        } else {
+            $redirect = 'verifyemail';
+            $_SESSION['error'] = 1;
+            $_SESSION['message'] = $response->statusDescription;
+        }
         echo "<script>location='" . BASE_URL . $redirect . "'</script>";
         exit;
     }
@@ -71,7 +76,7 @@ if (isset($_SESSION['Username'])) {
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-
+                            <?php include('includes/message.php'); ?>
                             <form class="form-horizontal form-label-left" novalidate action="" id="verify-email" method="post">
 
 
