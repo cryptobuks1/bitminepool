@@ -104,12 +104,12 @@ if ($_GET['secret'] != $secret) {
             $sponsornewbalone = ($showsponsorbalance + $Startercomm);
             $sponsorone = "UPDATE commission SET Balance='$sponsornewbalone' WHERE Username ='" . $showsponsor . "'";
             mysqli_query($conn, $sponsorone);
-            $query = mysqli_query($conn, "update accountbalance set Balance='(Balance+$Startercomm)' where Username = '" . $showsponsor . "'");
-            
+            $query = mysqli_query($conn, "update accountbalance set Balance=(Balance+$Startercomm) where Username = '" . $showsponsor . "'");
+             
             $insertLogQuery=mysqli_query($conn, "INSERT INTO bmp_bonus_commission_earn_log (user_name, reason_id, reason_description, is_added_by_cron, amount, added_in) 
-                                                          VALUES (".$showsponsor.", '1', CONCAT('Direct commision for Pool1 of user ',".$showusername."), '0',".$Startercomm.", 'commission')
+                                                          VALUES ('".$showsponsor."', '1', CONCAT('Direct commision for Pool1 of user ','".$showusername."'), '0',".$Startercomm.", 'commission')
                         ");  
-            
+         
             //////////////////////////////////Get Volumes from database///////////////////////////////////////////////////
             $getvolumes = "SELECT Balance FROM teamvolume WHERE Username = '" . $showusername . "'";
             $queryvolumes = mysqli_query($conn, $getvolumes);
@@ -125,10 +125,10 @@ if ($_GET['secret'] != $secret) {
             $sponsornewbaltwo = ($showsponsorbalance + $minicomm);
             $sponsortwo = "UPDATE commission SET Balance='$sponsornewbaltwo' WHERE Username ='" . $showsponsor . "'";
             mysqli_query($conn, $sponsortwo);
-            $query = mysqli_query($conn, "update accountbalance set Balance='(Balance+$minicomm)' where Username = '" . $showsponsor . "'");
+            $query = mysqli_query($conn, "update accountbalance set Balance=(Balance+$minicomm) where Username = '" . $showsponsor . "'");
                                   
             $insertLogQuery=mysqli_query($conn, "INSERT INTO bmp_bonus_commission_earn_log (user_name, reason_id, reason_description, is_added_by_cron, amount, added_in) 
-                                                          VALUES (".$showsponsor.", '1', CONCAT('Direct commision for Pool2 of user ',".$showusername."), '0',".$minicomm.", 'commission')
+                                                          VALUES ('".$showsponsor."', '1', CONCAT('Direct commision for Pool2 of user ','".$showusername."'), '0',".$minicomm.", 'commission')
                         "); 
             
             //////////////////////////////////Get Volumes from database///////////////////////////////////////////////////
@@ -146,10 +146,10 @@ if ($_GET['secret'] != $secret) {
             $sponsornewbalthree = ($showsponsorbalance + $mediumcomm);
             $sponsorthree = "UPDATE commission SET Balance='$sponsornewbalthree' WHERE Username ='" . $showsponsor . "'";
             mysqli_query($conn, $sponsorthree);
-            $query = mysqli_query($conn, "update accountbalance set Balance='(Balance+$mediumcomm)' where Username = '" . $showsponsor . "'");
+            $query = mysqli_query($conn, "update accountbalance set Balance=(Balance+$mediumcomm) where Username = '" . $showsponsor . "'");
                                   
             $insertLogQuery=mysqli_query($conn, "INSERT INTO bmp_bonus_commission_earn_log (user_name, reason_id, reason_description, is_added_by_cron, amount, added_in) 
-                                                          VALUES (".$showsponsor.", '1', CONCAT('Direct commision for Pool3 of user ',".$showusername."), '0',".$mediumcomm.", 'commission')
+                                                          VALUES ('".$showsponsor."', '1', CONCAT('Direct commision for Pool3 of user ','".$showusername."'), '0',".$mediumcomm.", 'commission')
                         "); 
             
             //////////////////////////////////Get Volumes from database///////////////////////////////////////////////////
@@ -167,10 +167,10 @@ if ($_GET['secret'] != $secret) {
             $sponsornewbalfour = ($showsponsorbalance + $grandcomm);
             $sponsorfour = "UPDATE commission SET Balance='$sponsornewbalfour' WHERE Username ='" . $showsponsor . "'";
             mysqli_query($conn, $sponsorfour);
-            $query = mysqli_query($conn, "update accountbalance set Balance='(Balance+$grandcomm)' where Username = '" . $showsponsor . "'");
+            $query = mysqli_query($conn, "update accountbalance set Balance=(Balance+$grandcomm) where Username = '" . $showsponsor . "'");
                                               
             $insertLogQuery=mysqli_query($conn, "INSERT INTO bmp_bonus_commission_earn_log (user_name, reason_id, reason_description, is_added_by_cron, amount, added_in) 
-                                                          VALUES (".$showsponsor.", '1', CONCAT('Direct commision for Pool4 of user ',".$showusername."), '0',".$grandcomm.", 'commission')
+                                                          VALUES ('".$showsponsor."', '1', CONCAT('Direct commision for Pool4 of user ','".$showusername."'), '0',".$grandcomm.", 'commission')
                         "); 
             
             //////////////////////////////////Get Volumes from database///////////////////////////////////////////////////
@@ -188,10 +188,10 @@ if ($_GET['secret'] != $secret) {
             $sponsornewbalfive = ($showsponsorbalance + $ultimatecomm);
             $sponsorfive = "UPDATE commission SET Balance='$sponsornewbalfive' WHERE Username ='" . $showsponsor . "'";
             mysqli_query($conn, $sponsorfive);
-            $query = mysqli_query($conn, "update accountbalance set Balance='(Balance+$ultimatecomm)' where Username = '" . $showsponsor . "'");
+            $query = mysqli_query($conn, "update accountbalance set Balance=(Balance+$ultimatecomm) where Username = '" . $showsponsor . "'");
                                                           
             $insertLogQuery=mysqli_query($conn, "INSERT INTO bmp_bonus_commission_earn_log (user_name, reason_id, reason_description, is_added_by_cron, amount, added_in) 
-                                                          VALUES (".$showsponsor.", '1', CONCAT('Direct commision for Pool5 of user ',".$showusername."), '0',".$ultimatecomm.", 'commission')
+                                                          VALUES ('".$showsponsor."', '1', CONCAT('Direct commision for Pool5 of user ','".$showusername."'), '0',".$ultimatecomm.", 'commission')
                         "); 
             
             //////////////////////////////////Get Volumes from database///////////////////////////////////////////////////
