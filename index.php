@@ -1131,7 +1131,7 @@ include('src/includes/constant.php');
                     <div class="col-md-4 col-sm-6">
                         <div class="footer-widget about-widget">
                             <a href="#">
-                                <img src="img/resources/footer-logo.png" alt="Awesome Image"/>
+                                <img src="images/logo_transparent_small.png" alt="Awesome Image"/>
                             </a>
                             <ul class="contact">
                                 <li><i class="fa fa-map-marker"></i> <span>60 Grant Ave. Carteret NJ 0708</span></li>

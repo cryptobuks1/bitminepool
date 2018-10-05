@@ -1,6 +1,5 @@
 <?php
 include('includes/header.php');
-
 if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
 
     $_SESSION['error'] = 0;
@@ -42,8 +41,6 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
     }
 
     if (!empty($_POST)) {
-        print_r($_POST);
-        exit;
         $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
                     'parent_user' => $_POST['parent_user'],
                     'side' => $_POST['side'],
@@ -59,7 +56,7 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
             $_SESSION['error'] = 0;
             $_SESSION['message'] = $response->statusDescription;
             // $redirect = 'logout';
-            $_SESSION['Username'] = $_POST['Username'];
+            //$_SESSION['Username'] = $_POST['Username'];
         } else {
             $_SESSION['error'] = 1;
             $_SESSION['message'] = $response->statusDescription;
@@ -118,17 +115,17 @@ function createTreeDataFromReg($setid) {
 
     if (empty($data->tree_data->left)) {
         $str .= "
-            <form action='tree.php' method='POST' >
+            <form action='tree.php' class='validateForm' id='left-node-form' method='POST' >
             <img class='img-rounded' id='avatar' src='../images/useravatarn.png'>
             <br><br>
             <span> 
-                <select name='user_name' style='padding-bottom: 5px;'>
-                    <option>Choose a member</option>";
+                <select name='user_name' required='required' data-msg-required='Please select the user name.' style='padding-bottom: 5px;'>
+                    <option value=''>Choose a member</option>";
         foreach ($data->child_node_data as $row1) {
             $str .= "<option value='" . $row1->Username . "'>" . $row1->Username . "</option>";
         }
         $str .= "</select>&nbsp;&nbsp;
-                <input type='hidden' name='under_user' id='under_user' value='" . $setid . "'>
+                <input type='hidden' name='parent_user' id='parent_user' value='" . $setid . "'>
                 <input type='hidden' name='side' id='side' value='left'>
                 <button type='submit' id='button[]' class='btn btn-sm btn-outline-danger'>Add Member</button>
             </form>
@@ -141,17 +138,17 @@ function createTreeDataFromReg($setid) {
                 <li>";
     if (empty($data->tree_data->right)) {
         $str .= "
-            <form action='' method='POST' >
+            <form action='tree.php' class='validateForm' id='right-node-form' method='POST' >
             <img class='img-rounded' id='avatar' src='../images/useravatarn.png'>
             <br><br>
             <span> 
-                <select name='user_name' style='padding-bottom: 5px;'>
-                    <option>Choose a member</option>";
+                <select name='user_name' required='required' data-msg-required='Please select the user name.' style='padding-bottom: 5px;'>
+                   <option value=''>Choose a member</option>";
         foreach ($data->child_node_data as $row1) {
             $str .= "<option value='" . $row1->Username . "'>" . $row1->Username . "</option>";
         }
         $str .= "</select>&nbsp;&nbsp;
-                <input type='hidden' name='under_user' id='under_user' value='" . $setid . "'>
+                <input type='hidden' name='parent_user' id='parent_user' value='" . $setid . "'>
                 <input type='hidden' name='side' id='side' value='right'>
                 <button type='submit' id='button[]' class='btn btn-sm btn-outline-danger'>Add Member</button>
             </form>
@@ -280,8 +277,13 @@ $mainTreedata = getTreeDataFromReg($search);
     <script>
         $(document).ready(function () {
             var validatorSearchTreeNode = $("#search_tree_node").validate();
+            //var validatorLeftNodeForm = $("#left-node-form").validate();
+            //var validatorRightNodeForm = $("#right-node-form").validate();
             //validator.form();
 
+            $('form.validateForm').each(function (key, form) {
+                $(form).validate();
+            });
         });
     </script>
 </body>
