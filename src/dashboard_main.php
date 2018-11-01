@@ -203,21 +203,22 @@ if (isset($_SESSION['Username'])) {
                                         $Starterdate = "SELECT * FROM starterpack WHERE Username='" . $_SESSION['Username'] . "' order by id desc limit 1";
                                         $querystarter = mysqli_query($conn, $Starterdate);
                                         $viewstarter = mysqli_fetch_array($querystarter);
-                                        $showstarterdate = $viewstarter['MiningDate'];
+                                        //$showstarterdate = $viewstarter['MiningDate'];
+                                        $showstarterdate = $viewstarter['PurchaseDate'];
                                         $starterstatus = $viewstarter['Status'];
                                         if ($showstarterdate == "0") {
                                             $gapone = "0";
                                             ?>
-                                            <li><span><?php echo $gapone; ?>/365</span>  Days Mined</li>
+                                            <li><span><?php echo $gapone; ?>/395</span>  Days Mined</li>
                                             <!--<h2 class="red"><?php echo $gapone; ?>/365 Days Mined</h2>-->
                                             <?php
                                         } else {
                                             $datetime1 = new DateTime();
                                             $datetime2 = new DateTime($showstarterdate);
                                             $interval = $datetime2->diff($datetime1);
-                                            $gap = $interval->format('%R%a');
+                                            $gap = $interval->format('%a');
                                             ?>
-                                            <li><span><?php echo $gap; ?>/365</span>  Days Mined</li>
+                                            <li><span><?php echo $gap; ?>/395</span>  Days Mined</li>
                                             <!--<h2 class="blue"><?php echo $gap; ?>/365 Days Mined</h2> -->
                                             <?php
                                         }
@@ -309,23 +310,24 @@ if (isset($_SESSION['Username'])) {
                                         $minidate = "SELECT * FROM minipack WHERE Username='" . $_SESSION['Username'] . "' order by id desc limit 1";
                                         $querymini = mysqli_query($conn, $minidate);
                                         $viewmini = mysqli_fetch_array($querymini);
-                                        $showminidate = $viewmini['MiningDate'];
+                                        //$showminidate = $viewmini['MiningDate'];
+                                        $showminidate = $viewmini['PurchaseDate'];
                                         $ministatus = $viewmini['Status'];
                                         if ($showminidate == "0") {
                                             $gap1 = "0";
                                             ?>
 
-                                            <li><span><?php echo $gap1; ?>/365</span>  Days Mined</li>
+                                            <li><span><?php echo $gap1; ?>/395</span>  Days Mined</li>
                                             <!--<h2 class="red"><?php echo $gap1; ?>/365 Days Mined</h2>-->
                                             <?php
                                         } else {
                                             $datetime3 = new DateTime();
                                             $datetime4 = new DateTime($showminidate);
                                             $interval1 = $datetime4->diff($datetime3);
-                                            $gap2 = $interval1->format('%R%a');
+                                            $gap2 = $interval1->format('%a');
                                             ?>
 
-                                            <li><span><?php echo $gap2; ?>/365</span>  Days Mined</li>
+                                            <li><span><?php echo $gap2; ?>/395</span>  Days Mined</li>
                                             <!--<h2 class="blue"><?php echo $gap2; ?>/365 Days Mined</h2> -->
                                             <?php
                                         }
@@ -420,23 +422,24 @@ if (isset($_SESSION['Username'])) {
                                         $mediumdate = "SELECT * FROM mediumpack WHERE Username='" . $_SESSION['Username'] . "' order by id desc limit 1";
                                         $querymedium = mysqli_query($conn, $mediumdate);
                                         $viewmedium = mysqli_fetch_array($querymedium);
-                                        $showmediumdate = $viewmedium['MiningDate'];
+                                        //$showmediumdate = $viewmedium['MiningDate'];
+                                        $showmediumdate = $viewmedium['PurchaseDate'];
                                         $mediumstatus = $viewmedium['Status'];
                                         if ($showmediumdate == "0") {
                                             $mediumgap = "0";
                                             ?>
 
-                                            <li><span><?php echo $mediumgap; ?>/365</span>  Days Mined</li>
+                                            <li><span><?php echo $mediumgap; ?>/395</span>  Days Mined</li>
                                             <!--<h2 class="red"><?php echo $mediumgap; ?>/365 Days Mined</h2>-->
                                             <?php
                                         } else {
                                             $datetime5 = new DateTime();
                                             $datetime6 = new DateTime($showmediumdate);
                                             $interval2 = $datetime6->diff($datetime5);
-                                            $gap3 = $interval2->format('%R%a');
+                                            $gap3 = $interval2->format('%a');
                                             ?>
 
-                                            <li><span><?php echo $gap3; ?>/365</span>  Days Mined</li>
+                                            <li><span><?php echo $gap3; ?>/395</span>  Days Mined</li>
                                             <!--<h2 class="blue"><?php echo $gap3; ?>/365 Days Mined</h2> -->
                                             <?php
                                         }
@@ -531,23 +534,24 @@ if (isset($_SESSION['Username'])) {
                                         $granddate = "SELECT * FROM grandpack WHERE Username='" . $_SESSION['Username'] . "' order by id desc limit 1";
                                         $querygrand = mysqli_query($conn, $granddate);
                                         $viewgrand = mysqli_fetch_array($querygrand);
-                                        $showgranddate = $viewgrand['MiningDate'];
+                                        //$showgranddate = $viewgrand['MiningDate'];
+                                        $showgranddate = $viewgrand['PurchaseDate'];
                                         $grandstatus = $viewgrand['Status'];
                                         if ($showgranddate == "0") {
                                             $grandgap = "0";
                                             ?>
 
-                                            <li><span><?php echo $grandgap; ?>/365</span>  Days Mined</li>
+                                            <li><span><?php echo $grandgap; ?>/395</span>  Days Mined</li>
                                             <!--<h2 class="red"><?php echo $grandgap; ?>/365 Days Mined</h2>-->
                                             <?php
                                         } else {
                                             $datetime9 = new DateTime();
                                             $datetime10 = new DateTime($showgranddate);
                                             $intervalgrand = $datetime10->diff($datetime9);
-                                            $gapgrand = $intervalgrand->format('%R%a');
+                                            $gapgrand = $intervalgrand->format('%a');
                                             ?>
 
-                                            <li><span><?php echo $gapgrand; ?>/365</span>  Days Mined</li>
+                                            <li><span><?php echo $gapgrand; ?>/395</span>  Days Mined</li>
                                             <!--<h2 class="blue"><?php echo $gapgrand; ?>/365 Days Mined</h2> -->
                                             <?php
                                         }
@@ -642,23 +646,24 @@ if (isset($_SESSION['Username'])) {
                                         $ultimatedate = "SELECT * FROM ultimatepack WHERE Username='" . $_SESSION['Username'] . "' order by id desc limit 1";
                                         $queryultimate = mysqli_query($conn, $ultimatedate);
                                         $viewultimate = mysqli_fetch_array($queryultimate);
-                                        $showultimatedate = $viewultimate['MiningDate'];
+                                        //$showultimatedate = $viewultimate['MiningDate'];
+                                        $showultimatedate = $viewultimate['PurchaseDate'];
                                         $ultimatestatus = $viewultimate['Status'];
                                         if ($showultimatedate == "0") {
                                             $ultimategap = "0";
                                             ?>
 
-                                            <li><span><?php echo $ultimategap; ?>/365</span>  Days Mined</li>
+                                            <li><span><?php echo $ultimategap; ?>/395</span>  Days Mined</li>
                                             <!--<h2 class="red"><?php echo $ultimategap; ?>/365 Days Mined</h2>-->
                                             <?php
                                         } else {
                                             $datetime7 = new DateTime();
                                             $datetime8 = new DateTime($showultimatedate);
                                             $intervalultimate = $datetime8->diff($datetime7);
-                                            $gapultimate = $intervalultimate->format('%R%a');
+                                            $gapultimate = $intervalultimate->format('%a');
                                             ?>
 
-                                            <li><span><?php echo $gapultimate; ?>/365</span>  Days Mined</li>
+                                            <li><span><?php echo $gapultimate; ?>/395</span>  Days Mined</li>
                                             <!--<h2 class="blue"><?php echo $gapultimate; ?>/365 Days Mined</h2>--> 
                                             <?php
                                         }
