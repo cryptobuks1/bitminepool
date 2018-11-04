@@ -375,6 +375,10 @@ include('includes/footer.php');
           console.log(walletTransactionDBData);
         $('#wallet-transactions-grid').DataTable({
             data: walletTransactionDBData,
+            dom: 'Bfrtip',
+            buttons: [
+                'csv', 'excel', 'pdf'
+            ],
             "columns": [
 
                 {"title": "ID", "data": "id"},

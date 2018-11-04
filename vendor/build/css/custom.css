@@ -4438,3 +4438,7 @@ transition:0.5s;
     border: 1px solid #2A3F54 !important;
     background: #2A3F54 !important;
 }
+.dataTables_wrapper .dt-buttons {
+    float: right;
+    margin-left: 10px;
+}

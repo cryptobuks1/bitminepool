@@ -269,7 +269,7 @@ include('includes/footer.php');
 ?>
 <link rel="stylesheet" href="../vendor/build/css/jquery-ui.css">
 <script src="../vendor/build/js/jquery-ui.js"></script>
-<script src="../vendor/build/js/jquery.dataTables.min.js"></script>
+<!--<script src="../vendor/build/js/jquery.dataTables.min.js"></script> -->
 <script>
     $(function () {
         $("#accordion").accordion();
@@ -281,6 +281,10 @@ include('includes/footer.php');
 
         oTable = $('#wallet-withdrawl-transactions-grid').DataTable({
             data: walletTransactionDBData,
+            dom: 'Bfrtip',
+            buttons: [
+                'csv', 'excel', 'pdf'
+            ],
             "columns": [
 
                 {"title": "ID", "data": "id"},

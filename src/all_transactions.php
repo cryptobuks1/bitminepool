@@ -164,7 +164,7 @@ include('includes/footer.php');
 ?>
 <link rel="stylesheet" href="../vendor/build/css/jquery-ui.css">
 <script src="../vendor/build/js/jquery-ui.js"></script>
-<script src="../vendor/build/js/jquery.dataTables.min.js"></script>
+<!--<script src="../vendor/build/js/jquery.dataTables.min.js"></script>-->
 <script>
     $(function () {
         $("#accordion").accordion();
@@ -177,6 +177,10 @@ include('includes/footer.php');
             var walletTransactionDBData = <?php echo json_encode($walletTransactionDBData); ?>;
             oTable = $('#wallet-transactions-grid').DataTable({
                 data: walletTransactionDBData,
+                dom: 'Bfrtip',
+                buttons: [
+                    'csv', 'excel', 'pdf'
+                ],
                 "columns": [
 
                     {"title": "ID", "data": "id"},
@@ -195,6 +199,10 @@ include('includes/footer.php');
             var invoiceTransactionDBData = <?php echo json_encode($invoiceTransactionDBData); ?>;
             oTable = $('#invoice-transactions-grid').DataTable({
                 data: invoiceTransactionDBData,
+                dom: 'Bfrtip',
+                buttons: [
+                    'csv', 'excel', 'pdf'
+                ],
                 "columns": [
 
                     {"title": "ID", "data": "id"},
@@ -215,6 +223,10 @@ include('includes/footer.php');
             var benefitsTransactionDBData = <?php echo json_encode($benefitsTransactionDBData); ?>;
             oTable = $('#benefits-transactions-grid').DataTable({
                 data: benefitsTransactionDBData,
+                dom: 'Bfrtip',
+                buttons: [
+                    'csv', 'excel', 'pdf'
+                ],
                 "columns": [
                     {"title": "ID", "data": "id"},
                     {"title": "Username", "data": "user_name"},

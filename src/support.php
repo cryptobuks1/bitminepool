@@ -195,7 +195,7 @@ include('includes/footer.php');
 ?>
 <link rel="stylesheet" href="../vendor/build/css/jquery-ui.css">
 <script src="../vendor/build/js/jquery-ui.js"></script>
-<script src="../vendor/build/js/jquery.dataTables.min.js"></script>
+<!--<script src="../vendor/build/js/jquery.dataTables.min.js"></script>-->
 <script>
     $(function () {
         $("#accordion").accordion();
@@ -219,7 +219,12 @@ include('includes/footer.php');
         ];
         oTable = $('#support-ticket-grid').DataTable({
             data: supportTicketDBData,
+            dom: 'Bfrtip',
+            buttons: [
+                'csv', 'excel', 'pdf'
+            ],
             "columns": columns,
+           
             "drawCallback": function (settings) {
                 var api = this.api();
                 var rows = api.rows({page: 'current'}).nodes();
