@@ -110,6 +110,9 @@ function createTreeDataFromReg($setid) {
             <a href = 'tree.php?search-id=" . $setid . "'><img class = 'img-rounded' id = 'avatar' src = " . (($data->user_data->Gender == 1) ? '../images/useravatar.png' : '../images/useravatarf.png') . "></a><br>
     <span>" . $setid . "</span><br>
     <span>Rank: " . $data->rank_data->Rank . "</span>";
+    $str .="<p><i class='fa fa-money' style='color:#361515'></i>  Left Credits: ".$data->tree_data->leftcredits."</p>";
+    $str .="<p><i class='fa fa-money' style='color:#361515'></i> Right Credits: ".$data->tree_data->rightcredits."</p>
+            ";
     $str .= "<ul>
                 <li>";
 
