@@ -12,9 +12,9 @@ if (isset($_SESSION['Username'])) {
     $walletData = $userData = $walletWithdrawalTransactionDBData = [];
     $userName = $_SESSION['Username'];
     $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-            'user_name' => $_SESSION['Username'],
-            'platform' => '3',
-            ], 'getAllWalletDetailByUserName');
+                'user_name' => $_SESSION['Username'],
+                'platform' => '3',
+                    ], 'getAllWalletDetailByUserName');
 
     $response = json_decode($response);
 
@@ -28,9 +28,9 @@ if (isset($_SESSION['Username'])) {
         $walletErrorMessage = $response->statusDescription;
     }
     $responseWithdrawalTransaction = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-            'user_name' => $_SESSION['Username'],
-            'platform' => '3',
-            ], 'getAllWithdrawalDBTransactionByUserName');
+                'user_name' => $_SESSION['Username'],
+                'platform' => '3',
+                    ], 'getAllWithdrawalDBTransactionByUserName');
 
     $responseWithdrawalTransaction = json_decode($responseWithdrawalTransaction);
     if ($responseWithdrawalTransaction->statusCode == 100) {
@@ -49,12 +49,12 @@ if (isset($_SESSION['Username'])) {
             case 'receive':
 
                 $responseWithdrawalRequest = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-                        'user_name' => $_SESSION['Username'],
-                        'to_address' => $_POST['to_address'],
-                        'amount' => $_POST['receive_amount'],
-                        'platform' => '3',
-                        'transaction_type' => '401',
-                        ], 'withdrawalPayment');
+                            'user_name' => $_SESSION['Username'],
+                            'to_address' => $_POST['to_address'],
+                            'amount' => $_POST['receive_amount'],
+                            'platform' => '3',
+                            'transaction_type' => '401',
+                                ], 'withdrawalPayment');
                 $responseWithdrawalRequest = json_decode($responseWithdrawalRequest);
                 $redirect = '';
 
@@ -127,7 +127,7 @@ if (isset($_SESSION['Username'])) {
 }
 ?>
 <?php include('includes/message.php'); ?>
- <link rel="stylesheet" href="../vendor/build/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="../vendor/build/css/jquery.dataTables.min.css">
 <body class="nav-md">
     <div class="container body">
         <div class="main_container">
@@ -233,9 +233,11 @@ if (isset($_SESSION['Username'])) {
                                                 <div class="form-group">
                                                     <label for="amount">Amount(In USD):</label>
                                                    <!-- <input type="text" class="form-control" name = "receive_amount" id="receive_amount" data-msg-required="Please enter amount to be withdrawl." required="required" number="true" data-msg-required="Please enter valid amount to be withdrawl." > -->
-                                                    <input type="number" class="form-control" min="30" max="<?php echo $availableBalance; ?>" value="<?php echo $availableBalance; ?>" name = "receive_amount" id="receive_amount" data-msg-required="Please enter amount to be withdrawl." required="required" number="true" data-msg-required="Please enter valid amount to be withdrawl." >
+                                                    <input type="number" class="form-control" min="30" max="<?php echo $availableBalance; ?>" value="<?php echo $availableBalance; ?>" name = "receive_amount_main" id="receive_amount_main" data-msg-required="Please enter amount to be withdrawl." required="required" number="true" data-msg-required="Please enter valid amount to be withdrawl." >
                                                 </div>
-
+                                                <input type="hidden" name="hidden_transaction_percentage" id="hidden_transaction_percentage" value="10">
+                                                <input type="hidden" name="receive_amount" id="receive_amount" value="0">
+                                                <div id="transaction_table"></div>
                                                 <input type="hidden" name="transaction_type" value="receive">
                                                 <button type="button" id ="receive_payment_submit" class="btn btn-default">Submit</button>
                                                 <button type="reset" id ="reset_receive_payment" class="btn btn-default">Cancel</button>
@@ -272,6 +274,35 @@ include('includes/footer.php');
 <!--<script src="../vendor/build/js/jquery.dataTables.min.js"></script> -->
 <script>
     $(function () {
+        $("#receive_amount_main").on('click change', function (e) {
+            if ($(this).val() == '') {
+                $(this).val(0);
+            }
+            $('#transaction_table').html('');
+            var transactionStr = '';
+            var amount = $('#receive_amount_main').val();
+            var procession_fee = $('#hidden_transaction_percentage').val();
+            var total = amount + procession_fee ;
+            transactionStr += '<table style="width: 100%;" cellspacing="10" cellpadding="10">';
+            transactionStr += '<tbody>';
+            transactionStr += '<tr>';
+            transactionStr += '<td>Amount</td>';
+            transactionStr += '<td>'+amount+'</td>';
+            transactionStr += '</tr>';
+            transactionStr += '<tr>';
+            transactionStr += '<td>+ Processing fee</td>';
+            transactionStr += '<td>'+procession_fee+'</td>';
+            transactionStr += '</tr>';
+            transactionStr += '<tr>';
+            transactionStr += '<td>Total</td>';
+            transactionStr += '<td>'+total+'</td>';
+            transactionStr += '</tr>';
+            transactionStr += '</tbody>';
+            transactionStr += '</table>';
+            $('#transaction_table').html(transactionStr);
+            //calculateSum(e);
+        });
+
         $("#accordion").accordion();
         $("#accordion_transaction").accordion();
         $('#receive_qr_block').hide();
@@ -379,6 +410,12 @@ include('includes/footer.php');
             }
         });
 
+    });
+
+    $('#reset_receive_payment').click(function () {
+        $('#receive-payment')[0].reset();
+        var validatorReceivePayment = $("#receive-payment").validate();
+        validatorReceivePayment.resetForm();
     });
 
     $('#reset_receive_payment').click(function () {
