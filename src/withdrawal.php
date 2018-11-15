@@ -280,10 +280,10 @@ include('includes/footer.php');
             }
             $('#transaction_table').html('');
             var transactionStr = '';
-            var amount = $('#receive_amount_main').val();
-            var procession_fee = $('#hidden_transaction_percentage').val();
-            var total = amount + procession_fee ;
-            transactionStr += '<table style="width: 100%;" cellspacing="10" cellpadding="10">';
+            var amount = parseFloat($('#receive_amount_main').val());
+            var procession_fee = parseFloat($('#hidden_transaction_percentage').val());
+            var total = amount + procession_fee;
+            transactionStr += '<table style="width: 15%;" cellspacing="10" cellpadding="10">';
             transactionStr += '<tbody>';
             transactionStr += '<tr>';
             transactionStr += '<td>Amount</td>';
@@ -299,6 +299,8 @@ include('includes/footer.php');
             transactionStr += '</tr>';
             transactionStr += '</tbody>';
             transactionStr += '</table>';
+            transactionStr += '<br>';
+            
             $('#transaction_table').html(transactionStr);
             //calculateSum(e);
         });
