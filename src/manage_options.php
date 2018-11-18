@@ -178,49 +178,6 @@ if (isset($_SESSION['Username'])) {
                 <div class="">
                     <div class="clearfix"></div>
 
-
-                    <?php
-                    // if (!(empty($walletWithdrawlTransactionDBData))) {
-                    ?>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="clearfix"></div>
-                            <div id="response"></div>
-                            <div class="x_content">
-                                <h4><strong>Instructions</strong></h4>
-                                <p class="style7"><span class="style6">Minimum Withdrawal amount from Bitmine pool is </span> <span class="style5">30 USD </span> <span class="style6">and above.</span></p>
-
-                                <!-- <div id="accordion_transaction"> -->
-                                <h3>View all withdrawal transactions</h3>
-                                <div>
-                                    <p>
-                                    <div class="row">
-                                        <div class="col-md-12 col-sm-12 col-xs-12 ">
-                                            <div class="x_panel">
-
-                                                <div class="x_content table">
-                                                    <div id="date_filter">
-                                                        <span id="date-label-from" class="date-label">From: </span><input class="date_range_filter date" type="text" id="datepicker_from" />
-                                                        <span id="date-label-to" class="date-label">To:<input class="date_range_filter date" type="text" id="datepicker_to" />
-                                                    </div>
-                                                    <table id="wallet-withdrawl-transactions-grid"  cellpadding="0" cellspacing="0" border="0" class="display table" width="100%">
-
-                                                        <tbody>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    </p>
-                                </div>
-                                <!-- </div> -->
-                            </div>
-                        </div>
-                    </div>   
-                    <?php
-                    //}
-                    ?>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="clearfix"></div>
@@ -228,32 +185,22 @@ if (isset($_SESSION['Username'])) {
                             <div class="x_content">
 
                                 <div id="accordion">
-                                    <h3>Withdrawl BTC</h3>
+                                    <h3>Manage Options</h3>
                                     <div>
                                         <p>
                                         <div id="response"></div>
                                         <form id="receive-payment" class="form-horizontal form-label-left" method="post" action="">
 
                                             <div id="receive_form_block">
+
                                                 <div class="form-group">
-                                                    <label for="to_address">To address:</label>
-                                                    <select  class="form-control" name="to_address" required="required"  id="to_address" data-msg-required="Please select address."  onchange="">
-                                                        <?php foreach ($walletData->addresses as $key => $address) { ?>
-                                                            <option value="<?php echo $address->address; ?>"><?php echo $address->address; ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="amount">Amount(In USD):</label>
+                                                    <label for="amount">Transaction Percentage(In %):</label>
                                                    <!-- <input type="text" class="form-control" name = "receive_amount" id="receive_amount" data-msg-required="Please enter amount to be withdrawl." required="required" number="true" data-msg-required="Please enter valid amount to be withdrawl." > -->
-                                                    <input type="number" class="form-control" min="30" max="<?php echo $availableBalance; ?>" value="<?php echo $availableBalance; ?>" name = "receive_amount_main" id="receive_amount_main" data-msg-required="Please enter amount to be withdrawl." required="required" number="true" data-msg-required="Please enter valid amount to be withdrawl." >
+                                                    <input type="number" class="form-control" min="0" max="100" value="<?php echo $transactionPercentage; ?>" name = "receive_amount_main" id="receive_amount_main" data-msg-required="Please enter amount to be withdrawl." required="required" number="true" data-msg-required="Please enter valid amount to be withdrawl." >
                                                 </div>
-                                                <input type="hidden" name="hidden_transaction_percentage" id="hidden_transaction_percentage" value="<?php echo $transactionPercentage;?>">
-                                                <input type="hidden" name="receive_amount" id="receive_amount" value="0">
-                                                <div id="transaction_table"></div>
-                                                <input type="hidden" name="transaction_type" value="receive">
-                                                <button type="button" id ="receive_payment_submit" class="btn btn-default">Submit</button>
-                                                <button type="reset" id ="reset_receive_payment" class="btn btn-default">Cancel</button>
+
+                                                <button type="button" id ="manage_options_submit" class="btn btn-default">Submit</button>
+                                                <button type="reset" id ="reset_manage_options" class="btn btn-default">Cancel</button>
                                             </div>
 
                                         </form>
@@ -287,88 +234,15 @@ include('includes/footer.php');
 <!--<script src="../vendor/build/js/jquery.dataTables.min.js"></script> -->
 <script>
     $(function () {
-        $("#receive_amount_main").on('click change', function (e) {
-            if ($(this).val() == '') {
-                $(this).val(0);
-            }
-            $('#transaction_table').html('');
-            var transactionStr = '';
-            var amount = parseFloat($('#receive_amount_main').val());
-            var procession_fee = parseFloat($('#hidden_transaction_percentage').val());
-            var total = amount + procession_fee;
-            transactionStr += '<table style="width: 15%;" cellspacing="10" cellpadding="10">';
-            transactionStr += '<tbody>';
-            transactionStr += '<tr>';
-            transactionStr += '<td>Amount</td>';
-            transactionStr += '<td>'+amount+'</td>';
-            transactionStr += '</tr>';
-            transactionStr += '<tr>';
-            transactionStr += '<td>+ Processing fee</td>';
-            transactionStr += '<td>'+procession_fee+'</td>';
-            transactionStr += '</tr>';
-            transactionStr += '<tr>';
-            transactionStr += '<td>Total</td>';
-            transactionStr += '<td>'+total+'</td>';
-            transactionStr += '</tr>';
-            transactionStr += '</tbody>';
-            transactionStr += '</table>';
-            transactionStr += '<br>';
-            
-            $('#transaction_table').html(transactionStr);
-            //calculateSum(e);
-        });
 
-        $("#accordion").accordion();
+
+       //$("#accordion").accordion();
         $("#accordion_transaction").accordion();
         $('#receive_qr_block').hide();
 
         var walletTransactionDBData = <?php echo json_encode($walletWithdrawalTransactionDBData); ?>;
         var is_admin_user = <?php echo $_SESSION['is_admin_user']; ?>;
 
-        oTable = $('#wallet-withdrawl-transactions-grid').DataTable({
-            data: walletTransactionDBData,
-            dom: 'Bfrtip',
-            buttons: [
-                'csv', 'excel', 'pdf'
-            ],
-            "columns": [
-
-                {"title": "ID", "data": "id"},
-                {"title": "User Name", "data": "user_name"},
-                {"title": "Amount", "data": "amount"},
-                {"title": "To address", "data": "to_address"},
-                {"title": "Status", "data": "status_view"},
-                {"title": "Date", "data": "created_at"},
-                {"title": "Action", "data": "", "defaultContent": "<i>N/A</i>"},
-            ],
-            "drawCallback": function (settings) {
-                var api = this.api();
-                var rows = api.rows({page: 'current'}).nodes();
-                var last = null;
-                var page = api.page();
-                var recNum = null;
-                var displayLength = settings._iDisplayLength;
-                api.column(6, {page: 'current'}).data().each(function (group, i) {
-                    if (is_admin_user == 1) {
-                        var id = $(rows).eq(i).children('td:nth-child(1)').html();
-                        var status = $(rows).eq(i).children('td:nth-child(5)').html();
-                        var statusBtn = '';
-                        if (status == 'Pending') {
-                            statusBtn += '<button type="button" data-action="process" title="Approve" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-green process-withdrawal" data-change-status="2" data-id="' + id + '" ><i class="fa fa-thumbs-up"></i> Process</button><br>';
-                            statusBtn += '<button type="button" data-action="reject" title="Reject" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-red process-withdrawal" style="padding-right: 22px;" data-change-status="3" data-id="' + id + '"> <i class="fa fa-thumbs-down"></i> Reject</button>';
-                        } else if (status == 'Processed') {
-                            statusBtn += '<button type="button" data-action="reject" title="Reject" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-gold" style="padding-right: 22px;" data-change-status="3" data-id="' + id + '"> <i class="fa fa-thumbs-up"></i> Processed</button>';
-                        } else {
-                            statusBtn += '<button type="button" data-action="reject" title="Reject" class="btn btn-xs default margin-bottom-5 yellow-gold f-color-gold" style="padding-right: 22px;" data-change-status="3" data-id="' + id + '"> <i class="fa fa-thumbs-down"></i> Rejected</button>';
-                        }
-
-                        $(rows).eq(i).children('td:nth-child(7)').html(statusBtn);
-                    }
-                });
-
-            },
-
-        });
 
     });
     processDateFilter(5);
@@ -377,55 +251,6 @@ include('includes/footer.php');
         var validatorReceivePayment = $("#receive-payment").validate();
     });
 
-    $('body').on("click", ".process-withdrawal", function () {
-        var id = $(this).attr('data-id');
-        var change_status = $(this).attr('data-change-status');
-
-        var processWithdrawal = 'processAjax';
-        var formDataProcessTicket = {
-
-            'user_name': "<?php echo $_SESSION['Username']; ?>",
-            'transaction_id': id,
-            'status': change_status,
-            'platform': '3',
-            'transaction_type': '502',
-            'url': 'processWithdrawal',
-            'action': 'POST'
-        };
-
-        bootbox.confirm({
-            size: "small",
-            message: "Process this withdrawal request!",
-            callback: function (result) {
-                if (result) {
-                    $.ajax({
-                        url: processWithdrawal,
-                        cache: false,
-                        type: 'POST',
-                        data: formDataProcessTicket,
-                        success: function (data)
-                        {
-                            data = JSON.parse(data);
-                            console.log(data);
-                            if (data.statusCode == '100') {
-                                //$('#receive-payment').submit();
-                                setTimeout(function () {
-                                    location.reload();
-                                }, 3000);
-                                showAlertMessage("#response", data.statusDescription, 1);
-
-                            } else {
-                                showAlertMessage("#response", data.statusDescription, 0);
-                            }
-
-                        }
-                    });
-
-                }
-            }
-        });
-
-    });
 
     $('#reset_receive_payment').click(function () {
         $('#receive-payment')[0].reset();

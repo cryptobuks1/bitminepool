@@ -134,7 +134,7 @@
                                                                                                     <span class="amount">100</span>
                                                                                                 </div>
                                                                                             </div>
-                                                                                            <ul class="plan-features list-style-none">
+                                                                                            <ul style="margin-bottom:56px;" class="plan-features list-style-none">
                                                                                                 <li><strong>Become a</strong></li>
                                                                                                 <li><strong>member</strong></li>
                                                                                             </ul>
@@ -155,7 +155,7 @@
                                                                                                     <span class="amount1">INVEST</span>
                                                                                                 </div>
                                                                                             </div>
-                                                                                            <ul class="plan-features list-style-none">
+                                                                                            <ul style="margin-bottom:56px;" class="plan-features list-style-none">
                                                                                                 <li><strong>Invest in</strong></li>
                                                                                                 <li><strong>bitminepool</strong></li>
                                                                                             </ul>
