@@ -300,7 +300,8 @@ include('includes/footer.php');
             var processionFeeCalculated = parseFloat(amountUsd*(processionFee/100));
             
             var total = amountUsd + processionFeeCalculated;
-            transactionStr += '<table style="width: 15%;" cellspacing="10" cellpadding="10">';
+            $('#receive_amount').val(total);
+            transactionStr += '<table style="width: 35%;" cellspacing="10" cellpadding="10">';
             transactionStr += '<tbody>';
             transactionStr += '<tr>';
             transactionStr += '<td>Amount (In USD)</td>';
