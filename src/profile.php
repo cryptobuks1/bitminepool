@@ -15,7 +15,7 @@ if (isset($_SESSION['Username'])) {
         $userData = $responseUser->response->user_data;
         $showname = $userData->Fullname;
         $showemail = $userData->Email;
-        $showtelephone = $userData->Telephone;
+        //$showtelephone = $userData->Telephone;
         $showusername = $userData->Username;
         $showpassword = $userData->Password;
         $showsponsor = $userData->Sponsor;
@@ -37,7 +37,7 @@ if (isset($_SESSION['Username'])) {
                 'id' => $showid,
                 'name' => $_POST['name'],
                 'email' => $_POST['email'],
-                'telephone' => $_POST['Telephone'],
+                'telephone' => '',
                 'gender' => $_POST['Gender'],
                 'platform' => '3',
                 'transaction_type' => '202'
@@ -171,14 +171,14 @@ include('includes/message.php');
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="item form-group">
+                                        <!--<div class="item form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telephone">Telephone <span class="required">*</span>
                                             </label>
                                             <div class="col-md-3 col-sm-6 col-xs-12">
                                                 <input id="phone" type="tel" value="<?php echo $showtelephone; ?>" name="Telephone" data-msg-required="Please enter the phone number." class="form-control col-md-7 col-xs-12" required="required">
 
                                             </div>
-                                        </div>
+                                        </div>-->
                                         <input type="hidden" value="<?php echo $showid; ?>" name="id">
                                         <div class="ln_solid"></div>
                                         <div class="form-group">
