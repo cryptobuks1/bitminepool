@@ -1,7 +1,8 @@
 <?php
 include('includes/header.php');
 
-if (isset($_SESSION['Username']) && $_SESSION['is_admin_user'] == 1) {
+//if (isset($_SESSION['Username']) && $_SESSION['is_admin_user'] == 1) {
+if (isset($_SESSION['Username']) ) {
 
     $_SESSION['error'] = 0;
     if (empty($_REQUEST['type'])) {
@@ -119,7 +120,7 @@ if (isset($_SESSION['Username']) && $_SESSION['is_admin_user'] == 1) {
                             <div class="clearfix"></div>
                             <div class="x_content">
 
-                                <h3>View all transactions</h3>
+                                <h3>View all <?php echo !empty($type)?$type:''; ?> transactions</h3>
                                 <div>
                                     <p>
                                     <div class="row">
@@ -209,12 +210,13 @@ include('includes/footer.php');
                     {"title": "Pay date", "data": "Paydate"},
                     {"title": "Invoive Id", "data": "Invoiceid"},
                     {"title": "Purpose", "data": "Purpose"},
-                    {"title": "Address", "data": "Btcaddress"},
+                    // {"title": "Address", "data": "Btcaddress"},
                     {"title": "Amount(In USD)", "data": "Amount"},
-                    {"title": "Amount(In BTC)", "data": "Btcamount"},
-                    {"title": "Status", "data": "Status"},
+                    // {"title": "Amount(In BTC)", "data": "Btcamount"},
+                    {"title": "Payment Status", "data": "Status"},
                     {"title": "Username", "data": "Username"},
-                    {"title": "Date", "data": "created_at"}
+                    {"title": "Expire Date", "data": "expiry_date"},
+                    {"title": "Narration", "data": "response"},
                 ]
 
             });

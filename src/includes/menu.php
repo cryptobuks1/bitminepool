@@ -17,6 +17,7 @@
                         <li><a href="reflink">Referral Link</a></li>
                         <li><a href="withdrawal">Withdrawal</a></li>
                         <li><a href="statement">Statement</a></li>
+						<li><a href="all_transactions?type=invoice">Invoice</a></li>
                         <li><a href="support">Support</a></li>
                     </ul>
                 </li>

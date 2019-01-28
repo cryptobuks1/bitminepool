@@ -108,30 +108,40 @@ if (isset($_SESSION['Username'])) {
                 <!-- top tiles -->
                 <div class="row tile_count">
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                        <span class="count_top"><i class="fa fa-bitcoin"></i> Account Balance (BTC)</span>
-                        <div class="count"><a href="#"><?php echo $totalone; ?></a></div>
-                        <span class="count_bottom"><i class="green">($<?php echo $selectedAccountBalance; ?>) </i> Total Balance</span>
+                        <span class="count_top"><i class="fa fa-bitcoin"></i> Account Balance (USD)</span>
+                       <!-- <div class="count"><a href="#"><?php echo $totalone; ?></a></div> -->
+                        <div class="count"><a href="#"><?php echo $selectedAccountBalance; ?></a></div>
+                        <!-- <span class="count_bottom"><i class="green">($<?php echo $selectedAccountBalance; ?>) </i> Total Balance</span> -->
+                        <span class="count_bottom"><i class="green"></i> Total Balance</span>
                     </div>
 
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                        <span class="count_top"><i class="fa fa-sitemap"></i> Total Mining Earnings (BTC)</span>
-                        <div class="count"><a href="#"><?php echo $totaltwo; ?></a></div>
-                        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $selectedMiningBalance; ?>)</i> Mining Earnings</span>
+                        <span class="count_top"><i class="fa fa-sitemap"></i> Total Mining Earnings (USD)</span>
+                        <!-- <div class="count"><a href="#"><?php echo $totaltwo; ?></a></div> -->
+                         <div class="count"><a href="#"><?php echo $selectedMiningBalance; ?></a></div>
+                        <!-- <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $selectedMiningBalance; ?>)</i> Mining Earnings</span> -->
+                        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i> Mining Earnings</span>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                        <span class="count_top"><i class="fa fa-clock-o"></i> Residual Income (BTC)</span>
-                        <div class="count"><a href="#"><?php echo $totalthree; ?></a></div>
-                        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $selectedTeamBalance; ?>) </i>Total Residual </span>
+                        <span class="count_top"><i class="fa fa-clock-o"></i> Residual Income (USD)</span>
+                        <!-- <div class="count"><a href="#"><?php echo $totalthree; ?></a></div> -->
+                        <div class="count"><a href="#"><?php echo $selectedTeamBalance; ?></a></div>
+                       <!-- <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $selectedTeamBalance; ?>) </i>Total Residual </span> -->
+                        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i> </i>Total Residual </span>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                        <span class="count_top"><i class="fa fa-th"></i> Direct Commissions (BTC)</span>
-                        <div class="count"><a href="#"><?php echo $totalfour; ?></a></div>
-                        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $selectedCommissionBalance; ?>) </i> Total Commission</span>
+                        <span class="count_top"><i class="fa fa-th"></i> Direct Commissions (USD)</span>
+                       <!-- <div class="count"><a href="#"><?php echo $totalfour; ?></a></div> -->
+                        <div class="count"><a href="#"><?php echo $selectedCommissionBalance; ?></a></div>
+                       <!--  <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $selectedCommissionBalance; ?>) </i> Total Commission</span> -->
+                        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i> </i> Total Commission</span>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                        <span class="count_top"><i class="fa fa-users"></i> Binary Earnings (BTC)</span>
-                        <div class="count"><a href=""><?php echo $totalfive; ?></a></div>
-                        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $selectedBinaryIncomeBalance; ?>)</i> Total team Volume</span>
+                        <span class="count_top"><i class="fa fa-users"></i> Binary Earnings (USD)</span>
+                        <!-- <div class="count"><a href=""><?php echo $totalfive; ?></a></div> -->
+                        <div class="count"><a href=""><?php echo $selectedBinaryIncomeBalance; ?></a></div>
+                       <!--  <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $selectedBinaryIncomeBalance; ?>)</i> Total team Volume</span> -->
+                        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i> Total team Volume</span>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-user"></i> Account Rank</span>
