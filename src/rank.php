@@ -194,7 +194,7 @@ include('includes/message.php');
 
                                                     <tbody>
                                                         <tr>
-                                                            <td class="center">Purchase $99 Membership</td>
+                                                            <td class="center">Purchase $100 Membership</td>
                                                             <td class="center"></td>
                                                             <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($purchasedRegistrationMembership == 1 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
                                                         </tr>
