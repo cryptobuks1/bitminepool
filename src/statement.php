@@ -176,6 +176,15 @@ include('includes/footer.php');
             },
 
         });
+        
+    var filterStr = '<td></td><td></td><td></td><td></td>';
+    filterStr += '<td><select id="reason"><option value="1">Direct Commission</option><option value="2">Indirect Commission</option><option value="3">Matching Bonus</option><option value="4">Residual Bonus</option><option value="5">Mining Earning</option></select></td>';
+            
+    filterStr += '<td><select id="withdrawal"><option value="1">Yes</option><option value="0">No</option></select></td>';
+    filterStr += '<td><select id="deposit"><option value="1">Yes</option><option value="0">No</option></select></td>';
+    filterStr += '<td> <button class="btn btn-sm yellow filter-submit margin-bottom-5" title="Search"><i class="fa fa-search"></i></button><button class="btn btn-sm red filter-cancel margin-bottom-5" title="Reset"><i class="fa fa-times"></i></button></td>';
+    
+    $('#statement-grid thead tr').clone(true).appendTo( '#statement-grid thead' ).addClass('filter').html('').html(filterStr);
 
     });
 
