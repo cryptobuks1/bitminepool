@@ -95,17 +95,7 @@ if (isset($_SESSION['Username'])) {
                                                         <span id="date-label-to" class="date-label">To:<input class="date_range_filter date" type="text" id="datepicker_to" />
                                                     </div>
                                                     <table id="statement-grid"  cellpadding="0" cellspacing="0" border="0" class="display table" width="100%">
-                                                        <tr role="row" class="filter">
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                             <td> <button class="btn btn-sm yellow filter-submit margin-bottom-5" title="Search"><i class="fa fa-search"></i></button>
-                                                                <button class="btn btn-sm red filter-cancel margin-bottom-5" title="Reset"><i class="fa fa-times"></i></button></td>
-                                                        </tr>
+                                                       
                                                         <tbody>
                                                         </tbody>
                                                     </table>
@@ -168,7 +158,7 @@ include('includes/footer.php');
                 {"title": "Ref No.", "data": "transaction_ref_no"},
                 {"title": "Withdrawal", "data": "withdrawal"},
                 {"title": "Deposit", "data": "deposit"},
-                {"title": "Action", "data": "action"},
+                {"title": "Action", "data": ""},
             ],
             "drawCallback": function (settings) {
                 var api = this.api();
