@@ -158,7 +158,7 @@ include('includes/footer.php');
                 {"title": "Ref No.", "data": "transaction_ref_no"},
                 {"title": "Withdrawal", "data": "withdrawal"},
                 {"title": "Deposit", "data": "deposit"},
-                {"title": "Action", "data": null},
+                {"title": "Action", "data": null,'defaultContent':''},
             ],
             "drawCallback": function (settings) {
                 var api = this.api();
