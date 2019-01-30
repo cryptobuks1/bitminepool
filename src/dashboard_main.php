@@ -111,7 +111,7 @@ if (isset($_SESSION['Username'])) {
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-bitcoin"></i> Account Balance (USD)</span>
                        <!-- <div class="count"><a href="#"><?php echo $totalone; ?></a></div> -->
-                        <div class="count"><a href="statement?reason=1&id=0"><?php echo $selectedAccountBalance; ?></a></div>
+                        <div class="count"><a href="statement?type=1&reason=0"><?php echo $selectedAccountBalance; ?></a></div>
                         <!-- <span class="count_bottom"><i class="green">($<?php echo $selectedAccountBalance; ?>) </i> Total Balance</span> -->
                         <span class="count_bottom"><i class="green"></i> Total Balance</span>
                     </div>
