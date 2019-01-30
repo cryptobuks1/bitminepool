@@ -251,19 +251,19 @@ include('includes/message.php');
 
                                                         <tr>
                                                             <td class="center">$11,400 in total enrollment tree volume</td>
-                                                            <td class="center"><?php echo '$' . $dealerTotalEnrollmentBalance . '/ $11,400'; ?> </td>
+                                                            <td class="center"><?php echo '$' . floatval($dealerTotalEnrollmentBalance) . '/ $11,400'; ?> </td>
                                                             <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($dealerTotalEnrollment == 1 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
                                                         </tr>
 
                                                         <tr>
                                                             <td class="center">Sponsor 6 miners</td>
-                                                            <td class="center"><?php echo $dealerSixMinersEnrollmentCount . '/ 6'; ?> </td>
+                                                            <td class="center"><?php echo $dealerSixMinersEnrollmentCount . ' / 6'; ?> </td>
                                                             <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($dealerSixMinersEnrollment == 1 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
                                                         </tr>
 
                                                         <tr>
                                                             <td class="center">Get 6 <strong>MINERS</strong> that each have 2 Miners enrolled</td>
-                                                            <td class="center"><?php echo $dealerSixMinersWithTwoSubMinersEnrollmentCount . '/ 6'; ?> </td>
+                                                            <td class="center"><?php echo $dealerSixMinersWithTwoSubMinersEnrollmentCount . ' / 6'; ?> </td>
                                                             <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($dealerSixMinersWithTwoSubMinersEnrollment == 1 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
                                                         </tr>
                                                     </tbody>
@@ -297,13 +297,13 @@ include('includes/message.php');
 
                                                         <tr>
                                                             <td class="center">$50,000 in total enrollment tree volume</td>
-                                                            <td class="center"><?php echo '$' . $superDealerTotalEnrollmentBalance . '/ $50,000'; ?> </td>
+                                                            <td class="center"><?php echo '$' . floatval($superDealerTotalEnrollmentBalance) . '/ $50,000'; ?> </td>
                                                             <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($superDealerTotalEnrollment == 1 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
                                                         </tr>
 
                                                         <tr>
                                                             <td class="center">Get 3 <strong>DEALERS</strong> in 3 separate enrollment tree legs(not binary)</td>
-                                                            <td class="center"><?php echo $superDealerThreeDealersEnrollmentCount . '/ 3'; ?> </td>
+                                                            <td class="center"><?php echo $superDealerThreeDealersEnrollmentCount . ' / 3'; ?> </td>
                                                             <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($superDealerThreeDealersEnrollment == 1 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
                                                         </tr>
                                                     </tbody>
@@ -337,13 +337,13 @@ include('includes/message.php');
 
                                                         <tr>
                                                             <td class="center">$220,000 in total enrollment tree volume</td>
-                                                            <td class="center"><?php echo '$' . $executiveDealerTotalEnrollmentBalance . '/ $220,000'; ?> </td>
+                                                            <td class="center"><?php echo '$' . floatval($executiveDealerTotalEnrollmentBalance) . '/ $220,000'; ?> </td>
                                                             <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($executiveDealerTotalEnrollment == 1 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
                                                         </tr>
 
                                                         <tr>
                                                             <td class="center">Get 2 <strong>SUPER DEALERS</strong> in 2 separate enrollment tree legs(not binary)</td>
-                                                            <td class="center"><?php echo $executiveDealerTwoSuperDealersEnrollmentCount . '/ 2'; ?></td>
+                                                            <td class="center"><?php echo $executiveDealerTwoSuperDealersEnrollmentCount . ' / 2'; ?></td>
                                                             <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($executiveDealerTwoSuperDealersEnrollment == 1 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
                                                         </tr>
                                                     </tbody>
@@ -363,7 +363,7 @@ include('includes/message.php');
                                                     <thead>
                                                         <tr>
                                                             <th class="header" scope="col"><font size=4>CROWN DEALER</font> Requirements</th>
-                                                            <th class="header" scope="col"></th>
+                                                            <th class="header" scope="col">Progress</th>
                                                             <th class="header" scope="col">Status</th>
 
                                                         </tr>
@@ -378,13 +378,13 @@ include('includes/message.php');
 
                                                         <tr>
                                                             <td class="center">$2,000,000 in total enrollment tree volume</td>
-                                                            <td class="center"><?php echo '$' . $crownDealerTotalEnrollmentBalance . '/ $2,000,000'; ?></td>
+                                                            <td class="center"><?php echo '$' . floatval($crownDealerTotalEnrollmentBalance) . '/ $2,000,000'; ?></td>
                                                             <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($crownDealerTotalEnrollment == 1 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
                                                         </tr>
 
                                                         <tr>
                                                             <td class="center">Get 3 <strong>EXECUTIVE DEALERS</strong> in 3 separate enrollment tree legs(not binary)</td>
-                                                            <td class="center"><?php echo $crownDealerThreeExecutiveDealersEnrollmentCount . '/ 2'; ?></td>
+                                                            <td class="center"><?php echo $crownDealerThreeExecutiveDealersEnrollmentCount . ' / 2'; ?></td>
                                                             <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($crownDealerThreeExecutiveDealersEnrollment == 1 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
                                                         </tr>
                                                     </tbody>
@@ -419,13 +419,13 @@ include('includes/message.php');
 
                                                         <tr>
                                                             <td class="center">$10,000,000 in total enrollment tree volume</td>
-                                                            <td class="center"><?php echo '$' . $globalCrownDealerTotalEnrollmentBalance . '/ $10,000,000'; ?></td>
+                                                            <td class="center"><?php echo '$' . floatval($globalCrownDealerTotalEnrollmentBalance) . '/ $10,000,000'; ?></td>
                                                             <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($globalCrownDealerTotalEnrollment == 1 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
                                                         </tr>
 
                                                         <tr>
                                                             <td class="center">Get 3 <strong>CROWN DEALERS</strong> in 3 separate enrollment tree legs(not binary)</td>
-                                                            <td class="center"><?php echo $globalCrownDealerThreeCrownDealersEnrollmentCountt . '/ 3'; ?></td>
+                                                            <td class="center"><?php echo $globalCrownDealerThreeCrownDealersEnrollmentCountt . ' / 3'; ?></td>
                                                             <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($globalCrownDealerThreeCrownDealersEnrollment == 1 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
                                                         </tr>
                                                     </tbody>
