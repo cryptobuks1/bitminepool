@@ -4,6 +4,7 @@ if (isset($_SESSION['Username'])) {
 ////////////////////////////////////////Get the User Profile///////////////////////////////////////////////////////////////		
     $responseUser = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
             'user_name' => $userName,
+            'login_user_name' => $_SESSION['Username'],
             'platform' => '3',
             'transaction_type' => '301'
             ], 'getAllUserDataByUserName');

@@ -30,6 +30,7 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
         $searchUserData = [];
         $responseSearchUser = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
                     'user_name' => $search_id,
+                    'login_user_name' => $_SESSION['Username'],
                     'platform' => '3',
                     'transaction_type' => '301'
                         ], 'getAllUserDataByUserName');
