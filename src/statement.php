@@ -199,7 +199,7 @@ include('includes/footer.php');
                     .column(4)
                     .data()
                     .filter(function (value, index) {
-                        return value = 2 ? true : false;
+                        return value = reasonVal ? true : false;
                     });
         }
         var withdrawalVal = $('#withdrawal').val();
