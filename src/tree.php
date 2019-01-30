@@ -52,7 +52,7 @@ if (isset($_SESSION['Username']) && $_SESSION['is_prime_user'] == 1) {
                         ], 'joinTree');
 
         $response = json_decode($response);
-        $redirect = 'tree?search-id=' . $_POST['parent_user'];
+        $redirect = 'tree?search-id=' . $_SESSION['Username'];
         if ($response->statusCode == 100) {
             $_SESSION['error'] = 0;
             $_SESSION['message'] = $response->statusDescription;
