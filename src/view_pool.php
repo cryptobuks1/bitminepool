@@ -39,6 +39,7 @@ if (isset($_SESSION['Username'])) {
         }
         $responseUser = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
                     'user_name' => $userName,
+                    'login_user_name' => $_SESSION['Username'],
                     'platform' => '3',
                     'transaction_type' => '301'
                         ], 'getAllUserDataByUserName');
