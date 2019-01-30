@@ -425,7 +425,7 @@ include('includes/message.php');
 
                                                         <tr>
                                                             <td class="center">Get 3 <strong>CROWN DEALERS</strong> in 3 separate enrollment tree legs(not binary)</td>
-                                                            <td class="center"><?php echo $globalCrownDealerThreeCrownDealersEnrollmentCountt . ' / 3'; ?></td>
+                                                            <td class="center"><?php echo $globalCrownDealerThreeCrownDealersEnrollmentCount . ' / 3'; ?></td>
                                                             <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($globalCrownDealerThreeCrownDealersEnrollment == 1 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
                                                         </tr>
                                                     </tbody>
