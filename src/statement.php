@@ -9,18 +9,16 @@ if (isset($_SESSION['Username'])) {
     $userName = $_SESSION['Username'];
 
     $responseAccountTransaction = ApiHelper::getApiResponse('POST', [
-        'access_token' => ACCESS_TOKEN,
-        'user_name' => $_SESSION['Username'],
-        'platform' => '3',
-    ], 'getAllAccountDBTransactionDetails');
+                'access_token' => ACCESS_TOKEN,
+                'user_name' => $_SESSION['Username'],
+                'platform' => '3',
+                    ], 'getAllAccountDBTransactionDetails');
 
     $responseAccountTransaction = json_decode($responseAccountTransaction);
 
     if ($responseAccountTransaction->statusCode == 100) {
         $accountTransactionDBData = $responseAccountTransaction->response->data;
     }
-
-
 } else {
     $_SESSION['error'] = 1;
     $_SESSION['message'] = 'Please login to proceed further.';
@@ -33,7 +31,7 @@ if (isset($_SESSION['Username'])) {
 }
 ?>
 <?php include('includes/message.php'); ?>
- <link rel="stylesheet" href="../vendor/build/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="../vendor/build/css/jquery.dataTables.min.css">
 <body class="nav-md">
     <div class="container body">
         <div class="main_container">
@@ -58,23 +56,23 @@ if (isset($_SESSION['Username'])) {
 
                     <br />
 
-                    <?php include('includes/menu.php'); ?>
+<?php include('includes/menu.php'); ?>
 
                     <!-- /menu footer buttons -->
 
                     <!-- /menu footer buttons -->
                 </div>
             </div>
-            <?php include('includes/guestheader.php'); ?>
+<?php include('includes/guestheader.php'); ?>
             <!-- page content -->
             <div class="right_col" role="main">
                 <div class="">
                     <div class="clearfix"></div>
 
 
-                    <?php
-                    // if (!(empty($walletWithdrawlTransactionDBData))) {
-                    ?>
+<?php
+// if (!(empty($walletWithdrawlTransactionDBData))) {
+?>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="clearfix"></div>
@@ -97,7 +95,17 @@ if (isset($_SESSION['Username'])) {
                                                         <span id="date-label-to" class="date-label">To:<input class="date_range_filter date" type="text" id="datepicker_to" />
                                                     </div>
                                                     <table id="statement-grid"  cellpadding="0" cellspacing="0" border="0" class="display table" width="100%">
-
+                                                        <tr role="row" class="filter">
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                             <td> <button class="btn btn-sm yellow filter-submit margin-bottom-5" title="Search"><i class="fa fa-search"></i></button>
+                                                                <button class="btn btn-sm red filter-cancel margin-bottom-5" title="Reset"><i class="fa fa-times"></i></button></td>
+                                                        </tr>
                                                         <tbody>
                                                         </tbody>
                                                     </table>
@@ -111,22 +119,22 @@ if (isset($_SESSION['Username'])) {
                             </div>
                         </div>
                     </div>   
-                    <?php
-                    //}
-                    ?>
-                    
-                    </div>
+<?php
+//}
+?>
 
                 </div>
+
             </div>
         </div>
-        <!-- /page content -->
-
-
-        <!-- footer content -->
-
-        <!-- /footer content -->
     </div>
+    <!-- /page content -->
+
+
+    <!-- footer content -->
+
+    <!-- /footer content -->
+</div>
 </div>
 
 <?php
@@ -150,7 +158,7 @@ include('includes/footer.php');
             buttons: [
                 'csv', 'excel', 'pdf'
             ],
-           
+
             "columns": [
 
                 {"title": "ID", "data": "temp_id"},
@@ -160,6 +168,7 @@ include('includes/footer.php');
                 {"title": "Ref No.", "data": "transaction_ref_no"},
                 {"title": "Withdrawal", "data": "withdrawal"},
                 {"title": "Deposit", "data": "deposit"},
+                {"title": "Action", "data": "action"},
             ],
             "drawCallback": function (settings) {
                 var api = this.api();
@@ -169,9 +178,9 @@ include('includes/footer.php');
                 var recNum = null;
                 var displayLength = settings._iDisplayLength;
                 api.column(6, {page: 'current'}).data().each(function (group, i) {
-                   /* if (is_admin_user == 1) {
- 
-                    }*/
+                    /* if (is_admin_user == 1) {
+                     
+                     }*/
                 });
 
             },
@@ -180,7 +189,7 @@ include('includes/footer.php');
 
     });
 
-   processDateFilter(3);
+    processDateFilter(3);
 
 
 
