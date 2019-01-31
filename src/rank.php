@@ -251,7 +251,7 @@ include('includes/message.php');
 
                                                         <tr>
                                                             <td class="center">$11,400 in total enrollment tree volume</td>
-                                                            <td class="center"><?php echo '$' . floatval($dealerTotalEnrollmentBalance) . ' / $11,400'; ?> </td>
+                                                            <td class="center"><?php echo '$' . number_format($dealerTotalEnrollmentBalance,2) . ' / $11,400'; ?> </td>
                                                             <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($dealerTotalEnrollment == 1 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
                                                         </tr>
 
@@ -297,7 +297,7 @@ include('includes/message.php');
 
                                                         <tr>
                                                             <td class="center">$50,000 in total enrollment tree volume</td>
-                                                            <td class="center"><?php echo '$' . floatval($superDealerTotalEnrollmentBalance) . ' / $50,000'; ?> </td>
+                                                            <td class="center"><?php echo '$' . number_format($superDealerTotalEnrollmentBalance,2) . ' / $50,000'; ?> </td>
                                                             <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($superDealerTotalEnrollment == 1 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
                                                         </tr>
 
@@ -337,7 +337,7 @@ include('includes/message.php');
 
                                                         <tr>
                                                             <td class="center">$220,000 in total enrollment tree volume</td>
-                                                            <td class="center"><?php echo '$' . floatval($executiveDealerTotalEnrollmentBalance) . ' / $220,000'; ?> </td>
+                                                            <td class="center"><?php echo '$' . number_format($executiveDealerTotalEnrollmentBalance,2) . ' / $220,000'; ?> </td>
                                                             <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($executiveDealerTotalEnrollment == 1 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
                                                         </tr>
 
@@ -378,7 +378,7 @@ include('includes/message.php');
 
                                                         <tr>
                                                             <td class="center">$2,000,000 in total enrollment tree volume</td>
-                                                            <td class="center"><?php echo '$' . floatval($crownDealerTotalEnrollmentBalance) . ' / $2,000,000'; ?></td>
+                                                            <td class="center"><?php echo '$' . number_format($crownDealerTotalEnrollmentBalance,2) . ' / $2,000,000'; ?></td>
                                                             <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($crownDealerTotalEnrollment == 1 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
                                                         </tr>
 
@@ -419,7 +419,7 @@ include('includes/message.php');
 
                                                         <tr>
                                                             <td class="center">$10,000,000 in total enrollment tree volume</td>
-                                                            <td class="center"><?php echo '$' . floatval($globalCrownDealerTotalEnrollmentBalance) . ' / $10,000,000'; ?></td>
+                                                            <td class="center"><?php echo '$' . number_format($globalCrownDealerTotalEnrollmentBalance,2) . ' / $10,000,000'; ?></td>
                                                             <td class="center"><i class="fas fa-check-circle fa-lg" style="<?php echo ($globalCrownDealerTotalEnrollment == 1 ) ? 'color:#1abb9c;margin-top: 5px;' : 'color:grey;margin-top: 5px;'; ?>" ></i></td>
                                                         </tr>
 
