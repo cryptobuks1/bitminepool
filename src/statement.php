@@ -193,8 +193,10 @@ include('includes/footer.php');
 
 
     $('.filter-submit').click(function () {
+        console.log('I am inside filter submit ');
         var reasonVal = $('#reason').val();
         if (reasonVal) {
+             console.log('I am inside reasonVal ',reasonVal);
             var filteredData = oTable
                     .column(4)
                     .data()
@@ -204,6 +206,7 @@ include('includes/footer.php');
         }
         var withdrawalVal = $('#withdrawal').val();
         if (withdrawalVal) {
+            console.log('I am inside withdrawalVal ',withdrawalVal);
             var filteredData2 = oTable
                     .column(5)
                     .data()
@@ -213,6 +216,7 @@ include('includes/footer.php');
         }
         var depositVal = $('#deposit').val();
         if (depositVal) {
+            console.log('I am inside depositVal ',depositVal);
             var filteredData3 = oTable
                     .column(6)
                     .data()
