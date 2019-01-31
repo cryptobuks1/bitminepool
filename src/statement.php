@@ -208,7 +208,7 @@ include('includes/footer.php');
                         .column(5)
                         .data()
                         .filter(function (value, index) {
-                            console.log(value,index);
+                            console.log(value > 0);
                             return value > 0 ? true : false;
                         });
             }
@@ -219,7 +219,7 @@ include('includes/footer.php');
                         .column(6)
                         .data()
                         .filter(function (value, index) {
-                            console.log(value,index);
+                            console.log(value > 0);
                             return value > 0 ? true : false;
                         });
             }
