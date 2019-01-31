@@ -218,6 +218,15 @@ if ($_GET['secret'] != $secret) {
 
         $responseInvoiceNotification = json_decode($responseInvoiceNotification);
         
+        
+        // To update the rank
+        $response = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
+                'user_name' => $showusername,
+                'platform' => '3'
+                ], 'getAllRankData');
+
+        $response = json_decode($response);
+        
         // }
         //Update Invoice Table
         $sqlv = "UPDATE invoice SET Status='Paid' WHERE Invoiceid ='" . $invoice . "'";

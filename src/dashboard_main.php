@@ -206,7 +206,7 @@ if (isset($_SESSION['Username'])) {
                                 <!--FEATURE LIST START-->
                                 <div class="generic_feature_list">
                                     <ul>
-                                        <li><span>Current Investment Return(USD):</span> <?php echo $packone; ?></li>
+                                        <li><span>Current Investment Return(USD):</span> <?php echo floatval($packone); ?></li>
                                         <li><span>Approx.</span> $1.5/day</li>
                                         <li><span>365</span> Mining days</li>
 
@@ -313,7 +313,7 @@ if (isset($_SESSION['Username'])) {
                                 <!--FEATURE LIST START-->
                                 <div class="generic_feature_list">
                                     <ul>
-                                        <li><span>Current Investment Return(USD):</span> <?php echo $packtwo; ?></li>
+                                        <li><span>Current Investment Return(USD):</span> <?php echo floatval($packtwo); ?></li>
                                         <li><span>Approx.</span> $3/day</li>
                                         <li><span>365</span> Mining days</li>
 
@@ -425,7 +425,7 @@ if (isset($_SESSION['Username'])) {
                                 <!--FEATURE LIST START-->
                                 <div class="generic_feature_list">
                                     <ul>
-                                        <li><span>Current Investment Return(USD):</span> <?php echo $packthree; ?></li>
+                                        <li><span>Current Investment Return(USD):</span> <?php echo floatval($packthree); ?></li>
                                         <li><span>Approx.</span> $6/day</li>
                                         <li><span>365</span> Mining days</li>
 
@@ -537,7 +537,7 @@ if (isset($_SESSION['Username'])) {
                                 <!--FEATURE LIST START-->
                                 <div class="generic_feature_list">
                                     <ul>
-                                        <li><span>Current Investment Return(USD):</span> <?php echo $packfour; ?></li>
+                                        <li><span>Current Investment Return(USD):</span> <?php echo floatval($packfour); ?></li>
                                         <li><span>Approx.</span> $12/day</li>
                                         <li><span>365</span> Mining days</li>
 
@@ -649,7 +649,7 @@ if (isset($_SESSION['Username'])) {
                                 <!--FEATURE LIST START-->
                                 <div class="generic_feature_list">
                                     <ul>
-                                        <li><span>Current Investment Return(USD):</span> <?php echo $packfive; ?></li>
+                                        <li><span>Current Investment Return(USD):</span> <?php echo floatval($packfive); ?></li>
                                         <li><span>Approx.</span> $24/day</li>
                                         <li><span>365</span> Mining days</li>
 
