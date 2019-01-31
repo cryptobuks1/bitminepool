@@ -197,6 +197,7 @@ include('includes/footer.php');
                         .column(4)
                         .data()
                         .filter(function (value, index) {
+                            console.log(value,index);
                             return value = reasonVal ? true : false;
                         });
             }
@@ -207,6 +208,7 @@ include('includes/footer.php');
                         .column(5)
                         .data()
                         .filter(function (value, index) {
+                            console.log(value,index);
                             return value > 0 ? true : false;
                         });
             }
@@ -217,6 +219,7 @@ include('includes/footer.php');
                         .column(6)
                         .data()
                         .filter(function (value, index) {
+                            console.log(value,index);
                             return value > 0 ? true : false;
                         });
             }
