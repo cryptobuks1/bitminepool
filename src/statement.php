@@ -178,7 +178,7 @@ include('includes/footer.php');
         });
 
         var filterStr = '<td></td><td></td><td></td><td></td>';
-        filterStr += '<td><select class="filter-select"  id="reason"><option value="">Select</option><option value="1">Direct Commission</option><option value="2">Indirect Commission</option><option value="3">Matching Bonus</option><option value="4">Residual Bonus</option><option value="5">Mining Earning</option></select></td>';
+        filterStr += '<td><select class="filter-select"  id="reason"><option value="">Select</option><option value="Direct Commission">Direct Commission</option><option value="Indirect Commission">Indirect Commission</option><option value="Matching Bonus">Matching Bonus</option><option value="Residual Bonus">Residual Bonus</option><option value="Mining Earning">Mining Earning</option></select></td>';
 
         filterStr += '<td><select class="filter-select" id="withdrawal"><option value="">Select</option><option value="1">Yes</option><option value="0">No</option></select></td>';
         filterStr += '<td><select class="filter-select" id="deposit"><option value="">Select</option><option value="1">Yes</option><option value="0">No</option></select></td>';
