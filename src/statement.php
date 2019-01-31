@@ -186,49 +186,51 @@ include('includes/footer.php');
 
         $('#statement-grid thead tr').clone(true).appendTo('#statement-grid thead').addClass('filter').html('').html(filterStr);
 
+
+
+        $('.filter-submit').click(function () {
+            console.log('I am inside filter submit ');
+            var reasonVal = $('#reason').val();
+            if (reasonVal) {
+                console.log('I am inside reasonVal ', reasonVal);
+                var filteredData = oTable
+                        .column(4)
+                        .data()
+                        .filter(function (value, index) {
+                            return value = reasonVal ? true : false;
+                        });
+            }
+            var withdrawalVal = $('#withdrawal').val();
+            if (withdrawalVal) {
+                console.log('I am inside withdrawalVal ', withdrawalVal);
+                var filteredData2 = oTable
+                        .column(5)
+                        .data()
+                        .filter(function (value, index) {
+                            return value > 0 ? true : false;
+                        });
+            }
+            var depositVal = $('#deposit').val();
+            if (depositVal) {
+                console.log('I am inside depositVal ', depositVal);
+                var filteredData3 = oTable
+                        .column(6)
+                        .data()
+                        .filter(function (value, index) {
+                            return value > 0 ? true : false;
+                        });
+            }
+        });
+
+        $('.filter-cancel').click(function () {
+            $('.filter-select').val('');
+        });
     });
 
 
 
 
 
-    $('.filter-submit').click(function () {
-        console.log('I am inside filter submit ');
-        var reasonVal = $('#reason').val();
-        if (reasonVal) {
-             console.log('I am inside reasonVal ',reasonVal);
-            var filteredData = oTable
-                    .column(4)
-                    .data()
-                    .filter(function (value, index) {
-                        return value = reasonVal ? true : false;
-                    });
-        }
-        var withdrawalVal = $('#withdrawal').val();
-        if (withdrawalVal) {
-            console.log('I am inside withdrawalVal ',withdrawalVal);
-            var filteredData2 = oTable
-                    .column(5)
-                    .data()
-                    .filter(function (value, index) {
-                        return value > 0 ? true : false;
-                    });
-        }
-        var depositVal = $('#deposit').val();
-        if (depositVal) {
-            console.log('I am inside depositVal ',depositVal);
-            var filteredData3 = oTable
-                    .column(6)
-                    .data()
-                    .filter(function (value, index) {
-                        return value > 0 ? true : false;
-                    });
-        }
-    });
-
-    $('.filter-cancel').click(function () {
-        $('.filter-select').val('');
-    });
 
     processDateFilter(3);
 
