@@ -197,8 +197,8 @@ include('includes/footer.php');
                         .column(4)
                         .data()
                         .filter(function (value, index) {
-                            console.log(value,reasonVal,String(value) === String(reasonVal));
-                            return String(value) === String(reasonVal) ? true : false;
+                            console.log(value,reasonVal,value===reasonVal);
+                            return value===reasonVal ? true : false;
                         });
             }
             var withdrawalVal = $('#withdrawal').val();
