@@ -197,7 +197,7 @@ include('includes/footer.php');
                         .column(4)
                         .data()
                         .filter(function (value, index) {
-                            console.log(value,value == reasonVal);
+                            console.log(value,reasonVal,value == reasonVal);
                             return value == reasonVal ? true : false;
                         });
             }
