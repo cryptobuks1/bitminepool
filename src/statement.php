@@ -198,7 +198,12 @@ include('includes/footer.php');
                         .data()
                         .filter(function (value, index) {
                             console.log(value,reasonVal,value===reasonVal);
-                            return value===reasonVal ? true : false;
+                            if(value===reasonVal){
+                                return true;
+                            } else {
+                                return false;
+                            }
+                            //return value===reasonVal ? true : false;
                         });
             }
             var withdrawalVal = $('#withdrawal').val();
