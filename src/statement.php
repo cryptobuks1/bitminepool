@@ -204,7 +204,7 @@ include('includes/footer.php');
                  .column(5)
                  .data()
                  .filter(function (value, index) {
-                 console.log(value > 0);
+                 console.log(value);
                  return value > 0 ? true : false;
                  }).draw();
 
@@ -217,7 +217,7 @@ include('includes/footer.php');
                         .column(6)
                         .data()
                         .filter(function (value, index) {
-                            console.log(value > 0);
+                            console.log(value);
                             return value > 0 ? true : false;
                         }).draw();
            // oTable.column(6).search(depositVal > 0, true, false).draw();
