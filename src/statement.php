@@ -192,65 +192,45 @@ include('includes/footer.php');
             console.log('I am inside filter submit ');
             var reasonVal = String($('#reason').val());
             if (reasonVal) {
-                /*console.log('I am inside reasonVal ', reasonVal);
-                 var filteredData = oTable
-                 .column(4)
-                 .data()
-                 .filter(function (value, index) {
-                 console.log(value,reasonVal,value===reasonVal);
-                 if(value===reasonVal){
-                 return true;
-                 } else {
-                 return false;
-                 }
-                 //return value===reasonVal ? true : false;
-                 });*/
                 var search = [];
-
                 search.push(reasonVal);
-                
                 search = search.join('|');
                 oTable.column(4).search(search, true, false).draw();
-
-                
             }
             var withdrawalVal = $('#withdrawal').val();
             if (withdrawalVal) {
                 console.log('I am inside withdrawalVal ', withdrawalVal);
-                var filteredData2 = oTable
-                        .column(5)
-                        .data()
-                        .filter(function (value, index) {
-                            console.log(value > 0);
-                            return value > 0 ? true : false;
-                        });
+                /*var filteredData2 = oTable
+                 .column(5)
+                 .data()
+                 .filter(function (value, index) {
+                 console.log(value > 0);
+                 return value > 0 ? true : false;
+                 });*/
+
+                oTable.column(5).search(withdrawalVal > 0, true, false).draw();
             }
             var depositVal = $('#deposit').val();
             if (depositVal) {
-                console.log('I am inside depositVal ', depositVal);
+                /*console.log('I am inside depositVal ', depositVal);
                 var filteredData3 = oTable
                         .column(6)
                         .data()
                         .filter(function (value, index) {
                             console.log(value > 0);
                             return value > 0 ? true : false;
-                        });
+                        });*/
+            oTable.column(6).search(withdrawalVal > 0, true, false).draw();
+            
             }
         });
 
         $('.filter-cancel').click(function () {
             $('.filter-select').val('');
+            oTable.search('').columns().search('').draw();
         });
     });
-
-
-
-
-
-
     processDateFilter(3);
-
-
 
 
 </script>
