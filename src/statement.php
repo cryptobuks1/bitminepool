@@ -161,6 +161,7 @@ include('includes/footer.php');
                 {"title": "Action", "data": null, 'defaultContent': ''},
                 {"title": "withdrawal_flag", "data": "withdrawal_flag", "visible": false},
                 {"title": "deposit_flag", "data": "deposit_flag", "visible": false},
+                {"title": "transaction_ref_no_flag", "data": "transaction_ref_no_flag", "visible": false},
             ],
             "drawCallback": function (settings) {
                 var api = this.api();
@@ -180,7 +181,7 @@ include('includes/footer.php');
         });
 
         var filterStr = '<td></td><td></td><td></td><td></td>';
-        filterStr += '<td><select class="filter-select"  id="reason"><option value="">Select</option><option value="Direct Commission">Direct Commission</option><option value="Indirect Commission">Indirect Commission</option><option value="Matching Bonus">Matching Bonus</option><option value="Residual Bonus">Residual Bonus</option><option value="Mining Earning">Mining Earning</option></select></td>';
+        filterStr += '<td><select class="filter-select"  id="reason"><option value="">Select</option><option value="1">Direct Commission</option><option value="2">Indirect Commission</option><option value="3">Matching Bonus</option><option value="4">Residual Bonus</option><option value="5">Mining Earning</option></select></td>';
 
         filterStr += '<td><select class="filter-select" id="withdrawal"><option value="">Select</option><option value="1">Yes</option><option value="0">No</option></select></td>';
         filterStr += '<td><select class="filter-select" id="deposit"><option value="">Select</option><option value="1">Yes</option><option value="0">No</option></select></td>';
@@ -191,13 +192,9 @@ include('includes/footer.php');
 
 
         $('.filter-submit').click(function () {
-            console.log('I am inside filter submit ');
             var reasonVal = String($('#reason').val());
             if (reasonVal) {
-                var search = [];
-                search.push(reasonVal);
-                search = search.join('|');
-                oTable.column(4).search(search, true, false).draw();
+                oTable.column(4).search(reasonVal, true, false).draw();
             }
 
             var withdrawalVal = parseFloat($('#withdrawal').val());
