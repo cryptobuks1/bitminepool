@@ -213,7 +213,7 @@ include('includes/footer.php');
             var search = [];
             search.push(withdrawalVal);
             search = search.join('|');
-            oTable.column(8).search(search, true, false).draw();
+            oTable.column(8).search(withdrawalVal, true, false).draw();
 
             var depositVal = parseFloat($('#deposit').val());
 
@@ -228,9 +228,9 @@ include('includes/footer.php');
              
              });*/
             var search = [];
-            search.push(withdrawalVal);
+            search.push(depositVal);
             search = search.join('|');
-            oTable.column(9).search(search, true, false).draw();
+            oTable.column(9).search(depositVal, true, false).draw();
 
 
         });
