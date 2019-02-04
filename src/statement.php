@@ -159,8 +159,8 @@ include('includes/footer.php');
                 {"title": "Withdrawal", "data": "withdrawal"},
                 {"title": "Deposit", "data": "deposit"},
                 {"title": "Action", "data": null, 'defaultContent': ''},
-                {"title": "withdrawal_flag", "data": "withdrawal_flag", "visible": false },
-                {"title": "deposit_flag", "data": "deposit_flag", "visible": false },
+                {"title": "withdrawal_flag", "data": "withdrawal_flag", "visible": false},
+                {"title": "deposit_flag", "data": "deposit_flag", "visible": false},
             ],
             "drawCallback": function (settings) {
                 var api = this.api();
@@ -199,38 +199,15 @@ include('includes/footer.php');
                 search = search.join('|');
                 oTable.column(4).search(search, true, false).draw();
             }
+
             var withdrawalVal = parseFloat($('#withdrawal').val());
-
-            /*console.log('I am inside withdrawalVal ', withdrawalVal);
-             oTable.column(8).data().filter(function (value, index) {
-             console.log(value);
-             if (withdrawalVal) {
-             return value > 0 ? true : false;
-             } else {
-             return value > 0 ? false : true;
-             }
-             });*/
-            var search = [];
-            search.push(withdrawalVal);
-            search = search.join('|');
-            oTable.column(8).search(withdrawalVal, true, false).draw();
-
+            if (!isNaN(withdrawalVal)) {
+                oTable.column(8).search(withdrawalVal, true, false).draw();
+            }
             var depositVal = parseFloat($('#deposit').val());
-
-            console.log('I am inside depositVal ', depositVal);
-            /*oTable.column(9).data().filter(function (value, index) {
-             console.log(value);
-             if (depositVal) {
-             return value > 0 ? true : false;
-             } else {
-             return value > 0 ? false : true;
-             }
-             
-             });*/
-            var search = [];
-            search.push(depositVal);
-            search = search.join('|');
-            oTable.column(9).search(depositVal, true, false).draw();
+            if (!isNaN(depositVal)) {
+                oTable.column(9).search(depositVal, true, false).draw();
+            }
 
 
         });
