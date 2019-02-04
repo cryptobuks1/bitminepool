@@ -200,10 +200,7 @@ include('includes/footer.php');
             var withdrawalVal = parseFloat($('#withdrawal').val());
 
             console.log('I am inside withdrawalVal ', withdrawalVal);
-            var filteredData2 = oTable
-                    .column(5)
-                    .data()
-                    .filter(function (value, index) {
+             oTable.column(5).data().filter(function (value, index) {
                         console.log(value);
                         if (withdrawalVal) {
                             return value > 0 ? true : false;
@@ -217,10 +214,7 @@ include('includes/footer.php');
             var depositVal = parseFloat($('#deposit').val());
             if (depositVal) {
                 console.log('I am inside depositVal ', depositVal);
-                var filteredData3 = oTable
-                        .column(6)
-                        .data()
-                        .filter(function (value, index) {
+                oTable.column(6).data().filter(function (value, index) {
                             console.log(value);
                             if (depositVal) {
                                 return value > 0 ? true : false;
