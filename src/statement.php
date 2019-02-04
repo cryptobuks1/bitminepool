@@ -194,7 +194,7 @@ include('includes/footer.php');
         $('.filter-submit').click(function () {
             var reasonVal = String($('#reason').val());
             if (reasonVal) {
-                oTable.column(4).search(reasonVal, true, false).draw();
+                oTable.column(10).search(reasonVal, true, false).draw();
             }
 
             var withdrawalVal = parseFloat($('#withdrawal').val());
