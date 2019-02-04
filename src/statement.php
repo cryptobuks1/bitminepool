@@ -195,15 +195,21 @@ include('includes/footer.php');
             var reasonVal = String($('#reason').val());
             if (reasonVal) {
                 oTable.column(10).search(reasonVal, true, false).draw();
+            } else {
+                oTable.search('').columns().search('').draw();
             }
 
             var withdrawalVal = parseFloat($('#withdrawal').val());
             if (!isNaN(withdrawalVal)) {
                 oTable.column(8).search(withdrawalVal, true, false).draw();
+            } else {
+                oTable.search('').columns().search('').draw();
             }
             var depositVal = parseFloat($('#deposit').val());
             if (!isNaN(depositVal)) {
                 oTable.column(9).search(depositVal, true, false).draw();
+            } else {
+                oTable.search('').columns().search('').draw();
             }
 
 
