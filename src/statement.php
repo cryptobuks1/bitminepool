@@ -197,30 +197,30 @@ include('includes/footer.php');
                 search = search.join('|');
                 oTable.column(4).search(search, true, false).draw();
             }
-            var withdrawalVal = $('#withdrawal').val();
+            var withdrawalVal = parseFloat($('#withdrawal').val());
             if (withdrawalVal) {
                 console.log('I am inside withdrawalVal ', withdrawalVal);
-                /*var filteredData2 = oTable
+                var filteredData2 = oTable
                  .column(5)
                  .data()
                  .filter(function (value, index) {
                  console.log(value > 0);
                  return value > 0 ? true : false;
-                 });*/
+                 }).draw();
 
-                oTable.column(5).search(withdrawalVal > 0, true, false).draw();
+                // oTable.column(5).search(withdrawalVal > 0, true, false).draw();
             }
-            var depositVal = $('#deposit').val();
+            var depositVal = parseFloat($('#deposit').val());
             if (depositVal) {
-                /*console.log('I am inside depositVal ', depositVal);
+                console.log('I am inside depositVal ', depositVal);
                 var filteredData3 = oTable
                         .column(6)
                         .data()
                         .filter(function (value, index) {
                             console.log(value > 0);
                             return value > 0 ? true : false;
-                        });*/
-            oTable.column(6).search(depositVal > 0, true, false).draw();
+                        }).draw();
+           // oTable.column(6).search(depositVal > 0, true, false).draw();
             
             }
         });
