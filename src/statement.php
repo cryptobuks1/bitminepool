@@ -159,8 +159,8 @@ include('includes/footer.php');
                 {"title": "Withdrawal", "data": "withdrawal"},
                 {"title": "Deposit", "data": "deposit"},
                 {"title": "Action", "data": null, 'defaultContent': ''},
-                {"title": "withdrawal_flag", "data": "withdrawal_flag", },
-                {"title": "deposit_flag", "data": "deposit_flag", },
+                {"title": "withdrawal_flag", "data": "withdrawal_flag", "visible": false },
+                {"title": "deposit_flag", "data": "deposit_flag", "visible": false },
             ],
             "drawCallback": function (settings) {
                 var api = this.api();
