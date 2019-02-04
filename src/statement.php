@@ -198,31 +198,40 @@ include('includes/footer.php');
                 oTable.column(4).search(search, true, false).draw();
             }
             var withdrawalVal = parseFloat($('#withdrawal').val());
-            //if (withdrawalVal) {
-                console.log('I am inside withdrawalVal ', withdrawalVal);
-                var filteredData2 = oTable
-                 .column(5)
-                 .data()
-                 .filter(function (value, index) {
-                 console.log(value);
-                 return value > 0 ? true : false;
-                 }).draw();
 
-                // oTable.column(5).search(withdrawalVal > 0, true, false).draw();
-           // }
+            console.log('I am inside withdrawalVal ', withdrawalVal);
+            var filteredData2 = oTable
+                    .column(5)
+                    .data()
+                    .filter(function (value, index) {
+                        console.log(value);
+                        if (withdrawalVal) {
+                            return value > 0 ? true : false;
+                        } else {
+                            return value > 0 ? false : true;
+                        }
+                    });
+
+            // oTable.column(5).search(withdrawalVal > 0, true, false).draw();
+
             var depositVal = parseFloat($('#deposit').val());
-           // if (depositVal) {
+            if (depositVal) {
                 console.log('I am inside depositVal ', depositVal);
                 var filteredData3 = oTable
                         .column(6)
                         .data()
                         .filter(function (value, index) {
                             console.log(value);
-                            return value > 0 ? true : false;
-                        }).draw();
-           // oTable.column(6).search(depositVal > 0, true, false).draw();
-            
-           // }
+                            if (depositVal) {
+                                return value > 0 ? true : false;
+                            } else {
+                                return value > 0 ? false : true;
+                            }
+
+                        });
+                // oTable.column(6).search(depositVal > 0, true, false).draw();
+
+            }
         });
 
         $('.filter-cancel').click(function () {
