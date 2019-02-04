@@ -157,17 +157,7 @@ include('includes/footer.php');
         var accountTransactionDBData = <?php echo json_encode($accountTransactionDBData); ?>;
         var is_admin_user = <?php echo $_SESSION['is_admin_user']; ?>;
 
-        var type = getUrlParameter('type');
-        var reason = getUrlParameter('reason');
-        console.log(type);
-        console.log(reason);
-        if (type) {
-            $('#deposit').val(type);
-        }
-        if (reason) {
-            $('#reason').val(reason);
-        }
-        $('.filter-submit').click();
+        
 
 
         oTable = $('#statement-grid').DataTable({
@@ -243,7 +233,20 @@ include('includes/footer.php');
         });
     });
     processDateFilter(3);
-
+    $(window).load(function () {
+        
+       var type = getUrlParameter('type');
+        var reason = getUrlParameter('reason');
+        console.log(type);
+        console.log(reason);
+        if (type) {
+            $('#deposit').val(type);
+        }
+        if (reason) {
+            $('#reason').val(reason);
+        }
+        $('.filter-submit').click();
+    });
 
 </script>
 </body>
