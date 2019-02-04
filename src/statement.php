@@ -197,7 +197,7 @@ include('includes/footer.php');
                         .column(4)
                         .data()
                         .filter(function (value, index) {
-                            var str = reasonVal;
+                            var str = "Mining Earning";
                             console.log(value,str,value===reasonVal);
                             if(value===str){
                                 return true;
