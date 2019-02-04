@@ -190,22 +190,29 @@ include('includes/footer.php');
 
         $('.filter-submit').click(function () {
             console.log('I am inside filter submit ');
-            var reasonVal = $('#reason').val();
+            var reasonVal = String($('#reason').val());
             if (reasonVal) {
-                console.log('I am inside reasonVal ', reasonVal);
-                var filteredData = oTable
-                        .column(4)
-                        .data()
-                        .filter(function (value, index) {
-                            var str = "Mining Earning";
-                            console.log(value,str,value===reasonVal);
-                            if(value===str){
-                                return true;
-                            } else {
-                                return false;
-                            }
-                            //return value===reasonVal ? true : false;
-                        });
+                /*console.log('I am inside reasonVal ', reasonVal);
+                 var filteredData = oTable
+                 .column(4)
+                 .data()
+                 .filter(function (value, index) {
+                 console.log(value,reasonVal,value===reasonVal);
+                 if(value===reasonVal){
+                 return true;
+                 } else {
+                 return false;
+                 }
+                 //return value===reasonVal ? true : false;
+                 });*/
+                var search = [];
+
+                search.push(reasonVal);
+                
+                search = search.join('|');
+                oTable.column(4).search(search, true, false).draw();
+
+                
             }
             var withdrawalVal = $('#withdrawal').val();
             if (withdrawalVal) {
