@@ -197,8 +197,9 @@ include('includes/footer.php');
                         .column(4)
                         .data()
                         .filter(function (value, index) {
-                            console.log(value,reasonVal,value===reasonVal);
-                            if(value===reasonVal){
+                            var str = reasonVal;
+                            console.log(value,str,value===reasonVal);
+                            if(value===str){
                                 return true;
                             } else {
                                 return false;
