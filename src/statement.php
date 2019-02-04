@@ -220,7 +220,7 @@ include('includes/footer.php');
                             console.log(value > 0);
                             return value > 0 ? true : false;
                         });*/
-            oTable.column(6).search(withdrawalVal > 0, true, false).draw();
+            oTable.column(6).search(depositVal > 0, true, false).draw();
             
             }
         });
