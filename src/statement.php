@@ -159,6 +159,8 @@ include('includes/footer.php');
                 {"title": "Withdrawal", "data": "withdrawal"},
                 {"title": "Deposit", "data": "deposit"},
                 {"title": "Action", "data": null, 'defaultContent': ''},
+                {"title": "withdrawal_flag", "data": "withdrawal_flag", "visible": false, },
+                {"title": "deposit_flag", "data": "deposit_flag", "visible": false, },
             ],
             "drawCallback": function (settings) {
                 var api = this.api();
@@ -199,33 +201,38 @@ include('includes/footer.php');
             }
             var withdrawalVal = parseFloat($('#withdrawal').val());
 
-            console.log('I am inside withdrawalVal ', withdrawalVal);
-             oTable.column(5).data().filter(function (value, index) {
-                        console.log(value);
-                        if (withdrawalVal) {
-                            return value > 0 ? true : false;
-                        } else {
-                            return value > 0 ? false : true;
-                        }
-                    });
-
-            // oTable.column(5).search(withdrawalVal > 0, true, false).draw();
+            /*console.log('I am inside withdrawalVal ', withdrawalVal);
+             oTable.column(8).data().filter(function (value, index) {
+             console.log(value);
+             if (withdrawalVal) {
+             return value > 0 ? true : false;
+             } else {
+             return value > 0 ? false : true;
+             }
+             });*/
+            var search = [];
+            search.push(withdrawalVal);
+            search = search.join('|');
+            oTable.column(8).search(search, true, false).draw();
 
             var depositVal = parseFloat($('#deposit').val());
-            if (depositVal) {
-                console.log('I am inside depositVal ', depositVal);
-                oTable.column(6).data().filter(function (value, index) {
-                            console.log(value);
-                            if (depositVal) {
-                                return value > 0 ? true : false;
-                            } else {
-                                return value > 0 ? false : true;
-                            }
 
-                        });
-                // oTable.column(6).search(depositVal > 0, true, false).draw();
+            console.log('I am inside depositVal ', depositVal);
+            /*oTable.column(9).data().filter(function (value, index) {
+             console.log(value);
+             if (depositVal) {
+             return value > 0 ? true : false;
+             } else {
+             return value > 0 ? false : true;
+             }
+             
+             });*/
+            var search = [];
+            search.push(withdrawalVal);
+            search = search.join('|');
+            oTable.column(9).search(search, true, false).draw();
 
-            }
+
         });
 
         $('.filter-cancel').click(function () {
