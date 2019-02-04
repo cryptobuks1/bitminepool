@@ -134,6 +134,21 @@ include('includes/footer.php');
 <script src="../vendor/build/js/jquery-ui.js"></script>
 
 <script>
+    var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            }
+        }
+    };
+
     $(function () {
         $("#accordion").accordion();
         $("#accordion_transaction").accordion();
@@ -141,6 +156,19 @@ include('includes/footer.php');
 
         var accountTransactionDBData = <?php echo json_encode($accountTransactionDBData); ?>;
         var is_admin_user = <?php echo $_SESSION['is_admin_user']; ?>;
+
+        var type = getUrlParameter('type');
+        var reason = getUrlParameter('reason');
+        console.log(type);
+        console.log(reason);
+        if (type) {
+            $('#deposit').val(type);
+        }
+        if (reason) {
+            $('#reason').val(reason);
+        }
+        $('.filter-submit').click();
+
 
         oTable = $('#statement-grid').DataTable({
             data: accountTransactionDBData,
@@ -155,7 +183,7 @@ include('includes/footer.php');
                 {"title": "User Name", "data": "user_name"},
                 {"title": "Narration", "data": "transaction_narration"},
                 {"title": "Value Date", "data": "transaction_date"},
-                {"title": "Ref No.", "data": "transaction_ref_no"},
+                {"title": "Reason", "data": "transaction_ref_no"},
                 {"title": "Withdrawal", "data": "withdrawal"},
                 {"title": "Deposit", "data": "deposit"},
                 {"title": "Action", "data": null, 'defaultContent': ''},
@@ -192,21 +220,19 @@ include('includes/footer.php');
 
 
         $('.filter-submit').click(function () {
-            var reasonVal = String($('#reason').val());
-            if (reasonVal) {
+            var reasonVal = parseFloat($('#reason').val());
+            if (!isNaN(reasonVal)) {
                 oTable.column(10).search(reasonVal, true, false).draw();
-            } else {
-                oTable.search('').columns().search('').draw();
             }
 
             var withdrawalVal = parseFloat($('#withdrawal').val());
             if (!isNaN(withdrawalVal)) {
                 oTable.column(8).search(withdrawalVal, true, false).draw();
-            } 
+            }
             var depositVal = parseFloat($('#deposit').val());
             if (!isNaN(depositVal)) {
                 oTable.column(9).search(depositVal, true, false).draw();
-            } 
+            }
 
 
         });
