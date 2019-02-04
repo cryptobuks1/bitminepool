@@ -157,7 +157,7 @@ include('includes/footer.php');
         var accountTransactionDBData = <?php echo json_encode($accountTransactionDBData); ?>;
         var is_admin_user = <?php echo $_SESSION['is_admin_user']; ?>;
 
-        
+
 
 
         oTable = $('#statement-grid').DataTable({
@@ -211,20 +211,26 @@ include('includes/footer.php');
 
         $('.filter-submit').click(function () {
             var reasonVal = parseFloat($('#reason').val());
-            console.log('reasonVal',reasonVal);
+            console.log('reasonVal', reasonVal);
             if (!isNaN(reasonVal)) {
                 oTable.column(10).search(reasonVal, true, false).draw();
+            } else {
+                oTable.search('').columns(10).search('').draw();
             }
 
             var withdrawalVal = parseFloat($('#withdrawal').val());
-             console.log('withdrawalVal',withdrawalVal);
+            console.log('withdrawalVal', withdrawalVal);
             if (!isNaN(withdrawalVal)) {
                 oTable.column(8).search(withdrawalVal, true, false).draw();
+            } else {
+                oTable.search('').columns(8).search('').draw();
             }
             var depositVal = parseFloat($('#deposit').val());
-            console.log('depositVal',depositVal);
+            console.log('depositVal', depositVal);
             if (!isNaN(depositVal)) {
                 oTable.column(9).search(depositVal, true, false).draw();
+            } else {
+                oTable.search('').columns(9).search('').draw();
             }
 
 
@@ -237,8 +243,8 @@ include('includes/footer.php');
     });
     processDateFilter(3);
     $(window).load(function () {
-        
-       var type = getUrlParameter('type');
+
+        var type = getUrlParameter('type');
         var reason = getUrlParameter('reason');
         console.log(type);
         console.log(reason);
