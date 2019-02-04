@@ -211,7 +211,6 @@ include('includes/footer.php');
 
         $('.filter-submit').click(function () {
             var reasonVal = parseFloat($('#reason').val());
-            console.log('reasonVal', reasonVal);
             if (!isNaN(reasonVal)) {
                 oTable.column(10).search(reasonVal, true, false).draw();
             } else {
@@ -219,14 +218,14 @@ include('includes/footer.php');
             }
 
             var withdrawalVal = parseFloat($('#withdrawal').val());
-            console.log('withdrawalVal', withdrawalVal);
             if (!isNaN(withdrawalVal)) {
                 oTable.column(8).search(withdrawalVal, true, false).draw();
             } else {
                 oTable.search('').columns(8).search('').draw();
             }
+
             var depositVal = parseFloat($('#deposit').val());
-            console.log('depositVal', depositVal);
+
             if (!isNaN(depositVal)) {
                 oTable.column(9).search(depositVal, true, false).draw();
             } else {
