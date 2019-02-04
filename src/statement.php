@@ -202,15 +202,11 @@ include('includes/footer.php');
             var withdrawalVal = parseFloat($('#withdrawal').val());
             if (!isNaN(withdrawalVal)) {
                 oTable.column(8).search(withdrawalVal, true, false).draw();
-            } else {
-                oTable.search('').columns().search('').draw();
-            }
+            } 
             var depositVal = parseFloat($('#deposit').val());
             if (!isNaN(depositVal)) {
                 oTable.column(9).search(depositVal, true, false).draw();
-            } else {
-                oTable.search('').columns().search('').draw();
-            }
+            } 
 
 
         });
