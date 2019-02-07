@@ -232,11 +232,13 @@ if (isset($_SESSION['Username'])) {
                                             $gap = $interval->format('%a');
                                             
                                             ?>
-                                            <li><span><?php echo $gap; ?>/365</span>  Days Mined</li>
+                                           
                                             <?php
                                                 if($gap > 30){
+                                                    echo  '<li><span>'.($gap-30).'/365</span>  Days Mined</li>'; 
                                                     echo '<li>No Waiting Period.</li>';
                                                 } else {
+                                                    echo  '<li><span>'.$gap.'/365</span>  Days Mined</li>'; 
                                                    echo '<li><span>'. $gap.'/30</span>  Waiting Period.</li>'; 
                                                 }
                                             ?>
@@ -349,11 +351,13 @@ if (isset($_SESSION['Username'])) {
                                             $gap2 = $interval1->format('%a');
                                             ?>
 
-                                            <li><span><?php echo $gap2; ?>/365</span>  Days Mined</li>
+                                            
                                             <?php
                                                 if($gap2 > 30){
+                                                    echo '<li><span>'.($gap2 -30).'/365</span>  Days Mined</li>';
                                                     echo '<li>No Waiting Period.</li>';
                                                 } else {
+                                                    echo '<li><span>'.$gap2.'/365</span>  Days Mined</li>';
                                                    echo '<li><span>'. $gap2.'/30</span>  Waiting Period.</li>'; 
                                                 }
                                             ?>
@@ -469,11 +473,13 @@ if (isset($_SESSION['Username'])) {
                                             $gap3 = $interval2->format('%a');
                                             ?>
 
-                                            <li><span><?php echo $gap3; ?>/365</span>  Days Mined</li>
+                                            
                                             <?php
                                                 if($gap3 > 30){
+                                                    echo '<li><span>'.($gap3 - 30).'/365</span>  Days Mined</li>';
                                                     echo '<li>No Waiting Period.</li>';
                                                 } else {
+                                                    echo '<li><span>'.$gap3.'/365</span>  Days Mined</li>';
                                                    echo '<li><span>'. $gap3.'/30</span>  Waiting Period.</li>'; 
                                                 }
                                             ?>
@@ -592,8 +598,10 @@ if (isset($_SESSION['Username'])) {
                                             <li><span><?php echo $gapgrand; ?>/365</span>  Days Mined</li>
                                             <?php
                                                 if($gapgrand > 30){
+                                                    echo '<li><span>'.($gapgrand-30).'/365</span>  Days Mined</li>';
                                                     echo '<li>No Waiting Period.</li>';
                                                 } else {
+                                                    echo '<li><span>'.($gapgrand).'/365</span>  Days Mined</li>';
                                                    echo '<li><span>'. $gapgrand.'/30</span>  Waiting Period.</li>'; 
                                                 }
                                             ?>
@@ -709,11 +717,13 @@ if (isset($_SESSION['Username'])) {
                                             $gapultimate = $intervalultimate->format('%a');
                                             ?>
 
-                                            <li><span><?php echo $gapultimate; ?>/365</span>  Days Mined</li>
+                                           
                                             <?php
                                                 if($gapultimate > 30){
+                                                    echo '<li><span>'.($gapultimate-30).'/365</span>  Days Mined</li>';
                                                     echo '<li>No Waiting Period.</li>';
                                                 } else {
+                                                    echo '<li><span>'.$gapultimate.'/365</span>  Days Mined</li>';
                                                    echo '<li><span>'. $gapultimate.'/30</span>  Waiting Period.</li>'; 
                                                 }
                                             ?>
