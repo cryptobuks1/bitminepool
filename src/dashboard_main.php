@@ -238,7 +238,7 @@ if (isset($_SESSION['Username'])) {
                                                     echo  '<li><span>'.($gap-30).'/365</span>  Days Mined</li>'; 
                                                     echo '<li>No Waiting Period.</li>';
                                                 } else {
-                                                    echo  '<li><span>'.$gap.'/365</span>  Days Mined</li>'; 
+                                                   echo '<li><span>0/365</span>  Days Mined</li>';
                                                    echo '<li><span>'. $gap.'/30</span>  Waiting Period.</li>'; 
                                                 }
                                             ?>
@@ -357,7 +357,7 @@ if (isset($_SESSION['Username'])) {
                                                     echo '<li><span>'.($gap2 -30).'/365</span>  Days Mined</li>';
                                                     echo '<li>No Waiting Period.</li>';
                                                 } else {
-                                                    echo '<li><span>'.$gap2.'/365</span>  Days Mined</li>';
+                                                    echo '<li><span>0/365</span>  Days Mined</li>';
                                                    echo '<li><span>'. $gap2.'/30</span>  Waiting Period.</li>'; 
                                                 }
                                             ?>
@@ -479,7 +479,7 @@ if (isset($_SESSION['Username'])) {
                                                     echo '<li><span>'.($gap3 - 30).'/365</span>  Days Mined</li>';
                                                     echo '<li>No Waiting Period.</li>';
                                                 } else {
-                                                    echo '<li><span>'.$gap3.'/365</span>  Days Mined</li>';
+                                                    echo '<li><span>0/365</span>  Days Mined</li>';
                                                    echo '<li><span>'. $gap3.'/30</span>  Waiting Period.</li>'; 
                                                 }
                                             ?>
@@ -601,7 +601,7 @@ if (isset($_SESSION['Username'])) {
                                                     echo '<li><span>'.($gapgrand-30).'/365</span>  Days Mined</li>';
                                                     echo '<li>No Waiting Period.</li>';
                                                 } else {
-                                                    echo '<li><span>'.($gapgrand).'/365</span>  Days Mined</li>';
+                                                    echo '<li><span>0/365</span>  Days Mined</li>';
                                                    echo '<li><span>'. $gapgrand.'/30</span>  Waiting Period.</li>'; 
                                                 }
                                             ?>
@@ -723,7 +723,7 @@ if (isset($_SESSION['Username'])) {
                                                     echo '<li><span>'.($gapultimate-30).'/365</span>  Days Mined</li>';
                                                     echo '<li>No Waiting Period.</li>';
                                                 } else {
-                                                    echo '<li><span>'.$gapultimate.'/365</span>  Days Mined</li>';
+                                                    echo '<li><span>0/365</span>  Days Mined</li>';
                                                    echo '<li><span>'. $gapultimate.'/30</span>  Waiting Period.</li>'; 
                                                 }
                                             ?>
