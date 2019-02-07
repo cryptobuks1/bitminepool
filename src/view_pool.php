@@ -197,35 +197,35 @@ if (isset($_SESSION['Username'])) {
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-bitcoin"></i> Account Balance (USD)</span>
                        <!-- <div class="count"><a href="#"><?php echo $totalone; ?></a></div> -->
-                        <div class="count"><a href="#"><?php echo $selectedAccountBalance; ?></a></div>
+                        <div class="count"><a href="#"><?php echo floatVal($selectedAccountBalance); ?></a></div>
                         <!--<span class="count_bottom"><i class="green">($<?php echo $selectedAccountBalance; ?>) </i> Total Balance</span> -->
                         <span class="count_bottom"><i class="green"> </i> Total Balance</span>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-clock-o"></i> Total Account Earnings (USD)</span>
                        <!-- <div class="count"><a href="#"><?php echo $totaltwo; ?></a></div> -->
-                        <div class="count"><a href="#"><?php echo $selectedMiningBalance; ?></a></div>
+                        <div class="count"><a href="#"><?php echo floatVal($selectedMiningBalance); ?></a></div>
                        <!-- <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $selectedMiningBalance; ?>) </i>Total Earnings</span> -->
                         <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i> </i>Total Earnings</span>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-sitemap"></i> Total Mining Earnings (USD)</span>
                         <!-- <div class="count"><a href="#"><?php echo $tempTotalMiningBtc; ?></a></div> -->
-                        <div class="count"><a href="#"><?php echo $tempTotalMining; ?></a></div>
+                        <div class="count"><a href="#"><?php echo floatVal($tempTotalMining); ?></a></div>
                        <!-- <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $tempTotalMining; ?>)</i> Mining Earnings</span> -->
                         <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i> Mining Earnings</span>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-th"></i> Commissions (USD)</span>
                         <!--<div class="count"><a href="#"><?php echo $totalthree; ?></a></div> -->
-                        <div class="count"><a href="#"><?php echo $selectedCommissionBalance; ?></a></div>
+                        <div class="count"><a href="#"><?php echo floatVal($selectedCommissionBalance); ?></a></div>
                         <!-- <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $selectedCommissionBalance; ?>) </i> Total Commission</span> -->
                         <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i> </i> Total Commission</span>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-users"></i> Team Volume (USD)</span>
                        <!-- <div class="count"><a href=""><?php echo $totalfour; ?></a></div> -->
-                        <div class="count"><a href=""><?php echo $selectedTeamVolumeBalance; ?></a></div>
+                        <div class="count"><a href=""><?php echo floatVal($selectedTeamVolumeBalance); ?></a></div>
                        <!-- <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $selectedTeamVolumeBalance; ?>)</i> Total team Volume</span> -->
                         <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i> Total team Volume</span>
                     </div>
