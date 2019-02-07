@@ -214,8 +214,8 @@ if (isset($_SESSION['Username'])) {
                                         $Starterdate = "SELECT * FROM starterpack WHERE Username='" . $_SESSION['Username'] . "' order by id desc limit 1";
                                         $querystarter = mysqli_query($conn, $Starterdate);
                                         $viewstarter = mysqli_fetch_array($querystarter);
-                                        $showstarterdate = $viewstarter['MiningDate'];
-                                        //$showstarterdate = $viewstarter['PurchaseDate'];
+                                        //$showstarterdate = $viewstarter['MiningDate'];
+                                        $showstarterdate = $viewstarter['PurchaseDate'];
                                         $starterstatus = $viewstarter['Status'];
                                         if ($showstarterdate == "0") {
                                             $gapone = "0";
@@ -331,8 +331,8 @@ if (isset($_SESSION['Username'])) {
                                         $minidate = "SELECT * FROM minipack WHERE Username='" . $_SESSION['Username'] . "' order by id desc limit 1";
                                         $querymini = mysqli_query($conn, $minidate);
                                         $viewmini = mysqli_fetch_array($querymini);
-                                        $showminidate = $viewmini['MiningDate'];
-                                        //$showminidate = $viewmini['PurchaseDate'];
+                                        //$showminidate = $viewmini['MiningDate'];
+                                        $showminidate = $viewmini['PurchaseDate'];
                                         $ministatus = $viewmini['Status'];
                                         if ($showminidate == "0") {
                                             $gap1 = "0";
@@ -451,8 +451,8 @@ if (isset($_SESSION['Username'])) {
                                         $mediumdate = "SELECT * FROM mediumpack WHERE Username='" . $_SESSION['Username'] . "' order by id desc limit 1";
                                         $querymedium = mysqli_query($conn, $mediumdate);
                                         $viewmedium = mysqli_fetch_array($querymedium);
-                                        $showmediumdate = $viewmedium['MiningDate'];
-                                       // $showmediumdate = $viewmedium['PurchaseDate'];
+                                        //$showmediumdate = $viewmedium['MiningDate'];
+                                        $showmediumdate = $viewmedium['PurchaseDate'];
                                         $mediumstatus = $viewmedium['Status'];
                                         if ($showmediumdate == "0") {
                                             $mediumgap = "0";
@@ -571,8 +571,8 @@ if (isset($_SESSION['Username'])) {
                                         $granddate = "SELECT * FROM grandpack WHERE Username='" . $_SESSION['Username'] . "' order by id desc limit 1";
                                         $querygrand = mysqli_query($conn, $granddate);
                                         $viewgrand = mysqli_fetch_array($querygrand);
-                                        $showgranddate = $viewgrand['MiningDate'];
-                                        //$showgranddate = $viewgrand['PurchaseDate'];
+                                        //$showgranddate = $viewgrand['MiningDate'];
+                                        $showgranddate = $viewgrand['PurchaseDate'];
                                         $grandstatus = $viewgrand['Status'];
                                         if ($showgranddate == "0") {
                                             $grandgap = "0";
@@ -691,8 +691,8 @@ if (isset($_SESSION['Username'])) {
                                         $ultimatedate = "SELECT * FROM ultimatepack WHERE Username='" . $_SESSION['Username'] . "' order by id desc limit 1";
                                         $queryultimate = mysqli_query($conn, $ultimatedate);
                                         $viewultimate = mysqli_fetch_array($queryultimate);
-                                        $showultimatedate = $viewultimate['MiningDate'];
-                                       // $showultimatedate = $viewultimate['PurchaseDate'];
+                                        //$showultimatedate = $viewultimate['MiningDate'];
+                                        $showultimatedate = $viewultimate['PurchaseDate'];
                                         $ultimatestatus = $viewultimate['Status'];
                                         if ($showultimatedate == "0") {
                                             $ultimategap = "0";
