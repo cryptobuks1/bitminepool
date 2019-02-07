@@ -111,7 +111,7 @@ if (isset($_SESSION['Username'])) {
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-bitcoin"></i> Account Balance (USD)</span>
                        <!-- <div class="count"><a href="#"><?php echo $totalone; ?></a></div> -->
-                        <div class="count"><a href="statement?type=1&reason=0"><?php echo floatVal($selectedAccountBalance); ?></a></div>
+                        <div class="count"><a href="statement?type=1&reason=0"><?php echo number_format($selectedAccountBalance,2); ?></a></div>
                         <!-- <span class="count_bottom"><i class="green">($<?php echo $selectedAccountBalance; ?>) </i> Total Balance</span> -->
                         <span class="count_bottom"><i class="green"></i> Total Balance</span>
                     </div>
@@ -119,28 +119,28 @@ if (isset($_SESSION['Username'])) {
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-sitemap"></i> Total Mining Earnings (USD)</span>
                         <!-- <div class="count"><a href="#"><?php echo $totaltwo; ?></a></div> -->
-                         <div class="count"><a href="statement?type=1&reason=5"><?php echo floatVal($selectedMiningBalance); ?></a></div>
+                         <div class="count"><a href="statement?type=1&reason=5"><?php echo number_format($selectedMiningBalance,2); ?></a></div>
                         <!-- <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $selectedMiningBalance; ?>)</i> Mining Earnings</span> -->
                         <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i> Mining Earnings</span>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-clock-o"></i> Residual Income (USD)</span>
                         <!-- <div class="count"><a href="#"><?php echo $totalthree; ?></a></div> -->
-                        <div class="count"><a href="statement?type=1&reason=4"><?php echo floatVal($selectedTeamBalance); ?></a></div>
+                        <div class="count"><a href="statement?type=1&reason=4"><?php echo number_format($selectedTeamBalance,2); ?></a></div>
                        <!-- <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $selectedTeamBalance; ?>) </i>Total Residual </span> -->
                         <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i> </i>Total Residual </span>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-th"></i> Direct Commissions (USD)</span>
                        <!-- <div class="count"><a href="#"><?php echo $totalfour; ?></a></div> -->
-                        <div class="count"><a href="statement?type=1&reason=1"><?php echo floatVal($selectedCommissionBalance); ?></a></div>
+                        <div class="count"><a href="statement?type=1&reason=1"><?php echo number_format($selectedCommissionBalance,2); ?></a></div>
                        <!--  <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $selectedCommissionBalance; ?>) </i> Total Commission</span> -->
                         <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i> </i> Total Commission</span>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-users"></i> Binary Earnings (USD)</span>
                         <!-- <div class="count"><a href=""><?php echo $totalfive; ?></a></div> -->
-                        <div class="count"><a href="statement?type=1&reason=2"><?php echo floatVal($selectedBinaryIncomeBalance); ?></a></div>
+                        <div class="count"><a href="statement?type=1&reason=2"><?php echo number_format($selectedBinaryIncomeBalance,2); ?></a></div>
                        <!--  <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $selectedBinaryIncomeBalance; ?>)</i> Total team Volume</span> -->
                         <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i> Total team Volume</span>
                     </div>
