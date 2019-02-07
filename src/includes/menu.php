@@ -19,6 +19,7 @@
                         <li><a href="statement">Statement</a></li>
                         <li><a href="all_transactions?type=invoice">Invoice</a></li>
                         <li><a href="support">Support</a></li>
+                        <li><a href="reverifyemail">Reverify Email</a></li>
                     </ul>
                 </li>
                 <?php
