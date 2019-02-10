@@ -265,7 +265,18 @@ if (isset($_SESSION['Username'])) {
                                     </ul>
                                 </div>
                                 <!--//FEATURE LIST END-->
+								<?php
+								$sqlstarterExpiryPackage = "SELECT i.id FROM invoice AS i 
+									WHERE i.Username = '" . $_SESSION['Username'] . "'
+									AND i.Purpose = 'Starter'
+									AND i.Status = 'Paid' AND i.Purpose <> 'Registration'
+									AND DATEDIFF(DATE_ADD(DATE_FORMAT(i.created_at,'%y-%m-%d'), INTERVAL 364 DAY),CURDATE()) <= 3 limit 1";
+								$resultstarterExpiryPackage = mysqli_query($conn, $sqlstarterExpiryPackage);
+								if (mysqli_num_rows($resultstarterExpiryPackage) == 1) {
 
+									echo '<span>Expiring Soon! </span><a class="renew_button" data-pack="Starter" id="starter_renew" href="purchase_pool?Purpose=Starter">Renew Now</a>';
+								}
+								?>
                                 <!--BUTTON START-->
                                 <div class="generic_price_btn clearfix">
                                     <?php
@@ -386,11 +397,23 @@ if (isset($_SESSION['Username'])) {
                                     </ul>
                                 </div>
                                 <!--//FEATURE LIST END-->
+								<?php
+								$sqlminiExpiryPackage = "SELECT i.id FROM invoice AS i 
+									WHERE i.Username = '" . $_SESSION['Username'] . "'
+									AND i.Purpose = 'Mini'
+									AND i.Status = 'Paid' AND i.Purpose <> 'Registration'
+									AND DATEDIFF(DATE_ADD(DATE_FORMAT(i.created_at,'%y-%m-%d'), INTERVAL 364 DAY),CURDATE()) <= 3 limit 1";
+								$resultminiExpiryPackage = mysqli_query($conn, $sqlminiExpiryPackage);
+								if (mysqli_num_rows($resultminiExpiryPackage) == 1) {
 
+									echo '<span>Expiring Soon! </span><a class="renew_button" data-pack="Mini" id="mini_renew" href="purchase_pool?Purpose=Mini">Renew Now</a>';
+								}
+								?>			
                                 <!--BUTTON START-->
                                 <div class="generic_price_btn clearfix">
                                     <?php
                                     if (mysqli_num_rows($resultm) == 1) {
+
                                         ?>
                                         <a class="" href="">Purchased</a>
                                         <?php
@@ -487,7 +510,7 @@ if (isset($_SESSION['Username'])) {
                                             <?php
                                         }
                                         ?>
-
+										
 
                                         <?php
                                         $sqln = "SELECT * FROM mediumpack WHERE Username='" . $_SESSION['Username'] . "' AND Comment='Purchased' order by id desc limit 1";
@@ -508,7 +531,18 @@ if (isset($_SESSION['Username'])) {
                                     </ul>
                                 </div>
                                 <!--//FEATURE LIST END-->
+								<?php
+									$sqlmediumExpiryPackage = "SELECT i.id FROM invoice AS i 
+										WHERE i.Username = '" . $_SESSION['Username'] . "'
+										AND i.Purpose = 'Medium'
+										AND i.Status = 'Paid' AND i.Purpose <> 'Registration'
+										AND DATEDIFF(DATE_ADD(DATE_FORMAT(i.created_at,'%y-%m-%d'), INTERVAL 364 DAY),CURDATE()) <= 3 limit 1";
+									$resultmediumExpiryPackage = mysqli_query($conn, $sqlmediumExpiryPackage);
+									if (mysqli_num_rows($resultmediumExpiryPackage) == 1) {
 
+										echo '<span>Expiring Soon! </span><a class="renew_button" data-pack="Medium" id="medium_renew" href="purchase_pool?Purpose=Medium">Renew Now</a>';
+									}
+								?>
                                 <!--BUTTON START-->
                                 <div class="generic_price_btn clearfix">
                                     <?php
@@ -610,7 +644,6 @@ if (isset($_SESSION['Username'])) {
                                         }
                                         ?>
 
-
                                         <?php
                                         $sqlp = "SELECT * FROM grandpack WHERE Username='" . $_SESSION['Username'] . "' AND Comment='Purchased' order by id desc limit 1";
                                         $resultp = mysqli_query($conn, $sqlp);
@@ -631,6 +664,18 @@ if (isset($_SESSION['Username'])) {
                                 </div>
                                 <!--//FEATURE LIST END-->
 
+								<?php
+									$sqlgrandExpiryPackage = "SELECT i.id FROM invoice AS i 
+										WHERE i.Username = '" . $_SESSION['Username'] . "'
+										AND i.Purpose = 'Grand'
+										AND i.Status = 'Paid' AND i.Purpose <> 'Registration'
+										AND DATEDIFF(DATE_ADD(DATE_FORMAT(i.created_at,'%y-%m-%d'), INTERVAL 364 DAY),CURDATE()) <= 3 limit 1";
+									$resultgrandExpiryPackage = mysqli_query($conn, $sqlgrandExpiryPackage);
+									if (mysqli_num_rows($resultgrandExpiryPackage) == 1) {
+
+										echo '<span>Expiring Soon! </span><a class="renew_button" data-pack="Grand" id="grand_renew" href="purchase_pool?Purpose=Grand">Renew Now</a>';
+									}
+								?>
                                 <!--BUTTON START-->
                                 <div class="generic_price_btn clearfix">
                                     <?php
@@ -752,7 +797,18 @@ if (isset($_SESSION['Username'])) {
                                     </ul>
                                 </div>
                                 <!--//FEATURE LIST END-->
+								<?php
+									$sqlultimateExpiryPackage = "SELECT i.id FROM invoice AS i 
+										WHERE i.Username = '" . $_SESSION['Username'] . "'
+										AND i.Purpose = 'Ultimate'
+										AND i.Status = 'Paid' AND i.Purpose <> 'Registration'
+										AND DATEDIFF(DATE_ADD(DATE_FORMAT(i.created_at,'%y-%m-%d'), INTERVAL 364 DAY),CURDATE()) <= 3 limit 1";
+									$resultultimateExpiryPackage = mysqli_query($conn, $sqlultimateExpiryPackage);
+									if (mysqli_num_rows($resultultimateExpiryPackage) == 1) {
 
+										echo '<span>Expiring Soon! </span><a class="renew_button" data-pack="Ultimate" id="ultimate_renew" href="purchase_pool?Purpose=Ultimate">Renew Now</a>';
+									}
+								?>
                                 <!--BUTTON START-->
                                 <div class="generic_price_btn clearfix">
                                     <?php
@@ -803,5 +859,48 @@ if (isset($_SESSION['Username'])) {
         <?php
         include('includes/footer.php');
         ?>
+	<script>
+		
+    $('body').on("click", ".renew_button", function () {
+        var package = $(this).attr('data-pack');
+		console.log(package);
+		return false;
+        var processTickets = 'processAjax';
+        var formDataProcessTicket = {
+
+            'user_name': "<?php echo $_SESSION['Username']; ?>",
+            'ticket_id': id,
+            'status': change_status,
+            'platform': '3',
+            'transaction_type': '502',
+            'url': 'processTicket',
+            'action': 'POST'
+        };
+
+        $.ajax({
+            url: processTickets,
+            cache: false,
+            type: 'POST',
+            data: formDataProcessTicket,
+            success: function (data)
+            {
+                data = JSON.parse(data);
+                console.log(data);
+                if (data.statusCode == '100') {
+                    //$('#receive-payment').submit();
+                    setTimeout(function () {
+                        location.reload();
+                    }, 3000);
+                    showAlertMessage("#response", data.statusDescription, 1);
+
+                } else {
+                    showAlertMessage("#response", data.statusDescription, 0);
+                }
+
+            }
+        });
+        console.log(id, change_status);
+    });
+	</script>
 </body>
 </html>

@@ -519,4 +519,9 @@
     background-color: #E87E04;
 }
 
+a.renew_button,a.renew_button:hover {
+	font-size: 16px;
+	color: #a94442;
+
+}
 
