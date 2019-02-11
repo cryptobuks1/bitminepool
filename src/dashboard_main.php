@@ -410,7 +410,8 @@ if (isset($_SESSION['Username'])) {
 									AND i.Purpose = 'Mini'
 									AND i.Status = 'Paid' AND i.Purpose <> 'Registration'
 									AND DATEDIFF(DATE_ADD(DATE_FORMAT(i.created_at,'%y-%m-%d'), INTERVAL 364 DAY),CURDATE()) <= 3 limit 1";
-                                $resultminiExpiryPackage = mysqli_query($conn, $sqlminiExpiryPackage);
+                                
+								$resultminiExpiryPackage = mysqli_query($conn, $sqlminiExpiryPackage);
                                 if (mysqli_num_rows($resultminiExpiryPackage) == 1) {
 
                                     echo '<span>Expiring Soon! </span><a class="renew_button" data-pack="Mini" id="mini_renew" data-invoice_id = "' . $miniInvoiceId . '" href="purchase_pool?Purpose=Mini">Renew Now</a>';
@@ -883,9 +884,6 @@ if (isset($_SESSION['Username'])) {
                 var package = $(this).attr('data-pack');
                 var invoice_id = $(this).attr('data-invoice_id');
                 var redirectUrl = '<?php echo BASE_URL;?>'+$(this).attr('href');
-                 
-                console.log(package, invoice_id,redirectUrl);
-                return false;
                 var checkAndProcessExpiredInvoice = 'processAjax';
                 var formDataCheckAndProcessExpiredInvoice = {
 
@@ -905,7 +903,6 @@ if (isset($_SESSION['Username'])) {
                     success: function (data)
                     {
                         data = JSON.parse(data);
-                        console.log(data);
                         if (data.statusCode == '100') {
                             //$('#receive-payment').submit();
                             setTimeout(function () {
@@ -919,7 +916,7 @@ if (isset($_SESSION['Username'])) {
 
                     }
                 });
-                console.log(id, change_status);
+                
             });
         </script>
 </body>
