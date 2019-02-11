@@ -4,17 +4,17 @@ if (isset($_SESSION['Username'])) {
     $userData = [];
     $userName = $_SESSION['Username'];
     $responseUser = ApiHelper::getApiResponse('POST', ['access_token' => ACCESS_TOKEN,
-            'user_name' => $userName,
-            'login_user_name' => $_SESSION['Username'],
-            'platform' => '3',
-            'transaction_type' => '301'
-            ], 'getAllUserDataByUserName');
+                'user_name' => $userName,
+                'login_user_name' => $_SESSION['Username'],
+                'platform' => '3',
+                'transaction_type' => '301'
+                    ], 'getAllUserDataByUserName');
 
     $responseUser = json_decode($responseUser);
-    
-    $selectedAccountBalance = $selectedMiningBalance = $selectedTeamBalance = $selectedCommissionBalance=$selectedBinaryIncomeBalance=$selectedTeamVolumeBalance=$selectedRankId = 0;
+    $starterInvoiceId = $miniInvoiceId = $mediumInvoiceId = $grandInvoiceId = $ultimateInvoiceId = '';
+    $selectedAccountBalance = $selectedMiningBalance = $selectedTeamBalance = $selectedCommissionBalance = $selectedBinaryIncomeBalance = $selectedTeamVolumeBalance = $selectedRankId = 0;
     $starterDailyMine = $miniDailyMine = $mediumDailyMine = $grandDailyMine = $ultimateDailyMine = 0;
-    $selectedRank= '';
+    $selectedRank = '';
     if ($responseUser->statusCode == 100) {
         $userData = $responseUser->response->dashboard_data;
         $selectedAccountBalance = $userData->selectedAccountBalance;
@@ -82,12 +82,12 @@ if (isset($_SESSION['Username'])) {
                         <div class="profile_info">
                             <span>Welcome,</span>
                             <h2><?php
-                            if (isset($_SESSION['Username'])) {
-                                echo ' ' . strlen($_SESSION['Username']) > 15 ? ucfirst(substr($_SESSION['Username'], 0, 15)) . "..." : ucfirst($_SESSION['Username']);
-                            } else {
-                                header("location:login");
-                            }
-                            ?></h2>
+                                if (isset($_SESSION['Username'])) {
+                                    echo ' ' . strlen($_SESSION['Username']) > 15 ? ucfirst(substr($_SESSION['Username'], 0, 15)) . "..." : ucfirst($_SESSION['Username']);
+                                } else {
+                                    header("location:login");
+                                }
+                                ?></h2>
                         </div>
                     </div>
                     <!-- /menu profile quick info -->
@@ -111,7 +111,7 @@ if (isset($_SESSION['Username'])) {
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-bitcoin"></i> Account Balance (USD)</span>
                        <!-- <div class="count"><a href="#"><?php echo $totalone; ?></a></div> -->
-                        <div class="count"><a href="statement?type=1&reason=0"><?php echo number_format($selectedAccountBalance,2); ?></a></div>
+                        <div class="count"><a href="statement?type=1&reason=0"><?php echo number_format($selectedAccountBalance, 2); ?></a></div>
                         <!-- <span class="count_bottom"><i class="green">($<?php echo $selectedAccountBalance; ?>) </i> Total Balance</span> -->
                         <span class="count_bottom"><i class="green"></i> Total Balance</span>
                     </div>
@@ -119,28 +119,28 @@ if (isset($_SESSION['Username'])) {
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-sitemap"></i> Total Mining Earnings (USD)</span>
                         <!-- <div class="count"><a href="#"><?php echo $totaltwo; ?></a></div> -->
-                         <div class="count"><a href="statement?type=1&reason=5"><?php echo number_format($selectedMiningBalance,2); ?></a></div>
-                        <!-- <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $selectedMiningBalance; ?>)</i> Mining Earnings</span> -->
+                        <div class="count"><a href="statement?type=1&reason=5"><?php echo number_format($selectedMiningBalance, 2); ?></a></div>
+                       <!-- <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $selectedMiningBalance; ?>)</i> Mining Earnings</span> -->
                         <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i> Mining Earnings</span>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-clock-o"></i> Residual Income (USD)</span>
                         <!-- <div class="count"><a href="#"><?php echo $totalthree; ?></a></div> -->
-                        <div class="count"><a href="statement?type=1&reason=4"><?php echo number_format($selectedTeamBalance,2); ?></a></div>
+                        <div class="count"><a href="statement?type=1&reason=4"><?php echo number_format($selectedTeamBalance, 2); ?></a></div>
                        <!-- <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $selectedTeamBalance; ?>) </i>Total Residual </span> -->
                         <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i> </i>Total Residual </span>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-th"></i> Direct Commissions (USD)</span>
                        <!-- <div class="count"><a href="#"><?php echo $totalfour; ?></a></div> -->
-                        <div class="count"><a href="statement?type=1&reason=1"><?php echo number_format($selectedCommissionBalance,2); ?></a></div>
+                        <div class="count"><a href="statement?type=1&reason=1"><?php echo number_format($selectedCommissionBalance, 2); ?></a></div>
                        <!--  <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $selectedCommissionBalance; ?>) </i> Total Commission</span> -->
                         <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i> </i> Total Commission</span>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-users"></i> Binary Earnings (USD)</span>
                         <!-- <div class="count"><a href=""><?php echo $totalfive; ?></a></div> -->
-                        <div class="count"><a href="statement?type=1&reason=2"><?php echo number_format($selectedBinaryIncomeBalance,2); ?></a></div>
+                        <div class="count"><a href="statement?type=1&reason=2"><?php echo number_format($selectedBinaryIncomeBalance, 2); ?></a></div>
                        <!--  <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>($<?php echo $selectedBinaryIncomeBalance; ?>)</i> Total team Volume</span> -->
                         <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i> Total team Volume</span>
                     </div>
@@ -214,6 +214,10 @@ if (isset($_SESSION['Username'])) {
                                         $Starterdate = "SELECT * FROM starterpack WHERE Username='" . $_SESSION['Username'] . "' order by id desc limit 1";
                                         $querystarter = mysqli_query($conn, $Starterdate);
                                         $viewstarter = mysqli_fetch_array($querystarter);
+                                        $starterInvoiceQuery = "SELECT Invoiceid FROM invoice WHERE Username = '" . $_SESSION['Username'] . "' AND Purpose = 'Starter' AND Status <> 'Expired' order by id limit 1;";
+                                        $resultSetstarterInvoice = mysqli_query($conn, $starterInvoiceQuery);
+                                        $resultSetstarterInvoice = mysqli_fetch_array($resultSetstarterInvoice);
+                                        $starterInvoiceId = $resultSetstarterInvoice['Invoiceid'];
                                         //$showstarterdate = $viewstarter['MiningDate'];
                                         $showstarterdate = $viewstarter['PurchaseDate'];
                                         $starterstatus = $viewstarter['Status'];
@@ -222,27 +226,26 @@ if (isset($_SESSION['Username'])) {
                                             ?>
                                             <li><span><?php echo $gapone; ?>/365</span>  Days Mined</li>
                                             <li><span><?php echo $gapone; ?>/30</span>  Waiting Period</li>
-                                            
-                                            <!--<h2 class="red"><?php echo $gapone; ?>/365 Days Mined</h2>-->
+
+        <!--<h2 class="red"><?php echo $gapone; ?>/365 Days Mined</h2>-->
                                             <?php
                                         } else {
                                             $datetime1 = new DateTime();
                                             $datetime2 = new DateTime($showstarterdate);
                                             $interval = $datetime2->diff($datetime1);
                                             $gap = $interval->format('%a');
-                                            
                                             ?>
-                                           
+
                                             <?php
-                                                if($gap > 30){
-                                                    echo  '<li><span>'.($gap-30).'/365</span>  Days Mined</li>'; 
-                                                    echo '<li>No Waiting Period.</li>';
-                                                } else {
-                                                   echo '<li><span>0/365</span>  Days Mined</li>';
-                                                   echo '<li><span>'. $gap.'/30</span>  Waiting Period.</li>'; 
-                                                }
+                                            if ($gap > 30) {
+                                                echo '<li><span>' . ($gap - 30) . '/365</span>  Days Mined</li>';
+                                                echo '<li>No Waiting Period.</li>';
+                                            } else {
+                                                echo '<li><span>0/365</span>  Days Mined</li>';
+                                                echo '<li><span>' . $gap . '/30</span>  Waiting Period.</li>';
+                                            }
                                             ?>
-                                            <!--<h2 class="blue"><?php echo $gap; ?>/365 Days Mined</h2> -->
+         <!--<h2 class="blue"><?php echo $gap; ?>/365 Days Mined</h2> -->
                                             <?php
                                         }
                                         ?>
@@ -265,18 +268,18 @@ if (isset($_SESSION['Username'])) {
                                     </ul>
                                 </div>
                                 <!--//FEATURE LIST END-->
-								<?php
-								$sqlstarterExpiryPackage = "SELECT i.id FROM invoice AS i 
-									WHERE i.Username = '" . $_SESSION['Username'] . "'
-									AND i.Purpose = 'Starter'
-									AND i.Status = 'Paid' AND i.Purpose <> 'Registration'
-									AND DATEDIFF(DATE_ADD(DATE_FORMAT(i.created_at,'%y-%m-%d'), INTERVAL 364 DAY),CURDATE()) <= 3 limit 1";
-								$resultstarterExpiryPackage = mysqli_query($conn, $sqlstarterExpiryPackage);
-								if (mysqli_num_rows($resultstarterExpiryPackage) == 1) {
+                                <?php
+                                $sqlstarterExpiryPackage = "SELECT i.id FROM invoice AS i 
+                                        WHERE i.Username = '" . $_SESSION['Username'] . "'
+                                        AND i.Purpose = 'Starter'
+                                        AND i.Status = 'Paid' AND i.Purpose <> 'Registration'
+                                        AND DATEDIFF(DATE_ADD(DATE_FORMAT(i.created_at,'%y-%m-%d'), INTERVAL 364 DAY),CURDATE()) <= 3 limit 1";
+                                $resultstarterExpiryPackage = mysqli_query($conn, $sqlstarterExpiryPackage);
+                                if (mysqli_num_rows($resultstarterExpiryPackage) == 1) {
 
-									echo '<span>Expiring Soon! </span><a class="renew_button" data-pack="Starter" id="starter_renew" href="purchase_pool?Purpose=Starter">Renew Now</a>';
-								}
-								?>
+                                    echo '<span>Expiring Soon! </span><a class="renew_button" data-invoice_id = "' . $starterInvoiceId . '" data-pack="Starter" id="starter_renew" href="purchase_pool?Purpose=Starter">Renew Now</a>';
+                                }
+                                ?>
                                 <!--BUTTON START-->
                                 <div class="generic_price_btn clearfix">
                                     <?php
@@ -344,6 +347,10 @@ if (isset($_SESSION['Username'])) {
                                         $minidate = "SELECT * FROM minipack WHERE Username='" . $_SESSION['Username'] . "' order by id desc limit 1";
                                         $querymini = mysqli_query($conn, $minidate);
                                         $viewmini = mysqli_fetch_array($querymini);
+                                        $miniInvoiceQuery = "SELECT Invoiceid FROM invoice WHERE Username = '" . $_SESSION['Username'] . "' AND Purpose = 'Mini' AND Status <> 'Expired' order by id limit 1;";
+                                        $resultSetminiInvoice = mysqli_query($conn, $miniInvoiceQuery);
+                                        $resultSetminiInvoice = mysqli_fetch_array($resultSetminiInvoice);
+                                        $miniInvoiceId = $resultSetminiInvoice['Invoiceid'];
                                         //$showminidate = $viewmini['MiningDate'];
                                         $showminidate = $viewmini['PurchaseDate'];
                                         $ministatus = $viewmini['Status'];
@@ -362,17 +369,17 @@ if (isset($_SESSION['Username'])) {
                                             $gap2 = $interval1->format('%a');
                                             ?>
 
-                                            
+
                                             <?php
-                                                if($gap2 > 30){
-                                                    echo '<li><span>'.($gap2 -30).'/365</span>  Days Mined</li>';
-                                                    echo '<li>No Waiting Period.</li>';
-                                                } else {
-                                                    echo '<li><span>0/365</span>  Days Mined</li>';
-                                                   echo '<li><span>'. $gap2.'/30</span>  Waiting Period.</li>'; 
-                                                }
+                                            if ($gap2 > 30) {
+                                                echo '<li><span>' . ($gap2 - 30) . '/365</span>  Days Mined</li>';
+                                                echo '<li>No Waiting Period.</li>';
+                                            } else {
+                                                echo '<li><span>0/365</span>  Days Mined</li>';
+                                                echo '<li><span>' . $gap2 . '/30</span>  Waiting Period.</li>';
+                                            }
                                             ?>
-                                            <!--<h2 class="blue"><?php echo $gap2; ?>/365 Days Mined</h2> -->
+        <!--<h2 class="blue"><?php echo $gap2; ?>/365 Days Mined</h2> -->
                                             <?php
                                         }
                                         ?>
@@ -397,23 +404,22 @@ if (isset($_SESSION['Username'])) {
                                     </ul>
                                 </div>
                                 <!--//FEATURE LIST END-->
-								<?php
-								$sqlminiExpiryPackage = "SELECT i.id FROM invoice AS i 
+                                <?php
+                                $sqlminiExpiryPackage = "SELECT i.id FROM invoice AS i 
 									WHERE i.Username = '" . $_SESSION['Username'] . "'
 									AND i.Purpose = 'Mini'
 									AND i.Status = 'Paid' AND i.Purpose <> 'Registration'
 									AND DATEDIFF(DATE_ADD(DATE_FORMAT(i.created_at,'%y-%m-%d'), INTERVAL 364 DAY),CURDATE()) <= 3 limit 1";
-								$resultminiExpiryPackage = mysqli_query($conn, $sqlminiExpiryPackage);
-								if (mysqli_num_rows($resultminiExpiryPackage) == 1) {
+                                $resultminiExpiryPackage = mysqli_query($conn, $sqlminiExpiryPackage);
+                                if (mysqli_num_rows($resultminiExpiryPackage) == 1) {
 
-									echo '<span>Expiring Soon! </span><a class="renew_button" data-pack="Mini" id="mini_renew" href="purchase_pool?Purpose=Mini">Renew Now</a>';
-								}
-								?>			
+                                    echo '<span>Expiring Soon! </span><a class="renew_button" data-pack="Mini" id="mini_renew" data-invoice_id = "' . $miniInvoiceId . '" href="purchase_pool?Purpose=Mini">Renew Now</a>';
+                                }
+                                ?>			
                                 <!--BUTTON START-->
                                 <div class="generic_price_btn clearfix">
                                     <?php
                                     if (mysqli_num_rows($resultm) == 1) {
-
                                         ?>
                                         <a class="" href="">Purchased</a>
                                         <?php
@@ -478,6 +484,10 @@ if (isset($_SESSION['Username'])) {
                                         $mediumdate = "SELECT * FROM mediumpack WHERE Username='" . $_SESSION['Username'] . "' order by id desc limit 1";
                                         $querymedium = mysqli_query($conn, $mediumdate);
                                         $viewmedium = mysqli_fetch_array($querymedium);
+                                        $mediumInvoiceQuery = "SELECT Invoiceid FROM invoice WHERE Username = '" . $_SESSION['Username'] . "' AND Purpose = 'Medium' AND Status <> 'Expired' order by id limit 1;";
+                                        $resultSetmediumInvoice = mysqli_query($conn, $mediumInvoiceQuery);
+                                        $resultSetmediumInvoice = mysqli_fetch_array($resultSetmediumInvoice);
+                                        $mediumInvoiceId = $resultSetmediumInvoice['Invoiceid'];
                                         //$showmediumdate = $viewmedium['MiningDate'];
                                         $showmediumdate = $viewmedium['PurchaseDate'];
                                         $mediumstatus = $viewmedium['Status'];
@@ -496,21 +506,21 @@ if (isset($_SESSION['Username'])) {
                                             $gap3 = $interval2->format('%a');
                                             ?>
 
-                                            
+
                                             <?php
-                                                if($gap3 > 30){
-                                                    echo '<li><span>'.($gap3 - 30).'/365</span>  Days Mined</li>';
-                                                    echo '<li>No Waiting Period.</li>';
-                                                } else {
-                                                    echo '<li><span>0/365</span>  Days Mined</li>';
-                                                   echo '<li><span>'. $gap3.'/30</span>  Waiting Period.</li>'; 
-                                                }
+                                            if ($gap3 > 30) {
+                                                echo '<li><span>' . ($gap3 - 30) . '/365</span>  Days Mined</li>';
+                                                echo '<li>No Waiting Period.</li>';
+                                            } else {
+                                                echo '<li><span>0/365</span>  Days Mined</li>';
+                                                echo '<li><span>' . $gap3 . '/30</span>  Waiting Period.</li>';
+                                            }
                                             ?>
                                             <!--<h2 class="blue"><?php echo $gap3; ?>/365 Days Mined</h2> -->
                                             <?php
                                         }
                                         ?>
-										
+
 
                                         <?php
                                         $sqln = "SELECT * FROM mediumpack WHERE Username='" . $_SESSION['Username'] . "' AND Comment='Purchased' order by id desc limit 1";
@@ -531,18 +541,18 @@ if (isset($_SESSION['Username'])) {
                                     </ul>
                                 </div>
                                 <!--//FEATURE LIST END-->
-								<?php
-									$sqlmediumExpiryPackage = "SELECT i.id FROM invoice AS i 
+                                <?php
+                                $sqlmediumExpiryPackage = "SELECT i.id FROM invoice AS i 
 										WHERE i.Username = '" . $_SESSION['Username'] . "'
 										AND i.Purpose = 'Medium'
 										AND i.Status = 'Paid' AND i.Purpose <> 'Registration'
 										AND DATEDIFF(DATE_ADD(DATE_FORMAT(i.created_at,'%y-%m-%d'), INTERVAL 364 DAY),CURDATE()) <= 3 limit 1";
-									$resultmediumExpiryPackage = mysqli_query($conn, $sqlmediumExpiryPackage);
-									if (mysqli_num_rows($resultmediumExpiryPackage) == 1) {
+                                $resultmediumExpiryPackage = mysqli_query($conn, $sqlmediumExpiryPackage);
+                                if (mysqli_num_rows($resultmediumExpiryPackage) == 1) {
 
-										echo '<span>Expiring Soon! </span><a class="renew_button" data-pack="Medium" id="medium_renew" href="purchase_pool?Purpose=Medium">Renew Now</a>';
-									}
-								?>
+                                    echo '<span>Expiring Soon! </span><a class="renew_button" data-pack="Medium" data-invoice_id = "' . $mediumInvoiceId . '" id="medium_renew" href="purchase_pool?Purpose=Medium">Renew Now</a>';
+                                }
+                                ?>
                                 <!--BUTTON START-->
                                 <div class="generic_price_btn clearfix">
                                     <?php
@@ -611,7 +621,11 @@ if (isset($_SESSION['Username'])) {
                                         $granddate = "SELECT * FROM grandpack WHERE Username='" . $_SESSION['Username'] . "' order by id desc limit 1";
                                         $querygrand = mysqli_query($conn, $granddate);
                                         $viewgrand = mysqli_fetch_array($querygrand);
-                                        //$showgranddate = $viewgrand['MiningDate'];
+                                        $grandInvoiceQuery = "SELECT Invoiceid FROM invoice WHERE Username = '" . $_SESSION['Username'] . "' AND Purpose = 'Grand' AND Status <> 'Expired' order by id limit 1;";
+                                        $resultSetgrandInvoice = mysqli_query($conn, $grandInvoiceQuery);
+                                        $resultSetgrandInvoice = mysqli_fetch_array($resultSetgrandInvoice);
+                                        $grandInvoiceId = $resultSetgrandInvoice['Invoiceid'];
+//$showgranddate = $viewgrand['MiningDate'];
                                         $showgranddate = $viewgrand['PurchaseDate'];
                                         $grandstatus = $viewgrand['Status'];
                                         if ($showgranddate == "0") {
@@ -631,13 +645,13 @@ if (isset($_SESSION['Username'])) {
 
                                             <li><span><?php echo $gapgrand; ?>/365</span>  Days Mined</li>
                                             <?php
-                                                if($gapgrand > 30){
-                                                    echo '<li><span>'.($gapgrand-30).'/365</span>  Days Mined</li>';
-                                                    echo '<li>No Waiting Period.</li>';
-                                                } else {
-                                                    echo '<li><span>0/365</span>  Days Mined</li>';
-                                                   echo '<li><span>'. $gapgrand.'/30</span>  Waiting Period.</li>'; 
-                                                }
+                                            if ($gapgrand > 30) {
+                                                echo '<li><span>' . ($gapgrand - 30) . '/365</span>  Days Mined</li>';
+                                                echo '<li>No Waiting Period.</li>';
+                                            } else {
+                                                echo '<li><span>0/365</span>  Days Mined</li>';
+                                                echo '<li><span>' . $gapgrand . '/30</span>  Waiting Period.</li>';
+                                            }
                                             ?>
                                             <!--<h2 class="blue"><?php echo $gapgrand; ?>/365 Days Mined</h2> -->
                                             <?php
@@ -664,18 +678,18 @@ if (isset($_SESSION['Username'])) {
                                 </div>
                                 <!--//FEATURE LIST END-->
 
-								<?php
-									$sqlgrandExpiryPackage = "SELECT i.id FROM invoice AS i 
+                                <?php
+                                $sqlgrandExpiryPackage = "SELECT i.id FROM invoice AS i 
 										WHERE i.Username = '" . $_SESSION['Username'] . "'
 										AND i.Purpose = 'Grand'
 										AND i.Status = 'Paid' AND i.Purpose <> 'Registration'
 										AND DATEDIFF(DATE_ADD(DATE_FORMAT(i.created_at,'%y-%m-%d'), INTERVAL 364 DAY),CURDATE()) <= 3 limit 1";
-									$resultgrandExpiryPackage = mysqli_query($conn, $sqlgrandExpiryPackage);
-									if (mysqli_num_rows($resultgrandExpiryPackage) == 1) {
+                                $resultgrandExpiryPackage = mysqli_query($conn, $sqlgrandExpiryPackage);
+                                if (mysqli_num_rows($resultgrandExpiryPackage) == 1) {
 
-										echo '<span>Expiring Soon! </span><a class="renew_button" data-pack="Grand" id="grand_renew" href="purchase_pool?Purpose=Grand">Renew Now</a>';
-									}
-								?>
+                                    echo '<span>Expiring Soon! </span><a class="renew_button" data-invoice_id = "' . $grandInvoiceId . '" data-pack="Grand" id="grand_renew" href="purchase_pool?Purpose=Grand">Renew Now</a>';
+                                }
+                                ?>
                                 <!--BUTTON START-->
                                 <div class="generic_price_btn clearfix">
                                     <?php
@@ -744,7 +758,11 @@ if (isset($_SESSION['Username'])) {
                                         $ultimatedate = "SELECT * FROM ultimatepack WHERE Username='" . $_SESSION['Username'] . "' order by id desc limit 1";
                                         $queryultimate = mysqli_query($conn, $ultimatedate);
                                         $viewultimate = mysqli_fetch_array($queryultimate);
-                                        //$showultimatedate = $viewultimate['MiningDate'];
+                                        $ultimateInvoiceQuery = "SELECT Invoiceid FROM invoice WHERE Username = '" . $_SESSION['Username'] . "' AND Purpose = 'Ultimate' AND Status <> 'Expired' order by id limit 1;";
+                                        $resultSetultimateInvoice = mysqli_query($conn, $ultimateInvoiceQuery);
+                                        $resultSetultimateInvoice = mysqli_fetch_array($resultSetultimateInvoice);
+                                        $ultimateInvoiceId = $resultSetultimateInvoice['Invoiceid'];
+//$showultimatedate = $viewultimate['MiningDate'];
                                         $showultimatedate = $viewultimate['PurchaseDate'];
                                         $ultimatestatus = $viewultimate['Status'];
                                         if ($showultimatedate == "0") {
@@ -762,17 +780,17 @@ if (isset($_SESSION['Username'])) {
                                             $gapultimate = $intervalultimate->format('%a');
                                             ?>
 
-                                           
+
                                             <?php
-                                                if($gapultimate > 30){
-                                                    echo '<li><span>'.($gapultimate-30).'/365</span>  Days Mined</li>';
-                                                    echo '<li>No Waiting Period.</li>';
-                                                } else {
-                                                    echo '<li><span>0/365</span>  Days Mined</li>';
-                                                   echo '<li><span>'. $gapultimate.'/30</span>  Waiting Period.</li>'; 
-                                                }
+                                            if ($gapultimate > 30) {
+                                                echo '<li><span>' . ($gapultimate - 30) . '/365</span>  Days Mined</li>';
+                                                echo '<li>No Waiting Period.</li>';
+                                            } else {
+                                                echo '<li><span>0/365</span>  Days Mined</li>';
+                                                echo '<li><span>' . $gapultimate . '/30</span>  Waiting Period.</li>';
+                                            }
                                             ?>
-                                            <!--<h2 class="blue"><?php echo $gapultimate; ?>/365 Days Mined</h2>--> 
+         <!--<h2 class="blue"><?php echo $gapultimate; ?>/365 Days Mined</h2>--> 
                                             <?php
                                         }
                                         ?>
@@ -797,18 +815,18 @@ if (isset($_SESSION['Username'])) {
                                     </ul>
                                 </div>
                                 <!--//FEATURE LIST END-->
-								<?php
-									$sqlultimateExpiryPackage = "SELECT i.id FROM invoice AS i 
+                                <?php
+                                $sqlultimateExpiryPackage = "SELECT i.id FROM invoice AS i 
 										WHERE i.Username = '" . $_SESSION['Username'] . "'
 										AND i.Purpose = 'Ultimate'
 										AND i.Status = 'Paid' AND i.Purpose <> 'Registration'
 										AND DATEDIFF(DATE_ADD(DATE_FORMAT(i.created_at,'%y-%m-%d'), INTERVAL 364 DAY),CURDATE()) <= 3 limit 1";
-									$resultultimateExpiryPackage = mysqli_query($conn, $sqlultimateExpiryPackage);
-									if (mysqli_num_rows($resultultimateExpiryPackage) == 1) {
+                                $resultultimateExpiryPackage = mysqli_query($conn, $sqlultimateExpiryPackage);
+                                if (mysqli_num_rows($resultultimateExpiryPackage) == 1) {
 
-										echo '<span>Expiring Soon! </span><a class="renew_button" data-pack="Ultimate" id="ultimate_renew" href="purchase_pool?Purpose=Ultimate">Renew Now</a>';
-									}
-								?>
+                                    echo '<span>Expiring Soon! </span><a class="renew_button" data-invoice_id = "' . $ultimateInvoiceId . '" data-pack="Ultimate" id="ultimate_renew" href="purchase_pool?Purpose=Ultimate">Renew Now</a>';
+                                }
+                                ?>
                                 <!--BUTTON START-->
                                 <div class="generic_price_btn clearfix">
                                     <?php
@@ -859,48 +877,50 @@ if (isset($_SESSION['Username'])) {
         <?php
         include('includes/footer.php');
         ?>
-	<script>
-		
-    $('body').on("click", ".renew_button", function () {
-        var package = $(this).attr('data-pack');
-		console.log(package);
-		return false;
-        var processTickets = 'processAjax';
-        var formDataProcessTicket = {
+        <script>
 
-            'user_name': "<?php echo $_SESSION['Username']; ?>",
-            'ticket_id': id,
-            'status': change_status,
-            'platform': '3',
-            'transaction_type': '502',
-            'url': 'processTicket',
-            'action': 'POST'
-        };
+            $('body').on("click", ".renew_button", function () {
+                var package = $(this).attr('data-pack');
+                var invoice_id = $(this).attr('data-invoice_id');
+                var redirectUrl = '<?php echo BASE_URL;?>'+$(this).attr('href');
+                 
+                console.log(package, invoice_id,redirectUrl);
+                return false;
+                var checkAndProcessExpiredInvoice = 'processAjax';
+                var formDataCheckAndProcessExpiredInvoice = {
 
-        $.ajax({
-            url: processTickets,
-            cache: false,
-            type: 'POST',
-            data: formDataProcessTicket,
-            success: function (data)
-            {
-                data = JSON.parse(data);
-                console.log(data);
-                if (data.statusCode == '100') {
-                    //$('#receive-payment').submit();
-                    setTimeout(function () {
-                        location.reload();
-                    }, 3000);
-                    showAlertMessage("#response", data.statusDescription, 1);
+                    'user_name': "<?php echo $_SESSION['Username']; ?>",
+                    'invoice_id': invoice_id,
+                    'is_renewal': 1,
+                    'platform': '3',
+                    'url': 'checkAndProcessExpiredInvoice',
+                    'action': 'POST'
+                };
 
-                } else {
-                    showAlertMessage("#response", data.statusDescription, 0);
-                }
+                $.ajax({
+                    url: checkAndProcessExpiredInvoice,
+                    cache: false,
+                    type: 'POST',
+                    data: formDataCheckAndProcessExpiredInvoice,
+                    success: function (data)
+                    {
+                        data = JSON.parse(data);
+                        console.log(data);
+                        if (data.statusCode == '100') {
+                            //$('#receive-payment').submit();
+                            setTimeout(function () {
+                                location.reload();
+                            }, 3000);
+                            showAlertMessage("#response", data.statusDescription, 1);
 
-            }
-        });
-        console.log(id, change_status);
-    });
-	</script>
+                        } else {
+                            showAlertMessage("#response", data.statusDescription, 0);
+                        }
+
+                    }
+                });
+                console.log(id, change_status);
+            });
+        </script>
 </body>
 </html>
