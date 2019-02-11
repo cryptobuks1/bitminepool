@@ -909,7 +909,7 @@ if (isset($_SESSION['Username'])) {
                         if (data.statusCode == '100') {
                             //$('#receive-payment').submit();
                             setTimeout(function () {
-                                location.reload();
+                                location=redirectUrl;
                             }, 3000);
                             showAlertMessage("#response", data.statusDescription, 1);
 
