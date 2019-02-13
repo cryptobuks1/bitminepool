@@ -19,6 +19,7 @@
                         <li><a href="statement">Statement</a></li>
                         <li><a href="all_transactions?type=invoice">Invoice</a></li>
                         <li><a href="support">Support</a></li>
+                        <li><a href="reverifyemail">Verify Email</a></li>
                     </ul>
                 </li>
                 <?php
@@ -68,7 +69,8 @@
             <h3>Account Information</h3>
             <ul class="nav side-menu">
                 <li><a href="dashboard"><i class="fa fa-dashboard"></i>Dashboard</a>
-                <li><a href="wallet"><i class="fa fa-google-wallet"></i>Wallet</a>    
+                <li><a href="wallet"><i class="fa fa-google-wallet"></i>Wallet</a>
+				<li><a href="reverifyemail">Verify Email</a></li>
                     <?php /*
                       <li><a><i class="fa fa-user"></i> My Account <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
