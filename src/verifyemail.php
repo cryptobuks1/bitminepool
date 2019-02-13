@@ -29,6 +29,7 @@ if (isset($_SESSION['Username'])) {
         $responseWallet = json_decode($responseWallet);
 
         //header("Location:" . $redirect);
+        $redirect = 'dashboard';
         $_SESSION['error'] = 0;
         $_SESSION['message'] = $response->statusDescription;
         } else {

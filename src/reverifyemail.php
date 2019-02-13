@@ -13,7 +13,7 @@ if (!empty($_POST)) {
     if ($response->statusCode == 100) {
         $_SESSION['error'] = 0;
         $_SESSION['message'] = $response->statusDescription;
-        $_SESSION['Username'] = $_SESSION['Username'];
+        $_SESSION['Username'] = $_POST['Username'];
         $redirect = 'verifyemail';
     } else {
         $_SESSION['error'] = 1;
