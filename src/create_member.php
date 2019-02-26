@@ -136,8 +136,8 @@ if (isset($_SESSION['Username'])) {
                                     $url = "https://blockchain.info/stats?format=json";
                                     $stats = json_decode(file_get_contents($url), true);
                                     $btcValue = $stats['market_price_usd'];
-                                    $usdCost = 100;
-                                    $packcost = 100;
+                                    $usdCost = 1;
+                                    $packcost = 1;
                                     $convertedCost = $usdCost / $btcValue;
                                     $totalamount = round($convertedCost, 8);
                                     ?>
