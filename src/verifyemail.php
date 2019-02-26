@@ -97,7 +97,7 @@ if (isset($_SESSION['Username'])) {
                                         <input id="Token" type="text" name="Token" data-validate-length-range="5,20"  required="required" data-msg-required="Please enter verification code."  class="optional form-control col-md-7 col-xs-12">
                                     </div>
                                     <button id="send" type="submit" class="btn btn-success">Verify Email</button>
-                                    <a href="reverifyemail">Resend verification code</a>
+                                    <a class="btn btn-success" href="reverifyemail">Resend verification code</a>
                                 </div>           
                                 <div class="ln_solid"></div>
                                 <!--<input type="hidden" id="ChangeToken" name="ChangeToken" value="<?php //echo mt_rand(0, 1000000);    ?>">-->
