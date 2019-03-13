@@ -33,6 +33,7 @@ if (isset($_SESSION['Username'])) {
                     'option_value' => $_POST['option_value'],
                     'option_description' => $_POST['option_description'],
                     'platform' => '3',
+					'user_name' => $_SESSION['Username'],
                         ], 'updateSiteOption');
         $responseWithdrawalRequest = json_decode($responseWithdrawalRequest);
         $redirect = '';
@@ -120,11 +121,11 @@ if (isset($_SESSION['Username'])) {
                                                 <div class="form-group">
                                                     <label for="option_value">Transaction Percentage(In %):</label>
                                                    <!-- <input type="text" class="form-control" name = "receive_amount" id="receive_amount" data-msg-required="Please enter amount to be withdrawl." required="required" number="true" data-msg-required="Please enter valid amount to be withdrawl." > -->
-                                                    <input type="number" class="form-control"  value="<?php echo $transactionPercentage; ?>" name = "option_value" id="option_value" data-msg-required="Please enter the value for this option." required="required" number="true" data-msg-required="Please enter valid value for this option." >
+                                                    <input type="number" class="form-control" value="<?php echo $transactionPercentage; ?>" name = "option_value" id="option_value" data-msg-required="Please enter the value for this option." required="required" number="true" data-msg-required="Please enter valid value for this option." >
                                                 </div>
                                                 <input type="hidden" name="option_name" id="option_name" value="transaction_percentage">
                                                 <input type="hidden" name="option_description" id="option_description" value="<?php echo $transactionPercentageDesc;?>">
-                                                <button type="button" id ="manage_options_submit" class="btn btn-default">Submit</button>
+                                                <button type="submit" id ="manage_options_submit" class="btn btn-default">Submit</button>
                                                 <button type="reset" id ="reset_manage_options" class="btn btn-default">Cancel</button>
                                             </div>
 
