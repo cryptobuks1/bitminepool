@@ -1,6 +1,9 @@
 <?php
 include('includes/header.php');
 $is_wallet_user = '2';
+session_start();
+session_destroy();
+session_start();
 if (isset($_REQUEST['is_wallet']) && ($_REQUEST['is_wallet'] == 1)) {
     $is_wallet_user = '1';
 }

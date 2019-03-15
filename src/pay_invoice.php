@@ -218,7 +218,7 @@ if (isset($_SESSION['Username'])) {
                                                                 <td>$<?php echo $Amount; ?></td>
                                                             </tr>
                                                             <tr>
-                                                                <th><span class="style7">BTC to USD (Rate: 10 min Ago)</span></th>
+                                                                <th><span class="style7">BTC to USD</span></th>
                                                                 <td><span class="style6"><?php echo $btcValue; ?></span></td>
                                                             </tr>
 
@@ -287,7 +287,7 @@ if (isset($_SESSION['Username'])) {
                 // Time still remains, call this function again in 1 sec
                 setTimeout("countdown('" + id + "'," + timer + ")", 1000);
             } else {
-                window.location = "<?php echo BASE_URL; ?>login";
+                window.location = "<?php echo BASE_URL; ?>dashboard";
             }
         }
     </script>
